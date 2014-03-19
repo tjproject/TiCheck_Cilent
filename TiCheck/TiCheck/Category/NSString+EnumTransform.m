@@ -213,16 +213,111 @@
     return result;
 }
 
++ (NSString *)genderToString:(Gender)gender
+{
+    NSString *result = nil;
+    
+    switch (gender) {
+        case Male:
+            result = @"M";
+            break;
+        case Female:
+            result = @"F";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected Gender."];
+    }
+    
+    return result;
+}
+
 #pragma mark - NSString to Enumeration
+
++ (ClassGrade)classGradeFromString:(NSString *)classGrade
+{
+    ClassGrade result = Y;
+    
+         if ([classGrade caseInsensitiveCompare:@"Y"] == NSOrderedSame) result = Y;
+    else if ([classGrade caseInsensitiveCompare:@"C"] == NSOrderedSame) result = C;
+    else if ([classGrade caseInsensitiveCompare:@"F"] == NSOrderedSame) result = F;
+    
+    return result;
+}
+
++ (PriceType)priceTypeFromString:(NSString *)priceType
+{
+    PriceType result = NormalPrice;
+    
+         if ([priceType caseInsensitiveCompare:@"NormalPrice"] == NSOrderedSame)     result = NormalPrice;
+    else if ([priceType caseInsensitiveCompare:@"SingleTripPrice"] == NSOrderedSame) result = SingleTripPrice;
+    else if ([priceType caseInsensitiveCompare:@"CZSpecialPrice"] == NSOrderedSame)  result = CZSpecialPrice;
+    
+    return result;
+}
+
++ (ProductType)productTypeFromString:(NSString *)productType
+{
+    ProductType result = Normal;
+    
+         if ([productType caseInsensitiveCompare:@"Normal"] == NSOrderedSame)   result = Normal;
+    else if ([productType caseInsensitiveCompare:@"YoungMan"] == NSOrderedSame) result = YoungMan;
+    else if ([productType caseInsensitiveCompare:@"OldMan"] == NSOrderedSame)   result = OldMan;
+    
+    return result;
+}
 
 + (FlightSearchType)flightSearchTypeFromString:(NSString *)searchType
 {
     FlightSearchType result = S;
     
-         if ([searchType isEqualToString:@"S"]) result = S;
-    else if ([searchType isEqualToString:@"M"]) result = M;
-    else if ([searchType isEqualToString:@"R"]) result = R;
-    else if ([searchType isEqualToString:@"D"]) result = R;
+         if ([searchType caseInsensitiveCompare:@"S"] == NSOrderedSame) result = S;
+    else if ([searchType caseInsensitiveCompare:@"M"] == NSOrderedSame) result = M;
+    else if ([searchType caseInsensitiveCompare:@"R"] == NSOrderedSame) result = R;
+    else if ([searchType caseInsensitiveCompare:@"D"] == NSOrderedSame) result = R;
+    
+    return result;
+}
+
++ (OrderCriterion)orderCriterionFromString:(NSString *)orderBy
+{
+    OrderCriterion result = DepartTime;
+    
+         if ([orderBy caseInsensitiveCompare:@"DepartTime"] == NSOrderedSame)  result = DepartTime;
+    else if ([orderBy caseInsensitiveCompare:@"TakeOffTime"] == NSOrderedSame) result = TakeOffTime;
+    else if ([orderBy caseInsensitiveCompare:@"Price"] == NSOrderedSame)       result = Price;
+    else if ([orderBy caseInsensitiveCompare:@"Rate"] == NSOrderedSame)        result = Rate;
+    else if ([orderBy caseInsensitiveCompare:@"LowPrice"] == NSOrderedSame)    result = LowPrice;
+    
+    return result;
+}
+
++ (OrderDirection)orderDirectionFromString:(NSString *)orderDirection
+{
+    OrderDirection result = ASC;
+    
+         if ([orderDirection caseInsensitiveCompare:@"ASC"] == NSOrderedSame)  result = ASC;
+    else if ([orderDirection caseInsensitiveCompare:@"Desc"] == NSOrderedSame) result = Desc;
+    
+    return result;
+}
+
++ (AgeType)ageTypeFromString:(NSString *)ageType
+{
+    AgeType result = ADU;
+    
+         if ([ageType caseInsensitiveCompare:@"ADU"] == NSOrderedSame) result = ADU;
+    else if ([ageType caseInsensitiveCompare:@"BAB"] == NSOrderedSame) result = BAB;
+    else if ([ageType caseInsensitiveCompare:@"CHI"] == NSOrderedSame) result = CHI;
+    
+    return result;
+}
+
++ (InventoryType)inventoryTypeFromString:(NSString *)inventoryType
+{
+    InventoryType result = FIX;
+    
+         if ([inventoryType caseInsensitiveCompare:@"FIX"] == NSOrderedSame) result = FIX;
+    else if ([inventoryType caseInsensitiveCompare:@"FAV"] == NSOrderedSame) result = FAV;
     
     return result;
 }
@@ -231,13 +326,13 @@
 {
     OrderStatus result = AllOrders;
     
-         if ([orderStatus isEqualToString:@"W"]) result = Unprocessed;
-    else if ([orderStatus isEqualToString:@"P"]) result = Processing;
-    else if ([orderStatus isEqualToString:@"S"]) result = Deal;
-    else if ([orderStatus isEqualToString:@"C"]) result = Cancelled;
-    else if ([orderStatus isEqualToString:@"R"]) result = AllRefund;
-    else if ([orderStatus isEqualToString:@"T"]) result = PartRefund;
-    else if ([orderStatus isEqualToString:@"U"]) result = Uncommitted;
+         if ([orderStatus caseInsensitiveCompare:@"W"] == NSOrderedSame) result = Unprocessed;
+    else if ([orderStatus caseInsensitiveCompare:@"P"] == NSOrderedSame) result = Processing;
+    else if ([orderStatus caseInsensitiveCompare:@"S"] == NSOrderedSame) result = Deal;
+    else if ([orderStatus caseInsensitiveCompare:@"C"] == NSOrderedSame) result = Cancelled;
+    else if ([orderStatus caseInsensitiveCompare:@"R"] == NSOrderedSame) result = AllRefund;
+    else if ([orderStatus caseInsensitiveCompare:@"T"] == NSOrderedSame) result = PartRefund;
+    else if ([orderStatus caseInsensitiveCompare:@"U"] == NSOrderedSame) result = Uncommitted;
     
     return result;
 }
@@ -246,8 +341,18 @@
 {
     Gender result = Male;
     
-    if ([gender isEqualToString:@"M"]) result = Male;
-    else if ([gender isEqualToString:@"F"]) result = Female;
+         if ([gender caseInsensitiveCompare:@"M"] == NSOrderedSame) result = Male;
+    else if ([gender caseInsensitiveCompare:@"F"] == NSOrderedSame) result = Female;
+    
+    return result;
+}
+
++ (FlightOrderClass)flightOrderClassFromString:(NSString *)flightOrderClass
+{
+    FlightOrderClass result = Domestic;
+    
+         if ([flightOrderClass caseInsensitiveCompare:@"D"] == NSOrderedSame) result = Domestic;
+    else if ([flightOrderClass caseInsensitiveCompare:@"I"] == NSOrderedSame) result = International;
     
     return result;
 }
