@@ -40,17 +40,6 @@ const NSArray *___FlightRequestType;
 #define cFlightRequestTypeString(type) ([cFlightRequestTypeGet objectAtIndex:type])
 #define cFlightRequestTypeEnum(string) ([cFlightRequestTypeGet indexOfObject:string])
 
-#define cFlightRequestFileNameGet (___FlightRequestFileName == nil ? ___FlightRequestFileName = [[NSArray alloc] initWithObjects:\
-@"Flight/DomesticFlight/OTA_FlightSearch.asmx",\
-@"Flight/DomesticFlight/OTA_FltSaveOrder.asmx",\
-@"Flight/DomesticFlight/OTA_FltCancelOrder.asmx",\
-@"Flight/DomesticFlight/OTA_FltOrderList.asmx",\
-@"Flight/DomesticFlight/OTA_FltViewOrder.asmx",\
-@"Flight/DomesticFlight/OTA_GetStatusChangedOrders.asmx",\
-@"User/OTA_UserUniqueID.asmx", nil] : ___FlightRequestFileName)
-
-#define cFlightRequestFileNameString(fileName) ([cFlightRequestFileNameGet objectAtIndex:fileName])
-
 @interface ConfigurationHelper : NSObject
 
 /**

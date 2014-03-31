@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
+		A0040BC718E92783008E6485 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0040BC618E92783008E6485 /* ViewController.m */; };
 		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
 		A0620AFA18D7242C003A7A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AF918D7242C003A7A55 /* Foundation.framework */; };
 		A0620AFC18D7242C003A7A55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */; };
@@ -64,6 +66,11 @@
 /* Begin PBXFileReference section */
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		74C29AE6E97F440E8ABC5203 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0040BC318E92768008E6485 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A0040BC518E92783008E6485 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A0040BC618E92783008E6485 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A0040BC818E927BE008E6485 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A0040BC918E927BE008E6485 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
 		A0620AF618D7242C003A7A55 /* TiCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0620AF918D7242C003A7A55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -211,6 +218,9 @@
 				A0620B1018D7242C003A7A55 /* Images.xcassets */,
 				A0620B0D18D7242C003A7A55 /* TiCheck.xcdatamodeld */,
 				A0620B0218D7242C003A7A55 /* Supporting Files */,
+				A0040BC318E92768008E6485 /* Main.storyboard */,
+				A0040BC518E92783008E6485 /* ViewController.h */,
+				A0040BC618E92783008E6485 /* ViewController.m */,
 			);
 			path = TiCheck;
 			sourceTree = "<group>";
@@ -389,6 +399,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = A0620AED18D7242C003A7A55;
 			productRefGroup = A0620AF718D7242C003A7A55 /* Products */;
@@ -406,6 +417,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0040BC418E92768008E6485 /* Main.storyboard in Resources */,
 				A0620B0618D7242C003A7A55 /* InfoPlist.strings in Resources */,
 				A0620B1118D7242C003A7A55 /* Images.xcassets in Resources */,
 			);
@@ -460,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */,
+				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
 				A0620B6018D72743003A7A55 /* Contact.m in Sources */,
@@ -514,6 +527,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A0620B0518D7242C003A7A55 /* en */,
+				A0040BC818E927BE008E6485 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -522,6 +536,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A0620B2218D7242C003A7A55 /* en */,
+				A0040BC918E927BE008E6485 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

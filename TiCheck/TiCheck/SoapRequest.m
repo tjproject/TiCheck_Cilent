@@ -9,9 +9,78 @@
 #import "SoapRequest.h"
 #import "ASIHTTPRequest.h"
 
+const NSArray *___FlightRequestFileName;
+
+#define cFlightRequestFileNameGet (___FlightRequestFileName == nil ? ___FlightRequestFileName = [[NSArray alloc] initWithObjects:\
+@"Flight/DomesticFlight/OTA_FlightSearch.asmx",\
+@"Flight/DomesticFlight/OTA_FltSaveOrder.asmx",\
+@"Flight/DomesticFlight/OTA_FltCancelOrder.asmx",\
+@"Flight/DomesticFlight/OTA_FltOrderList.asmx",\
+@"Flight/DomesticFlight/OTA_FltViewOrder.asmx",\
+@"Flight/DomesticFlight/OTA_GetStatusChangedOrders.asmx",\
+@"User/OTA_UserUniqueID.asmx", nil] : ___FlightRequestFileName)
+
+#define cFlightRequestFileNameString(fileName) ([___FlightRequestFileName objectAtIndex:fileName])
+
 @implementation SoapRequest
 
 #pragma mark SOAP 1.2
+
++ (ASIHTTPRequest *)getASISoap12Request:(NSString *)webURL
+                      flightRequestType:(FlightRequestType)requestType
+                           xmlNameSpace:(NSString *)nameSpace
+                         webServiceName:(NSString *)serviceName
+                         xmlRequestBody:(NSString *)requestBody
+{
+    return [self getASISoap12Request:webURL
+                      webServiceFile:cFlightRequestFileNameString(requestType)
+                        xmlNameSpace:nameSpace
+                      webServiceName:serviceName
+                      xmlRequestBody:requestBody];
+}
+
++ (NSString *)getSoap12WebServiceResponse:(NSString *)webURL
+                        flightRequestType:(FlightRequestType)requestType
+                             xmlNameSpace:(NSString *)nameSpace
+                           webServiceName:(NSString *)serviceName
+                           xmlRequestBody:(NSString *)requestBody
+{
+    return [self getSoap12WebServiceResponse:webURL
+                              webServiceFile:cFlightRequestFileNameString(requestType)
+                                xmlNameSpace:nameSpace
+                              webServiceName:serviceName
+                              xmlRequestBody:requestBody];
+}
+
+#pragma mark SOAP 1.1
+
++ (ASIHTTPRequest *)getASISoap11Request:(NSString *)webURL
+                      flightRequestType:(FlightRequestType)requestType
+                           xmlNameSpace:(NSString *)nameSpace
+                         webServiceName:(NSString *)serviceName
+                         xmlRequestBody:(NSString *)requestBody
+{
+    return [self getASISoap11Request:webURL
+                      webServiceFile:cFlightRequestFileNameString(requestType)
+                        xmlNameSpace:nameSpace
+                      webServiceName:serviceName
+                      xmlRequestBody:requestBody];
+}
+
++ (NSString *)getSoap11WebServiceResponse:(NSString *)webURL
+                        flightRequestType:(FlightRequestType)requestType
+                             xmlNameSpace:(NSString *)nameSpace
+                           webServiceName:(NSString *)serviceName
+                           xmlRequestBody:(NSString *)requestBody
+{
+    return [self getSoap11WebServiceResponse:webURL
+                              webServiceFile:cFlightRequestFileNameString(requestType)
+                                xmlNameSpace:nameSpace
+                              webServiceName:serviceName
+                              xmlRequestBody:requestBody];
+}
+
+#pragma mark SOAP 1.2 Helper Methods
 
 + (ASIHTTPRequest *)getASISoap12Request:(NSString *)webURL
                          webServiceFile:(NSString *)fileName
@@ -73,7 +142,7 @@
     }
 }
 
-#pragma mark SOAP 1.1
+#pragma mark SOAP 1.1 Helper Methods
 
 + (ASIHTTPRequest *)getASISoap11Request:(NSString *)webURL
                          webServiceFile:(NSString *)fileName

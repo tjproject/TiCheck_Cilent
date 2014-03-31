@@ -39,8 +39,6 @@
 {
     OTAUserUniqueID *userUniqueID = [[OTAUserUniqueID alloc] initWithUserName:@"boylee1111" telNumber:@"18347582934"];
     NSString *userRequest = [userUniqueID generateOTAUserUniqueIDXMLRequest];
-    
-    NSString *userResponseXML = [SoapRequest getSoap11WebServiceResponse:API_URL webServiceFile:(NSString *) xmlNameSpace:XML_NAME_SPACE webServiceName:WEB_SERVICE_NAME xmlRequestBody:userRequest];
 }
 
 @end
