@@ -7,10 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ConfigurationHelper.h"
 
 @class ASIHTTPRequest;
 
 @interface SoapRequest : NSObject
+
+/**
+ *  生成SOAP1.2的ASIHTTPRequest
+ *
+ *  @param webURL      WebService的地址
+ *  @param requestType Soap请求的API操作类型
+ *  @param nameSpace   WebService的命名空间
+ *  @param serviceName WebService的名称
+ *  @param requestBody 请求体的xml
+ *
+ *  @return ASIHTTPRequest请求体
+ */
++ (ASIHTTPRequest *)getASISoap12Request:(NSString *)webURL
+                      flightRequestType:(FlightRequestType *)requestType
+                           xmlNameSpace:(NSString *)nameSpace
+                         webServiceName:(NSString *)serviceName
+                         xmlRequestBody:(NSString *)requestBody;
 
 /**
  *  生成SOAP1.2的ASIHTTPRequest

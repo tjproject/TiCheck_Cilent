@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
 		A0620AFA18D7242C003A7A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AF918D7242C003A7A55 /* Foundation.framework */; };
 		A0620AFC18D7242C003A7A55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */; };
 		A0620AFE18D7242C003A7A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFD18D7242C003A7A55 /* UIKit.framework */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		74C29AE6E97F440E8ABC5203 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
 		A0620AF618D7242C003A7A55 /* TiCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0620AF918D7242C003A7A55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -227,8 +229,9 @@
 		A0620B1E18D7242C003A7A55 /* TiCheckTests */ = {
 			isa = PBXGroup;
 			children = (
-				A0620B2418D7242C003A7A55 /* TiCheckTests.m */,
 				A0620B1F18D7242C003A7A55 /* Supporting Files */,
+				A0620B2418D7242C003A7A55 /* TiCheckTests.m */,
+				A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */,
 			);
 			path = TiCheckTests;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */,
 				A0620B2518D7242C003A7A55 /* TiCheckTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

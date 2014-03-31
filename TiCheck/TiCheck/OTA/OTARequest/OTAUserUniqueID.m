@@ -11,6 +11,16 @@
 
 @implementation OTAUserUniqueID
 
+- (id)initWithUserName:(NSString *)userName telNumber:(NSString *)telphoneNumber
+{
+    if (self = [super init]) {
+        self.uidKey = userName;
+        self.telphoneNumber = telphoneNumber;
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAUserUniqueIDXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:UserUniqueID];

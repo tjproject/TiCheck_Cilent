@@ -21,6 +21,16 @@
 @property (nonatomic, strong) NSString *telphoneNumber;
 
 /**
+ *  初始化OTAUserUniqueID
+ *
+ *  @param userName       本地用户名
+ *  @param telphoneNumber 用户手机号码
+ *
+ *  @return 初始化后的OTAUserUniqueID
+ */
+- (id)initWithUserName:(NSString *)userName telNumber:(NSString *)telphoneNumber;
+
+/**
  *  根据订用户名和手机号码生成对应用户xml的请求body
  *
  *  @return 生成用户xml的请求body

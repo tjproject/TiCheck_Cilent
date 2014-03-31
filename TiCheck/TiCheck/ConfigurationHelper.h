@@ -14,6 +14,7 @@
 
 #define API_URL @"http://openapi.ctrip.com/"
 #define XML_NAME_SPACE @"http://ctrip.com/"
+#define WEB_SERVICE_NAME @"Request"
 
 typedef NS_ENUM(NSUInteger, FlightRequestType) {
     FlightSearchRequest = 0,
@@ -27,7 +28,7 @@ typedef NS_ENUM(NSUInteger, FlightRequestType) {
 
 const NSArray *___FlightRequestType;
 
-#define cFlightRequestTypeGet (___FlightRequestType == nil? ___FlightRequestType = [[NSArray alloc] initWithObjects:\
+#define cFlightRequestTypeGet (___FlightRequestType == nil ? ___FlightRequestType = [[NSArray alloc] initWithObjects:\
 @"OTA_FlightSearch",\
 @"OTA_FltSaveOrder",\
 @"OTA_FltCancelOrder",\
@@ -38,6 +39,17 @@ const NSArray *___FlightRequestType;
 
 #define cFlightRequestTypeString(type) ([cFlightRequestTypeGet objectAtIndex:type])
 #define cFlightRequestTypeEnum(string) ([cFlightRequestTypeGet indexOfObject:string])
+
+#define cFlightRequestFileNameGet (___FlightRequestFileName == nil ? ___FlightRequestFileName = [[NSArray alloc] initWithObjects:\
+@"Flight/DomesticFlight/OTA_FlightSearch.asmx",\
+@"Flight/DomesticFlight/OTA_FltSaveOrder.asmx",\
+@"Flight/DomesticFlight/OTA_FltCancelOrder.asmx",\
+@"Flight/DomesticFlight/OTA_FltOrderList.asmx",\
+@"Flight/DomesticFlight/OTA_FltViewOrder.asmx",\
+@"Flight/DomesticFlight/OTA_GetStatusChangedOrders.asmx",\
+@"User/OTA_UserUniqueID.asmx", nil] : ___FlightRequestFileName)
+
+#define cFlightRequestFileNameString(fileName) ([cFlightRequestFileNameGet objectAtIndex:fileName])
 
 @interface ConfigurationHelper : NSObject
 
