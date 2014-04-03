@@ -33,6 +33,24 @@
  */
 @property (nonatomic,strong) NSString* email;
 
--(BOOL) loginWithAccout:(NSString*)account andPassword:(NSString*)password;
+/**
+ *  与后台连接 登录账号
+ *
+ *  @param account        账号
+ *  @param password       密码
+ *  @param viewController viewcontroller 方便直接push跳转
+ *
+ *  @return 成功返回YES 失败返回NO
+ */
+-(BOOL) loginWithAccout:(NSString*)account andPassword:(NSString*)password inViewController:(UIViewController*)viewController;
+
+/**
+ *  自动登录
+ *
+ *  @param viewController 所在的viewController 方便push
+ *
+ *  @return  成功返回YES 失败返回NO
+ */
+-(BOOL) autoLoginInViewController:(UIViewController*)viewController;
 
 @end

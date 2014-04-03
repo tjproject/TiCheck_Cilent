@@ -83,6 +83,10 @@
     [UserData sharedUserData].password=password;
     [UserData sharedUserData].email=emai;
     
+    if ([[UserData sharedUserData] loginWithAccout:account andPassword:password inViewController:self])
+    {
+     
+    }
 }
 
 

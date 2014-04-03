@@ -61,9 +61,25 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"email"];
 }
 
--(BOOL) loginWithAccout:(NSString *)account andPassword:(NSString *)password
+-(BOOL) loginWithAccout:(NSString *)account andPassword:(NSString *)password inViewController:(UIViewController *)viewController
 {
+    self.account=account;
+    self.password=password;
+    UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
+    [viewController.navigationController pushViewController:nextController animated:YES];
     return YES;
+}
+
+-(BOOL) autoLoginInViewController:(UIViewController *)viewController
+{
+    NSString* account=self.account;
+    NSString* password=self.password;
+    if (account && password)
+    {
+        return [self loginWithAccout:account andPassword:password inViewController:viewController];
+    }
+    else return NO;
 }
 
 @end

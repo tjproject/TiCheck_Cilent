@@ -7,8 +7,12 @@
 //
 
 #import "LoginViewController.h"
+#import "UserData.h"
 
 @interface LoginViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *userName;
+@property (weak, nonatomic) IBOutlet UITextField *password;
 
 @end
 
@@ -37,7 +41,10 @@
 
 - (IBAction)enter:(id)sender
 {
+    NSString* account=self.userName.text;
+    NSString* password=self.password.text;
     
+    [[UserData sharedUserData] loginWithAccout:account andPassword:password inViewController:self];
 }
 
 /*

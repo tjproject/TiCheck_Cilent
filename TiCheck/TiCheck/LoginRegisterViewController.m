@@ -7,6 +7,7 @@
 //
 
 #import "LoginRegisterViewController.h"
+#import "UserData.h"
 
 @interface LoginRegisterViewController ()<UINavigationControllerDelegate>
 
@@ -39,6 +40,7 @@
 {
     [super viewDidLoad];
     self.navigationController.delegate=self;
+    [[UserData sharedUserData] autoLoginInViewController:self];
     // Do any additional setup after loading the view.
 }
 
