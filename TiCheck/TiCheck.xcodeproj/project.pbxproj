@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2491398218ED273D00061780 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398118ED273D00061780 /* SearchResultViewController.m */; };
 		2491398518ED290700061780 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398418ED290700061780 /* SearchResultCell.m */; };
+		2491398D18ED855000061780 /* LineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398C18ED855000061780 /* LineChart.m */; };
 		24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */; };
 		24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */; };
 		24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8918EC5EE200F6A2A9 /* UserData.m */; };
@@ -74,6 +75,8 @@
 		2491398118ED273D00061780 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		2491398318ED290600061780 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
 		2491398418ED290700061780 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
+		2491398B18ED855000061780 /* LineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChart.h; sourceTree = "<group>"; };
+		2491398C18ED855000061780 /* LineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChart.m; sourceTree = "<group>"; };
 		24FC2B6F18EC41A600F6A2A9 /* LoginRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRegisterViewController.h; sourceTree = "<group>"; };
 		24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRegisterViewController.m; sourceTree = "<group>"; };
 		24FC2B8418EC5C1400F6A2A9 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				2491398118ED273D00061780 /* SearchResultViewController.m */,
 				2491398318ED290600061780 /* SearchResultCell.h */,
 				2491398418ED290700061780 /* SearchResultCell.m */,
+				2491398B18ED855000061780 /* LineChart.h */,
+				2491398C18ED855000061780 /* LineChart.m */,
 			);
 			name = SearchResult;
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
+				2491398D18ED855000061780 /* LineChart.m in Sources */,
 				A0620B6018D72743003A7A55 /* Contact.m in Sources */,
 				A0620B8F18D727B6003A7A55 /* OTAFlightCancelOrder.m in Sources */,
 				A0620B9218D727B6003A7A55 /* OTAFlightSearch.m in Sources */,

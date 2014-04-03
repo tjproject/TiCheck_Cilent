@@ -7,8 +7,9 @@
 //
 
 #import "SearchResultViewController.h"
+#import "LineChart.h"
 
-@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *searchResultTitle;
 
@@ -16,11 +17,20 @@
 
 @property (nonatomic,strong) NSArray* data;
 
+@property (weak, nonatomic) IBOutlet UIButton *foldPriceButton;
+@property (weak, nonatomic) IBOutlet UIButton *showPriceButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *lineChartParentView;
+
+@property (nonatomic,strong) LineChart* lineChart;
+
 @end
 
 @implementation SearchResultViewController
 
 @synthesize data=_data;
+
+static float tableViewHeight;
+static float scrollViewHeight=169;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,7 +45,6 @@
 {
     [super viewDidLoad];
     [self setExtraCellLineHidden:self.resultTableView];
-    self.data=[[NSArray alloc] initWithObjects:@"a", nil];
     // Do any additional setup after loading the view.
 }
 
@@ -46,16 +55,26 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    [self foldPrice:self.foldPriceButton];
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
+
+-(void) setResultTableView:(UITableView *)resultTableView
+{
+    if (_resultTableView==nil)
+    {
+        _resultTableView=resultTableView;
+        tableViewHeight=_resultTableView.frame.size.height;
+    }
+}
 
 -(void) setData:(NSArray *)data
 {
@@ -100,7 +119,8 @@
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.data.count;
+    return 10;
+    //return self.data.count;
 }
 
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -112,6 +132,90 @@
     
     
     return cell;
+}
+
+#pragma mark - show button
+
+- (IBAction)foldPrice:(id)sender
+{
+    @synchronized(self){
+        if (self.showPriceButton.hidden==NO) return  ;
+        self.showPriceButton.hidden=NO;
+        self.foldPriceButton.hidden=YES;
+        self.resultTableView.frame=CGRectMake(self.resultTableView.frame.origin.x, self.resultTableView.frame.origin.y, self.resultTableView.frame.size.width, tableViewHeight);
+    }
+}
+
+- (IBAction)showPrice:(UIButton *)sender
+{
+    @synchronized(self){
+        if (self.foldPriceButton.hidden==NO) return ;
+        self.foldPriceButton.hidden=NO;
+        self.showPriceButton.hidden=YES;
+        self.resultTableView.frame=CGRectMake(self.resultTableView.frame.origin.x, self.resultTableView.frame.origin.y, self.resultTableView.frame.size.width, tableViewHeight-scrollViewHeight);
+        [self.lineChart resetLineChartData];
+    }
+}
+
+#pragma mark - lineChart delegate
+
+-(NSMutableArray*) setFooterLabel
+{
+    return [[NSMutableArray alloc] initWithObjects:@(8),@(9),@(10),@(11),@(12),@(13),@(14),nil];
+}
+
+-(NSMutableArray*) setScoreArray
+{
+    return [[NSMutableArray alloc] initWithObjects:@(702),@(425),@(329),@(568),@(749),@(693),@(551),nil];
+}
+
+-(void) setLineChart:(LineChart *)lineChart
+{
+    if (_lineChart!=lineChart)
+    {
+        _lineChart=lineChart;
+        _lineChart.lineChartDataSource=self;
+        _lineChart.isNeedToDraw=YES;
+    }
+}
+
+-(void) setLineChartParentView:(UIScrollView *)lineChartParentView
+{
+    if (_lineChartParentView!=lineChartParentView)
+    {
+        _lineChartParentView=lineChartParentView;
+        
+        self.lineChart=[[LineChart alloc] init];
+        self.lineChart.parentView=_lineChartParentView;
+        [self.lineChart initLineChartMemberData];
+        [self.lineChartParentView addSubview:self.lineChart];
+        [self.lineChart setNeedsDisplay];
+    }
+}
+
+-(BOOL) setIsNeedFill
+{
+    return YES;
+}
+
+-(UIColor*) setFillColor
+{
+    return [UIColor colorWithRed:244/255.0 green:255/255.0 blue:221/255.0 alpha:1];
+}
+
+-(float) setPointRadius
+{
+    return 3;
+}
+
+-(UIColor*) setLineColor
+{
+    return [UIColor colorWithRed:170/255.0 green:210/255.0 blue:89/255.0 alpha:1];
+}
+
+-(int) setCurrentIndex
+{
+    return 3;
 }
 
 @end
