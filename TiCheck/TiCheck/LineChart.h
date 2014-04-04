@@ -16,6 +16,7 @@
 
 -(NSMutableArray*) setScoreArray;
 -(NSMutableArray*) setFooterLabel;
+-(int) setCurrentIndex;
 
 @optional
 
@@ -24,7 +25,6 @@
 -(float) setlineWidth;
 -(float) setPointRadius;
 -(BOOL) setIsNeedFill;
--(int) setCurrentIndex;
 
 /*
  0.01s为单位
@@ -37,8 +37,8 @@
 
 @interface LineChart : UIScrollView<UIScrollViewDelegate>
 
-@property (nonatomic,weak) IBOutlet id<LineChartDataSource> lineChartDataSource;
-@property (nonatomic,weak) IBOutlet UIScrollView* parentView;
+@property (nonatomic,weak) id<LineChartDataSource> lineChartDataSource;
+@property (nonatomic,weak) UIScrollView* parentView;
 @property (nonatomic,readwrite) BOOL isNeedToDraw;
 
 -(void) resetLineChartData;

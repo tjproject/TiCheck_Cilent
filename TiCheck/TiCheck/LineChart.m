@@ -123,7 +123,7 @@
 
 -(int) currentIndex
 {
-    return [self.lineChartDataSource respondsToSelector:@selector(setCurrentIndex)];
+    return [self.lineChartDataSource setCurrentIndex];
 }
 
 -(int) delayTime
@@ -251,8 +251,9 @@
         if (maxScore<[score floatValue]) maxScore=[score intValue];
         if (minScore>[score floatValue]) minScore=[score intValue];
     }
-    minScore=MAX(minScore-50, 0);
+    minScore=MIN(50, minScore);
     maxScore=maxScore+500;
+    
     //不断循环 直到minscore和maxscore相差10以上 间隔为10的倍数
     int i=0;
     while (maxScore-minScore<9 || (maxScore-minScore) %9 !=0 )
@@ -458,6 +459,9 @@ const float afterDelay=0.01;
         }
     }
     
+    /**
+     *  画出已经self.indexScore之前的点
+     */
     for (int i=1; i<self.indexScore; i++)
     {
         if (i<self.scoreArray.count-1)
@@ -499,8 +503,10 @@ const float afterDelay=0.01;
         {
             self.indexScore=(int)self.scoreArray.count;
             self.parentView.scrollEnabled=YES;
+            return ;
         }
     }
+    
     [self setNeedsDisplay];
 }
 

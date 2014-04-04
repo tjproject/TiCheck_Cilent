@@ -215,7 +215,7 @@ static float scrollViewHeight=169;
 
 -(int) setCurrentIndex
 {
-    return 3;
+    return 4;
 }
 
 @end
