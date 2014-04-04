@@ -8,8 +8,9 @@
 
 #import "SearchResultViewController.h"
 #import "LineChart.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource>
+@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource,EGORefreshTableHeaderDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *searchResultTitle;
 
@@ -26,6 +27,10 @@
 @end
 
 @implementation SearchResultViewController
+{
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _reloading;
+}
 
 @synthesize data=_data;
 
@@ -45,6 +50,18 @@ static float scrollViewHeight=169;
 {
     [super viewDidLoad];
     [self setExtraCellLineHidden:self.resultTableView];
+    
+    if (_refreshHeaderView == nil) {
+		
+		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.resultTableView.bounds.size.height, self.view.frame.size.width, self.resultTableView.bounds.size.height)];
+		view.delegate = self;
+		[self.resultTableView addSubview:view];
+		_refreshHeaderView = view;
+	}
+	
+	//  update the last update date
+	[_refreshHeaderView refreshLastUpdatedDate];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -134,6 +151,7 @@ static float scrollViewHeight=169;
     return cell;
 }
 
+
 #pragma mark - show button
 
 - (IBAction)foldPrice:(id)sender
@@ -155,6 +173,61 @@ static float scrollViewHeight=169;
         self.resultTableView.frame=CGRectMake(self.resultTableView.frame.origin.x, self.resultTableView.frame.origin.y, self.resultTableView.frame.size.width, tableViewHeight-scrollViewHeight);
         [self.lineChart resetLineChartData];
     }
+}
+
+
+#pragma mark - EGORefreshTableHeaderDelegate
+
+
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)reloadTableViewDataSource{
+	
+	//  should be calling your tableviews data source model to reload
+	//  put here just for demo
+	_reloading = YES;
+	
+}
+
+- (void)doneLoadingTableViewData{
+	
+	//  model should call this when its done loading
+	_reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.resultTableView];
+	
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+	
+}
+
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+	
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return _reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
 }
 
 #pragma mark - lineChart delegate
