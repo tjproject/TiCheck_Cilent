@@ -26,7 +26,12 @@
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:UserUniqueID];
     NSLog(@"header = %@", header);
     
-    NSString *requestXML = [header stringByAppendingString:[self generateUserRequestXML]];
+    NSString *requestXML = [NSString stringWithFormat:
+                           @"&lt;Request&gt;\n"
+                           "%@\n"
+                           "&lt;/Request&gt;\n", [header stringByAppendingString:[self generateUserRequestXML]]];
+    
+//    NSString *requestXML = [header stringByAppendingString:[self generateUserRequestXML]];
     
     NSLog(@"request XML = %@", requestXML);
     return requestXML;

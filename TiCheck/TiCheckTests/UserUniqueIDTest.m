@@ -30,15 +30,13 @@
     [super tearDown];
 }
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
-
 - (void)testUserGenerate
 {
     OTAUserUniqueID *userUniqueID = [[OTAUserUniqueID alloc] initWithUserName:@"boylee1111" telNumber:@"18347582934"];
     NSString *userRequest = [userUniqueID generateOTAUserUniqueIDXMLRequest];
+    
+    NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL flightRequestType:UserUniqueID xmlNameSpace:XML_NAME_SPACE webServiceName:WEB_SERVICE_NAME xmlRequestBody:userRequest];
+    NSLog(@"reponse = %@", responseXML);
 }
 
 @end

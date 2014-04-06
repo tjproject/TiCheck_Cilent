@@ -14,7 +14,7 @@
 - (id)initHeaderWithResponse:(NSString *)xml
 {
     if (self = [super init]) {
-        
+        [self parseHeader:xml];
     }
     return self;
 }
@@ -53,7 +53,7 @@
     GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithXMLString:xml encoding:NSUTF8StringEncoding error:&error];
     GDataXMLElement *root = [[doc nodesForXPath:@"/soap:Envelope/soap:Body/*" error:&error] objectAtIndex:0];
     
-    return root;
+    return [root copy];
 }
 
 @end

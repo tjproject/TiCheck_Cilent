@@ -50,6 +50,7 @@
 		A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B8E18D727B6003A7A55 /* OTAUserUniqueIDResponse.m */; };
 		A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */; };
 		A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620BA118D727D6003A7A55 /* SoapRequest.m */; };
+		A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */; };
 		C69E840808974A8CAEDB832F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C29AE6E97F440E8ABC5203 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,7 @@
 		A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationHelper.m; sourceTree = "<group>"; };
 		A0620BA018D727D6003A7A55 /* SoapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapRequest.h; sourceTree = "<group>"; };
 		A0620BA118D727D6003A7A55 /* SoapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoapRequest.m; sourceTree = "<group>"; };
+		A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSearchTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +244,7 @@
 				A0620B1F18D7242C003A7A55 /* Supporting Files */,
 				A0620B2418D7242C003A7A55 /* TiCheckTests.m */,
 				A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */,
+				A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */,
 			);
 			path = TiCheckTests;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */,
 				A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */,
 				A0620B2518D7242C003A7A55 /* TiCheckTests.m in Sources */,
 			);
