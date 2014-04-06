@@ -63,4 +63,14 @@ const NSArray *___FlightRequestType;
 */
 - (NSString *)getHeaderStringWithRequestType:(FlightRequestType)requestType;
 
+/**
+ *  MD5 32位加密算法
+ *
+ *  @param string 待加密的字串
+ *
+ *  @return 加密后的字串
+ */
+- (NSString *)md5:(NSString *)string;
+
+
 @end

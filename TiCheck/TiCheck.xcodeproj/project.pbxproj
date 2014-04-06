@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2491398218ED273D00061780 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398118ED273D00061780 /* SearchResultViewController.m */; };
+		2491398518ED290700061780 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398418ED290700061780 /* SearchResultCell.m */; };
+		2491398D18ED855000061780 /* LineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398C18ED855000061780 /* LineChart.m */; };
+		24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */; };
+		24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */; };
+		24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8918EC5EE200F6A2A9 /* UserData.m */; };
+		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
 		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
 		A0040BC718E92783008E6485 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0040BC618E92783008E6485 /* ViewController.m */; };
 		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
@@ -65,6 +72,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2491398018ED273D00061780 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
+		2491398118ED273D00061780 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
+		2491398318ED290600061780 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
+		2491398418ED290700061780 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
+		2491398B18ED855000061780 /* LineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChart.h; sourceTree = "<group>"; };
+		2491398C18ED855000061780 /* LineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChart.m; sourceTree = "<group>"; };
+		24FC2B6F18EC41A600F6A2A9 /* LoginRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRegisterViewController.h; sourceTree = "<group>"; };
+		24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRegisterViewController.m; sourceTree = "<group>"; };
+		24FC2B8418EC5C1400F6A2A9 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		24FC2B8818EC5EE200F6A2A9 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		24FC2B8918EC5EE200F6A2A9 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		24FC2B8B18EC682900F6A2A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		74C29AE6E97F440E8ABC5203 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0040BC318E92768008E6485 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -172,6 +193,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2491397F18ED271400061780 /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				2491398018ED273D00061780 /* SearchResultViewController.h */,
+				2491398118ED273D00061780 /* SearchResultViewController.m */,
+				2491398318ED290600061780 /* SearchResultCell.h */,
+				2491398418ED290700061780 /* SearchResultCell.m */,
+				2491398B18ED855000061780 /* LineChart.h */,
+				2491398C18ED855000061780 /* LineChart.m */,
+			);
+			name = SearchResult;
+			sourceTree = "<group>";
+		};
+		24FC2B6B18EC3AD000F6A2A9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				24FC2B6F18EC41A600F6A2A9 /* LoginRegisterViewController.h */,
+				24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */,
+				24FC2B8418EC5C1400F6A2A9 /* RegisterViewController.h */,
+				24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */,
+				24FC2B8B18EC682900F6A2A9 /* LoginViewController.h */,
+				24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		24FC2B8718EC5ECC00F6A2A9 /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+				24FC2B8818EC5EE200F6A2A9 /* UserData.h */,
+				24FC2B8918EC5EE200F6A2A9 /* UserData.m */,
+			);
+			name = UserData;
+			sourceTree = "<group>";
+		};
 		A0620AED18D7242C003A7A55 = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +266,9 @@
 			children = (
 				A0620B0A18D7242C003A7A55 /* AppDelegate.h */,
 				A0620B0B18D7242C003A7A55 /* AppDelegate.m */,
+				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
+				24FC2B6B18EC3AD000F6A2A9 /* Login */,
+				2491397F18ED271400061780 /* SearchResult */,
 				A0620B6618D72772003A7A55 /* Category */,
 				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
 				A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */,
@@ -391,6 +450,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = tac;
 				TargetAttributes = {
+					A0620AF518D7242C003A7A55 = {
+						DevelopmentTeam = GS9T9X284M;
+					};
 					A0620B1518D7242C003A7A55 = {
 						TestTargetID = A0620AF518D7242C003A7A55;
 					};
@@ -478,6 +540,7 @@
 				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
+				2491398D18ED855000061780 /* LineChart.m in Sources */,
 				A0620B6018D72743003A7A55 /* Contact.m in Sources */,
 				A0620B8F18D727B6003A7A55 /* OTAFlightCancelOrder.m in Sources */,
 				A0620B9218D727B6003A7A55 /* OTAFlightSearch.m in Sources */,
@@ -486,12 +549,17 @@
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
 				A0620B6318D72743003A7A55 /* Flight.m in Sources */,
+				2491398518ED290700061780 /* SearchResultCell.m in Sources */,
 				A0620B9318D727B6003A7A55 /* OTAFlightViewOrder.m in Sources */,
+				24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */,
 				A0620B0818D7242C003A7A55 /* main.m in Sources */,
+				24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */,
 				A0620B6418D72743003A7A55 /* Order.m in Sources */,
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
 				A0620B9A18D727B6003A7A55 /* OTAFlightViewOrderResponse.m in Sources */,
 				A0620B9718D727B6003A7A55 /* OTAFlightOrderListResponse.m in Sources */,
+				24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */,
+				2491398218ED273D00061780 /* SearchResultViewController.m in Sources */,
 				A0620B6118D72743003A7A55 /* CreditCardInfo.m in Sources */,
 				A0620B9918D727B6003A7A55 /* OTAFlightSearchResponse.m in Sources */,
 				A0620B6C18D72772003A7A55 /* NSString+EnumTransform.m in Sources */,
@@ -502,6 +570,7 @@
 				A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */,
 				A0620B9018D727B6003A7A55 /* OTAFlightOrderList.m in Sources */,
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
+				24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */,
 				A0620B6518D72743003A7A55 /* Passenger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,6 +693,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TiCheck/TiCheck-Prefix.pch";
 				INFOPLIST_FILE = "TiCheck/TiCheck-Info.plist";
@@ -638,6 +708,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TiCheck/TiCheck-Prefix.pch";
 				INFOPLIST_FILE = "TiCheck/TiCheck-Info.plist";
