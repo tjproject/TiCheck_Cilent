@@ -71,4 +71,19 @@
  */
 @property (nonatomic, strong) NSString *corpEid;
 
+/**
+ *  创建并返回一个初始化的Passenger实例
+ *
+ *  @param name           乘机人姓名
+ *  @param birthday       乘机人出生日期
+ *  @param passportType   证件类型
+ *  @param passportNumber 证件号
+ *
+ *  @return Passenger实例
+ */
++ (Passenger *)passengerWithPassengerName:(NSString *)name
+                                 birthDay:(NSDate *)birthday
+                             passportType:(PassportType)passportType
+                               passportNo:(NSString *)passportNumber;
+
 @end

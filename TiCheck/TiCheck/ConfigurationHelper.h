@@ -16,6 +16,10 @@
 #define XML_NAME_SPACE @"http://ctrip.com/"
 #define WEB_SERVICE_NAME @"Request"
 
+// 用于测试
+#define TEMPORARY_UNIQUE_UID @"1c02d4dd-b569-411e-b0b6-bbe8a5253b29"
+#define TEMPORARY_ORDER_ID @"1F86C2435744433AA557854A5BBC50D9"
+
 typedef NS_ENUM(NSUInteger, FlightRequestType) {
     FlightSearchRequest = 0,
     FlightSaveOrderRequest,

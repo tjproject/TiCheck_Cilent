@@ -18,7 +18,9 @@
     if (self = [super init]) {
         _departPort = @"";
         _arrivePort = @"";
+        _airline = @"";
         _sendTicketCity = @"";
+        _departDate = [NSDate date];
     }
     
     return self;

@@ -20,7 +20,9 @@
 - (id)initWithOTAFlightViewOrderResponse:(NSString *)xml
 {
     if (self = [super initHeaderWithResponse:xml]) {
-        [self parseResponseXML:xml];
+        if ([[self.header valueForKey:@"ResultCode"] isEqualToString:@"Success"]) {
+            [self parseResponseXML:xml];
+        }
     }
     
     return self;

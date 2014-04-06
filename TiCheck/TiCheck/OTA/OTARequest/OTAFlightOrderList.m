@@ -26,9 +26,8 @@
 
 - (NSString *)generateOrderListRequestXML
 {
-    // TODO: 添加UID
-    NSString *userID           = @"";
-
+    NSString *userID           = _uniqueUID;
+    
     NSString *effectDate       = [NSString stringWithFormat:@"&lt;EffectDate&gt;%@&lt;/EffectDate&gt;", [NSString stringFormatWithTime:_effectDate]];
     NSString *expiryDate       = [NSString stringWithFormat:@"&lt;ExpiryDate&gt;%@&lt;/ExpiryDate&gt;", [NSString stringFormatWithTime:_expiryDate]];
     NSString *orderID          = [NSString stringWithFormat:@"&lt;OrderID&gt;%@&lt;/OrderID&gt;", _orderID];

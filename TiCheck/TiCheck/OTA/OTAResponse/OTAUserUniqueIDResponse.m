@@ -14,7 +14,9 @@
 - (id)initWithOTAUserUniqueIDResponse:(NSString *)xml
 {
     if (self = [super initHeaderWithResponse:xml]) {
-        [self parseResponseXML:xml];
+        if ([[self.header valueForKey:@"ResultCode"] isEqualToString:@"Success"]) {
+            [self parseResponseXML:xml];
+        }
     }
     
     return self;
@@ -25,7 +27,7 @@
     GDataXMLElement *root = [self getRootElement:xml];
     
     // Parsing UniqueUID
-    GDataXMLElement *userReponseElem = [[root nodesForXPath:@"ctrip:UserResponse"
+    GDataXMLElement *userReponseElem = [[root nodesForXPath:@"//ctrip:UserResponse"
                                                namespaces:self.namespacesDic
                                                     error:nil] objectAtIndex:0];
     

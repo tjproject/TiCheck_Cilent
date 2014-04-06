@@ -116,4 +116,11 @@
  */
 @property (nonatomic, strong) NSString *getTicketWay;
 
+/**
+ *  创建并初始化不需要送票的DeliverInfo实例
+ *
+ *  @return 不需要送票的DeliverInfo实例
+ */
++ (DeliverInfo *)deliverInfoWithoutTicketSend;
+
 @end

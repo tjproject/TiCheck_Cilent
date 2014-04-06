@@ -17,7 +17,9 @@
 - (id)initWithOTAFlightSearchResponse:(NSString *)xml
 {
     if (self = [super initHeaderWithResponse:xml]) {
-        [self parseResponseXML:xml];
+        if ([[self.header valueForKey:@"ResultCode"] isEqualToString:@"Success"]) {
+            [self parseResponseXML:xml];
+        }
     }
     
     return self;
@@ -83,7 +85,7 @@
     flight.babyOilFee              = [ObjectElementToString(element, @"BabyOilFee") integerValue];
     flight.childOilFee             = [ObjectElementToString(element, @"ChildOilFee") integerValue];
     flight.departPortCode          = ObjectElementToString(element, @"DPortCode");
-    flight.arriveCityCode          = ObjectElementToString(element, @"APortCode");
+    flight.arrivePortCode          = ObjectElementToString(element, @"APortCode");
     flight.departPortBuildingID    = [ObjectElementToString(element, @"DPortBuildingID") integerValue];
     flight.arrivePortBuildingID    = [ObjectElementToString(element, @"APortBuildingID") integerValue];
     flight.stopTimes               = [ObjectElementToString(element, @"StopTimes") integerValue];

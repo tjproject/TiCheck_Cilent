@@ -12,6 +12,11 @@
 @interface OTAFlightOrderList : NSObject
 
 /**
+ *  用户UID
+ */
+@property (nonatomic, strong) NSString *uniqueUID;
+
+/**
  *  出行时间段开始：DateTime类型；可空
  */
 @property (nonatomic, strong) NSDate *effectDate;

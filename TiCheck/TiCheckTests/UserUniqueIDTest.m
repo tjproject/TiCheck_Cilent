@@ -30,13 +30,21 @@
     [super tearDown];
 }
 
-- (void)testUserGenerate
+- (void)testUserGenerateSync
 {
     OTAUserUniqueID *userUniqueID = [[OTAUserUniqueID alloc] initWithUserName:@"boylee1111" telNumber:@"18347582934"];
     NSString *userRequest = [userUniqueID generateOTAUserUniqueIDXMLRequest];
     
-    NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL flightRequestType:UserUniqueID xmlNameSpace:XML_NAME_SPACE webServiceName:WEB_SERVICE_NAME xmlRequestBody:userRequest];
+    NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL
+                                                          flightRequestType:UserUniqueID
+                                                               xmlNameSpace:XML_NAME_SPACE
+                                                             webServiceName:WEB_SERVICE_NAME xmlRequestBody:userRequest];
     NSLog(@"reponse = %@", responseXML);
+    XCTAssertNotNil(responseXML, @"reponse not nil");
+    
+    OTAUserUniqueIDResponse *userUniqueReponse = [[OTAUserUniqueIDResponse alloc] initWithOTAUserUniqueIDResponse:responseXML];
+    XCTAssertNotNil(userUniqueReponse.uniqueUID, @"unique UID not nil");
+    XCTAssertEqual(userUniqueReponse.retCode, (NSUInteger)0, "ret code success");
 }
 
 @end

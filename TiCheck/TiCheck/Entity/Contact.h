@@ -51,4 +51,19 @@
  */
 @property (nonatomic, strong) NSString *contactFax;
 
+/**
+ *  创建并返回一个初始化的Contact实例
+ *
+ *  @param contactName   联系人姓名
+ *  @param confirmOption 联系人确认方式，默认为电话
+ *  @param phoneNumber   联系人电话
+ *  @param emailAddress  联系人邮箱
+ *
+ *  @return Contact实例
+ */
++ (Contact *)contactWithContactName:(NSString *)contactName
+                      confirmOption:(ConfirmOption)confirmOption
+                        mobilePhone:(NSString *)phoneNumber
+                       contactEmail:(NSString *)emailAddress;
+
 @end

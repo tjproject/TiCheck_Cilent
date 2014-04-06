@@ -38,18 +38,20 @@
     flightSearch.departCity = @"SHA";
     flightSearch.arriveCity = @"BJS";
     flightSearch.departDate = [NSDate date];
-    flightSearch.airline = @"CA";
     flightSearch.orderBy = Price;
     flightSearch.orderDirection = ASC;
     
     NSString *requestXML = [flightSearch generateOTAFlightSearchXMLRequest];
 //    NSLog(@"request XML = %@", requestXML);
     
-    NSString *responseXML = [SoapRequest getSoap11WebServiceResponseWithURL:API_URL flightRequestType:FlightSearchRequest xmlNameSpace:XML_NAME_SPACE webServiceName:WEB_SERVICE_NAME xmlRequestBody:requestXML];
+    NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL
+                                                          flightRequestType:FlightSearchRequest
+                                                               xmlNameSpace:XML_NAME_SPACE
+                                                             webServiceName:WEB_SERVICE_NAME xmlRequestBody:requestXML];
 //    NSLog(@"response XML = %@", responseXML);
     XCTAssertNotNil(responseXML, "reponse not nil");
     
-    // 搜索结果解析
+    // 搜索结果解析，直接用返回的XML初始化即可
     OTAFlightSearchResponse *flightSearchResponse = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:responseXML];
     XCTAssertEqual(flightSearchResponse.recordCount, flightSearchResponse.flightsList.count, "result equal");
     XCTAssertEqual(flightSearchResponse.orderBy, Price, "order by price");

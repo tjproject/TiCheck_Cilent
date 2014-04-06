@@ -19,14 +19,12 @@
                             "%@"
                             "&lt;/Request&gt;", [header stringByAppendingString:[self generateViewOrderListRequestXML]]];
     
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 
 - (NSString *)generateViewOrderListRequestXML
 {
-    // TODO: 添加UID
-    NSString *userID = @"";
+    NSString *userID = _uniqueUID;
     
     // 初始化order列表
     NSString *orderIDs = @"";

@@ -24,7 +24,6 @@
 - (NSString *)generateOTAUserUniqueIDXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:UserUniqueID];
-    NSLog(@"header = %@", header);
     
     NSString *requestXML = [NSString stringWithFormat:
                            @"&lt;Request&gt;\n"
@@ -33,7 +32,6 @@
     
 //    NSString *requestXML = [header stringByAppendingString:[self generateUserRequestXML]];
     
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 
