@@ -16,6 +16,9 @@
 		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
 		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
 		A0040BC718E92783008E6485 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0040BC618E92783008E6485 /* ViewController.m */; };
+		A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48518F278E900151513 /* FlightOrderListTest.m */; };
+		A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48718F286D600151513 /* FlightViewOrderTest.m */; };
+		A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */; };
 		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
 		A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */; };
 		A0620AFA18D7242C003A7A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AF918D7242C003A7A55 /* Foundation.framework */; };
@@ -94,6 +97,9 @@
 		A0040BC618E92783008E6485 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A0040BC818E927BE008E6485 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		A0040BC918E927BE008E6485 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A00CE48518F278E900151513 /* FlightOrderListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightOrderListTest.m; sourceTree = "<group>"; };
+		A00CE48718F286D600151513 /* FlightViewOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightViewOrderTest.m; sourceTree = "<group>"; };
+		A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStatusChangedOrdersTest.m; sourceTree = "<group>"; };
 		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
 		A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSaveOrderTest.m; sourceTree = "<group>"; };
 		A0620AF618D7242C003A7A55 /* TiCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +236,13 @@
 			name = UserData;
 			sourceTree = "<group>";
 		};
+		A033D49118F2410000C3E9FD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		A0620AED18D7242C003A7A55 = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +279,7 @@
 		A0620B0118D7242C003A7A55 /* TiCheck */ = {
 			isa = PBXGroup;
 			children = (
+				A033D49118F2410000C3E9FD /* Resources */,
 				A0620B0A18D7242C003A7A55 /* AppDelegate.h */,
 				A0620B0B18D7242C003A7A55 /* AppDelegate.m */,
 				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
@@ -304,6 +318,9 @@
 			children = (
 				A0620B1F18D7242C003A7A55 /* Supporting Files */,
 				A0620B2418D7242C003A7A55 /* TiCheckTests.m */,
+				A00CE48518F278E900151513 /* FlightOrderListTest.m */,
+				A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */,
+				A00CE48718F286D600151513 /* FlightViewOrderTest.m */,
 				A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */,
 				A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */,
 				A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */,
@@ -583,9 +600,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */,
+				A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */,
 				A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */,
+				A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */,
 				A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */,
 				A0620B2518D7242C003A7A55 /* TiCheckTests.m in Sources */,
+				A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +643,7 @@
 /* Begin XCBuildConfiguration section */
 		A0620B2618D7242C003A7A55 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -661,6 +682,7 @@
 		};
 		A0620B2718D7242C003A7A55 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -723,6 +745,7 @@
 		};
 		A0620B2C18D7242C003A7A55 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TiCheck.app/TiCheck";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -745,6 +768,7 @@
 		};
 		A0620B2D18D7242C003A7A55 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TiCheck.app/TiCheck";
 				FRAMEWORK_SEARCH_PATHS = (

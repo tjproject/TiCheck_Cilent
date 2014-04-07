@@ -15,6 +15,8 @@
 #import "NSString+DateFormat.h"
 #import "NSString+EnumTransform.h"
 
+#define NO_CORRESPONDING_ORDERS_RESULT_NO @"1205002"
+
 @implementation OTAFlightViewOrderResponse
 
 - (id)initWithOTAFlightViewOrderResponse:(NSString *)xml
@@ -26,6 +28,16 @@
     }
     
     return self;
+}
+
+- (BOOL)hasOrderRecord
+{
+    NSString *resultNo = [self.header valueForKey:@"ResultNo"];
+    if ([resultNo isEqualToString:NO_CORRESPONDING_ORDERS_RESULT_NO]) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 - (void)parseResponseXML:(NSString *)xml

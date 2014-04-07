@@ -30,6 +30,12 @@
 {
     GDataXMLElement *root = [self getRootElement:xml];
     
+    // Parsing RecordsCount
+    GDataXMLElement *recordCount = [[root nodesForXPath:@"//ctrip:RecordsCount"
+                                             namespaces:self.namespacesDic
+                                                  error:nil] objectAtIndex:0];
+    _recordsCount = [[recordCount stringValue] integerValue];
+    
     // Parsing Orders
     NSArray *flightOrderList = [root nodesForXPath:@"//ctrip:FltOrder"
                                         namespaces:self.namespacesDic

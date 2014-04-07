@@ -18,6 +18,7 @@
 #import "OTAFlightSaveOrder.h"
 #import "OTAFlightSaveOrderResponse.h"
 #import "NSString+DateFormat.h"
+#import "NSDate-Utilities.h"
 
 @interface FlightSaveOrderTest : XCTestCase
 
@@ -43,7 +44,7 @@
     flightSearch.searchType = S;
     flightSearch.departCity = @"SHA";
     flightSearch.arriveCity = @"BJS";
-    flightSearch.departDate = [NSDate date];
+    flightSearch.departDate = [NSDate dateWithDaysFromNow:2];
     flightSearch.orderBy = Price;
     flightSearch.orderDirection = ASC;
     
@@ -51,12 +52,13 @@
     NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL
                                                           flightRequestType:FlightSearchRequest
                                                                xmlNameSpace:XML_NAME_SPACE
-                                                             webServiceName:WEB_SERVICE_NAME xmlRequestBody:requestXML];
+                                                             webServiceName:WEB_SERVICE_NAME
+                                                             xmlRequestBody:requestXML];
     
 //    NSLog(@"response XML = %@", requestXML);
-    
     // 搜索结果解析，直接用返回的XML初始化即可
     OTAFlightSearchResponse *flightSearchResponse = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:responseXML];
+    if (flightSearchResponse.recordCount == 0) return ;
     
     Flight *flightSample = [flightSearchResponse.flightsList firstObject];
     Passenger *passengerSample = [Passenger passengerWithPassengerName:@"邱峰"

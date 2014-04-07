@@ -47,15 +47,18 @@
     NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL
                                                           flightRequestType:FlightSearchRequest
                                                                xmlNameSpace:XML_NAME_SPACE
-                                                             webServiceName:WEB_SERVICE_NAME xmlRequestBody:requestXML];
+                                                             webServiceName:WEB_SERVICE_NAME
+                                                             xmlRequestBody:requestXML];
 //    NSLog(@"response XML = %@", responseXML);
     XCTAssertNotNil(responseXML, "reponse not nil");
     
     // 搜索结果解析，直接用返回的XML初始化即可
     OTAFlightSearchResponse *flightSearchResponse = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:responseXML];
-    XCTAssertEqual(flightSearchResponse.recordCount, flightSearchResponse.flightsList.count, "result equal");
-    XCTAssertEqual(flightSearchResponse.orderBy, Price, "order by price");
-    XCTAssertEqual(flightSearchResponse.orderDirection, ASC, "order asc");
+    if (flightSearchResponse.recordCount != 0) {
+        XCTAssertEqual(flightSearchResponse.recordCount, flightSearchResponse.flightsList.count, "result equal");
+        XCTAssertEqual(flightSearchResponse.orderBy, Price, "order by price");
+        XCTAssertEqual(flightSearchResponse.orderDirection, ASC, "order asc");
+    }
 }
 
 @end

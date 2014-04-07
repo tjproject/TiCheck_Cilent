@@ -11,6 +11,17 @@
 
 @implementation OTAFlightViewOrder
 
+- (id)initWithUserUniqueUID:(NSString *)uniqueID
+                 orderLists:(NSArray *)orders
+{
+    if (self = [super init]) {
+        _uniqueUID = uniqueID;
+        _orderIDs = orders;
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAFlightViewOrderXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:FlightViewOrderRequest];

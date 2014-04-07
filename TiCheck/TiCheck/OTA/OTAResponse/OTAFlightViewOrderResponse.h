@@ -39,4 +39,11 @@
  */
 - (id)initWithOTAFlightViewOrderResponse:(NSString *)xml;
 
+/**
+ *  判断是否有订单结果
+ *
+ *  @return 是否有订单结果
+ */
+- (BOOL)hasOrderRecord;
+
 @end

@@ -30,7 +30,7 @@
     GDataXMLElement *root = [self getRootElement:xml];
     
     // Parsing RecordCount
-    GDataXMLElement *recordCountElem = [[root nodesForXPath:@"//ctrip:RecordCount"
+    GDataXMLElement *recordCountElem = [[root nodesForXPath:@"//ctrip:RecordsCount"
                                                  namespaces:self.namespacesDic
                                                       error:nil] objectAtIndex:0];
     _recordCount = [[recordCountElem stringValue] integerValue];

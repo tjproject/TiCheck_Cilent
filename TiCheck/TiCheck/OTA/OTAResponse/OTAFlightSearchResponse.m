@@ -30,9 +30,18 @@
     GDataXMLElement *root = [self getRootElement:xml];
     
     // Parsing RecordCount
-    GDataXMLElement *recordCount = [[root nodesForXPath:@"//ctrip:RecordCount"
-                                             namespaces:self.namespacesDic
-                                                  error:nil] objectAtIndex:0];
+    NSArray *recordCountArr = [root nodesForXPath:@"//ctrip:RecordCount"
+                                       namespaces:self.namespacesDic
+                                            error:nil];
+    // 没有符合条件的航班
+    if ([recordCountArr count] == 0) {
+        _recordCount = 0;
+        _flightsList = [NSArray array];
+        return ;
+    }
+    
+    // 有符合条件的航班
+    GDataXMLElement *recordCount = [recordCountArr objectAtIndex:0];
     _recordCount = [[recordCount stringValue] integerValue];
     
     // Parsing OrderBy

@@ -11,6 +11,11 @@
 @interface OTAFlightOrderListResponse : OTAResponse
 
 /**
+ *  订单数量
+ */
+@property (nonatomic) NSUInteger recordsCount;
+
+/**
  *  订单列表
  */
 @property (nonatomic, strong) NSArray *orderList;

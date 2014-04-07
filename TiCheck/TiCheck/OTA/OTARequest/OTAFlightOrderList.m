@@ -12,6 +12,23 @@
 
 @implementation OTAFlightOrderList
 
+- (id)initWithUserUniqueUID:(NSString *)uniqueID
+                 effectDate:(NSDate *)effectDate
+                 expiryDate:(NSDate *)expiryDate
+                orderStatus:(OrderStatus)orderStatus
+{
+    if (self = [super init]) {
+        _uniqueUID = uniqueID;
+        _effectDate = effectDate;
+        _expiryDate = expiryDate;
+        _orderStatus = AllOrders;
+        _orderID = @"0";
+        _topCount = 0;
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAFlightOrderListXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:FlightOrderListRequest];
@@ -20,7 +37,6 @@
                             "%@"
                             "&lt;/Request&gt;", [header stringByAppendingString:[self generateOrderListRequestXML]]];
     
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 
@@ -37,7 +53,7 @@
 
     NSString *orderListRequest = [NSString stringWithFormat:
                                   @"&lt;FltOrderListRequest&gt;\n"
-                                  "&lt;UserID&gt;%@&lt;/UserID&gt;\n"
+                                  "&lt;Uid&gt;%@&lt;/Uid&gt;\n"
                                   "%@\n"
                                   "%@\n"
                                   "%@\n"

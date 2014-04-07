@@ -32,13 +32,14 @@
 
 - (void)testUserGenerateSync
 {
-    OTAUserUniqueID *userUniqueID = [[OTAUserUniqueID alloc] initWithUserName:@"boylee1111" telNumber:@"18347582934"];
+    OTAUserUniqueID *userUniqueID = [[OTAUserUniqueID alloc] initWithUserName:@"boylee1111@sina.com" telNumber:@"18602166978"];
     NSString *userRequest = [userUniqueID generateOTAUserUniqueIDXMLRequest];
     
     NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL
                                                           flightRequestType:UserUniqueID
                                                                xmlNameSpace:XML_NAME_SPACE
-                                                             webServiceName:WEB_SERVICE_NAME xmlRequestBody:userRequest];
+                                                             webServiceName:WEB_SERVICE_NAME
+                                                             xmlRequestBody:userRequest];
     NSLog(@"reponse = %@", responseXML);
     XCTAssertNotNil(responseXML, @"reponse not nil");
     

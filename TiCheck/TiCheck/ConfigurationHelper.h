@@ -17,8 +17,7 @@
 #define WEB_SERVICE_NAME @"Request"
 
 // 用于测试
-#define TEMPORARY_UNIQUE_UID @"1c02d4dd-b569-411e-b0b6-bbe8a5253b29"
-#define TEMPORARY_ORDER_ID @"1F86C2435744433AA557854A5BBC50D9"
+#define TEMPORARY_UNIQUE_UID @"a19265a5-21c1-40a1-841d-e9605bfe53a7"
 
 typedef NS_ENUM(NSUInteger, FlightRequestType) {
     FlightSearchRequest = 0,
