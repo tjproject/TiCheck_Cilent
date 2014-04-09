@@ -221,10 +221,10 @@
             </objects>
             <point key="canvasLocation" x="195" y="-303"/>
         </scene>
-        <!--View Controller - 账号-->
+        <!--Account Edit View Controller - 账号-->
         <scene sceneID="bOd-v6-d3A">
             <objects>
-                <viewController id="Isb-1A-Llb" sceneMemberID="viewController">
+                <viewController id="Isb-1A-Llb" customClass="AccountEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3a0-v6-7OG"/>
                         <viewControllerLayoutGuide type="bottom" id="S2d-Xx-eIx"/>
