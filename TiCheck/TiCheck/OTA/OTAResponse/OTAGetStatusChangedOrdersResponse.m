@@ -17,7 +17,9 @@
 - (id)initWithOTAGetStatusChangedOrdersResponse:(NSString *)xml
 {
     if (self = [super initHeaderWithResponse:xml]) {
-        [self parseResponseXML:xml];
+        if ([[self.header valueForKey:@"ResultCode"] isEqualToString:@"Success"]) {
+            [self parseResponseXML:xml];
+        }
     }
     
     return self;
@@ -28,7 +30,7 @@
     GDataXMLElement *root = [self getRootElement:xml];
     
     // Parsing RecordCount
-    GDataXMLElement *recordCountElem = [[root nodesForXPath:@"//ctrip:RecordCount"
+    GDataXMLElement *recordCountElem = [[root nodesForXPath:@"//ctrip:RecordsCount"
                                                  namespaces:self.namespacesDic
                                                       error:nil] objectAtIndex:0];
     _recordCount = [[recordCountElem stringValue] integerValue];

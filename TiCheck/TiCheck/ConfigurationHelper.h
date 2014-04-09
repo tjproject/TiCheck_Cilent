@@ -14,6 +14,10 @@
 
 #define API_URL @"http://openapi.ctrip.com/"
 #define XML_NAME_SPACE @"http://ctrip.com/"
+#define WEB_SERVICE_NAME @"Request"
+
+// 用于测试
+#define TEMPORARY_UNIQUE_UID @"a19265a5-21c1-40a1-841d-e9605bfe53a7"
 
 typedef NS_ENUM(NSUInteger, FlightRequestType) {
     FlightSearchRequest = 0,
@@ -27,7 +31,7 @@ typedef NS_ENUM(NSUInteger, FlightRequestType) {
 
 const NSArray *___FlightRequestType;
 
-#define cFlightRequestTypeGet (___FlightRequestType == nil? ___FlightRequestType = [[NSArray alloc] initWithObjects:\
+#define cFlightRequestTypeGet (___FlightRequestType == nil ? ___FlightRequestType = [[NSArray alloc] initWithObjects:\
 @"OTA_FlightSearch",\
 @"OTA_FltSaveOrder",\
 @"OTA_FltCancelOrder",\
@@ -61,5 +65,15 @@ const NSArray *___FlightRequestType;
 *  @return 生成Header
 */
 - (NSString *)getHeaderStringWithRequestType:(FlightRequestType)requestType;
+
+/**
+ *  MD5 32位加密算法
+ *
+ *  @param string 待加密的字串
+ *
+ *  @return 加密后的字串
+ */
+- (NSString *)md5:(NSString *)string;
+
 
 @end

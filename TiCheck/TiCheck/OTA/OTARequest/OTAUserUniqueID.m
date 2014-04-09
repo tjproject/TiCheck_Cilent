@@ -11,14 +11,27 @@
 
 @implementation OTAUserUniqueID
 
+- (id)initWithUserName:(NSString *)userName telNumber:(NSString *)telphoneNumber
+{
+    if (self = [super init]) {
+        self.uidKey = userName;
+        self.telphoneNumber = telphoneNumber;
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAUserUniqueIDXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:UserUniqueID];
-    NSLog(@"header = %@", header);
     
-    NSString *requestXML = [header stringByAppendingString:[self generateUserRequestXML]];
+    NSString *requestXML = [NSString stringWithFormat:
+                           @"&lt;Request&gt;\n"
+                           "%@\n"
+                           "&lt;/Request&gt;\n", [header stringByAppendingString:[self generateUserRequestXML]]];
     
-    NSLog(@"request XML = %@", requestXML);
+//    NSString *requestXML = [header stringByAppendingString:[self generateUserRequestXML]];
+    
     return requestXML;
 }
 

@@ -15,4 +15,20 @@
  */
 @property (nonatomic, strong) NSDate *changedTime;
 
+/**
+ *  初始化GetStatusChangedOrdersRequest
+ *
+ *  @param changedTime 检查变更时间
+ *
+ *  @return 初始化的GetStatusChangedOrdersRequest
+ */
+- (id)initWithChangedTime:(NSDate *)changedTime;
+
+/**
+ *  根据变更时间查看订单xml的请求body
+ *
+ *  @return 订单详情xml的请求body
+ */
+- (NSString *)generateOTAGetStatusChangedOrdersXMLRequest;
+
 @end

@@ -9,12 +9,14 @@
 #import "NSString+DateFormat.h"
 
 #define DATE_FORMAT @"yyyy-MM-dd"
-#define TIME_FORMAT @"yyyy-MM-dd'T'HH-mm-ss"
+#define TIME_FORMAT @"yyyy-MM-dd'T'HH:mm:ss"
 
 @implementation NSString (DateFormat)
 
 + (NSString *)stringFormatWithDate:(NSDate *)date
 {
+    if (date == nil) return  @"";
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:DATE_FORMAT];
     NSString *dateStr = [dateFormatter stringFromDate:date];
@@ -23,6 +25,8 @@
 
 + (NSString *)stringFormatWithTime:(NSDate *)date
 {
+    if (date == nil) return @"";
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:TIME_FORMAT];
     NSString *dateStr = [dateFormatter stringFromDate:date];
@@ -34,6 +38,9 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:TIME_FORMAT];
     NSDate *time = [dateFormatter dateFromString:timeStr];
+    
+    if (time == nil) time = [NSDate date];
+    
     return time;
 }
 
@@ -42,6 +49,9 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:DATE_FORMAT];
     NSDate *date = [dateFormatter dateFromString:dateStr];
+    
+    if (date == nil) date = [NSDate date];
+    
     return date;
 }
 

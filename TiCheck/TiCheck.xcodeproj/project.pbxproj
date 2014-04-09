@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2491398218ED273D00061780 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398118ED273D00061780 /* SearchResultViewController.m */; };
+		2491398518ED290700061780 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398418ED290700061780 /* SearchResultCell.m */; };
+		2491398D18ED855000061780 /* LineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398C18ED855000061780 /* LineChart.m */; };
+		24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */; };
+		24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */; };
+		24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8918EC5EE200F6A2A9 /* UserData.m */; };
+		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
+		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
+		A0040BC718E92783008E6485 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0040BC618E92783008E6485 /* ViewController.m */; };
+		A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48518F278E900151513 /* FlightOrderListTest.m */; };
+		A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48718F286D600151513 /* FlightViewOrderTest.m */; };
+		A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */; };
+		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
+		A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */; };
 		A0620AFA18D7242C003A7A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AF918D7242C003A7A55 /* Foundation.framework */; };
 		A0620AFC18D7242C003A7A55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */; };
 		A0620AFE18D7242C003A7A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFD18D7242C003A7A55 /* UIKit.framework */; };
@@ -47,6 +61,7 @@
 		A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B8E18D727B6003A7A55 /* OTAUserUniqueIDResponse.m */; };
 		A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */; };
 		A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620BA118D727D6003A7A55 /* SoapRequest.m */; };
+		A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */; };
 		C69E840808974A8CAEDB832F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C29AE6E97F440E8ABC5203 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -61,8 +76,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2491398018ED273D00061780 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
+		2491398118ED273D00061780 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
+		2491398318ED290600061780 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
+		2491398418ED290700061780 /* SearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultCell.m; sourceTree = "<group>"; };
+		2491398B18ED855000061780 /* LineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChart.h; sourceTree = "<group>"; };
+		2491398C18ED855000061780 /* LineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChart.m; sourceTree = "<group>"; };
+		24FC2B6F18EC41A600F6A2A9 /* LoginRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRegisterViewController.h; sourceTree = "<group>"; };
+		24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRegisterViewController.m; sourceTree = "<group>"; };
+		24FC2B8418EC5C1400F6A2A9 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		24FC2B8818EC5EE200F6A2A9 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
+		24FC2B8918EC5EE200F6A2A9 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
+		24FC2B8B18EC682900F6A2A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		74C29AE6E97F440E8ABC5203 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0040BC318E92768008E6485 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A0040BC518E92783008E6485 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A0040BC618E92783008E6485 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A0040BC818E927BE008E6485 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A0040BC918E927BE008E6485 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A00CE48518F278E900151513 /* FlightOrderListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightOrderListTest.m; sourceTree = "<group>"; };
+		A00CE48718F286D600151513 /* FlightViewOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightViewOrderTest.m; sourceTree = "<group>"; };
+		A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStatusChangedOrdersTest.m; sourceTree = "<group>"; };
+		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
+		A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSaveOrderTest.m; sourceTree = "<group>"; };
 		A0620AF618D7242C003A7A55 /* TiCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0620AF918D7242C003A7A55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -132,6 +171,7 @@
 		A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationHelper.m; sourceTree = "<group>"; };
 		A0620BA018D727D6003A7A55 /* SoapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapRequest.h; sourceTree = "<group>"; };
 		A0620BA118D727D6003A7A55 /* SoapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoapRequest.m; sourceTree = "<group>"; };
+		A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSearchTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +201,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2491397F18ED271400061780 /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				2491398018ED273D00061780 /* SearchResultViewController.h */,
+				2491398118ED273D00061780 /* SearchResultViewController.m */,
+				2491398318ED290600061780 /* SearchResultCell.h */,
+				2491398418ED290700061780 /* SearchResultCell.m */,
+				2491398B18ED855000061780 /* LineChart.h */,
+				2491398C18ED855000061780 /* LineChart.m */,
+			);
+			name = SearchResult;
+			sourceTree = "<group>";
+		};
+		24FC2B6B18EC3AD000F6A2A9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				24FC2B6F18EC41A600F6A2A9 /* LoginRegisterViewController.h */,
+				24FC2B7018EC41A600F6A2A9 /* LoginRegisterViewController.m */,
+				24FC2B8418EC5C1400F6A2A9 /* RegisterViewController.h */,
+				24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */,
+				24FC2B8B18EC682900F6A2A9 /* LoginViewController.h */,
+				24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		24FC2B8718EC5ECC00F6A2A9 /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+				24FC2B8818EC5EE200F6A2A9 /* UserData.h */,
+				24FC2B8918EC5EE200F6A2A9 /* UserData.m */,
+			);
+			name = UserData;
+			sourceTree = "<group>";
+		};
+		A033D49118F2410000C3E9FD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		A0620AED18D7242C003A7A55 = {
 			isa = PBXGroup;
 			children = (
@@ -197,8 +279,12 @@
 		A0620B0118D7242C003A7A55 /* TiCheck */ = {
 			isa = PBXGroup;
 			children = (
+				A033D49118F2410000C3E9FD /* Resources */,
 				A0620B0A18D7242C003A7A55 /* AppDelegate.h */,
 				A0620B0B18D7242C003A7A55 /* AppDelegate.m */,
+				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
+				24FC2B6B18EC3AD000F6A2A9 /* Login */,
+				2491397F18ED271400061780 /* SearchResult */,
 				A0620B6618D72772003A7A55 /* Category */,
 				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
 				A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */,
@@ -209,6 +295,9 @@
 				A0620B1018D7242C003A7A55 /* Images.xcassets */,
 				A0620B0D18D7242C003A7A55 /* TiCheck.xcdatamodeld */,
 				A0620B0218D7242C003A7A55 /* Supporting Files */,
+				A0040BC318E92768008E6485 /* Main.storyboard */,
+				A0040BC518E92783008E6485 /* ViewController.h */,
+				A0040BC618E92783008E6485 /* ViewController.m */,
 			);
 			path = TiCheck;
 			sourceTree = "<group>";
@@ -227,8 +316,14 @@
 		A0620B1E18D7242C003A7A55 /* TiCheckTests */ = {
 			isa = PBXGroup;
 			children = (
-				A0620B2418D7242C003A7A55 /* TiCheckTests.m */,
 				A0620B1F18D7242C003A7A55 /* Supporting Files */,
+				A0620B2418D7242C003A7A55 /* TiCheckTests.m */,
+				A00CE48518F278E900151513 /* FlightOrderListTest.m */,
+				A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */,
+				A00CE48718F286D600151513 /* FlightViewOrderTest.m */,
+				A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */,
+				A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */,
+				A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */,
 			);
 			path = TiCheckTests;
 			sourceTree = "<group>";
@@ -375,6 +470,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = tac;
 				TargetAttributes = {
+					A0620AF518D7242C003A7A55 = {
+						DevelopmentTeam = GS9T9X284M;
+					};
 					A0620B1518D7242C003A7A55 = {
 						TestTargetID = A0620AF518D7242C003A7A55;
 					};
@@ -386,6 +484,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = A0620AED18D7242C003A7A55;
 			productRefGroup = A0620AF718D7242C003A7A55 /* Products */;
@@ -403,6 +502,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0040BC418E92768008E6485 /* Main.storyboard in Resources */,
 				A0620B0618D7242C003A7A55 /* InfoPlist.strings in Resources */,
 				A0620B1118D7242C003A7A55 /* Images.xcassets in Resources */,
 			);
@@ -457,8 +557,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */,
+				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
+				2491398D18ED855000061780 /* LineChart.m in Sources */,
 				A0620B6018D72743003A7A55 /* Contact.m in Sources */,
 				A0620B8F18D727B6003A7A55 /* OTAFlightCancelOrder.m in Sources */,
 				A0620B9218D727B6003A7A55 /* OTAFlightSearch.m in Sources */,
@@ -467,12 +569,17 @@
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
 				A0620B6318D72743003A7A55 /* Flight.m in Sources */,
+				2491398518ED290700061780 /* SearchResultCell.m in Sources */,
 				A0620B9318D727B6003A7A55 /* OTAFlightViewOrder.m in Sources */,
+				24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */,
 				A0620B0818D7242C003A7A55 /* main.m in Sources */,
+				24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */,
 				A0620B6418D72743003A7A55 /* Order.m in Sources */,
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
 				A0620B9A18D727B6003A7A55 /* OTAFlightViewOrderResponse.m in Sources */,
 				A0620B9718D727B6003A7A55 /* OTAFlightOrderListResponse.m in Sources */,
+				24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */,
+				2491398218ED273D00061780 /* SearchResultViewController.m in Sources */,
 				A0620B6118D72743003A7A55 /* CreditCardInfo.m in Sources */,
 				A0620B9918D727B6003A7A55 /* OTAFlightSearchResponse.m in Sources */,
 				A0620B6C18D72772003A7A55 /* NSString+EnumTransform.m in Sources */,
@@ -483,6 +590,7 @@
 				A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */,
 				A0620B9018D727B6003A7A55 /* OTAFlightOrderList.m in Sources */,
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
+				24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */,
 				A0620B6518D72743003A7A55 /* Passenger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,7 +599,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */,
+				A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */,
+				A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */,
+				A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */,
+				A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */,
 				A0620B2518D7242C003A7A55 /* TiCheckTests.m in Sources */,
+				A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +624,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A0620B0518D7242C003A7A55 /* en */,
+				A0040BC818E927BE008E6485 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -518,6 +633,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A0620B2218D7242C003A7A55 /* en */,
+				A0040BC918E927BE008E6485 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -527,6 +643,7 @@
 /* Begin XCBuildConfiguration section */
 		A0620B2618D7242C003A7A55 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -565,6 +682,7 @@
 		};
 		A0620B2718D7242C003A7A55 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -601,6 +719,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TiCheck/TiCheck-Prefix.pch";
 				INFOPLIST_FILE = "TiCheck/TiCheck-Info.plist";
@@ -616,6 +735,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TiCheck/TiCheck-Prefix.pch";
 				INFOPLIST_FILE = "TiCheck/TiCheck-Info.plist";
@@ -627,6 +747,7 @@
 		};
 		A0620B2C18D7242C003A7A55 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TiCheck.app/TiCheck";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -649,6 +770,7 @@
 		};
 		A0620B2D18D7242C003A7A55 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TiCheck.app/TiCheck";
 				FRAMEWORK_SEARCH_PATHS = (

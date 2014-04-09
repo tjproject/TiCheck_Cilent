@@ -1,4 +1,23 @@
 PODS:
+  - AFNetworking (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.1):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.1)
+  - AFNetworking/Security (2.2.1)
+  - AFNetworking/Serialization (2.2.1)
+  - AFNetworking/UIKit (2.2.1):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - ASIHTTPRequest (1.8.2):
     - ASIHTTPRequest/ASIWebPageRequest
     - ASIHTTPRequest/CloudFiles
@@ -12,19 +31,29 @@ PODS:
     - Reachability
   - ASIHTTPRequest/S3 (1.8.2):
     - ASIHTTPRequest/Core
+  - EGOTableViewPullRefresh (0.1.0)
   - GDataXML-HTML (1.1.0)
+  - MagicalRecord (2.2):
+    - MagicalRecord/Core
+  - MagicalRecord/Core (2.2)
   - NSDate-Extensions (0.0.1)
   - Reachability (3.1.1)
 
 DEPENDENCIES:
+  - AFNetworking
   - ASIHTTPRequest
+  - EGOTableViewPullRefresh
   - GDataXML-HTML
+  - MagicalRecord
   - NSDate-Extensions
 
 SPEC CHECKSUMS:
-  ASIHTTPRequest: 4bd3ed65bf8a726292c5fa79ea5c0a2e02c97241
+  AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
+  ASIHTTPRequest: 0b05282cf3c422c3474eff98c5bb8c1192b91b86
+  EGOTableViewPullRefresh: 7ed130952ccdc745c06835558cb13193fda22d78
   GDataXML-HTML: 281ea772a286241f860fa152cff5c7a7cd817336
-  NSDate-Extensions: b78c2b3f363acdcd7b5d2547a6bef6656cd8ff70
+  MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
+  NSDate-Extensions: 4a3be5bdfff735573aae834c93eec99f571dcc20
   Reachability: be4883bb93f31e38266ae3365e5600a317aae735
 
 COCOAPODS: 0.29.0

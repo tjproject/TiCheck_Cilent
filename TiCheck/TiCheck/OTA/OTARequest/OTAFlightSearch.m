@@ -13,6 +13,19 @@
 
 @implementation OTAFlightSearch
 
+- (id)init
+{
+    if (self = [super init]) {
+        _departPort = @"";
+        _arrivePort = @"";
+        _airline = @"";
+        _sendTicketCity = @"";
+        _departDate = [NSDate date];
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAFlightSearchXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:FlightSearchRequest];
@@ -21,7 +34,6 @@
                             "%@"
                             "&lt;/Request&gt;", [header stringByAppendingString:[self generateFlightSearchRequestXML]]];
     
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 
@@ -33,10 +45,10 @@
     NSString *sendTicketCity      = [NSString stringWithFormat:@"&lt;SendTicketCity&gt;%@&lt;/SendTicketCity&gt;", self.sendTicketCity];
     NSString *isSimpleResponse    = [NSString stringWithFormat:@"&lt;IsSimpleResponse&gt;%@&lt;/IsSimpleResponse&gt;", (self.isSimpleResponse ? @"true" : @"false")];
     NSString *isLowestPrice       = [NSString stringWithFormat:@"&lt;IsLowestPrice&gt;%@&lt;/IsLowestPrice&gt;", (self.isLowestPrice ? @"true" : @"false")];
-    NSString *priceType           = [NSString stringWithFormat:
-                                     @"&lt;PriceTypeOptions&gt;\n"
-                                     "&lt;string&gt;%@&lt;/string&gt;\n"
-                                     "&lt;/PriceTypeOptions", [NSString priceTypeToString:_priceTypeOptions]];
+//    NSString *priceType           = [NSString stringWithFormat:
+//                                     @"&lt;PriceTypeOptions&gt;\n"
+//                                     "&lt;string&gt;%@&lt;/string&gt;\n"
+//                                     "&lt;/PriceTypeOptions", [NSString priceTypeToString:_priceTypeOptions]];
     NSString *productType         = [NSString stringWithFormat:@"&lt;ProductTypeOptions&gt;%@&lt;/ProductTypeOptions&gt;", [NSString productTypeToString:_productTypeOptions]];
     NSString *classGrade          = [NSString stringWithFormat:@"&lt;Classgrade&gt;%@&lt;/Classgrade&gt;", [NSString classGradeToString:_classGrade]];
     NSString *orderCriterion      = [NSString stringWithFormat:@"&lt;OrderBy&gt;%@&lt;/OrderBy&gt;", [NSString orderCriterionToString:_orderBy]];
@@ -53,8 +65,7 @@
                                      "%@\n"
                                      "%@\n"
                                      "%@\n"
-                                     "%@\n"
-                                     "&lt;/FlightSearchRequest&gt;\n", searchType, [self generateRoutesXML], sendTicketCity, isSimpleResponse, isLowestPrice, priceType, productType, classGrade, orderCriterion, orderDirection];
+                                     "&lt;/FlightSearchRequest&gt;\n", searchType, [self generateRoutesXML], sendTicketCity, isSimpleResponse, isLowestPrice, productType, classGrade, orderCriterion, orderDirection];
 
     return flightSearchRequest;
 }
@@ -67,8 +78,8 @@
     NSString *airline            = [NSString stringWithFormat:@"&lt;AirlineDibitCode&gt;%@&lt;/AirlineDibitCode&gt;", self.airline];
     NSString *departPort         = [NSString stringWithFormat:@"&lt;DepartPort&gt;%@&lt;/DepartPort&gt;", self.departPort];
     NSString *arrivePort         = [NSString stringWithFormat:@"&lt;ArrivePort&gt;%@&lt;/ArrivePort&gt;", self.arrivePort];
-    NSString *earliestDepartTime = [NSString stringWithFormat:@"&lt;EarliestDepartTime&gt;%@&lt;/EarliestDepartTime&gt;", [NSString stringFormatWithTime:self.earliestDepartTime]];
-    NSString *latestDepartTime   = [NSString stringWithFormat:@"&lt;LatestDepartTime&gt;%@&lt;/LatestDepartTime&gt;", [NSString stringFormatWithTime:self.latestDepartTime]];
+//    NSString *earliestDepartTime = [NSString stringWithFormat:@"&lt;EarliestDepartTime&gt;%@&lt;/EarliestDepartTime&gt;", [NSString stringFormatWithTime:self.earliestDepartTime]];
+//    NSString *latestDepartTime   = [NSString stringWithFormat:@"&lt;LatestDepartTime&gt;%@&lt;/LatestDepartTime&gt;", [NSString stringFormatWithTime:self.latestDepartTime]];
 
     NSString *routesXML          = [NSString stringWithFormat:
                                     @"&lt;Routes&gt;\n"
@@ -79,10 +90,8 @@
                                     "%@\n"
                                     "%@\n"
                                     "%@\n"
-                                    "%@\n"
-                                    "%@\n"
                                     "&lt;/FlightRoute&gt;\n"
-                                    "&lt;/Routes&gt;", departCity, arriveCity, departDate, airline, departPort, arrivePort, earliestDepartTime, latestDepartTime];
+                                    "&lt;/Routes&gt;", departCity, arriveCity, departDate, airline, departPort, arrivePort];
     
     return routesXML;
 }

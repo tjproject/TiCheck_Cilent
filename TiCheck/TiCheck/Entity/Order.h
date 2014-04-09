@@ -9,8 +9,6 @@
 #import "OTAResponse.h"
 #import "EnumCollection.h"
 
-@class Flight;
-@class Passenger;
 @class DeliverInfo;
 
 @interface Order : NSObject

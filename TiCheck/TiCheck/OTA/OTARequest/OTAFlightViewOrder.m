@@ -11,6 +11,17 @@
 
 @implementation OTAFlightViewOrder
 
+- (id)initWithUserUniqueUID:(NSString *)uniqueID
+                 orderLists:(NSArray *)orders
+{
+    if (self = [super init]) {
+        _uniqueUID = uniqueID;
+        _orderIDs = orders;
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAFlightViewOrderXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:FlightViewOrderRequest];
@@ -19,14 +30,12 @@
                             "%@"
                             "&lt;/Request&gt;", [header stringByAppendingString:[self generateViewOrderListRequestXML]]];
     
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 
 - (NSString *)generateViewOrderListRequestXML
 {
-    // TODO: 添加UID
-    NSString *userID = @"";
+    NSString *userID = _uniqueUID;
     
     // 初始化order列表
     NSString *orderIDs = @"";

@@ -12,6 +12,11 @@
 @interface OTAFlightOrderList : NSObject
 
 /**
+ *  用户UID
+ */
+@property (nonatomic, strong) NSString *uniqueUID;
+
+/**
  *  出行时间段开始：DateTime类型；可空
  */
 @property (nonatomic, strong) NSDate *effectDate;
@@ -35,6 +40,21 @@
  *  数量：Int类型；必填，不指定时输入0
  */
 @property (nonatomic) NSInteger topCount;
+
+/**
+ *  初始化某一用户在某一时间段，某一状态的所有订单的FlightOrderList
+ *
+ *  @param uniqueID    用户的UniqueUID
+ *  @param effectDate  出行时间开始段
+ *  @param expiryDate  出行时间结束段
+ *  @param orderStatus 需要查看的订单状态
+ *
+ *  @return 初始化后的FlightOrderList
+ */
+- (id)initWithUserUniqueUID:(NSString *)uniqueID
+                 effectDate:(NSDate *)effectDate
+                 expiryDate:(NSDate *)expiryDate
+                orderStatus:(OrderStatus)orderStatus;
 
 /**
  *  根据条件生成对应查询订单列表xml的请求body

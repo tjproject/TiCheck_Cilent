@@ -18,7 +18,9 @@
 - (id)initWithOTAFlightOrderListResponse:(NSString *)xml
 {
     if (self = [super initHeaderWithResponse:xml]) {
-        [self parseResponseXML:xml];
+        if ([[self.header valueForKey:@"ResultCode"] isEqualToString:@"Success"]) {
+            [self parseResponseXML:xml];
+        }
     }
     
     return self;
@@ -27,6 +29,12 @@
 - (void)parseResponseXML:(NSString *)xml
 {
     GDataXMLElement *root = [self getRootElement:xml];
+    
+    // Parsing RecordsCount
+    GDataXMLElement *recordCount = [[root nodesForXPath:@"//ctrip:RecordsCount"
+                                             namespaces:self.namespacesDic
+                                                  error:nil] objectAtIndex:0];
+    _recordsCount = [[recordCount stringValue] integerValue];
     
     // Parsing Orders
     NSArray *flightOrderList = [root nodesForXPath:@"//ctrip:FltOrder"

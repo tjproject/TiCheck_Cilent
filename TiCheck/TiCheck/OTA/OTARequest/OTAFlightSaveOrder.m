@@ -19,6 +19,26 @@
 
 @implementation OTAFlightSaveOrder
 
+- (id)initWithUserUniqueUID:(NSString *)uniqueID
+                    AgeType:(AgeType)ageType
+                 flightList:(NSArray *)flights
+              passengerList:(NSArray *)passengers
+                    contact:(Contact *)contact
+{
+    if (self = [super init]) {
+        // !!!: 初始化未进行检查
+        _uniqueUID = uniqueID;
+        _ageType = ageType;
+        _processDescription = @"";
+        _flightInfoList = flights;
+        _passengerList = passengers;
+        _contact = contact;
+        _deliverInfo = [DeliverInfo deliverInfoWithoutTicketSend];
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAFlightSaveOrderXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:FlightSaveOrderRequest];
@@ -27,7 +47,6 @@
                             "%@"
                             "&lt;/Request&gt;", [header stringByAppendingString:[self generateSaveOrderRequestXML]]];
         
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 
@@ -35,17 +54,17 @@
 
 - (NSString *)generateSaveOrderRequestXML
 {
-    // TODO: 添加UID
-    NSString *userID           = @"";
+    NSString *userID           = _uniqueUID;
 
-    NSString *ageType        = [NSString stringWithFormat:@"&lt;OrderType&gt;%@&lt;/OrderType&gt;", [NSString ageTypeToString:_ageType]];
-    NSString *amount           = [NSString stringWithFormat:@"&lt;Amount&gt;%f&lt;/Amount&gt;", _amount];
-    NSString *processDesc      = [NSString stringWithFormat:@"&lt;ProcessDesc&gt;%@&lt;/ProcessDesc", _processDescription];
+    NSString *ageType          = [NSString stringWithFormat:@"&lt;OrderType&gt;%@&lt;/OrderType&gt;", [NSString ageTypeToString:_ageType]];
+    NSString *processDesc      = [NSString stringWithFormat:@"&lt;ProcessDesc&gt;%@&lt;/ProcessDesc&gt;", _processDescription];
     NSString *flightInfoList   = [self generateFlightInfoListXML];
     NSString *passengerList    = [self generatePassengerListXML];
     NSString *contact          = [self generateContactXML];
     NSString *deliverInfo      = [self generateDeliverInfoXML];
-    NSString *creditCardInfo   = [self generateCreditCardInfoXML]; // ???: 考虑在任何情况下都把支付和下临时订单分开做
+//    NSString *creditCardInfo   = [self generateCreditCardInfoXML]; // ???: 考虑在任何情况下都把支付和下临时订单分开做
+    
+    NSString *amount           = [NSString stringWithFormat:@"&lt;Amount&gt;%f&lt;/Amount&gt;", _amount];
 
     NSString *saveOrderRequest = [NSString stringWithFormat:
                                   @"&lt;FltSaveOrderRequest&gt;\n"
@@ -57,8 +76,7 @@
                                   "%@\n"
                                   "%@\n"
                                   "%@\n"
-                                  "%@\n"
-                                  "&lt;/FltSaveOrderRequest&gt;\n", userID, ageType, amount, processDesc, flightInfoList, passengerList, contact, deliverInfo, creditCardInfo];
+                                  "&lt;/FltSaveOrderRequest&gt;\n", userID, ageType, amount, processDesc, flightInfoList, passengerList, contact, deliverInfo];
     
     return saveOrderRequest;
 }
@@ -73,31 +91,36 @@
         NSString *arriveCity  = [NSString stringWithFormat:@"&lt;ArriveCityID&gt;%@&lt;/ArriveCityID&gt;", flight.arriveCityCode];
         NSString *departPort  = [NSString stringWithFormat:@"&lt;DPortCode&gt;%@&lt;/DPortCode&gt;", flight.departPortCode];
         NSString *arrivePort  = [NSString stringWithFormat:@"&lt;APortCode&gt;%@&lt;/APortCode&gt;", flight.arrivePortCode];
-        NSString *airline     = [NSString stringWithFormat:@"&lt;AirlineCode&gt;%@&lt;/Airline&gt;", flight.airlineCode];
-        NSString *flightNo    = [NSString stringWithFormat:@"&lt;Fligh&gt;%@&lt;/Flight&gt;", flight.flightNumber];
+        NSString *airline     = [NSString stringWithFormat:@"&lt;AirlineCode&gt;%@&lt;/AirlineCode&gt;", flight.airlineCode];
+        NSString *flightNo    = [NSString stringWithFormat:@"&lt;Flight&gt;%@&lt;/Flight&gt;", flight.flightNumber];
         NSString *classGrade  = [NSString stringWithFormat:@"&lt;Class&gt;%@&lt;/Class&gt;", [NSString classGradeToString:flight.classGrade]];
-        NSString *subClass    = [NSString stringWithFormat:@"&lt;SubClass&gt;%@&lt;/SubClass", flight.subClass];
+        NSString *subClass    = [NSString stringWithFormat:@"&lt;SubClass&gt;%@&lt;/SubClass&gt;", flight.subClass];
         NSString *takeOffTime = [NSString stringWithFormat:@"&lt;TakeOffTime&gt;%@&lt;/TakeOffTime&gt;", [NSString stringFormatWithTime:flight.takeOffTime]];
         NSString *arrivalTime = [NSString stringWithFormat:@"&lt;ArrivalTime&gt;%@&lt;/ArrivalTime&gt;", [NSString stringFormatWithTime:flight.arrivalTime]];
         NSString *rate        = [NSString stringWithFormat:@"&lt;Rate&gt;%f&lt;/Rate&gt;", flight.rate];
         NSString *price       = @"";
         NSString *tax         = @"";
         NSString *oilFee      = @"";
+        
+        // !!! 此处计算amount值
         switch (_ageType) {
             case ADU:
-                price  = [NSString stringWithFormat:@"&lt;Rate&gt;%ld&lt;/Rate&gt;", flight.standardPrice];
-                tax    = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.adultTax];
-                oilFee = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.adultOilFee];
+                price   = [NSString stringWithFormat:@"&lt;Price&gt;%ld&lt;/Price&gt;", flight.standardPrice];
+                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.adultTax];
+                oilFee  = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.adultOilFee];
+                _amount = flight.standardPrice + flight.adultTax + flight.adultOilFee;
                 break;
             case CHI:
-                price  = [NSString stringWithFormat:@"&lt;Rate&gt;%ld&lt;/Rate&gt;", flight.childStandardPrice];
-                tax    = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.childTax];
-                oilFee = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.childOilFee];
+                price   = [NSString stringWithFormat:@"&lt;Price&gt;%ld&lt;/Price&gt;", flight.childStandardPrice];
+                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.childTax];
+                oilFee  = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.childOilFee];
+                _amount = flight.childStandardPrice + flight.childTax + flight.childOilFee;
                 break;
             case BAB:
-                price  = [NSString stringWithFormat:@"&lt;Rate&gt;%ld&lt;/Rate&gt;", flight.babyStandardPrice];
-                tax    = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.babyTax];
-                oilFee = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.babyOilFee];
+                price   = [NSString stringWithFormat:@"&lt;Price&gt;%ld&lt;/Price&gt;", flight.babyStandardPrice];
+                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.babyTax];
+                oilFee  = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.babyOilFee];
+                _amount = flight.babyStandardPrice + flight.babyTax + flight.babyOilFee;
                 break;
         }
         NSString *nonRer             = [NSString stringWithFormat:@"&lt;NonRer&gt;%@&lt;/NonRer&gt;", flight.nonRer];
@@ -169,7 +192,6 @@
     }
     
     flights = [flights stringByAppendingFormat:@"&lt;/FlightInfoList&gt;"];
-    NSLog(@"flightList = %@", flights);
     
     return flights;
 }

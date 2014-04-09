@@ -15,7 +15,7 @@
 /**
  *  符合条件的航班数量
  */
-@property (nonatomic) NSInteger recordCount;
+@property (nonatomic) NSUInteger recordCount;
 
 /**
  *  排序条件

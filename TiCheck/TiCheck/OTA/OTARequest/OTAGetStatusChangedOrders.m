@@ -13,6 +13,15 @@
 
 @implementation OTAGetStatusChangedOrders
 
+- (id)initWithChangedTime:(NSDate *)changedTime
+{
+    if (self = [super init]) {
+        _changedTime = changedTime;
+    }
+    
+    return self;
+}
+
 - (NSString *)generateOTAGetStatusChangedOrdersXMLRequest
 {
     NSString *header = [[ConfigurationHelper sharedConfigurationHelper] getHeaderStringWithRequestType:FlightStatusChangedOrdersRequest];
@@ -21,7 +30,6 @@
                             "%@"
                             "&lt;/Request&gt;", [header stringByAppendingString:[self generateGetStatusChangedOrdersRequestXML]]];
     
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 

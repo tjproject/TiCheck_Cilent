@@ -17,7 +17,9 @@
 - (id)initWithOTAFlightSearchResponse:(NSString *)xml
 {
     if (self = [super initHeaderWithResponse:xml]) {
-        [self parseResponseXML:xml];
+        if ([[self.header valueForKey:@"ResultCode"] isEqualToString:@"Success"]) {
+            [self parseResponseXML:xml];
+        }
     }
     
     return self;
@@ -28,9 +30,18 @@
     GDataXMLElement *root = [self getRootElement:xml];
     
     // Parsing RecordCount
-    GDataXMLElement *recordCount = [[root nodesForXPath:@"//ctrip:RecordCount"
-                                             namespaces:self.namespacesDic
-                                                  error:nil] objectAtIndex:0];
+    NSArray *recordCountArr = [root nodesForXPath:@"//ctrip:RecordCount"
+                                       namespaces:self.namespacesDic
+                                            error:nil];
+    // 没有符合条件的航班
+    if ([recordCountArr count] == 0) {
+        _recordCount = 0;
+        _flightsList = [NSArray array];
+        return ;
+    }
+    
+    // 有符合条件的航班
+    GDataXMLElement *recordCount = [recordCountArr objectAtIndex:0];
     _recordCount = [[recordCount stringValue] integerValue];
     
     // Parsing OrderBy
@@ -83,7 +94,7 @@
     flight.babyOilFee              = [ObjectElementToString(element, @"BabyOilFee") integerValue];
     flight.childOilFee             = [ObjectElementToString(element, @"ChildOilFee") integerValue];
     flight.departPortCode          = ObjectElementToString(element, @"DPortCode");
-    flight.arriveCityCode          = ObjectElementToString(element, @"APortCode");
+    flight.arrivePortCode          = ObjectElementToString(element, @"APortCode");
     flight.departPortBuildingID    = [ObjectElementToString(element, @"DPortBuildingID") integerValue];
     flight.arrivePortBuildingID    = [ObjectElementToString(element, @"APortBuildingID") integerValue];
     flight.stopTimes               = [ObjectElementToString(element, @"StopTimes") integerValue];

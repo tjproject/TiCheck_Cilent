@@ -19,14 +19,12 @@
                             "%@"
                             "</Request&gt;", [header stringByAppendingString:[self generateCancelOrderListRequestXML]]];
     
-    NSLog(@"request XML = %@", requestXML);
     return requestXML;
 }
 
 - (NSString *)generateCancelOrderListRequestXML
 {
-    // TODO: 添加UID
-    NSString *userID = @"";
+    NSString *userID = _uniqueUID;
 
     // 初始化order列表
     NSString *orderIDs = @"";
