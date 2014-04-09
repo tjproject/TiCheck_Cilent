@@ -201,13 +201,44 @@
                     <view key="view" contentMode="scaleToFill" id="BSZ-qL-Vvv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="01D-pl-mDQ">
+                                <rect key="frame" x="249" y="82" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="账号">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Isb-1A-Llb" kind="push" identifier="" id="kFT-Hu-rpe"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="个人中心" id="6WA-pH-NU3"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="toM-ZT-VPe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3" y="-319"/>
+            <point key="canvasLocation" x="195" y="-303"/>
+        </scene>
+        <!--View Controller - 账号-->
+        <scene sceneID="bOd-v6-d3A">
+            <objects>
+                <viewController id="Isb-1A-Llb" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3a0-v6-7OG"/>
+                        <viewControllerLayoutGuide type="bottom" id="S2d-Xx-eIx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FWY-20-wAT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="账号" id="ZfJ-e0-LaH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lxH-Gs-dIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="621" y="-311"/>
         </scene>
         <!--Login View Controller - 登录-->
         <scene sceneID="f1x-9O-oHv">
@@ -441,7 +472,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="查找结果" id="6kT-uX-Mix">
-                        <barButtonItem key="rightBarButtonItem" image="profile" id="ZeC-Hd-QOY"/>
+                        <barButtonItem key="rightBarButtonItem" image="profile" id="ZeC-Hd-QOY">
+                            <connections>
+                                <segue destination="wfT-WK-vVw" kind="push" id="Wbb-xk-TIo"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="foldPriceButton" destination="4DH-l8-tzc" id="s0z-zY-knH"/>
