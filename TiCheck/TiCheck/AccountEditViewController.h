@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AccountEditViewController : UIViewController
+@interface AccountEditViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (strong,nonatomic) IBOutlet UITableView* tableView;
 
 @end

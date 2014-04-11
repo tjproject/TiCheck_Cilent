@@ -15,6 +15,7 @@
 		24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8918EC5EE200F6A2A9 /* UserData.m */; };
 		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
 		68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */; };
+		68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */; };
 		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
 		A0040BC718E92783008E6485 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0040BC618E92783008E6485 /* ViewController.m */; };
 		A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48518F278E900151513 /* FlightOrderListTest.m */; };
@@ -94,6 +95,8 @@
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditViewController.h; sourceTree = "<group>"; };
 		68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountEditViewController.m; sourceTree = "<group>"; };
+		68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditDetailViewController.h; sourceTree = "<group>"; };
+		68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountEditDetailViewController.m; sourceTree = "<group>"; };
 		74C29AE6E97F440E8ABC5203 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0040BC318E92768008E6485 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A0040BC518E92783008E6485 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 			children = (
 				68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */,
 				68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */,
+				68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */,
+				68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -592,6 +597,7 @@
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
 				A0620B9A18D727B6003A7A55 /* OTAFlightViewOrderResponse.m in Sources */,
 				A0620B9718D727B6003A7A55 /* OTAFlightOrderListResponse.m in Sources */,
+				68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */,
 				24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */,
 				2491398218ED273D00061780 /* SearchResultViewController.m in Sources */,
 				A0620B6118D72743003A7A55 /* CreditCardInfo.m in Sources */,

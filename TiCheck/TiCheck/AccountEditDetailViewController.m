@@ -1,24 +1,30 @@
 //
-//  AccountEditViewController.m
+//  AccountEditDetailViewController.m
 //  TiCheck
 //
-//  Created by 黄泽彪 on 14-4-9.
+//  Created by 黄泽彪 on 14-4-11.
 //  Copyright (c) 2014年 tac. All rights reserved.
 //
 
-#import "AccountEditViewController.h"
 #import "AccountEditDetailViewController.h"
-@interface AccountEditViewController ()
 
+@interface AccountEditDetailViewController ()
+
+{
+    //0 1 2 : 账号 邮件 密码
+    int _SetEditDetailType;
+}
 @end
 
-@implementation AccountEditViewController
+@implementation AccountEditDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        //self.navigationItem.title=@"test";
+        //NSLog(@"test");
     }
     return self;
 }
@@ -26,32 +32,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
-    self.navigationItem.title=@"账号信息";
+    _SetEditDetailType=0;
+
 }
 
+- (void)setEditDetailType:(int)type
+{
+    _SetEditDetailType=type;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Button event
-
-- (IBAction)LogoutButtonEvent:(id)sender
-{
-    NSLog(@"log out");
-}
 
 
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //
-    [self setExtraCellLineHidden:tableView];
-    [tableView setScrollEnabled:NO];
-    //
     return 1;
 }
 
@@ -127,7 +129,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,29 +137,15 @@
 }
 
 
+/*
 #pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"editDetail"]) {
-         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        AccountEditDetailViewController* tempController= [segue destinationViewController];
-        [tempController setEditDetailType:indexPath.row];
-        if(indexPath.row==0)
-        {
-            NSLog(@"change name");
-            tempController.navigationItem.title=@"修改用户名";
-            
-            
-        }
-        else if(indexPath.row==1)
-        {
-            //e-mail
-        }
-        else if(indexPath.row==2)
-        {
-            tempController.navigationItem.title=@"修改密码";
-        }
-    }
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
+*/
+
 @end
