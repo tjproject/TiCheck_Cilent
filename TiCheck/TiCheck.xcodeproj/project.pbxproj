@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		131C6F9218F7CD1200654D6E /* TiCheck-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0620B0318D7242C003A7A55 /* TiCheck-Info.plist */; };
+		131C6F9318F7CD7200654D6E /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8D18F7CBE500654D6E /* Roboto-Bold.ttf */; };
+		131C6F9418F7CD7200654D6E /* Roboto-BoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8E18F7CBE500654D6E /* Roboto-BoldCondensed.ttf */; };
+		131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */; };
+		131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */; };
+		131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */; };
+		1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1370841918F7BC0200FD4949 /* TickectInfoViewController.m */; };
 		2491398218ED273D00061780 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398118ED273D00061780 /* SearchResultViewController.m */; };
 		2491398518ED290700061780 /* SearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398418ED290700061780 /* SearchResultCell.m */; };
 		2491398D18ED855000061780 /* LineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398C18ED855000061780 /* LineChart.m */; };
@@ -78,6 +85,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		131C6F8D18F7CBE500654D6E /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		131C6F8E18F7CBE500654D6E /* Roboto-BoldCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldCondensed.ttf"; sourceTree = "<group>"; };
+		131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Condensed.ttf"; sourceTree = "<group>"; };
+		131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		1370841818F7BC0200FD4949 /* TickectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickectInfoViewController.h; sourceTree = "<group>"; };
+		1370841918F7BC0200FD4949 /* TickectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickectInfoViewController.m; sourceTree = "<group>"; };
 		2491398018ED273D00061780 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
 		2491398118ED273D00061780 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		2491398318ED290600061780 /* SearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultCell.h; sourceTree = "<group>"; };
@@ -207,6 +221,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		131C6F8C18F7CB6C00654D6E /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				131C6F8D18F7CBE500654D6E /* Roboto-Bold.ttf */,
+				131C6F8E18F7CBE500654D6E /* Roboto-BoldCondensed.ttf */,
+				131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */,
+				131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */,
+				131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
+		1370841718F7BB6A00FD4949 /* TicketInfo */ = {
+			isa = PBXGroup;
+			children = (
+				1370841818F7BC0200FD4949 /* TickectInfoViewController.h */,
+				1370841918F7BC0200FD4949 /* TickectInfoViewController.m */,
+			);
+			name = TicketInfo;
+			sourceTree = "<group>";
+		};
 		2491397F18ED271400061780 /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +291,7 @@
 		A033D49118F2410000C3E9FD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				131C6F8C18F7CB6C00654D6E /* fonts */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -296,6 +332,7 @@
 		A0620B0118D7242C003A7A55 /* TiCheck */ = {
 			isa = PBXGroup;
 			children = (
+				1370841718F7BB6A00FD4949 /* TicketInfo */,
 				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 				A033D49118F2410000C3E9FD /* Resources */,
 				A0620B0A18D7242C003A7A55 /* AppDelegate.h */,
@@ -489,7 +526,7 @@
 				ORGANIZATIONNAME = tac;
 				TargetAttributes = {
 					A0620AF518D7242C003A7A55 = {
-						DevelopmentTeam = GS9T9X284M;
+						DevelopmentTeam = 6992736KPW;
 					};
 					A0620B1518D7242C003A7A55 = {
 						TestTargetID = A0620AF518D7242C003A7A55;
@@ -520,9 +557,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */,
+				131C6F9218F7CD1200654D6E /* TiCheck-Info.plist in Resources */,
 				A0040BC418E92768008E6485 /* Main.storyboard in Resources */,
+				131C6F9318F7CD7200654D6E /* Roboto-Bold.ttf in Resources */,
 				A0620B0618D7242C003A7A55 /* InfoPlist.strings in Resources */,
+				131C6F9418F7CD7200654D6E /* Roboto-BoldCondensed.ttf in Resources */,
+				131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */,
 				A0620B1118D7242C003A7A55 /* Images.xcassets in Resources */,
+				131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,6 +629,7 @@
 				A0620B0F18D7242C003A7A55 /* TiCheck.xcdatamodeld in Sources */,
 				A0620B9818D727B6003A7A55 /* OTAFlightSaveOrderResponse.m in Sources */,
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
+				1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
 				A0620B6318D72743003A7A55 /* Flight.m in Sources */,
 				2491398518ED290700061780 /* SearchResultCell.m in Sources */,
@@ -740,10 +784,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TiCheck/TiCheck-Prefix.pch";
 				INFOPLIST_FILE = "TiCheck/TiCheck-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -755,10 +801,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TiCheck/TiCheck-Prefix.pch";
 				INFOPLIST_FILE = "TiCheck/TiCheck-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

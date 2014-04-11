@@ -576,13 +576,25 @@
                     <view key="view" contentMode="scaleToFill" id="EHQ-54-TlG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ck-JI-33C">
+                                <rect key="frame" x="130" y="228" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="订单详情">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="IGn-TZ-IN7" kind="push" id="nTe-H1-gea"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="我的订单" id="DDs-g2-9up"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7NP-Ds-eT3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-175" y="1391"/>
+            <point key="canvasLocation" x="-314" y="1445"/>
         </scene>
         <!--View Controller - Item 1-->
         <scene sceneID="wlH-r3-Lep">
@@ -639,7 +651,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jsk-eY-0xc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="995" y="1367"/>
+            <point key="canvasLocation" x="947" y="1529"/>
         </scene>
         <!--View Controller - 订单详情-->
         <scene sceneID="rzk-lT-pFE">
@@ -763,6 +775,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbh-CD-Drs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1315" y="802"/>
+        </scene>
+        <!--Tickect Info View Controller - 订单详情-->
+        <scene sceneID="2XP-8G-Fdo">
+            <objects>
+                <viewController id="IGn-TZ-IN7" customClass="TickectInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="T66-LA-BSP"/>
+                        <viewControllerLayoutGuide type="bottom" id="FyJ-em-MkX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="X62-62-KCc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="订单详情" id="sC1-ha-VyS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0kk-Pe-l91" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="115" y="1623"/>
         </scene>
     </scenes>
     <resources>
