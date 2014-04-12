@@ -7,13 +7,19 @@
 //
 
 #import "AccountEditDetailViewController.h"
-
+#import "UserData.h"
 @interface AccountEditDetailViewController ()
-
 {
-    //0 1 2 : 账号 邮件 密码
+    //0 1 2 : account name, email password
     int _SetEditDetailType;
 }
+
+//if changing password, the first must be the old password
+@property (strong, nonatomic) IBOutlet UITextField *firstField;
+//confirm the new password
+@property (strong, nonatomic) IBOutlet UITextField *secondField;
+
+@property (strong, nonatomic) IBOutlet UIButton *seperateLine2;
 @end
 
 @implementation AccountEditDetailViewController
@@ -34,13 +40,15 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-    _SetEditDetailType=0;
+    //_SetEditDetailType=0;
+    [self initTextFieldDisplay:_SetEditDetailType];
 
 }
 
 - (void)setEditDetailType:(int)type
 {
     _SetEditDetailType=type;
+    //[self initTextFieldDisplay:type];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -48,95 +56,101 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-#pragma mark - Table View
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)initTextFieldDisplay:(int) type
 {
-    return 1;
+    
+    switch (type) {
+        case 0:
+            //
+            self.secondField.hidden=YES;
+            self.seperateLine2.hidden=YES;
+            self.firstField.placeholder=@"新用户名";
+            break;
+        case 1:
+            self.secondField.hidden=YES;
+            self.seperateLine2.hidden=YES;
+            self.firstField.placeholder=@"新邮箱";
+            break;
+        case 2:
+            //password
+            self.firstField.secureTextEntry=YES;
+            self.secondField.secureTextEntry=YES;
+            break;
+    }
 }
 
-//delete useless lines
--(void)setExtraCellLineHidden: (UITableView *)tableView
+- (IBAction)confirmButtonEvent:(id)sender
 {
-    UIView *view = [UIView new];
-    view.backgroundColor = [UIColor clearColor];
-    [tableView setTableFooterView:view];
-    //[view release];
+    //
+    NSLog(@"yes");
+    
+    NSString* firstS=self.firstField.text;
+    NSString* secondS=self.secondField.text;
+    
+    
+    
+    switch (_SetEditDetailType) {
+        case 0:
+            //update name
+            if ([self checkString:firstS WithName:@"用户名"])
+            {
+                [UserData sharedUserData].account=firstS;
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            
+            break;
+        case 1:
+            //update email
+            if ([self checkString:firstS WithName:@"邮箱"])
+            {
+                [UserData sharedUserData].email=firstS;
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            break;
+        case 2:
+            //update password after confirm the old one
+            if([self checkString:firstS  WithName:@"旧密码"])
+            {
+                //TODO: password check
+                if(YES)//firstS== [UserData sharedUserData].password)
+                {
+                    if([self checkString:secondS  WithName:@"新密码"])
+                    {
+                        [UserData sharedUserData].password=secondS;
+                    }
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else
+                {
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"旧密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+            }
+            break;
+    }
+    
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (BOOL)checkString:(NSString*)target WithName:(NSString*) name
 {
-    
-    return 3;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"AccountInfoCell";
-    
-    //初始化cell并指定其类型，也可自定义cell
-    
-    UITableViewCell *cell = (UITableViewCell*)[tableView  dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if(cell==nil)
+    if (target.length==0)
     {
-        //当没有可复用的空闲的cell资源时(第一次载入,没翻页)
-        cell=[[UITableViewCell alloc]  initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //UITableViewCellStyleDefault 只能显示一张图片，一个字符串，即本例样式
-        //UITableViewCellStyleSubtitle 可以显示一张图片，两个字符串，上面黑色，下面的灰色
-        //UITableViewCellStyleValue1 可以显示一张图片，两个字符串，左边的黑色，右边的灰色
-        //UITableViewCellStyleValue2 可以显示两个字符串，左边的灰色，右边的黑色
+        NSString* messageS=[name stringByAppendingString:@"不能为空"];
         
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message: messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
     }
     
-    NSString* cellTitle=@"tt";
-    NSString* cellContent=@"tt";
-    
-    if(indexPath.row==0)
+    if ([target rangeOfString:@""].location!=NSNotFound)
     {
-        cellTitle=@"用户名";
-        cellContent=@"某某";
+        NSString* messageS=[name stringByAppendingString:@"不能有空格"];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
     }
-    else if(indexPath.row==1)
-    {
-        cellTitle=@"邮箱";
-        cellContent=@"TiCheck@gmail.com";
-    }
-    else if(indexPath.row==2)
-    {
-        cellTitle=@"密码";
-        cellContent=@"******";
-    }
-    
-    //cell.accessoryType= UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.text=cellTitle;
-    //cell.textLabel.textColor=[[UIColor alloc] initWithRed:33/255 green:44/255 blue:11/255 alpha:1];
-    //cell.textLabel.textAlignment=NSTextAlignmentLeft;
-    cell.detailTextLabel.text=cellContent;
-    
-    //cell.detailTextLabel.textAlignment=NSTextAlignmentRight;
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    return cell;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
-
 /*
 #pragma mark - Navigation
 

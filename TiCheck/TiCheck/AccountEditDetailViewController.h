@@ -10,4 +10,8 @@
 
 @interface AccountEditDetailViewController : UIViewController //<UITableViewDelegate, UITableViewDataSource>
 - (void)setEditDetailType:(int)type;
+
+
+
+
 @end

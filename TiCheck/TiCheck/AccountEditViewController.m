@@ -8,8 +8,9 @@
 
 #import "AccountEditViewController.h"
 #import "AccountEditDetailViewController.h"
+#import "UserData.h"
 @interface AccountEditViewController ()
-
+@property (strong, nonatomic) UITextField* cellPasswordDisplay;
 @end
 
 @implementation AccountEditViewController
@@ -29,6 +30,18 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title=@"账号信息";
 }
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    [self.tableView reloadData];
+    NSLog(@"reload");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
+    //[self.cellPasswordDisplay removeFromSuperview];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -72,49 +85,56 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    //use the cell defined in storyboard
     static NSString *CellIdentifier = @"AccountInfoCell";
-    
-    //初始化cell并指定其类型，也可自定义cell
-    
+
     UITableViewCell *cell = (UITableViewCell*)[tableView  dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if(cell==nil)
     {
-        //当没有可复用的空闲的cell资源时(第一次载入,没翻页)
         cell=[[UITableViewCell alloc]  initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //UITableViewCellStyleDefault 只能显示一张图片，一个字符串，即本例样式
-        //UITableViewCellStyleSubtitle 可以显示一张图片，两个字符串，上面黑色，下面的灰色
-        //UITableViewCellStyleValue1 可以显示一张图片，两个字符串，左边的黑色，右边的灰色
-        //UITableViewCellStyleValue2 可以显示两个字符串，左边的灰色，右边的黑色
-        
     }
     
+    //TODO: get the personal info
     NSString* cellTitle=@"tt";
     NSString* cellContent=@"tt";
     
     if(indexPath.row==0)
     {
         cellTitle=@"用户名";
-        cellContent=@"某某";
+        cellContent=[UserData sharedUserData].account;
+        cell.detailTextLabel.hidden=NO;
     }
     else if(indexPath.row==1)
     {
         cellTitle=@"邮箱";
-        cellContent=@"TiCheck@gmail.com";
+        cellContent=[UserData sharedUserData].email;
+        cell.detailTextLabel.hidden=NO;
     }
     else if(indexPath.row==2)
     {
+        
         cellTitle=@"密码";
         cellContent=@"******";
+        cell.detailTextLabel.hidden=YES;
+        cell.detailTextLabel.text=cellContent;
+        
+        //hide the original label, and generate a uitextfield to show password
+        if(self.cellPasswordDisplay==nil)
+        {
+            CGRect temp=cell.detailTextLabel.frame;
+            self.cellPasswordDisplay=[[UITextField alloc] initWithFrame: CGRectMake(temp.origin.x-20, temp.origin.y+100, temp.size.width+100, temp.size.height)];
+            self.cellPasswordDisplay.text=cellContent;
+            self.cellPasswordDisplay.secureTextEntry=YES;
+            self.cellPasswordDisplay.enabled=NO;
+            [self.tableView addSubview:self.cellPasswordDisplay];
+        }
     }
     
-    //cell.accessoryType= UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text=cellTitle;
-    //cell.textLabel.textColor=[[UIColor alloc] initWithRed:33/255 green:44/255 blue:11/255 alpha:1];
-    //cell.textLabel.textAlignment=NSTextAlignmentLeft;
     cell.detailTextLabel.text=cellContent;
     
-    //cell.detailTextLabel.textAlignment=NSTextAlignmentRight;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
@@ -142,22 +162,24 @@
     if ([[segue identifier] isEqualToString:@"editDetail"]) {
          NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         AccountEditDetailViewController* tempController= [segue destinationViewController];
-        [tempController setEditDetailType:indexPath.row];
+        
         if(indexPath.row==0)
         {
             NSLog(@"change name");
             tempController.navigationItem.title=@"修改用户名";
-            
-            
         }
         else if(indexPath.row==1)
         {
             //e-mail
+            tempController.navigationItem.title=@"修改邮箱";
         }
         else if(indexPath.row==2)
         {
             tempController.navigationItem.title=@"修改密码";
         }
+        [tempController setEditDetailType:indexPath.row];
     }
+    
+    //[self.tableView removeFromSuperview];
 }
 @end
