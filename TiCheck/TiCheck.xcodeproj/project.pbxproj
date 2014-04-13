@@ -37,7 +37,6 @@
 		A0620B0618D7242C003A7A55 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0620B0418D7242C003A7A55 /* InfoPlist.strings */; };
 		A0620B0818D7242C003A7A55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B0718D7242C003A7A55 /* main.m */; };
 		A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B0B18D7242C003A7A55 /* AppDelegate.m */; };
-		A0620B0F18D7242C003A7A55 /* TiCheck.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0620B0D18D7242C003A7A55 /* TiCheck.xcdatamodeld */; };
 		A0620B1118D7242C003A7A55 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0620B1018D7242C003A7A55 /* Images.xcassets */; };
 		A0620B1818D7242C003A7A55 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620B1718D7242C003A7A55 /* XCTest.framework */; };
 		A0620B1918D7242C003A7A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AF918D7242C003A7A55 /* Foundation.framework */; };
@@ -70,6 +69,9 @@
 		A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B8E18D727B6003A7A55 /* OTAUserUniqueIDResponse.m */; };
 		A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */; };
 		A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620BA118D727D6003A7A55 /* SoapRequest.m */; };
+		A0B677F918FABF5700A4DC76 /* DomesticCities.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0B677F818FABF5700A4DC76 /* DomesticCities.xml */; };
+		A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */; };
+		A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780818FAC35A00A4DC76 /* DomesticCity.m */; };
 		A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */; };
 		C69E840808974A8CAEDB832F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C29AE6E97F440E8ABC5203 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -133,7 +135,6 @@
 		A0620B0918D7242C003A7A55 /* TiCheck-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TiCheck-Prefix.pch"; sourceTree = "<group>"; };
 		A0620B0A18D7242C003A7A55 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A0620B0B18D7242C003A7A55 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A0620B0E18D7242C003A7A55 /* TiCheck.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TiCheck.xcdatamodel; sourceTree = "<group>"; };
 		A0620B1018D7242C003A7A55 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A0620B1618D7242C003A7A55 /* TiCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TiCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0620B1718D7242C003A7A55 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -191,6 +192,11 @@
 		A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationHelper.m; sourceTree = "<group>"; };
 		A0620BA018D727D6003A7A55 /* SoapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapRequest.h; sourceTree = "<group>"; };
 		A0620BA118D727D6003A7A55 /* SoapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoapRequest.m; sourceTree = "<group>"; };
+		A0B677F818FABF5700A4DC76 /* DomesticCities.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = DomesticCities.xml; path = Resources/APIRelated/DomesticCities.xml; sourceTree = "<group>"; };
+		A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIResourceHelper.h; sourceTree = "<group>"; };
+		A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIResourceHelper.m; sourceTree = "<group>"; };
+		A0B6780718FAC35A00A4DC76 /* DomesticCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticCity.h; sourceTree = "<group>"; };
+		A0B6780818FAC35A00A4DC76 /* DomesticCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticCity.m; sourceTree = "<group>"; };
 		A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSearchTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -291,6 +297,7 @@
 		A033D49118F2410000C3E9FD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A0B677F518FABF1200A4DC76 /* APIRelated */,
 				131C6F8C18F7CB6C00654D6E /* fonts */,
 			);
 			name = Resources;
@@ -332,25 +339,15 @@
 		A0620B0118D7242C003A7A55 /* TiCheck */ = {
 			isa = PBXGroup;
 			children = (
-				1370841718F7BB6A00FD4949 /* TicketInfo */,
-				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
-				A033D49118F2410000C3E9FD /* Resources */,
 				A0620B0A18D7242C003A7A55 /* AppDelegate.h */,
 				A0620B0B18D7242C003A7A55 /* AppDelegate.m */,
-				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
-				24FC2B6B18EC3AD000F6A2A9 /* Login */,
-				2491397F18ED271400061780 /* SearchResult */,
 				A0620B6618D72772003A7A55 /* Category */,
-				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
-				A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */,
-				A0620BA018D727D6003A7A55 /* SoapRequest.h */,
-				A0620BA118D727D6003A7A55 /* SoapRequest.m */,
-				A0620B5318D72743003A7A55 /* Entity */,
-				A0620B6D18D727B6003A7A55 /* OTA */,
 				A0620B1018D7242C003A7A55 /* Images.xcassets */,
-				A0620B0D18D7242C003A7A55 /* TiCheck.xcdatamodeld */,
-				A0620B0218D7242C003A7A55 /* Supporting Files */,
+				A0B677FA18FABF7000A4DC76 /* LogicLayer */,
 				A0040BC318E92768008E6485 /* Main.storyboard */,
+				A0B677FD18FABFD200A4DC76 /* PresentationLayer */,
+				A033D49118F2410000C3E9FD /* Resources */,
+				A0620B0218D7242C003A7A55 /* Supporting Files */,
 				A0040BC518E92783008E6485 /* ViewController.h */,
 				A0040BC618E92783008E6485 /* ViewController.m */,
 			);
@@ -407,6 +404,8 @@
 				A0620B5D18D72743003A7A55 /* Order.m */,
 				A0620B5E18D72743003A7A55 /* Passenger.h */,
 				A0620B5F18D72743003A7A55 /* Passenger.m */,
+				A0B6780718FAC35A00A4DC76 /* DomesticCity.h */,
+				A0B6780818FAC35A00A4DC76 /* DomesticCity.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -474,6 +473,49 @@
 				A0620B8E18D727B6003A7A55 /* OTAUserUniqueIDResponse.m */,
 			);
 			path = OTAResponse;
+			sourceTree = "<group>";
+		};
+		A0B677F518FABF1200A4DC76 /* APIRelated */ = {
+			isa = PBXGroup;
+			children = (
+				A0B677F818FABF5700A4DC76 /* DomesticCities.xml */,
+			);
+			name = APIRelated;
+			sourceTree = "<group>";
+		};
+		A0B677FA18FABF7000A4DC76 /* LogicLayer */ = {
+			isa = PBXGroup;
+			children = (
+				A0620BA018D727D6003A7A55 /* SoapRequest.h */,
+				A0620BA118D727D6003A7A55 /* SoapRequest.m */,
+				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
+				A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */,
+				A0620B5318D72743003A7A55 /* Entity */,
+				A0B677FC18FABF9100A4DC76 /* CTripAPI */,
+				A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */,
+				A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */,
+			);
+			name = LogicLayer;
+			sourceTree = "<group>";
+		};
+		A0B677FC18FABF9100A4DC76 /* CTripAPI */ = {
+			isa = PBXGroup;
+			children = (
+				A0620B6D18D727B6003A7A55 /* OTA */,
+			);
+			name = CTripAPI;
+			sourceTree = "<group>";
+		};
+		A0B677FD18FABFD200A4DC76 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
+				24FC2B6B18EC3AD000F6A2A9 /* Login */,
+				2491397F18ED271400061780 /* SearchResult */,
+				1370841718F7BB6A00FD4949 /* TicketInfo */,
+				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
+			);
+			name = PresentationLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -557,6 +599,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0B677F918FABF5700A4DC76 /* DomesticCities.xml in Resources */,
 				131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */,
 				131C6F9218F7CD1200654D6E /* TiCheck-Info.plist in Resources */,
 				A0040BC418E92768008E6485 /* Main.storyboard in Resources */,
@@ -626,10 +669,10 @@
 				A0620B6018D72743003A7A55 /* Contact.m in Sources */,
 				A0620B8F18D727B6003A7A55 /* OTAFlightCancelOrder.m in Sources */,
 				A0620B9218D727B6003A7A55 /* OTAFlightSearch.m in Sources */,
-				A0620B0F18D7242C003A7A55 /* TiCheck.xcdatamodeld in Sources */,
 				A0620B9818D727B6003A7A55 /* OTAFlightSaveOrderResponse.m in Sources */,
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
 				1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */,
+				A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
 				A0620B6318D72743003A7A55 /* Flight.m in Sources */,
 				2491398518ED290700061780 /* SearchResultCell.m in Sources */,
@@ -651,6 +694,7 @@
 				A0620B9618D727B6003A7A55 /* OTAFlightCancelOrderResponse.m in Sources */,
 				A0620B6B18D72772003A7A55 /* NSString+DateFormat.m in Sources */,
 				A0620B9C18D727B6003A7A55 /* OTAResponse.m in Sources */,
+				A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */,
 				A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */,
 				A0620B9018D727B6003A7A55 /* OTAFlightOrderList.m in Sources */,
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
@@ -884,19 +928,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		A0620B0D18D7242C003A7A55 /* TiCheck.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A0620B0E18D7242C003A7A55 /* TiCheck.xcdatamodel */,
-			);
-			currentVersion = A0620B0E18D7242C003A7A55 /* TiCheck.xcdatamodel */;
-			path = TiCheck.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A0620AEE18D7242C003A7A55 /* Project object */;
 }
