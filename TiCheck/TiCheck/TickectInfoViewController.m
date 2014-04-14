@@ -7,9 +7,12 @@
 //
 
 #import "TickectInfoViewController.h"
+#define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
 @interface TickectInfoViewController ()
-
+{
+    NSArray *cellTitleArr;
+}
 @end
 
 @implementation TickectInfoViewController
@@ -29,6 +32,8 @@
     [self initLabel];
     [self initImage];
     [self initButton];
+    [self initCellButton];
+    [self initInfoVessel];
 }
 
 - (void)initLabel
@@ -111,11 +116,89 @@
     _TIVC_bookButton = [[UIButton alloc] initWithFrame:CGRectMake(110, 130, 100, 42)];
     [_TIVC_bookButton setImage:[UIImage imageNamed:@"bookButton"] forState:UIControlStateNormal];
     [_TIVC_bookButton addTarget:self action:@selector(bookButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _TIVC_confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 568-44, 320, 45)];
+    [_TIVC_confirmButton setImage:[UIImage imageNamed:@"confirmButton"] forState:UIControlStateNormal];
+    [_TIVC_confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_TIVC_bookButton];
+    [self.view addSubview:_TIVC_confirmButton];
+    [self.view bringSubviewToFront:_TIVC_confirmButton];
 }
+
+#pragma mark - buttons in cell
+- (void)initCellButton
+{
+    _TIVC_addPassengerButton = [[UIButton alloc] initWithFrame:CELL_BUTTON_RECT];
+    _TIVC_addressBookButton = [[UIButton alloc] initWithFrame:CELL_BUTTON_RECT];
+    [_TIVC_addPassengerButton setImage:[UIImage imageNamed:@"passengerButton"] forState:UIControlStateNormal];
+    [_TIVC_addressBookButton setImage:[UIImage imageNamed:@"addressButton"] forState:UIControlStateNormal];
+    [_TIVC_addPassengerButton addTarget:self action:@selector(addPassenger:) forControlEvents:UIControlEventTouchUpInside];
+    [_TIVC_addressBookButton addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)initInfoVessel
+{
+    _infoVessel = [[UITableView alloc] initWithFrame:CGRectMake(0, 282, 320, 536-282-45
+                                                                )];
+    _infoVessel.dataSource = self;
+    _infoVessel.delegate = self;
+    [_infoVessel setSeparatorInset:UIEdgeInsetsZero];
+    _infoVessel.scrollEnabled = NO;
+    [self.view addSubview:_infoVessel];
+    cellTitleArr = [NSArray arrayWithObjects:@"登机人",@"手机号码",@"航空意外险",@"报销凭证", nil];
+}
+
+#pragma mark - UITableView dataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {return 1;}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {return 4;}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+    }
+    if (indexPath.row == 0) [cell.contentView addSubview:_TIVC_addPassengerButton];
+    else if(indexPath.row == 1) [cell.contentView addSubview:_TIVC_addressBookButton];
+    else if(indexPath.row == 2)
+    {
+        cell.detailTextLabel.text = @"¥30X1份";
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:1.0 green:0.6 blue:0 alpha:1.0];
+    }
+    else
+    {
+        cell.detailTextLabel.text = @"不需要报销凭证";
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
+    }
+    cell.textLabel.text = [cellTitleArr objectAtIndex:[indexPath row]];
+    cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+#pragma mark - UITableView Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {return 48;}
 
 #pragma mark - target selector
 - (void)bookButtonPressed:(id)sender
+{
+    //add
+}
+
+- (void)confirmPressed:(id)sender
+{
+    //add
+}
+
+- (void)addPassenger:(id)sender
+{
+    //add
+}
+
+- (void)addAddress:(id)sender
 {
     //add
 }
@@ -127,14 +210,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TickectInfoViewController : UIViewController
+@interface TickectInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     UIImageView *edgeImage;
     UIImageView *lineIndicator;
@@ -30,6 +30,9 @@
 @property (strong, nonatomic) UIImageView *TIVC_flightImage;
 
 @property (strong, nonatomic) UIButton *TIVC_bookButton;
+@property (strong, nonatomic) UIButton *TIVC_confirmButton;
+@property (strong, nonatomic) UIButton *TIVC_addPassengerButton;
+@property (strong, nonatomic) UIButton *TIVC_addressBookButton;
 
 @property (strong, nonatomic) UITableView *infoVessel;
 
