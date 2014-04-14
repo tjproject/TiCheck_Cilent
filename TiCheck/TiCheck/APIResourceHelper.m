@@ -21,9 +21,62 @@
     static dispatch_once_t pred = 0;
     __strong static APIResourceHelper *_sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] init];
+        _sharedObject = [[self alloc] initStaticInfo];
     });
     return _sharedObject;
+}
+
+- (DomesticCity *)findDomesticCityViaID:(NSInteger)cityID
+{
+    DomesticCity *result = nil;
+    
+    for (DomesticCity *city in domesticCities) {
+        if (city.cityID == cityID) {
+            result = city;
+            break;
+        }
+    }
+    
+    return result;
+}
+
+- (DomesticCity *)findDomesticCityViaCode:(NSString *)cityCode
+{
+    DomesticCity *result = nil;
+    
+    for (DomesticCity *city in domesticCities) {
+        if ([city.cityCode isEqualToString:cityCode]) {
+            result = city;
+            break;
+        }
+    }
+    
+    return result;
+}
+
+- (DomesticCity *)findDomesticCityViaName:(NSString *)cityName
+{
+    DomesticCity *result = nil;
+    
+    for (DomesticCity *city in domesticCities) {
+        if ([city.cityName isEqualToString:cityName]) {
+            result = city;
+            break;
+        }
+    }
+    
+    return result;
+}
+
+#pragma mark - Helper Methods
+
+- (id)initStaticInfo
+{
+    if (self = [super init]) {
+        [self loadDomesticCities];
+    }
+    
+    return self;
 }
 
 - (void)loadDomesticCities
@@ -64,15 +117,6 @@
     }
     
     domesticCities = cityInfo;
-}
-
-- (id)init
-{
-    if (self = [super init]) {
-        [self loadDomesticCities];
-    }
-    
-    return self;
 }
 
 @end

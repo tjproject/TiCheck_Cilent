@@ -486,24 +486,16 @@
 		A0B677FA18FABF7000A4DC76 /* LogicLayer */ = {
 			isa = PBXGroup;
 			children = (
-				A0620BA018D727D6003A7A55 /* SoapRequest.h */,
-				A0620BA118D727D6003A7A55 /* SoapRequest.m */,
+				A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */,
+				A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */,
 				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
 				A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */,
 				A0620B5318D72743003A7A55 /* Entity */,
-				A0B677FC18FABF9100A4DC76 /* CTripAPI */,
-				A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */,
-				A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */,
+				A0620B6D18D727B6003A7A55 /* OTA */,
+				A0620BA018D727D6003A7A55 /* SoapRequest.h */,
+				A0620BA118D727D6003A7A55 /* SoapRequest.m */,
 			);
 			name = LogicLayer;
-			sourceTree = "<group>";
-		};
-		A0B677FC18FABF9100A4DC76 /* CTripAPI */ = {
-			isa = PBXGroup;
-			children = (
-				A0620B6D18D727B6003A7A55 /* OTA */,
-			);
-			name = CTripAPI;
 			sourceTree = "<group>";
 		};
 		A0B677FD18FABFD200A4DC76 /* PresentationLayer */ = {
