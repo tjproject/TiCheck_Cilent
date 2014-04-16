@@ -10,6 +10,7 @@
 
 #define DATE_FORMAT @"yyyy-MM-dd"
 #define TIME_FORMAT @"yyyy-MM-dd'T'HH:mm:ss"
+#define SHOW_FORMAT @"HH:mm"
 
 @implementation NSString (DateFormat)
 
@@ -53,6 +54,17 @@
     if (date == nil) date = [NSDate date];
     
     return date;
+}
+
++ (NSString *)showingStringFormatWithString:(NSDate *)date
+{
+    if (date == nil) return @"00:00";
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:SHOW_FORMAT];
+    NSString *dateStr = [dateFormatter stringFromDate:date];
+    
+    return dateStr;
 }
 
 @end

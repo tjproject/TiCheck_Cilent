@@ -86,9 +86,8 @@
     NSString *flights = @"&lt;FlightInfoList&gt;\n";
     
     for (Flight *flight in _flightInfoList) {
-        // !!!: 城市ID和城市三字码的区别
-        NSString *departCity  = [NSString stringWithFormat:@"&lt;DepartCityID&gt;%@&lt;/DepartCityID&gt;", flight.departCityCode];
-        NSString *arriveCity  = [NSString stringWithFormat:@"&lt;ArriveCityID&gt;%@&lt;/ArriveCityID&gt;", flight.arriveCityCode];
+        NSString *departCity  = [NSString stringWithFormat:@"&lt;DepartCityID&gt;%ld&lt;/DepartCityID&gt;", flight.departCityID];
+        NSString *arriveCity  = [NSString stringWithFormat:@"&lt;ArriveCityID&gt;%ld&lt;/ArriveCityID&gt;", flight.arriveCityID];
         NSString *departPort  = [NSString stringWithFormat:@"&lt;DPortCode&gt;%@&lt;/DPortCode&gt;", flight.departPortCode];
         NSString *arrivePort  = [NSString stringWithFormat:@"&lt;APortCode&gt;%@&lt;/APortCode&gt;", flight.arrivePortCode];
         NSString *airline     = [NSString stringWithFormat:@"&lt;AirlineCode&gt;%@&lt;/AirlineCode&gt;", flight.airlineCode];

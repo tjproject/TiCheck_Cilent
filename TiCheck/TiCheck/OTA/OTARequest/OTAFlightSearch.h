@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "EnumCollection.h"
 
+@class DomesticCity;
+
 @interface OTAFlightSearch : NSObject
 
 /**
@@ -95,6 +97,34 @@
  *  响应排序方向 ASC：升序，Desc：降序
  */
 @property (nonatomic) OrderDirection orderDirection;
+
+/**
+ *  初始化单程
+ *
+ *  @param departCity 离开城市
+ *  @param arriveCity 到达城市
+ *  @param departDate 离开时间
+ *
+ *  @return 请求实例
+ */
+- (id)initOneWayWithDepartCity:(DomesticCity *)departCity
+                    arriveCity:(DomesticCity *)arriveCity
+                    departDate:(NSDate *)departDate;
+
+///**
+// *  初始化往返
+// *
+// *  @param departCity 离开城市
+// *  @param arriveCity 到达城市
+// *  @param departDate 离开时间
+// *  @param returnDate 返回时间
+// *
+// *  @return 请求实例
+// */
+//- (id)initRoundWithDepartCity:(DomesticCity *)departCity
+//                   arriveCity:(DomesticCity *)arriveCity
+//                   departDate:(NSDate *)departDate
+//                   returnDate:(NSDate *)returnDate;
 
 /**
  *  根据当前的FlightSearch信息生成对应xml请求body

@@ -10,6 +10,7 @@
 #import "ConfigurationHelper.h"
 #import "NSString+DateFormat.h"
 #import "NSString+EnumTransform.h"
+#import "DomesticCity.h"
 
 @implementation OTAFlightSearch
 
@@ -21,6 +22,28 @@
         _airline = @"";
         _sendTicketCity = @"";
         _departDate = [NSDate date];
+    }
+    
+    return self;
+}
+
+- (id)initOneWayWithDepartCity:(DomesticCity *)departCity
+                    arriveCity:(DomesticCity *)arriveCity
+                    departDate:(NSDate *)departDate
+{
+    if (self = [super init]) {
+        _departPort = @"";
+        _arrivePort = @"";
+        _airline = @"";
+        _sendTicketCity = @"";
+        
+        _searchType = S;
+        _departCity = departCity.cityCode;
+        _arriveCity = arriveCity.cityCode;
+        _departDate = departDate;
+        
+        _orderBy = Price;
+        _orderDirection = ASC;
     }
     
     return self;

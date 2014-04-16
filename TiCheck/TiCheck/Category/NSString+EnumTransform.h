@@ -32,6 +32,8 @@
 + (NSString *)genderToString:(Gender)gender;
 + (NSString *)flightOrderClassToString:(FlightOrderClass)flightOrderClass;
 
++ (NSString *)classGradeToChinese:(ClassGrade)classGrade;
+
 #pragma mark - NSString to Enumeration
 
 + (ClassGrade)classGradeFromString:(NSString *)classGrade;

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "APIResourceHelper.h"
 
 @implementation AppDelegate
 
@@ -19,6 +20,8 @@
     // Override point for customization after application launch.
     
 //    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+//    [APIResourceHelper sharedResourceHelper];
     
     return YES;
 }
