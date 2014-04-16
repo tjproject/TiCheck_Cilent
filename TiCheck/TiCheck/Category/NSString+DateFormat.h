@@ -46,4 +46,13 @@
  */
 + (NSDate *)dateFormatWithString:(NSString *)dateStr;
 
+/**
+ *  获得格式为HH:mm的时间字串，用于搜索结果显示
+ *
+ *  @param date 要转换的时间
+ *
+ *  @return 格式为HH:mm的时间字串
+ */
++ (NSString *)showingStringFormatWithString:(NSDate *)date;
+
 @end

@@ -8,9 +8,14 @@
 
 #import "Flight.h"
 #import "DomesticCity.h"
+#import "Airport.h"
 #import "APIResourceHelper.h"
 
 @implementation Flight
+
+#pragma mark - Setter
+
+#pragma mark City Setter
 
 - (void)setDepartCityID:(NSInteger)departCityID
 {
@@ -48,6 +53,34 @@
     [self updateArriveCityInfo:targetCity];
 }
 
+#pragma mark Airport Setter
+
+- (void)setDepartPortCode:(NSString *)departPortCode
+{
+    Airport *targetAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaCode:departPortCode];
+    [self updateDepartPortInfo:targetAirport];
+}
+
+- (void)setDepartPortName:(NSString *)departPortName
+{
+    Airport *targetAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:departPortName];
+    [self updateDepartPortInfo:targetAirport];
+}
+
+- (void)setArrivePortCode:(NSString *)arrivePortCode
+{
+    Airport *targetAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaCode:arrivePortCode];
+    [self updateArrivePortInfo:targetAirport];
+}
+
+- (void)setArrivePortName:(NSString *)arrivePortName
+{
+    Airport *targetAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:arrivePortName];
+    [self updateArrivePortInfo:targetAirport];
+}
+
+#pragma mark - Helper Methods
+
 - (void)updateDepartCityInfo:(DomesticCity *)city
 {
     _departCityID   = city.cityID;
@@ -60,6 +93,20 @@
     _arriveCityID   = city.cityID;
     _arriveCityCode = city.cityCode;
     _arriveCityName = city.cityName;
+}
+
+- (void)updateDepartPortInfo:(Airport *)airport
+{
+    _departPortCode      = airport.airportCode;
+    _departPortName      = airport.airportName;
+    _departPortShortName = airport.airportShortName;
+}
+
+- (void)updateArrivePortInfo:(Airport *)airport
+{
+    _arrivePortCode      = airport.airportCode;
+    _arrivePortName      = airport.airportName;
+    _arrivePortShortName = airport.airportShortName;
 }
 
 @end

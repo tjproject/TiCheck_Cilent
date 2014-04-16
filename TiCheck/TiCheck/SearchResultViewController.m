@@ -9,8 +9,23 @@
 #import "SearchResultViewController.h"
 #import "LineChart.h"
 #import "EGORefreshTableHeaderView.h"
+#import "SearchResultCell.h"
+#import "ASIHTTPRequest.h"
+#import "SoapRequest.h"
+#import "OTAFlightSearch.h"
+#import "OTAFlightSearchResponse.h"
+#import "APIResourceHelper.h"
+#import "ConfigurationHelper.h"
 
-@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource,EGORefreshTableHeaderDelegate>
+#import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
+#import "NSString+EnumTransform.h"
+
+#import "DomesticCity.h"
+#import "Flight.h"
+#import "CraftType.h"
+
+@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource,EGORefreshTableHeaderDelegate,ASIHTTPRequestDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *searchResultTitle;
 
@@ -30,6 +45,8 @@
 {
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _reloading;
+    
+    ASIHTTPRequest *asiSearchRequest;
 }
 
 @synthesize data=_data;
@@ -65,13 +82,68 @@ static float scrollViewHeight=169;
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if ([self.data count] == 0) {
+        [self sendFlightSearchRequest];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [asiSearchRequest cancel];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - SearchFlight Helper
 
+- (void)sendFlightSearchRequest
+{
+    DomesticCity *depart = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:@"SHA"];
+    DomesticCity *arrive = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:@"BJS"];
+    NSDate *departDate = [NSDate dateWithDaysFromNow:30];
+    
+    OTAFlightSearch *searchRequets = [[OTAFlightSearch alloc] initOneWayWithDepartCity:depart
+                                                                            arriveCity:arrive
+                                                                            departDate:departDate];
+    NSString *requestXML = [searchRequets generateOTAFlightSearchXMLRequest];
+    
+    asiSearchRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
+                                             flightRequestType:FlightSearchRequest
+                                                  xmlNameSpace:XML_NAME_SPACE
+                                                webServiceName:WEB_SERVICE_NAME
+                                                xmlRequestBody:requestXML];
+    [asiSearchRequest setDelegate:self];
+    [asiSearchRequest startAsynchronous];
+}
+
+#pragma mark - ASIHTTPRequest Delegate
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+//    NSLog(@"response = %@", [request responseString]);
+    
+    OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:[request responseString]];
+    // 无搜索结果
+    if (response.recordCount == 0) {
+        
+    } else {
+        self.data = response.flightsList;
+    }
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    // 搜索失败，网络问题
+    NSLog(@"request failedddddddd. error = %@", [request error]);
+}
 
 #pragma mark - Navigation
 
@@ -136,19 +208,46 @@ static float scrollViewHeight=169;
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
-    //return self.data.count;
+//    return 10;
+    return self.data.count;
 }
 
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString* cellIdentifier=@"SearchResultCell";
    
-    
-    UITableViewCell* cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    Flight *flight = self.data[indexPath.row];
+    SearchResultCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier
+                                                           forIndexPath:indexPath];
+    [self updateSearchResultCellViaFlightInfo:flight
+                                      forCell:cell];
     
     
     return cell;
+}
+
+- (void)updateSearchResultCellViaFlightInfo:(Flight *)flight
+                                    forCell:(SearchResultCell *)toUpdateCell
+{
+    toUpdateCell.startTime.text = [NSString showingStringFormatWithString:flight.takeOffTime];
+    toUpdateCell.endTime.text = [NSString showingStringFormatWithString:flight.arrivalTime];
+    toUpdateCell.address.text = [NSString stringWithFormat:@"%@——%@", flight.departPortShortName, flight.arrivePortShortName];
+    toUpdateCell.flightNumber.text = flight.flightNumber;
+    toUpdateCell.price.text = [NSString stringWithFormat:@"￥%ld", flight.price];
+    if (flight.rate == 1.0f) {
+        toUpdateCell.discount.text = @"全价";
+    } else {
+        toUpdateCell.discount.text = [NSString stringWithFormat:@"%.1f折", flight.rate * 10];
+    }
+    toUpdateCell.priceType.text = [NSString classGradeToChinese:flight.classGrade];
+    toUpdateCell.remain.text = flight.quantity < 10 ? @"少量票" : @"有余票";
+    
+    CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:flight.craftType];
+    if (ct == nil) {
+        toUpdateCell.flighModel.text = @"未知";
+    } else {
+        toUpdateCell.flighModel.text = [ct craftKindShowingOnResult];
+    }
 }
 
 

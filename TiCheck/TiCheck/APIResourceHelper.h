@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @class DomesticCity;
+@class Airport;
+@class CraftType;
 
 @interface APIResourceHelper : NSObject
 
@@ -47,5 +49,45 @@
  *  @return 国内城市
  */
 - (DomesticCity *)findDomesticCityViaName:(NSString *)cityName;
+
+#pragma mark - 机场搜索
+
+/**
+ *  通过机场三字码搜索机场
+ *
+ *  @param airportCode 机场三字码
+ *
+ *  @return 机场
+ */
+- (Airport *)findAirportViaCode:(NSString *)airportCode;
+
+/**
+ *  通过机场名搜索机场
+ *
+ *  @param airportName 机场名
+ *
+ *  @return 机场
+ */
+- (Airport *)findAirportViaName:(NSString *)airportName;
+
+/**
+ *  通过城市ID搜索所有机场
+ *
+ *  @param cityID 城市ID
+ *
+ *  @return 城市中所有机场
+ */
+- (NSArray *)findAirportViaCityID:(NSInteger)cityID;
+
+#pragma mark - 机型搜索
+
+/**
+ *  通过机型号搜索机型
+ *
+ *  @param craftType 机型号
+ *
+ *  @return 机型
+ */
+- (CraftType *)findCraftTypeViaCT:(NSString *)craftType;
 
 @end

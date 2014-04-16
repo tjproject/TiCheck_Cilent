@@ -231,6 +231,27 @@
     return result;
 }
 
++ (NSString *)classGradeToChinese:(ClassGrade)classGrade
+{
+    NSString *result = nil;
+    
+    switch (classGrade) {
+        case Y:
+            result = @"经济舱";
+            break;
+        case C:
+            result = @"公务舱";
+            break;
+        case F:
+            result = @"头等舱";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected ClassGrade"];
+    }
+    
+    return result;
+}
+
 #pragma mark - NSString to Enumeration
 
 + (ClassGrade)classGradeFromString:(NSString *)classGrade

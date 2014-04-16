@@ -10,4 +10,15 @@
 
 @implementation DomesticCity
 
+- (id)init
+{
+    if (self = [super init]) {
+        _cityCode = _cityName = _cityEName = @"";
+        _cityID = _countryID = _provinceID = 0;
+        _airports = [NSArray array];
+    }
+    
+    return self;
+}
+
 @end

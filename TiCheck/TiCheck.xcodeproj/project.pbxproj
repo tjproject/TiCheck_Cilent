@@ -32,6 +32,10 @@
 		A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */; };
 		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
 		A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */; };
+		A0452E2D18FE4A5200DED4EE /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = A0452E2C18FE4A5200DED4EE /* Airport.m */; };
+		A0452E2F18FE4A8400DED4EE /* Airports.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0452E2E18FE4A8400DED4EE /* Airports.xml */; };
+		A0452E3318FE605C00DED4EE /* CraftTypes.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0452E3218FE605C00DED4EE /* CraftTypes.xml */; };
+		A0452E3618FE607000DED4EE /* CraftType.m in Sources */ = {isa = PBXBuildFile; fileRef = A0452E3518FE607000DED4EE /* CraftType.m */; };
 		A0620AFA18D7242C003A7A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AF918D7242C003A7A55 /* Foundation.framework */; };
 		A0620AFC18D7242C003A7A55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */; };
 		A0620AFE18D7242C003A7A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFD18D7242C003A7A55 /* UIKit.framework */; };
@@ -130,6 +134,12 @@
 		A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStatusChangedOrdersTest.m; sourceTree = "<group>"; };
 		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
 		A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSaveOrderTest.m; sourceTree = "<group>"; };
+		A0452E2B18FE4A5200DED4EE /* Airport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
+		A0452E2C18FE4A5200DED4EE /* Airport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airport.m; sourceTree = "<group>"; };
+		A0452E2E18FE4A8400DED4EE /* Airports.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Airports.xml; path = Resources/APIRelated/Airports.xml; sourceTree = "<group>"; };
+		A0452E3218FE605C00DED4EE /* CraftTypes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CraftTypes.xml; path = Resources/APIRelated/CraftTypes.xml; sourceTree = "<group>"; };
+		A0452E3418FE607000DED4EE /* CraftType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CraftType.h; sourceTree = "<group>"; };
+		A0452E3518FE607000DED4EE /* CraftType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CraftType.m; sourceTree = "<group>"; };
 		A0620AF618D7242C003A7A55 /* TiCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0620AF918D7242C003A7A55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -423,6 +433,10 @@
 				A0620B5F18D72743003A7A55 /* Passenger.m */,
 				A0B6780718FAC35A00A4DC76 /* DomesticCity.h */,
 				A0B6780818FAC35A00A4DC76 /* DomesticCity.m */,
+				A0452E2B18FE4A5200DED4EE /* Airport.h */,
+				A0452E2C18FE4A5200DED4EE /* Airport.m */,
+				A0452E3418FE607000DED4EE /* CraftType.h */,
+				A0452E3518FE607000DED4EE /* CraftType.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -495,6 +509,8 @@
 		A0B677F518FABF1200A4DC76 /* APIRelated */ = {
 			isa = PBXGroup;
 			children = (
+				A0452E3218FE605C00DED4EE /* CraftTypes.xml */,
+				A0452E2E18FE4A8400DED4EE /* Airports.xml */,
 				A0B677F818FABF5700A4DC76 /* DomesticCities.xml */,
 			);
 			name = APIRelated;
@@ -617,7 +633,9 @@
 				A0620B0618D7242C003A7A55 /* InfoPlist.strings in Resources */,
 				131C6F9418F7CD7200654D6E /* Roboto-BoldCondensed.ttf in Resources */,
 				131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */,
+				A0452E2F18FE4A8400DED4EE /* Airports.xml in Resources */,
 				A0620B1118D7242C003A7A55 /* Images.xcassets in Resources */,
+				A0452E3318FE605C00DED4EE /* CraftTypes.xml in Resources */,
 				131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -694,6 +712,7 @@
 				A0620B6418D72743003A7A55 /* Order.m in Sources */,
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
 				A0620B9A18D727B6003A7A55 /* OTAFlightViewOrderResponse.m in Sources */,
+				A0452E3618FE607000DED4EE /* CraftType.m in Sources */,
 				A0620B9718D727B6003A7A55 /* OTAFlightOrderListResponse.m in Sources */,
 				68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */,
 				24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */,
@@ -702,6 +721,7 @@
 				A0620B9918D727B6003A7A55 /* OTAFlightSearchResponse.m in Sources */,
 				13FA570918FB8D2300FD1C1F /* OIVCPassengerInfoView.m in Sources */,
 				A0620B6C18D72772003A7A55 /* NSString+EnumTransform.m in Sources */,
+				A0452E2D18FE4A5200DED4EE /* Airport.m in Sources */,
 				A0620B9418D727B6003A7A55 /* OTAGetStatusChangedOrders.m in Sources */,
 				A0620B9618D727B6003A7A55 /* OTAFlightCancelOrderResponse.m in Sources */,
 				A0620B6B18D72772003A7A55 /* NSString+DateFormat.m in Sources */,

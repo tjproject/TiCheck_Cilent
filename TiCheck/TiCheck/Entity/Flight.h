@@ -172,6 +172,16 @@
 @property (nonatomic, strong) NSString *arrivePortName;
 
 /**
+ *  出发机场简称
+ */
+@property (nonatomic, strong) NSString *departPortShortName;
+
+/**
+ *  到达机场简称
+ */
+@property (nonatomic, strong) NSString *arrivePortShortName;
+
+/**
  *  出发机场代码
  */
 @property (nonatomic, strong) NSString *departPortCode;
