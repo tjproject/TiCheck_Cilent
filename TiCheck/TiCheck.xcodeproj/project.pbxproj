@@ -23,6 +23,7 @@
 		24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */; };
 		24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8918EC5EE200F6A2A9 /* UserData.m */; };
 		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
+		68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68436EF818FEC3810043B10E /* PayProcessViewController.m */; };
 		68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */; };
 		68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */; };
 		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
@@ -119,6 +120,8 @@
 		24FC2B8B18EC682900F6A2A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		68436EF718FEC3810043B10E /* PayProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayProcessViewController.h; sourceTree = "<group>"; };
+		68436EF818FEC3810043B10E /* PayProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayProcessViewController.m; sourceTree = "<group>"; };
 		68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditViewController.h; sourceTree = "<group>"; };
 		68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountEditViewController.m; sourceTree = "<group>"; };
 		68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditDetailViewController.h; sourceTree = "<group>"; };
@@ -308,6 +311,15 @@
 				24FC2B8918EC5EE200F6A2A9 /* UserData.m */,
 			);
 			name = UserData;
+			sourceTree = "<group>";
+		};
+		68436EF618FEBB260043B10E /* Pay */ = {
+			isa = PBXGroup;
+			children = (
+				68436EF718FEC3810043B10E /* PayProcessViewController.h */,
+				68436EF818FEC3810043B10E /* PayProcessViewController.m */,
+			);
+			name = Pay;
 			sourceTree = "<group>";
 		};
 		68EDF8BE18F5A030008E19B4 /* PersonalCenter */ = {
@@ -534,6 +546,7 @@
 		A0B677FD18FABFD200A4DC76 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				68436EF618FEBB260043B10E /* Pay */,
 				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
 				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
 				24FC2B6B18EC3AD000F6A2A9 /* Login */,
@@ -728,6 +741,7 @@
 				A0620B9C18D727B6003A7A55 /* OTAResponse.m in Sources */,
 				A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */,
 				A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */,
+				68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */,
 				A0620B9018D727B6003A7A55 /* OTAFlightOrderList.m in Sources */,
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
 				24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */,
