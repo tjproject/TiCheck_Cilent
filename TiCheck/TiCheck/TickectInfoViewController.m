@@ -7,6 +7,7 @@
 //
 
 #import "TickectInfoViewController.h"
+#import "PayProcessViewController.h"
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
 @interface TickectInfoViewController ()
@@ -190,7 +191,8 @@
 
 - (void)confirmPressed:(id)sender
 {
-    //add
+    PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
+    [self.navigationController pushViewController:ppVC animated:YES];
 }
 
 - (void)addPassenger:(id)sender

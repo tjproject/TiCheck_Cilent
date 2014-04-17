@@ -13,6 +13,7 @@
 		131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */; };
 		131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */; };
 		131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */; };
+		135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B93190003E50061F51F /* PersonalCenterViewController.m */; };
 		1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1370841918F7BC0200FD4949 /* TickectInfoViewController.m */; };
 		13BF8D9718FB820C00B8E0E1 /* OrderInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BF8D9618FB820C00B8E0E1 /* OrderInfoViewController.m */; };
 		13FA570918FB8D2300FD1C1F /* OIVCPassengerInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA570818FB8D2300FD1C1F /* OIVCPassengerInfoView.m */; };
@@ -99,6 +100,8 @@
 		131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Condensed.ttf"; sourceTree = "<group>"; };
 		131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		135F6B92190003E50061F51F /* PersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalCenterViewController.h; sourceTree = "<group>"; };
+		135F6B93190003E50061F51F /* PersonalCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalCenterViewController.m; sourceTree = "<group>"; };
 		1370841818F7BC0200FD4949 /* TickectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickectInfoViewController.h; sourceTree = "<group>"; };
 		1370841918F7BC0200FD4949 /* TickectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickectInfoViewController.m; sourceTree = "<group>"; };
 		13BF8D9518FB820C00B8E0E1 /* OrderInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfoViewController.h; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 				68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */,
 				68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */,
 				68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */,
+				135F6B92190003E50061F51F /* PersonalCenterViewController.h */,
+				135F6B93190003E50061F51F /* PersonalCenterViewController.m */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -712,6 +717,7 @@
 				A0620B9218D727B6003A7A55 /* OTAFlightSearch.m in Sources */,
 				A0620B9818D727B6003A7A55 /* OTAFlightSaveOrderResponse.m in Sources */,
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
+				135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */,
 				1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */,
 				A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
