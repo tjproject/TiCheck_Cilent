@@ -7,6 +7,8 @@
 //
 
 #import "PersonalCenterViewController.h"
+#import "AccountEditViewController.h"
+#import "PersonalOrderViewController.h"
 
 @interface PersonalCenterViewController ()
 
@@ -93,6 +95,25 @@
     UIView *UIFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 35)];
     UIFooterView.backgroundColor = [UIColor whiteColor];
     return UIFooterView;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row == 0)
+    {
+        AccountEditViewController *aeVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountEditViewController"];
+        [self.navigationController pushViewController:aeVC animated:YES];
+    }
+    else if(indexPath.section == 0 && indexPath.row == 1)
+    {
+        PersonalOrderViewController *poVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalOrderViewController"];
+        [self.navigationController pushViewController:poVC animated:YES];
+    }
+    else if(indexPath.section == 0 && indexPath.row == 2)
+    {
+        PersonalOrderViewController *poVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalOrderViewController"];
+        [self.navigationController pushViewController:poVC animated:YES];
+    }
 }
 
 #pragma mark - utilities

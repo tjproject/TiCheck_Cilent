@@ -212,7 +212,7 @@
         <!--Account Edit View Controller - 账号-->
         <scene sceneID="bOd-v6-d3A">
             <objects>
-                <viewController id="Isb-1A-Llb" customClass="AccountEditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountEditViewController" id="Isb-1A-Llb" customClass="AccountEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3a0-v6-7OG"/>
                         <viewControllerLayoutGuide type="bottom" id="S2d-Xx-eIx"/>
@@ -970,6 +970,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FPX-cQ-EQh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-314" y="2185"/>
+        </scene>
+        <!--Personal Order View Controller - 我的订单-->
+        <scene sceneID="JiM-W1-OWW">
+            <objects>
+                <viewController storyboardIdentifier="PersonalOrderViewController" id="mNL-Wj-X5J" customClass="PersonalOrderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SYR-hR-vTQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="PYX-sN-J22"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lDU-Qi-dIh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="我的订单" id="xb6-dv-EvJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eng-YE-gpu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="392" y="-983"/>
         </scene>
     </scenes>
     <resources>
