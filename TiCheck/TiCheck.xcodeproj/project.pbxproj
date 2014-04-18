@@ -13,6 +13,10 @@
 		131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */; };
 		131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */; };
 		131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */; };
+		135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B93190003E50061F51F /* PersonalCenterViewController.m */; };
+		135F6B97190014C10061F51F /* PersonalOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B96190014C10061F51F /* PersonalOrderViewController.m */; };
+		135F6B9B190018280061F51F /* PersonalOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B99190018280061F51F /* PersonalOrderTableViewCell.m */; };
+		135F6B9C190018280061F51F /* PersonalOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 135F6B9A190018280061F51F /* PersonalOrderTableViewCell.xib */; };
 		1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1370841918F7BC0200FD4949 /* TickectInfoViewController.m */; };
 		13BF8D9718FB820C00B8E0E1 /* OrderInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BF8D9618FB820C00B8E0E1 /* OrderInfoViewController.m */; };
 		13FA570918FB8D2300FD1C1F /* OIVCPassengerInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA570818FB8D2300FD1C1F /* OIVCPassengerInfoView.m */; };
@@ -23,6 +27,7 @@
 		24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */; };
 		24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8918EC5EE200F6A2A9 /* UserData.m */; };
 		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
+		68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68436EF818FEC3810043B10E /* PayProcessViewController.m */; };
 		68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */; };
 		68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */; };
 		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
@@ -98,6 +103,13 @@
 		131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Condensed.ttf"; sourceTree = "<group>"; };
 		131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		135F6B92190003E50061F51F /* PersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalCenterViewController.h; sourceTree = "<group>"; };
+		135F6B93190003E50061F51F /* PersonalCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalCenterViewController.m; sourceTree = "<group>"; };
+		135F6B95190014C10061F51F /* PersonalOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalOrderViewController.h; sourceTree = "<group>"; };
+		135F6B96190014C10061F51F /* PersonalOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalOrderViewController.m; sourceTree = "<group>"; };
+		135F6B98190018280061F51F /* PersonalOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalOrderTableViewCell.h; sourceTree = "<group>"; };
+		135F6B99190018280061F51F /* PersonalOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalOrderTableViewCell.m; sourceTree = "<group>"; };
+		135F6B9A190018280061F51F /* PersonalOrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalOrderTableViewCell.xib; sourceTree = "<group>"; };
 		1370841818F7BC0200FD4949 /* TickectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickectInfoViewController.h; sourceTree = "<group>"; };
 		1370841918F7BC0200FD4949 /* TickectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickectInfoViewController.m; sourceTree = "<group>"; };
 		13BF8D9518FB820C00B8E0E1 /* OrderInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfoViewController.h; sourceTree = "<group>"; };
@@ -119,6 +131,8 @@
 		24FC2B8B18EC682900F6A2A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		68436EF718FEC3810043B10E /* PayProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayProcessViewController.h; sourceTree = "<group>"; };
+		68436EF818FEC3810043B10E /* PayProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayProcessViewController.m; sourceTree = "<group>"; };
 		68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditViewController.h; sourceTree = "<group>"; };
 		68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountEditViewController.m; sourceTree = "<group>"; };
 		68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditDetailViewController.h; sourceTree = "<group>"; };
@@ -310,6 +324,15 @@
 			name = UserData;
 			sourceTree = "<group>";
 		};
+		68436EF618FEBB260043B10E /* Pay */ = {
+			isa = PBXGroup;
+			children = (
+				68436EF718FEC3810043B10E /* PayProcessViewController.h */,
+				68436EF818FEC3810043B10E /* PayProcessViewController.m */,
+			);
+			name = Pay;
+			sourceTree = "<group>";
+		};
 		68EDF8BE18F5A030008E19B4 /* PersonalCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +340,13 @@
 				68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */,
 				68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */,
 				68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */,
+				135F6B92190003E50061F51F /* PersonalCenterViewController.h */,
+				135F6B93190003E50061F51F /* PersonalCenterViewController.m */,
+				135F6B95190014C10061F51F /* PersonalOrderViewController.h */,
+				135F6B96190014C10061F51F /* PersonalOrderViewController.m */,
+				135F6B98190018280061F51F /* PersonalOrderTableViewCell.h */,
+				135F6B99190018280061F51F /* PersonalOrderTableViewCell.m */,
+				135F6B9A190018280061F51F /* PersonalOrderTableViewCell.xib */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -534,6 +564,7 @@
 		A0B677FD18FABFD200A4DC76 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				68436EF618FEBB260043B10E /* Pay */,
 				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
 				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
 				24FC2B6B18EC3AD000F6A2A9 /* Login */,
@@ -637,6 +668,7 @@
 				A0620B1118D7242C003A7A55 /* Images.xcassets in Resources */,
 				A0452E3318FE605C00DED4EE /* CraftTypes.xml in Resources */,
 				131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */,
+				135F6B9C190018280061F51F /* PersonalOrderTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,12 +725,14 @@
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
 				68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */,
+				135F6B97190014C10061F51F /* PersonalOrderViewController.m in Sources */,
 				2491398D18ED855000061780 /* LineChart.m in Sources */,
 				A0620B6018D72743003A7A55 /* Contact.m in Sources */,
 				A0620B8F18D727B6003A7A55 /* OTAFlightCancelOrder.m in Sources */,
 				A0620B9218D727B6003A7A55 /* OTAFlightSearch.m in Sources */,
 				A0620B9818D727B6003A7A55 /* OTAFlightSaveOrderResponse.m in Sources */,
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
+				135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */,
 				1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */,
 				A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
@@ -712,6 +746,7 @@
 				A0620B6418D72743003A7A55 /* Order.m in Sources */,
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
 				A0620B9A18D727B6003A7A55 /* OTAFlightViewOrderResponse.m in Sources */,
+				135F6B9B190018280061F51F /* PersonalOrderTableViewCell.m in Sources */,
 				A0452E3618FE607000DED4EE /* CraftType.m in Sources */,
 				A0620B9718D727B6003A7A55 /* OTAFlightOrderListResponse.m in Sources */,
 				68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */,
@@ -728,6 +763,7 @@
 				A0620B9C18D727B6003A7A55 /* OTAResponse.m in Sources */,
 				A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */,
 				A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */,
+				68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */,
 				A0620B9018D727B6003A7A55 /* OTAFlightOrderList.m in Sources */,
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
 				24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */,
