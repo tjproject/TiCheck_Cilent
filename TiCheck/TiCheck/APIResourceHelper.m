@@ -87,6 +87,19 @@
     return result;
 }
 
+- (NSArray *)findAllCityNameContainsAirport
+{
+    NSMutableArray *cities = [NSMutableArray array];
+    
+    for (DomesticCity *city in domesticCities) {
+        if ([city.airports count] != 0) {
+            [cities addObject:city.cityName];
+        }
+    }
+
+    return cities;
+}
+
 #pragma mark 机场搜索
 
 - (Airport *)findAirportViaCode:(NSString *)airportCode
@@ -180,7 +193,7 @@
             [airports removeLastObject];
         }
         
-        city.airports   = airports;
+        city.airports = airports;
         
         [cityInfo addObject:city];
     }

@@ -50,6 +50,13 @@
  */
 - (DomesticCity *)findDomesticCityViaName:(NSString *)cityName;
 
+/**
+ *  获得所有城市中文名
+ *
+ *  @return 城市中文名列表
+ */
+- (NSArray *)findAllCityNameContainsAirport;
+
 #pragma mark - 机场搜索
 
 /**

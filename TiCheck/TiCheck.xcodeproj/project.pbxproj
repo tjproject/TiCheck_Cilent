@@ -80,10 +80,13 @@
 		A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B8E18D727B6003A7A55 /* OTAUserUniqueIDResponse.m */; };
 		A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */; };
 		A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620BA118D727D6003A7A55 /* SoapRequest.m */; };
+		A0A8A66F19036633006070B8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A8A66E19036633006070B8 /* SearchViewController.m */; };
 		A0B677F918FABF5700A4DC76 /* DomesticCities.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0B677F818FABF5700A4DC76 /* DomesticCities.xml */; };
 		A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */; };
 		A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780818FAC35A00A4DC76 /* DomesticCity.m */; };
 		A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */; };
+		A0D92B091903D37000AC67F2 /* CitySelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D92B081903D37000AC67F2 /* CitySelectViewController.m */; };
+		A0D92B101903F43100AC67F2 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = A0D92B0E1903F43100AC67F2 /* pinyin.c */; };
 		C69E840808974A8CAEDB832F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C29AE6E97F440E8ABC5203 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -222,12 +225,18 @@
 		A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationHelper.m; sourceTree = "<group>"; };
 		A0620BA018D727D6003A7A55 /* SoapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapRequest.h; sourceTree = "<group>"; };
 		A0620BA118D727D6003A7A55 /* SoapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoapRequest.m; sourceTree = "<group>"; };
+		A0A8A66D19036633006070B8 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		A0A8A66E19036633006070B8 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		A0B677F818FABF5700A4DC76 /* DomesticCities.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = DomesticCities.xml; path = Resources/APIRelated/DomesticCities.xml; sourceTree = "<group>"; };
 		A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIResourceHelper.h; sourceTree = "<group>"; };
 		A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIResourceHelper.m; sourceTree = "<group>"; };
 		A0B6780718FAC35A00A4DC76 /* DomesticCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DomesticCity.h; sourceTree = "<group>"; };
 		A0B6780818FAC35A00A4DC76 /* DomesticCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticCity.m; sourceTree = "<group>"; };
 		A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSearchTest.m; sourceTree = "<group>"; };
+		A0D92B071903D37000AC67F2 /* CitySelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CitySelectViewController.h; sourceTree = "<group>"; };
+		A0D92B081903D37000AC67F2 /* CitySelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CitySelectViewController.m; sourceTree = "<group>"; };
+		A0D92B0E1903F43100AC67F2 /* pinyin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinyin.c; sourceTree = "<group>"; };
+		A0D92B0F1903F43100AC67F2 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +545,17 @@
 			path = OTAResponse;
 			sourceTree = "<group>";
 		};
+		A0A8A66C19036620006070B8 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A0A8A66D19036633006070B8 /* SearchViewController.h */,
+				A0A8A66E19036633006070B8 /* SearchViewController.m */,
+				A0D92B071903D37000AC67F2 /* CitySelectViewController.h */,
+				A0D92B081903D37000AC67F2 /* CitySelectViewController.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		A0B677F518FABF1200A4DC76 /* APIRelated */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +569,7 @@
 		A0B677FA18FABF7000A4DC76 /* LogicLayer */ = {
 			isa = PBXGroup;
 			children = (
+				A0D92B111903F54600AC67F2 /* Pinyin */,
 				A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */,
 				A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */,
 				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
@@ -564,6 +585,7 @@
 		A0B677FD18FABFD200A4DC76 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				A0A8A66C19036620006070B8 /* Search */,
 				68436EF618FEBB260043B10E /* Pay */,
 				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
 				24FC2B8718EC5ECC00F6A2A9 /* UserData */,
@@ -573,6 +595,15 @@
 				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 			);
 			name = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		A0D92B111903F54600AC67F2 /* Pinyin */ = {
+			isa = PBXGroup;
+			children = (
+				A0D92B0E1903F43100AC67F2 /* pinyin.c */,
+				A0D92B0F1903F43100AC67F2 /* pinyin.h */,
+			);
+			name = Pinyin;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -747,6 +778,7 @@
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
 				A0620B9A18D727B6003A7A55 /* OTAFlightViewOrderResponse.m in Sources */,
 				135F6B9B190018280061F51F /* PersonalOrderTableViewCell.m in Sources */,
+				A0A8A66F19036633006070B8 /* SearchViewController.m in Sources */,
 				A0452E3618FE607000DED4EE /* CraftType.m in Sources */,
 				A0620B9718D727B6003A7A55 /* OTAFlightOrderListResponse.m in Sources */,
 				68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */,
@@ -762,10 +794,12 @@
 				A0620B6B18D72772003A7A55 /* NSString+DateFormat.m in Sources */,
 				A0620B9C18D727B6003A7A55 /* OTAResponse.m in Sources */,
 				A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */,
+				A0D92B091903D37000AC67F2 /* CitySelectViewController.m in Sources */,
 				A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */,
 				68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */,
 				A0620B9018D727B6003A7A55 /* OTAFlightOrderList.m in Sources */,
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
+				A0D92B101903F43100AC67F2 /* pinyin.c in Sources */,
 				24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */,
 				A0620B6518D72743003A7A55 /* Passenger.m in Sources */,
 			);

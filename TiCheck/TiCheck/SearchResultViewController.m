@@ -106,9 +106,9 @@ static float scrollViewHeight=169;
 
 - (void)sendFlightSearchRequest
 {
-    DomesticCity *depart = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:@"SHA"];
-    DomesticCity *arrive = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:@"BJS"];
-    NSDate *departDate = [NSDate dateWithDaysFromNow:30];
+    DomesticCity *depart = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaName:self.searchOptionDic[FROM_CITY_KEY]];
+    DomesticCity *arrive = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaName:self.searchOptionDic[TO_CITY_KEY]];
+    NSDate *departDate = [NSString dateFormatWithString:self.searchOptionDic[TAKE_OFF_TIME_KEY]];
     
     OTAFlightSearch *searchRequets = [[OTAFlightSearch alloc] initOneWayWithDepartCity:depart
                                                                             arriveCity:arrive
@@ -240,7 +240,8 @@ static float scrollViewHeight=169;
         toUpdateCell.discount.text = [NSString stringWithFormat:@"%.1f折", flight.rate * 10];
     }
     toUpdateCell.priceType.text = [NSString classGradeToChinese:flight.classGrade];
-    toUpdateCell.remain.text = flight.quantity < 10 ? @"少量票" : @"有余票";
+    toUpdateCell.remain.text = flight.quantity < 10 ? @"票少" : @"有余票";
+    toUpdateCell.remain.textColor = flight.quantity < 10 ? [UIColor colorWithRed:0.984314 green:0.058824 blue:0.109804 alpha:1.0] : [UIColor colorWithRed:0.125490 green:0.639216 blue:0.866667 alpha:1.0];
     
     CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:flight.craftType];
     if (ct == nil) {
@@ -338,7 +339,7 @@ static float scrollViewHeight=169;
 
 -(NSMutableArray*) setScoreArray
 {
-    return [[NSMutableArray alloc] initWithObjects:@(702),@(425),@(329),@(568),@(749),@(693),@(551),nil];
+    return [[NSMutableArray alloc] initWithObjects:@(123),@(425),@(329),@(568),@(749),@(693),@(551),nil];
 }
 
 -(void) setLineChart:(LineChart *)lineChart
@@ -387,7 +388,7 @@ static float scrollViewHeight=169;
 
 -(int) setCurrentIndex
 {
-    return 4;
+    return 2;
 }
 
 @end
