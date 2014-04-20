@@ -12,9 +12,9 @@
 
 @interface RegisterViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *userName;
-@property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UITextField *email;
+@property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UITextField *userName;
 
 @end
 
@@ -45,26 +45,26 @@
 
 - (IBAction)enter:(id)sender
 {
-    NSString* account=self.userName.text;
-    NSString* password=self.password.text;
-    NSString* emai=self.email.text;
+    NSString* emailStr=self.email.text;
+    NSString* passwordStr=self.password.text;
+    NSString* userNameStr=self.userName.text;
     
-    if (account.length==0)
+    if (emailStr.length==0)
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"账号不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"邮箱不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return ;
     }
     
-    if ([account rangeOfString:@""].location!=NSNotFound)
+    if (![self isValidEmail:emailStr])
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"账号不能有空格" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"邮箱格式错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return ;
     }
     
     
-    if (password.length==0)
+    if (passwordStr.length==0)
     {
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"密码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
@@ -79,16 +79,15 @@
 //        return ;
 //
 //    }
-    [UserData sharedUserData].account=account;
-    [UserData sharedUserData].password=password;
-    [UserData sharedUserData].email=emai;
+    [UserData sharedUserData].email=emailStr;
+    [UserData sharedUserData].password=passwordStr;
+    [UserData sharedUserData].userName=userNameStr;
     
-    if ([[UserData sharedUserData] loginWithAccout:account andPassword:password inViewController:self])
+    if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
     {
      
     }
 }
-
 
 /*
 #pragma mark - Navigation
@@ -100,5 +99,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (BOOL)isValidEmail:(NSString *)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailValidate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailValidate evaluateWithObject:email];
+}
 
 @end

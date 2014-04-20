@@ -11,9 +11,9 @@
 
 @implementation UserData
 
-@synthesize account=_account;
-@synthesize password=_password;
 @synthesize email=_email;
+@synthesize password=_password;
+@synthesize userName=_userName;
 
 +(UserData*) sharedUserData
 {
@@ -27,7 +27,7 @@
     return userData;
 }
 
--(void) setAccount:(NSString *)account
+-(void) setEmail:(NSString *)account
 {
     [[NSUserDefaults standardUserDefaults] setObject:account forKey:@"account"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -40,13 +40,13 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(void) setEmail:(NSString *)email
+-(void) setUserName:(NSString *)email
 {
     [[NSUserDefaults standardUserDefaults] setObject:email forKey:@"email"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(NSString*) account
+-(NSString*) email
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
 }
@@ -56,14 +56,14 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
 }
 
--(NSString*) email
+-(NSString*) userName
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"email"];
 }
 
--(BOOL) loginWithAccout:(NSString *)account andPassword:(NSString *)password inViewController:(UIViewController *)viewController
+-(BOOL) loginWithAccout:(NSString *)email andPassword:(NSString *)password inViewController:(UIViewController *)viewController
 {
-    self.account=account;
+    self.email=email;
     self.password=password;
     UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
@@ -73,7 +73,7 @@
 
 -(BOOL) autoLoginInViewController:(UIViewController *)viewController
 {
-    NSString* account=self.account;
+    NSString* account=self.email;
     NSString* password=self.password;
     if (account && password)
     {
