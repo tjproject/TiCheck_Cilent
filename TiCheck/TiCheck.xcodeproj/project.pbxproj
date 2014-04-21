@@ -29,6 +29,7 @@
 		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
 		68026C2E1904A72400A61F1A /* BookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68026C2D1904A72400A61F1A /* BookListViewController.m */; };
 		68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68436EF818FEC3810043B10E /* PayProcessViewController.m */; };
+		686E5C5F190563310074AB60 /* BookListSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 686E5C5E190563310074AB60 /* BookListSectionView.m */; };
 		68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */; };
 		68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */; };
 		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
@@ -145,6 +146,8 @@
 		68026C2D1904A72400A61F1A /* BookListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookListViewController.m; sourceTree = "<group>"; };
 		68436EF718FEC3810043B10E /* PayProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayProcessViewController.h; sourceTree = "<group>"; };
 		68436EF818FEC3810043B10E /* PayProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayProcessViewController.m; sourceTree = "<group>"; };
+		686E5C5D190563310074AB60 /* BookListSectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookListSectionView.h; sourceTree = "<group>"; };
+		686E5C5E190563310074AB60 /* BookListSectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookListSectionView.m; sourceTree = "<group>"; };
 		68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditViewController.h; sourceTree = "<group>"; };
 		68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountEditViewController.m; sourceTree = "<group>"; };
 		68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditDetailViewController.h; sourceTree = "<group>"; };
@@ -382,6 +385,8 @@
 				135F6B9A190018280061F51F /* PersonalOrderTableViewCell.xib */,
 				68026C2C1904A72400A61F1A /* BookListViewController.h */,
 				68026C2D1904A72400A61F1A /* BookListViewController.m */,
+				686E5C5D190563310074AB60 /* BookListSectionView.h */,
+				686E5C5E190563310074AB60 /* BookListSectionView.m */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -800,6 +805,7 @@
 				A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */,
 				A0CDB5B01904C50300E20649 /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
 				A0CDB5AF1904C50300E20649 /* PDTSimpleCalendarViewController.m in Sources */,
+				686E5C5F190563310074AB60 /* BookListSectionView.m in Sources */,
 				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
