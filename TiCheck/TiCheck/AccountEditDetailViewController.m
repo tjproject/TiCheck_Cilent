@@ -64,12 +64,12 @@
             //
             self.secondField.hidden=YES;
             self.seperateLine2.hidden=YES;
-            self.firstField.placeholder=@"新用户名";
+            self.firstField.placeholder=@"新邮箱";
             break;
         case 1:
             self.secondField.hidden=YES;
             self.seperateLine2.hidden=YES;
-            self.firstField.placeholder=@"新邮箱";
+            self.firstField.placeholder=@"新用户名";
             break;
         case 2:
             //password
@@ -91,19 +91,19 @@
     
     switch (_SetEditDetailType) {
         case 0:
-            //update name
-            if ([self checkString:firstS WithName:@"用户名"])
+            //update email
+            if ([self checkString:firstS WithName:@"邮箱"])
             {
-                [UserData sharedUserData].account=firstS;
+                [UserData sharedUserData].email=firstS;
                 [self.navigationController popViewControllerAnimated:YES];
             }
             
             break;
         case 1:
-            //update email
-            if ([self checkString:firstS WithName:@"邮箱"])
+            //update username
+            if ([self checkString:firstS WithName:@"用户名"])
             {
-                [UserData sharedUserData].email=firstS;
+                [UserData sharedUserData].userName=firstS;
                 [self.navigationController popViewControllerAnimated:YES];
             }
             break;

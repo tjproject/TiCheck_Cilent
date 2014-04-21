@@ -102,14 +102,14 @@
     
     if(indexPath.row==0)
     {
-        cellTitle=@"用户名";
-        cellContent=[UserData sharedUserData].account;
+        cellTitle=@"邮箱";
+        cellContent=[UserData sharedUserData].email;
         cell.detailTextLabel.hidden=NO;
     }
     else if(indexPath.row==1)
     {
-        cellTitle=@"邮箱";
-        cellContent=[UserData sharedUserData].email;
+        cellTitle=@"用户名";
+        cellContent=[UserData sharedUserData].userName;
         cell.detailTextLabel.hidden=NO;
     }
     else if(indexPath.row==2)
@@ -166,12 +166,12 @@
         if(indexPath.row==0)
         {
             NSLog(@"change name");
-            tempController.navigationItem.title=@"修改用户名";
+            tempController.navigationItem.title=@"修改邮箱";
         }
         else if(indexPath.row==1)
         {
             //e-mail
-            tempController.navigationItem.title=@"修改邮箱";
+            tempController.navigationItem.title=@"修改用户名";
         }
         else if(indexPath.row==2)
         {

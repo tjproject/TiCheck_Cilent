@@ -31,6 +31,11 @@
 @property (nonatomic, strong) NSString *cityEName;
 
 /**
+ *  城市拼音简写（不要使用）
+ */
+@property (nonatomic, strong) NSString *cityShortName;
+
+/**
  *  国家ID，实际全部为1
  */
 @property (nonatomic) NSInteger countryID;

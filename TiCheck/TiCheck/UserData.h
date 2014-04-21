@@ -18,9 +18,9 @@
  */
 
 /**
- *  用户账户
+ *  用户邮箱
  */
-@property (nonatomic,strong) NSString* account;
+@property (nonatomic,strong) NSString* email;
 
 /**
  *  用户密码 已经被加密过的
@@ -29,20 +29,20 @@
 @property (nonatomic,strong) NSString* password;
 
 /**
- *  用户邮箱
+ *  用户名
  */
-@property (nonatomic,strong) NSString* email;
+@property (nonatomic,strong) NSString* userName;
 
 /**
  *  与后台连接 登录账号
  *
- *  @param account        账号
+ *  @param email          邮箱
  *  @param password       密码
  *  @param viewController viewcontroller 方便直接push跳转
  *
  *  @return 成功返回YES 失败返回NO
  */
--(BOOL) loginWithAccout:(NSString*)account andPassword:(NSString*)password inViewController:(UIViewController*)viewController;
+-(BOOL) loginWithAccout:(NSString*)email andPassword:(NSString*)password inViewController:(UIViewController*)viewController;
 
 /**
  *  自动登录
