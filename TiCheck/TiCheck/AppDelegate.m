@@ -19,9 +19,9 @@
 {
     // Override point for customization after application launch.
     
-//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
-//    [APIResourceHelper sharedResourceHelper];
+    [APIResourceHelper sharedResourceHelper];
     
     return YES;
 }
