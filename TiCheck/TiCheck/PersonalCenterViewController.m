@@ -114,6 +114,11 @@
         PersonalOrderViewController *poVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalOrderViewController"];
         [self.navigationController pushViewController:poVC animated:YES];
     }
+    else if(indexPath.section == 0 && indexPath.row == 3)
+    {
+        PersonalOrderViewController *blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
+        [self.navigationController pushViewController:blVC animated:YES];
+    }
 }
 
 #pragma mark - utilities

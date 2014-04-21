@@ -27,6 +27,7 @@
 		24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8518EC5C1400F6A2A9 /* RegisterViewController.m */; };
 		24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8918EC5EE200F6A2A9 /* UserData.m */; };
 		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
+		68026C2E1904A72400A61F1A /* BookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68026C2D1904A72400A61F1A /* BookListViewController.m */; };
 		68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68436EF818FEC3810043B10E /* PayProcessViewController.m */; };
 		68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */; };
 		68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */; };
@@ -134,6 +135,8 @@
 		24FC2B8B18EC682900F6A2A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		68026C2C1904A72400A61F1A /* BookListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookListViewController.h; sourceTree = "<group>"; };
+		68026C2D1904A72400A61F1A /* BookListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookListViewController.m; sourceTree = "<group>"; };
 		68436EF718FEC3810043B10E /* PayProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayProcessViewController.h; sourceTree = "<group>"; };
 		68436EF818FEC3810043B10E /* PayProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayProcessViewController.m; sourceTree = "<group>"; };
 		68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditViewController.h; sourceTree = "<group>"; };
@@ -356,6 +359,8 @@
 				135F6B98190018280061F51F /* PersonalOrderTableViewCell.h */,
 				135F6B99190018280061F51F /* PersonalOrderTableViewCell.m */,
 				135F6B9A190018280061F51F /* PersonalOrderTableViewCell.xib */,
+				68026C2C1904A72400A61F1A /* BookListViewController.h */,
+				68026C2D1904A72400A61F1A /* BookListViewController.m */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -776,6 +781,7 @@
 				24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */,
 				A0620B6418D72743003A7A55 /* Order.m in Sources */,
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
+				68026C2E1904A72400A61F1A /* BookListViewController.m in Sources */,
 				A0620B9A18D727B6003A7A55 /* OTAFlightViewOrderResponse.m in Sources */,
 				135F6B9B190018280061F51F /* PersonalOrderTableViewCell.m in Sources */,
 				A0A8A66F19036633006070B8 /* SearchViewController.m in Sources */,
