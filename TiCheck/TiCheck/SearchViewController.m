@@ -9,8 +9,12 @@
 #import "SearchViewController.h"
 #import "SearchResultViewController.h"
 #import "CitySelectViewController.h"
+#import "DateSelectViewController.h"
+#import "DateSelectViewController.h"
+#import "NSString+DateFormat.h"
+#import "SearchOption.h"
 
-@interface SearchViewController ()
+@interface SearchViewController () <CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
 
 @end
 
@@ -31,6 +35,7 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
+    [self synchronizeSetSearchOption];
     
     UITapGestureRecognizer *fromSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
     UITapGestureRecognizer *toSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
@@ -41,10 +46,29 @@
     [self.takeOffTime addGestureRecognizer:takeOffTimeSelectGesture];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self synchronizeSaveSearchOption];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)synchronizeSetSearchOption
+{
+    self.fromCity.text = [SearchOption sharedSearchOption].departCityName;
+    self.toCity.text = [SearchOption sharedSearchOption].arriveCityName;
+    self.takeOffTime.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].takeOffDate];
+}
+
+- (void)synchronizeSaveSearchOption
+{
+    [SearchOption sharedSearchOption].departCityName = self.fromCity.text;
+    [SearchOption sharedSearchOption].arriveCityName = self.toCity.text;
+    [SearchOption sharedSearchOption].takeOffDate = [NSString dateFormatWithString:self.takeOffTime.text];
 }
 
 #pragma mark - 选项gesture
@@ -67,7 +91,11 @@
         
         [self presentViewController:citiesViewController animated:YES completion:nil];
     } else if (label == self.takeOffTime) {
+        DateSelectViewController *dateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateSelectViewController"];
         
+        dateViewController.selectedDate = [NSString dateFormatWithString:self.takeOffTime.text];
+        dateViewController.delegate = self;
+        [self presentViewController:dateViewController animated:YES completion:nil];
     }
 }
 
@@ -81,6 +109,11 @@
 - (void)setToCityLabel:(NSString *)toCityString
 {
     self.toCity.text = toCityString;
+}
+
+- (void)setTakeOffTimeLabel:(NSDate *)takeOffTime
+{
+    self.takeOffTime.text = [NSString stringFormatWithDate:takeOffTime];
 }
 
 #pragma mark - Button Click event

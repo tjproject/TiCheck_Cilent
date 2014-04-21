@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CitySelectViewController.h"
 
-@interface SearchViewController : UIViewController <CitySelectViewControllerDelegate>
+@interface SearchViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *fromCity;
 @property (weak, nonatomic) IBOutlet UILabel *toCity;
