@@ -98,7 +98,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Pf2-An-DB7" kind="push" id="JnU-H0-bQT"/>
+                                    <segue destination="mNL-Wj-X5J" kind="push" id="kPg-vj-s8F"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0x-BT-dP1">
@@ -1180,7 +1180,7 @@
         <!--Tickect Info View Controller - 机票详情-->
         <scene sceneID="2XP-8G-Fdo">
             <objects>
-                <viewController id="IGn-TZ-IN7" customClass="TickectInfoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TickectInfoViewController" id="IGn-TZ-IN7" customClass="TickectInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="T66-LA-BSP"/>
                         <viewControllerLayoutGuide type="bottom" id="FyJ-em-MkX"/>

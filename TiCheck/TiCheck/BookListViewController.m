@@ -1,27 +1,24 @@
 //
-//  PersonalOrderViewController.m
+//  BookListViewController.m
 //  TiCheck
 //
-//  Created by 大畅 on 14-4-17.
+//  Created by 黄泽彪 on 14-4-21.
 //  Copyright (c) 2014年 tac. All rights reserved.
 //
 
-#import "PersonalOrderViewController.h"
+#import "BookListViewController.h"
 #import "PersonalOrderTableViewCell.h"
-#import "TickectInfoViewController.h"
-
-@interface PersonalOrderViewController ()
+@interface BookListViewController ()
 
 @end
 
-@implementation PersonalOrderViewController
+@implementation BookListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
-        
+    if (self) {
+        // Custom initialization
     }
     return self;
 }
@@ -29,18 +26,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initVessel];
+    // Do any additional setup after loading the view.
+    //
+    self.navigationItem.title=@"我的订阅";
 }
 
-- (void)initVessel
+- (void)didReceiveMemoryWarning
 {
-    _POVCVessel = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, 568)];
-    [_POVCVessel setSeparatorInset:UIEdgeInsetsZero];
-    _POVCVessel.dataSource = self;
-    _POVCVessel.delegate = self;
-    _POVCVessel.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
-    [self.view addSubview:_POVCVessel];
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - UITableView datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -50,7 +46,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 10;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,14 +69,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
-    [self.navigationController pushViewController:tiVC animated:YES];
+    
     
 }
 
-- (void)didReceiveMemoryWarning
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [super didReceiveMemoryWarning];
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
+*/
 
 @end
