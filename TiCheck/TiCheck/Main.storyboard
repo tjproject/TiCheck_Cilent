@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bEp-90-t0n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bEp-90-t0n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -98,7 +98,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Pf2-An-DB7" kind="push" id="JnU-H0-bQT"/>
+                                    <segue destination="mNL-Wj-X5J" kind="push" id="kPg-vj-s8F"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0x-BT-dP1">
@@ -1078,7 +1078,7 @@
         <!--Tickect Info View Controller - 机票详情-->
         <scene sceneID="2XP-8G-Fdo">
             <objects>
-                <viewController id="IGn-TZ-IN7" customClass="TickectInfoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TickectInfoViewController" id="IGn-TZ-IN7" customClass="TickectInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="T66-LA-BSP"/>
                         <viewControllerLayoutGuide type="bottom" id="FyJ-em-MkX"/>
@@ -1164,6 +1164,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Wbb-xk-TIo"/>
+        <segue reference="yC6-p3-Zs7"/>
     </inferredMetricsTieBreakers>
 </document>

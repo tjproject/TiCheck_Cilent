@@ -656,7 +656,7 @@
 				ORGANIZATIONNAME = tac;
 				TargetAttributes = {
 					A0620AF518D7242C003A7A55 = {
-						DevelopmentTeam = GS9T9X284M;
+						DevelopmentTeam = 6992736KPW;
 					};
 					A0620B1518D7242C003A7A55 = {
 						TestTargetID = A0620AF518D7242C003A7A55;

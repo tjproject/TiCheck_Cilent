@@ -8,6 +8,7 @@
 
 #import "PersonalOrderViewController.h"
 #import "PersonalOrderTableViewCell.h"
+#import "TickectInfoViewController.h"
 
 @interface PersonalOrderViewController ()
 
@@ -68,6 +69,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 77.5;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
+    [self.navigationController pushViewController:tiVC animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning
