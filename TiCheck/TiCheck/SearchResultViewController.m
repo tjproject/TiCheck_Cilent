@@ -11,6 +11,7 @@
 #import "EGORefreshTableHeaderView.h"
 #import "SearchResultCell.h"
 #import "ASIHTTPRequest.h"
+#import "ASINetworkQueue.h"
 #import "SoapRequest.h"
 #import "OTAFlightSearch.h"
 #import "OTAFlightSearchResponse.h"
@@ -24,6 +25,10 @@
 #import "DomesticCity.h"
 #import "Flight.h"
 #import "CraftType.h"
+
+#define IS_SEARCH_DATE_USER_INFO_KEY @"IsSearchDate"
+#define SEARCH_DATE_USER_INFO_KEY @"SearchData"
+#define LONGEST_HISTORY_DAYS 7
 
 @interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource,EGORefreshTableHeaderDelegate,ASIHTTPRequestDelegate>
 
@@ -39,6 +44,10 @@
 
 @property (nonatomic,strong) LineChart* lineChart;
 
+@property (strong, nonatomic) NSMutableDictionary *footIndexAndLowPrice;
+@property (strong, nonatomic) NSMutableArray *footIndex;
+@property (strong, nonatomic) NSMutableArray *footLowPrice;
+
 @end
 
 @implementation SearchResultViewController
@@ -46,7 +55,9 @@
     EGORefreshTableHeaderView *_refreshHeaderView;
     BOOL _reloading;
     
-    ASIHTTPRequest *asiSearchRequest;
+    ASIHTTPRequest *asiSearchRequest; // 选择搜索的
+    ASINetworkQueue *asiSearchQueue; // 用户显示价格趋势的
+    NSInteger currentIndex; // lineChart中显示当天
 }
 
 @synthesize data=_data;
@@ -67,6 +78,7 @@ static float scrollViewHeight=169;
 {
     [super viewDidLoad];
     [self setExtraCellLineHidden:self.resultTableView];
+    currentIndex = 0;
     
     if (_refreshHeaderView == nil) {
 		
@@ -86,6 +98,13 @@ static float scrollViewHeight=169;
 {
     if ([self.data count] == 0) {
         [self sendFlightSearchRequest];
+        self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:-1];
+    }
+    
+    if ([self.footIndexAndLowPrice count] != LONGEST_HISTORY_DAYS) {
+        [self.showPriceButton setUserInteractionEnabled:NO];
+        // 发送价格趋势的请求
+        [self sendLowPriceTraceRequest];
     }
 }
 
@@ -94,6 +113,10 @@ static float scrollViewHeight=169;
     [super viewWillDisappear:animated];
     
     [asiSearchRequest cancel];
+    [asiSearchQueue cancelAllOperations];
+    if ([self.footIndexAndLowPrice count] != LONGEST_HISTORY_DAYS) {
+        self.footIndexAndLowPrice = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,22 +143,122 @@ static float scrollViewHeight=169;
                                                   xmlNameSpace:XML_NAME_SPACE
                                                 webServiceName:WEB_SERVICE_NAME
                                                 xmlRequestBody:requestXML];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), IS_SEARCH_DATE_USER_INFO_KEY, departDate, SEARCH_DATE_USER_INFO_KEY, nil];
+    
+    [asiSearchRequest setUserInfo:mainUserInfo];
     [asiSearchRequest setDelegate:self];
     [asiSearchRequest startAsynchronous];
+}
+
+- (void)sendLowPriceTraceRequest
+{
+    NSDate *departDate = [NSString dateFormatWithString:self.searchOptionDic[TAKE_OFF_TIME_KEY]];
+
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    offsetComponents.month = 5;
+    NSDate *lastDate = [[NSCalendar currentCalendar] dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
+    
+    // 在价格走势中要查看的价格日期范围
+    NSMutableArray *toSearchDateArray = [NSMutableArray array];
+    if ([departDate daysAfterDate:[NSDate date]] < 2) {
+        for (NSInteger i = 0; i < 7; ++i) {
+            NSDate *toSearchDate = [NSDate dateWithDaysFromNow:i];
+            [toSearchDateArray addObject:toSearchDate];
+            if ([toSearchDate isEqualToDateIgnoringTime:departDate]) {
+                currentIndex = i;
+            }
+//            NSLog(@"%@", toSearchDateArray[i]);
+        }
+    } else if ([departDate daysBeforeDate:lastDate] < 5) {
+        for (NSInteger i = 0; i < 7; ++i) {
+            NSDate *toSearchDate = [lastDate dateBySubtractingDays:i];
+            [toSearchDateArray addObject:toSearchDate];
+            if ([toSearchDate isEqualToDateIgnoringTime:departDate]) {
+                currentIndex = LONGEST_HISTORY_DAYS - i - 1;
+            }
+//            NSLog(@"%@", toSearchDateArray[i]);
+        }
+        toSearchDateArray = [NSMutableArray arrayWithArray:[[toSearchDateArray reverseObjectEnumerator] allObjects]];
+    } else {
+        NSDate *beginDate = [departDate dateBySubtractingDays:2];
+        for (NSInteger i = 0; i < 7; ++i) {
+            [toSearchDateArray addObject:[beginDate dateByAddingDays:i]];
+//            NSLog(@"%@", toSearchDateArray[i]);
+        }
+        currentIndex = 2;
+    }
+    
+    if (!asiSearchQueue) {
+        asiSearchQueue = [[ASINetworkQueue alloc] init];
+    }
+    
+    for (NSDate *toSearchDate in toSearchDateArray) {
+        DomesticCity *depart = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaName:self.searchOptionDic[FROM_CITY_KEY]];
+        DomesticCity *arrive = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaName:self.searchOptionDic[TO_CITY_KEY]];
+        OTAFlightSearch *flightSearchRequest = [[OTAFlightSearch alloc] initOneWayWithDepartCity:depart
+                                                                                      arriveCity:arrive
+                                                                                      departDate:toSearchDate];
+        NSString *flightSearchRequestXML = [flightSearchRequest generateOTAFlightSearchXMLRequest];
+        
+        ASIHTTPRequest *searchRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
+                                                              flightRequestType:FlightSearchRequest
+                                                                   xmlNameSpace:XML_NAME_SPACE
+                                                                 webServiceName:WEB_SERVICE_NAME
+                                                                 xmlRequestBody:flightSearchRequestXML];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(NO), IS_SEARCH_DATE_USER_INFO_KEY, toSearchDate, SEARCH_DATE_USER_INFO_KEY, nil];
+        searchRequest.delegate = self;
+        searchRequest.userInfo = userInfo;
+        
+        [asiSearchQueue addOperation:searchRequest];
+    }
+    
+    [asiSearchQueue go];
 }
 
 #pragma mark - ASIHTTPRequest Delegate
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-//    NSLog(@"response = %@", [request responseString]);
-    
     OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:[request responseString]];
-    // 无搜索结果
-    if (response.recordCount == 0) {
+    
+    if ([request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY] boolValue]) {
+        // 无搜索结果
+        if (response.recordCount == 0) {
+        } else {
+            self.data = response.flightsList;
+        }
         
+        // 更新搜索结果Title，价格走势可用
+        self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:response.recordCount];
+        NSLog(@"搜索结果 finished");
     } else {
-        self.data = response.flightsList;
+        NSDate *searchedDate = request.userInfo[SEARCH_DATE_USER_INFO_KEY];
+        NSString *searchedStringKey = [NSString stringWithFormat:@"%lf", [searchedDate timeIntervalSince1970]];
+
+        if (response.recordCount == 0) {
+            [self.footIndex addObject:searchedStringKey];
+            [self.footLowPrice addObject:@(0)];
+            [self.footIndexAndLowPrice setObject:@(0) forKey:searchedStringKey];
+        } else {
+            Flight *lowestPriceFlight = [response.flightsList firstObject];
+            [self.footIndex addObject:searchedStringKey];
+            [self.footLowPrice addObject:@(lowestPriceFlight.price)];
+            [self.footIndexAndLowPrice setObject:@(lowestPriceFlight.price) forKey:searchedStringKey];
+        }
+        
+        if ([self.footIndexAndLowPrice count] == LONGEST_HISTORY_DAYS) {
+            NSMutableArray *sortedDateKeys = [[self.footIndexAndLowPrice.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] mutableCopy];
+            NSMutableArray *sortedValues = [NSMutableArray array];
+            for (NSString *key in sortedDateKeys) {
+                [sortedValues addObject: [self.footIndexAndLowPrice objectForKey:key]];
+            }
+            self.footIndex = sortedDateKeys;
+            self.footLowPrice = sortedValues;
+            
+            [self.lineChart resetLineChartData];
+            [self.showPriceButton setUserInteractionEnabled:YES];
+            NSLog(@"价格趋势 finished");
+        }
     }
 }
 
@@ -143,6 +266,19 @@ static float scrollViewHeight=169;
 {
     // 搜索失败，网络问题
     NSLog(@"request failedddddddd. error = %@", [request error]);
+    NSError *error = [request error];
+    
+    if (error.code == 2 && request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY]) {
+        [asiSearchRequest cancel];
+        self.data = nil;
+        [self sendFlightSearchRequest];
+    } else if (error.code == 2 && !request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY]) {
+        [asiSearchQueue cancelAllOperations];
+        self.footIndexAndLowPrice = nil;
+        self.footIndex = nil;
+        self.footLowPrice = nil;
+        [self sendLowPriceTraceRequest];
+    }
 }
 
 #pragma mark - Navigation
@@ -185,7 +321,29 @@ static float scrollViewHeight=169;
     return _data;
 }
 
+- (NSMutableDictionary *)footIndexAndLowPrice
+{
+    if (_footIndexAndLowPrice == nil) {
+        _footIndexAndLowPrice = [[NSMutableDictionary alloc] init];
+    }
+    return _footIndexAndLowPrice;
+}
 
+- (NSMutableArray *)footIndex
+{
+    if (_footIndex == nil) {
+        _footIndex = [[NSMutableArray alloc] init];
+    }
+    return _footIndex;
+}
+
+- (NSMutableArray *)footLowPrice
+{
+    if (_footLowPrice == nil) {
+        _footLowPrice = [[NSMutableArray alloc] init];
+    }
+    return _footLowPrice;
+}
 
 #pragma mark - tableview
 
@@ -226,6 +384,8 @@ static float scrollViewHeight=169;
     return cell;
 }
 
+#pragma mark - Helper Methods
+
 - (void)updateSearchResultCellViaFlightInfo:(Flight *)flight
                                     forCell:(SearchResultCell *)toUpdateCell
 {
@@ -251,6 +411,53 @@ static float scrollViewHeight=169;
     }
 }
 
+- (NSAttributedString *)resultTitleAttributedStringWithResultCount:(NSInteger)resultCount
+{
+    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithString:@""];
+    NSString *takeOffDateStr = self.searchOptionDic[TAKE_OFF_TIME_KEY];
+    NSArray *takeOffDateArray = [takeOffDateStr componentsSeparatedByString:@"-"];
+    NSInteger month = [takeOffDateArray[1] integerValue];
+    NSInteger day = [takeOffDateArray[2] integerValue];
+    
+    NSDictionary *attributesForOriginalString = @{
+                                                  NSFontAttributeName               : [UIFont systemFontOfSize:17],
+                                                  NSForegroundColorAttributeName    : [UIColor colorWithRed:0.117647 green:0.701961 blue:0.894118 alpha:1.0],
+                                                  NSBackgroundColorAttributeName    : [UIColor clearColor]
+                                                  };
+    NSDictionary *attributesForNumberString   = @{
+                                                  NSFontAttributeName               : [UIFont boldSystemFontOfSize:26],
+                                                  NSForegroundColorAttributeName    : [UIColor colorWithRed:0.670588 green:0.815686 blue:0.376471 alpha:1.0],
+                                                  NSBackgroundColorAttributeName    : [UIColor clearColor],
+                                                  NSBaselineOffsetAttributeName     : @(-2.0f),
+                                                  };
+    
+    // 传入resultCount为-1时表示正在搜索中
+    if (resultCount == -1) {
+        NSString *searching = [NSString stringWithFormat:@"正在为您搜索机票中..."];
+        result = [[NSMutableAttributedString alloc] initWithString:searching
+                                                        attributes:attributesForOriginalString];
+    } else if (resultCount == 0) {
+        NSString *noResult = [NSString stringWithFormat:@"%ld月%ld日没有合适的机票", month, day];
+        result = [[NSMutableAttributedString alloc] initWithString:noResult
+                                                        attributes:attributesForOriginalString];
+    } else {
+        NSString *beforeResult = [NSString stringWithFormat:@"为您在%ld月%ld日找到", month, day];
+        NSString *number = [NSString stringWithFormat:@"%ld", resultCount];
+        NSString *afterResult = [NSString stringWithFormat:@"张低价票"];
+        NSString *wholeResult = [NSString stringWithFormat:@"%@%@%@", beforeResult, number, afterResult];
+        
+        result = [[NSMutableAttributedString alloc] initWithString:wholeResult];
+        
+        [result setAttributes:attributesForOriginalString
+                        range:[wholeResult rangeOfString:beforeResult]];
+        [result setAttributes:attributesForNumberString
+                        range:[wholeResult rangeOfString:number]];
+        [result setAttributes:attributesForOriginalString
+                        range:[wholeResult rangeOfString:afterResult]];
+    }
+    
+    return result;
+}
 
 #pragma mark - show button
 
@@ -334,12 +541,34 @@ static float scrollViewHeight=169;
 
 -(NSMutableArray*) setFooterLabel
 {
-    return [[NSMutableArray alloc] initWithObjects:@(8),@(9),@(10),@(11),@(12),@(13),@(14),nil];
+    NSMutableArray *footLabelIndexResult = [NSMutableArray array];
+//    
+//    NSArray *keyArray = [[self.footIndexAndLowPrice.keyEnumerator allObjects] mutableCopy];
+//    
+    for (NSString *dateKey in self.footIndex) {
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[dateKey doubleValue]];
+        NSString *dateString = [NSString stringFormatWithDate:date];
+        NSArray *seperateDate = [dateString componentsSeparatedByString:@"-"];
+        
+        [footLabelIndexResult addObject:@([seperateDate[2] integerValue])];
+        
+        NSLog(@"date = %@, price = %@", dateString, self.footIndexAndLowPrice[dateKey]);
+    }
+    
+    return footLabelIndexResult;
 }
 
 -(NSMutableArray*) setScoreArray
 {
-    return [[NSMutableArray alloc] initWithObjects:@(123),@(425),@(329),@(568),@(749),@(693),@(551),nil];
+    NSMutableArray *footLabelPriceResult = [NSMutableArray array];
+    
+//    NSArray *valueArray = [[self.footIndexAndLowPrice.objectEnumerator allObjects] mutableCopy];
+    
+    for (NSNumber *value in self.footLowPrice) {
+        [footLabelPriceResult addObject:value];
+    }
+    
+    return footLabelPriceResult;
 }
 
 -(void) setLineChart:(LineChart *)lineChart
@@ -388,7 +617,8 @@ static float scrollViewHeight=169;
 
 -(int) setCurrentIndex
 {
-    return 2;
+//    NSLog(@"current day index = %ld", (long)currentIndex);
+    return currentIndex;
 }
 
 @end

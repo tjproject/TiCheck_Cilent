@@ -82,6 +82,8 @@
 		A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B8E18D727B6003A7A55 /* OTAUserUniqueIDResponse.m */; };
 		A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */; };
 		A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620BA118D727D6003A7A55 /* SoapRequest.m */; };
+		A0A21D2F1905358F004CDD5E /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A21D2B1905358F004CDD5E /* NSDate-Utilities.m */; };
+		A0A21D301905358F004CDD5E /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A21D2D1905358F004CDD5E /* TimeFormatters.m */; };
 		A0A8A66F19036633006070B8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A8A66E19036633006070B8 /* SearchViewController.m */; };
 		A0B677F918FABF5700A4DC76 /* DomesticCities.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0B677F818FABF5700A4DC76 /* DomesticCities.xml */; };
 		A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */; };
@@ -236,6 +238,10 @@
 		A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationHelper.m; sourceTree = "<group>"; };
 		A0620BA018D727D6003A7A55 /* SoapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapRequest.h; sourceTree = "<group>"; };
 		A0620BA118D727D6003A7A55 /* SoapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoapRequest.m; sourceTree = "<group>"; };
+		A0A21D2B1905358F004CDD5E /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		A0A21D2C1905358F004CDD5E /* TimeFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFormatters.h; sourceTree = "<group>"; };
+		A0A21D2D1905358F004CDD5E /* TimeFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFormatters.m; sourceTree = "<group>"; };
+		A0A21D2E1905358F004CDD5E /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		A0A8A66D19036633006070B8 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		A0A8A66E19036633006070B8 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		A0B677F818FABF5700A4DC76 /* DomesticCities.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = DomesticCities.xml; path = Resources/APIRelated/DomesticCities.xml; sourceTree = "<group>"; };
@@ -526,6 +532,7 @@
 		A0620B6618D72772003A7A55 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				A0CDB5B8190534DB00E20649 /* NSDate-Extensions */,
 				A0620B6718D72772003A7A55 /* NSString+DateFormat.h */,
 				A0620B6818D72772003A7A55 /* NSString+DateFormat.m */,
 				A0620B6918D72772003A7A55 /* NSString+EnumTransform.h */,
@@ -641,6 +648,17 @@
 				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 			);
 			name = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		A0CDB5B8190534DB00E20649 /* NSDate-Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A0A21D2E1905358F004CDD5E /* NSDate-Utilities.h */,
+				A0A21D2B1905358F004CDD5E /* NSDate-Utilities.m */,
+				A0A21D2C1905358F004CDD5E /* TimeFormatters.h */,
+				A0A21D2D1905358F004CDD5E /* TimeFormatters.m */,
+			);
+			name = "NSDate-Extensions";
 			sourceTree = "<group>";
 		};
 		A0D92B111903F54600AC67F2 /* Pinyin */ = {
@@ -802,6 +820,7 @@
 				A0CDB5AF1904C50300E20649 /* PDTSimpleCalendarViewController.m in Sources */,
 				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
+				A0A21D301905358F004CDD5E /* TimeFormatters.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
 				68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */,
 				135F6B97190014C10061F51F /* PersonalOrderViewController.m in Sources */,
@@ -845,6 +864,7 @@
 				A0620B9618D727B6003A7A55 /* OTAFlightCancelOrderResponse.m in Sources */,
 				A0620B6B18D72772003A7A55 /* NSString+DateFormat.m in Sources */,
 				A0CDB5B11904C50300E20649 /* PDTSimpleCalendarViewHeader.m in Sources */,
+				A0A21D2F1905358F004CDD5E /* NSDate-Utilities.m in Sources */,
 				A0620B9C18D727B6003A7A55 /* OTAResponse.m in Sources */,
 				A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */,
 				A0D92B091903D37000AC67F2 /* CitySelectViewController.m in Sources */,
@@ -982,6 +1002,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -999,6 +1020,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
