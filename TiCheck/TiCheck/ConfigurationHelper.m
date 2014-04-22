@@ -24,7 +24,7 @@
 - (id)initWithDefaultSetting
 {
     if (self = [super init]) {
-        
+        // TODO: 默认设置
     }
     
     return self;

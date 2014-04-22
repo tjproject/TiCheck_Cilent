@@ -950,6 +950,34 @@
             </objects>
             <point key="canvasLocation" x="947" y="1529"/>
         </scene>
+        <!--Online Pay View Controller-->
+        <scene sceneID="ZDa-Dt-YHU">
+            <objects>
+                <viewController id="gSc-H1-dsu" customClass="OnlinePayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ndW-nd-ONg"/>
+                        <viewControllerLayoutGuide type="bottom" id="R9G-9l-qkA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YYZ-ff-7SQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gfy-vZ-Qih">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="onlinePayWebView" destination="Gfy-vZ-Qih" id="nn1-Wk-N6J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BOw-qc-XL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1679" y="1937"/>
+        </scene>
         <!--Tickect Info View Controller - 订单详情-->
         <scene sceneID="rzk-lT-pFE">
             <objects>
