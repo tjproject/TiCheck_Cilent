@@ -9,6 +9,7 @@
 #import "PersonalCenterViewController.h"
 #import "AccountEditViewController.h"
 #import "PersonalOrderViewController.h"
+#import "PassengerEditViewController.h"
 
 @interface PersonalCenterViewController ()
 
@@ -118,6 +119,16 @@
     {
         PersonalOrderViewController *blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
         [self.navigationController pushViewController:blVC animated:YES];
+    }
+    else if(indexPath.section == 1 && indexPath.row == 0)
+    {
+        PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
+        [self.navigationController pushViewController:peVC animated:YES];
+    }
+    else if(indexPath.section == 1 && indexPath.row == 2)
+    {
+        UIViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TicheckInfoViewController"];
+        [self.navigationController pushViewController:tiVC animated:YES];
     }
 }
 
