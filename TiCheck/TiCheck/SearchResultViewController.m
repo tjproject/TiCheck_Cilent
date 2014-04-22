@@ -229,7 +229,7 @@ static float scrollViewHeight=169;
         }
         
         // 更新搜索结果Title，价格走势可用
-        self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:response.recordCount];
+        self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:[response.flightsList count]];
         NSLog(@"搜索结果 finished");
     } else {
         NSDate *searchedDate = request.userInfo[SEARCH_DATE_USER_INFO_KEY];
@@ -267,17 +267,18 @@ static float scrollViewHeight=169;
     // 搜索失败，网络问题
     NSLog(@"request failedddddddd. error = %@", [request error]);
     NSError *error = [request error];
+    self.showPriceButton.userInteractionEnabled = YES;
     
     if (error.code == 2 && request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY]) {
-        [asiSearchRequest cancel];
-        self.data = nil;
-        [self sendFlightSearchRequest];
+//        [asiSearchRequest cancel];
+//        self.data = nil;
+//        [self sendFlightSearchRequest];
     } else if (error.code == 2 && !request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY]) {
-        [asiSearchQueue cancelAllOperations];
-        self.footIndexAndLowPrice = nil;
-        self.footIndex = nil;
-        self.footLowPrice = nil;
-        [self sendLowPriceTraceRequest];
+//        [asiSearchQueue cancelAllOperations];
+//        self.footIndexAndLowPrice = nil;
+//        self.footIndex = nil;
+//        self.footLowPrice = nil;
+//        [self sendLowPriceTraceRequest];
     }
 }
 

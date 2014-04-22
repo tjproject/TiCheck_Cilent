@@ -13,6 +13,8 @@
 
 @property (strong, nonatomic) PDTSimpleCalendarViewController *calendarViewController;
 
+@property (weak, nonatomic) IBOutlet UIButton *todayButton;
+
 @end
 
 @implementation DateSelectViewController
@@ -30,6 +32,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.routeType == Return) {
+        self.todayButton.hidden = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,7 +64,15 @@
 
 - (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date
 {
-    [self.delegate setTakeOffTimeLabel:date];
+    switch (self.routeType) {
+        case Take_Off:
+            [self.delegate setTakeOffTimeLabel:date];
+            break;
+        case Return:
+            [self.delegate setReturnTimeLabel:date];
+            break;
+    }
+    
     self.calendarViewController.view.userInteractionEnabled = NO;
     [NSTimer scheduledTimerWithTimeInterval:.5f target:self selector:@selector(dismissCalendarViewController) userInfo:nil repeats:NO];
 }
@@ -75,7 +94,7 @@
         self.calendarViewController = [segue destinationViewController];
         self.calendarViewController.delegate = self;
         
-        self.calendarViewController.firstDate = [NSDate date];
+        self.calendarViewController.firstDate = self.beginDate;
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         offsetComponents.month = 5;
         NSDate *lastDate = [self.calendarViewController.calendar dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];

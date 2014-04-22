@@ -90,6 +90,9 @@
 		A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */; };
 		A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780818FAC35A00A4DC76 /* DomesticCity.m */; };
 		A0BE29001906000C0042D356 /* OnlinePayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BE28FF1906000C0042D356 /* OnlinePayViewController.m */; };
+		A0BE2903190613840042D356 /* GeneralOptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BE2902190613840042D356 /* GeneralOptionTableViewCell.m */; };
+		A0BE290A19063E230042D356 /* FromToTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BE290919063E230042D356 /* FromToTableViewCell.m */; };
+		A0BE290D1906404A0042D356 /* DateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BE290C1906404A0042D356 /* DateTableViewCell.m */; };
 		A0CDB5AE1904C50300E20649 /* PDTSimpleCalendarViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CDB5A71904C50300E20649 /* PDTSimpleCalendarViewCell.m */; };
 		A0CDB5AF1904C50300E20649 /* PDTSimpleCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CDB5A91904C50300E20649 /* PDTSimpleCalendarViewController.m */; };
 		A0CDB5B01904C50300E20649 /* PDTSimpleCalendarViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CDB5AB1904C50300E20649 /* PDTSimpleCalendarViewFlowLayout.m */; };
@@ -255,6 +258,12 @@
 		A0B6780818FAC35A00A4DC76 /* DomesticCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DomesticCity.m; sourceTree = "<group>"; };
 		A0BE28FE1906000C0042D356 /* OnlinePayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlinePayViewController.h; sourceTree = "<group>"; };
 		A0BE28FF1906000C0042D356 /* OnlinePayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlinePayViewController.m; sourceTree = "<group>"; };
+		A0BE2901190613840042D356 /* GeneralOptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralOptionTableViewCell.h; sourceTree = "<group>"; };
+		A0BE2902190613840042D356 /* GeneralOptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralOptionTableViewCell.m; sourceTree = "<group>"; };
+		A0BE290819063E230042D356 /* FromToTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromToTableViewCell.h; sourceTree = "<group>"; };
+		A0BE290919063E230042D356 /* FromToTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromToTableViewCell.m; sourceTree = "<group>"; };
+		A0BE290B1906404A0042D356 /* DateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateTableViewCell.h; sourceTree = "<group>"; };
+		A0BE290C1906404A0042D356 /* DateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTableViewCell.m; sourceTree = "<group>"; };
 		A0CDB5A51904C50300E20649 /* PDTSimpleCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendar.h; path = TiCheck/PDTSimpleCalendar/PDTSimpleCalendar.h; sourceTree = SOURCE_ROOT; };
 		A0CDB5A61904C50300E20649 /* PDTSimpleCalendarViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDTSimpleCalendarViewCell.h; path = TiCheck/PDTSimpleCalendar/PDTSimpleCalendarViewCell.h; sourceTree = SOURCE_ROOT; };
 		A0CDB5A71904C50300E20649 /* PDTSimpleCalendarViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDTSimpleCalendarViewCell.m; path = TiCheck/PDTSimpleCalendar/PDTSimpleCalendarViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -608,6 +617,7 @@
 		A0A8A66C19036620006070B8 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				A0BE290419063AD00042D356 /* Cell */,
 				A03CC78B1904C1F500ED3217 /* PDTSimpleCalendar */,
 				A0A8A66D19036633006070B8 /* SearchViewController.h */,
 				A0A8A66E19036633006070B8 /* SearchViewController.m */,
@@ -658,6 +668,19 @@
 				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 			);
 			name = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		A0BE290419063AD00042D356 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A0BE290B1906404A0042D356 /* DateTableViewCell.h */,
+				A0BE290C1906404A0042D356 /* DateTableViewCell.m */,
+				A0BE290819063E230042D356 /* FromToTableViewCell.h */,
+				A0BE290919063E230042D356 /* FromToTableViewCell.m */,
+				A0BE2901190613840042D356 /* GeneralOptionTableViewCell.h */,
+				A0BE2902190613840042D356 /* GeneralOptionTableViewCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		A0CDB5B8190534DB00E20649 /* NSDate-Extensions */ = {
@@ -832,6 +855,7 @@
 				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0A21D301905358F004CDD5E /* TimeFormatters.m in Sources */,
+				A0BE2903190613840042D356 /* GeneralOptionTableViewCell.m in Sources */,
 				A0620B9118D727B6003A7A55 /* OTAFlightSaveOrder.m in Sources */,
 				68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */,
 				135F6B97190014C10061F51F /* PersonalOrderViewController.m in Sources */,
@@ -843,6 +867,7 @@
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
 				135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */,
 				1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */,
+				A0BE290D1906404A0042D356 /* DateTableViewCell.m in Sources */,
 				A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
 				A0620B6318D72743003A7A55 /* Flight.m in Sources */,
@@ -860,6 +885,7 @@
 				135F6B9B190018280061F51F /* PersonalOrderTableViewCell.m in Sources */,
 				A0A8A66F19036633006070B8 /* SearchViewController.m in Sources */,
 				A0452E3618FE607000DED4EE /* CraftType.m in Sources */,
+				A0BE290A19063E230042D356 /* FromToTableViewCell.m in Sources */,
 				A0620B9718D727B6003A7A55 /* OTAFlightOrderListResponse.m in Sources */,
 				68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */,
 				A0CDB5AE1904C50300E20649 /* PDTSimpleCalendarViewCell.m in Sources */,
