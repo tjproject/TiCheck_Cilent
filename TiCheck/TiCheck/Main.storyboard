@@ -47,7 +47,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="85W-2l-vyW" userLabel="login">
-                                <rect key="frame" x="22" y="421" width="276" height="46"/>
+                                <rect key="frame" x="22" y="448" width="276" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUU-4c-Zmu" userLabel="register">
-                                <rect key="frame" x="22" y="496" width="276" height="46"/>
+                                <rect key="frame" x="22" y="502" width="276" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="register">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1374,7 +1374,7 @@
         <!--Order Info View Controller - 订单详情-->
         <scene sceneID="cAO-EG-FC3">
             <objects>
-                <viewController id="CyK-95-mo7" customClass="OrderInfoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrderInfoViewController" id="CyK-95-mo7" customClass="OrderInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hVW-tf-WMg"/>
                         <viewControllerLayoutGuide type="bottom" id="4kY-9K-axw"/>
@@ -1445,6 +1445,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
+                    <connections>
+                        <outlet property="bookListTableView" destination="BIT-7r-Lb7" id="NBA-Sj-x7Q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mP-vf-ShW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1501,6 +1504,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h6m-tO-HB7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-893" y="2325"/>
+        </scene>
+        <!--Passenger Edit View Controller - 常用联系人-->
+        <scene sceneID="l3l-R1-Iq8">
+            <objects>
+                <viewController storyboardIdentifier="PassengerEditViewController" id="TMT-oe-bdO" customClass="PassengerEditViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="D6H-gl-uy7"/>
+                        <viewControllerLayoutGuide type="bottom" id="fPW-DS-obj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rdb-r6-KeC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="常用联系人" id="pyF-Hx-fpa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EQL-jc-OoG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103" y="-992"/>
+        </scene>
+        <!--View Controller - 关于Ticheck-->
+        <scene sceneID="62N-Gx-umY">
+            <objects>
+                <viewController storyboardIdentifier="TicheckInfoViewController" id="Wk4-7G-pAz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fYP-sN-v40"/>
+                        <viewControllerLayoutGuide type="bottom" id="eo5-JQ-pJw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rXs-uX-DqL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="关于Ticheck" id="Jpk-7c-Qq0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heV-wm-MwV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1448" y="-992"/>
         </scene>
     </scenes>
     <resources>

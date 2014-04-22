@@ -13,6 +13,7 @@
 		131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */; };
 		131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */; };
 		131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */; };
+		132E4D13190666DE00CF2A4C /* PassengerEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132E4D12190666DE00CF2A4C /* PassengerEditViewController.m */; };
 		135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B93190003E50061F51F /* PersonalCenterViewController.m */; };
 		135F6B97190014C10061F51F /* PersonalOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B96190014C10061F51F /* PersonalOrderViewController.m */; };
 		135F6B9B190018280061F51F /* PersonalOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B99190018280061F51F /* PersonalOrderTableViewCell.m */; };
@@ -120,6 +121,8 @@
 		131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Condensed.ttf"; sourceTree = "<group>"; };
 		131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		132E4D11190666DE00CF2A4C /* PassengerEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerEditViewController.h; sourceTree = "<group>"; };
+		132E4D12190666DE00CF2A4C /* PassengerEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerEditViewController.m; sourceTree = "<group>"; };
 		135F6B92190003E50061F51F /* PersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalCenterViewController.h; sourceTree = "<group>"; };
 		135F6B93190003E50061F51F /* PersonalCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalCenterViewController.m; sourceTree = "<group>"; };
 		135F6B95190014C10061F51F /* PersonalOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalOrderViewController.h; sourceTree = "<group>"; };
@@ -407,6 +410,8 @@
 				68026C2D1904A72400A61F1A /* BookListViewController.m */,
 				686E5C5D190563310074AB60 /* BookListSectionView.h */,
 				686E5C5E190563310074AB60 /* BookListSectionView.m */,
+				132E4D11190666DE00CF2A4C /* PassengerEditViewController.h */,
+				132E4D12190666DE00CF2A4C /* PassengerEditViewController.m */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -852,6 +857,7 @@
 				A0CDB5B01904C50300E20649 /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
 				A0CDB5AF1904C50300E20649 /* PDTSimpleCalendarViewController.m in Sources */,
 				686E5C5F190563310074AB60 /* BookListSectionView.m in Sources */,
+				132E4D13190666DE00CF2A4C /* PassengerEditViewController.m in Sources */,
 				A0040BC718E92783008E6485 /* ViewController.m in Sources */,
 				A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */,
 				A0A21D301905358F004CDD5E /* TimeFormatters.m in Sources */,

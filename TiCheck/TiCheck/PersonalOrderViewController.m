@@ -8,7 +8,7 @@
 
 #import "PersonalOrderViewController.h"
 #import "PersonalOrderTableViewCell.h"
-#import "TickectInfoViewController.h"
+#import "OrderInfoViewController.h"
 
 @interface PersonalOrderViewController ()
 
@@ -73,7 +73,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
+    OrderInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderInfoViewController"];
     [self.navigationController pushViewController:tiVC animated:YES];
     
 }
