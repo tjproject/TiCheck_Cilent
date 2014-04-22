@@ -10,6 +10,11 @@
 #import "PersonalOrderTableViewCell.h"
 #import "BookListSectionView.h"
 
+#define SECTION_BUTTON_TAG_START_INDEX 1000;
+#define EXPAND_BUTTON_TAG_START_INDEX 2000;
+
+
+
 @interface BookListViewController ()
 {
     NSMutableArray* bookOrderList;
@@ -48,6 +53,7 @@
 - (void)initBookOrderList
 {
     bookOrderList=[[NSMutableArray alloc]init];
+    isCellExpanded=[[NSMutableArray alloc]init];
     
     for(int i=0; i<4;i++)
     {
@@ -62,7 +68,7 @@
     
     
     for (int i=0; i<bookOrderList.count; i++) {
-        [isCellExpanded addObject:NO];
+        [isCellExpanded addObject:[NSNumber numberWithInt:0]];
     }
 }
 
@@ -74,7 +80,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [isCellExpanded objectAtIndex:section]? ((NSMutableArray*)[bookOrderList objectAtIndex:section]).count :3;
+    return [[isCellExpanded objectAtIndex:section] intValue]==1? ((NSMutableArray*)[bookOrderList objectAtIndex:section]).count :3;
 }
 
 //- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -130,24 +136,34 @@
     UIView* temp=[[UIView alloc]initWithFrame:CGRectMake(0,0, tableView.frame.size.width, 39)];
     temp.backgroundColor=[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
     
-    
+    //add sectionbutton for book change
     UIButton* sectionButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
     [sectionButton setFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
-    
-    //
-    //bug: after clicked, the button title disappeared.!!!
-    //
     [sectionButton setTitle:@"2013-04-13 至 2013-04-25 上海到北京" forState:UIControlStateNormal];
+    [sectionButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
     
-    sectionButton.titleLabel.text=@"2013-04-13 至 2013-04-25 上海到北京";
-    
-    //sectionButton.titleLabel.textAlignment=UITextAlignmentCenter;
     sectionButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:12.f];
-    sectionButton.titleLabel.textColor=[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1];
-    
     [sectionButton addTarget:self action:@selector(sectionListButton:) forControlEvents:UIControlEventTouchUpInside];
     
+    sectionButton.tag=section+SECTION_BUTTON_TAG_START_INDEX;
+    
     [temp addSubview:sectionButton];
+    
+    
+    //add expand button for expanding all ticket
+    UIButton* expandButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
+    [expandButton setFrame:CGRectMake(260, 0, 70, 39)];
+    [expandButton setTitle:@"展开" forState:UIControlStateNormal];
+    [expandButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
+    //[expandButton setTitleColor:[UIColor colorWithRed:44/255.0 green:33/255.0 blue:224/255.0 alpha:1] forState:UIControlStateHighlighted];
+    [expandButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    expandButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:14.f];
+    [expandButton addTarget:self action:@selector(expandButtonFunction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    expandButton.tag=section+EXPAND_BUTTON_TAG_START_INDEX;
+    
+    [temp addSubview:expandButton];
+    [temp bringSubviewToFront:expandButton];
     
     
     //add separator line
@@ -167,7 +183,26 @@
 - (void) sectionListButton:(id)sender
 {
     //
-    NSLog(@"test section button");
+    //NSLog(@"test section button");
+    UIButton *temp=(UIButton*)sender;
+    NSInteger buttonIndex=temp.tag-SECTION_BUTTON_TAG_START_INDEX;
+    NSLog(@"section %d",buttonIndex);
+}
+
+- (void) expandButtonFunction:(id)sender
+{
+    UIButton *temp=(UIButton*)sender;
+    NSInteger buttonIndex=temp.tag-EXPAND_BUTTON_TAG_START_INDEX;
+    NSLog(@"button %d",buttonIndex);
+    
+    
+    int result =([[isCellExpanded objectAtIndex:buttonIndex] intValue]+1)%2;
+    
+    [isCellExpanded replaceObjectAtIndex:buttonIndex withObject:[NSNumber numberWithInt:result]];
+    
+    
+    //change it to cell animation insertion
+    [self.bookListTableView reloadData];
 }
 
 /*
