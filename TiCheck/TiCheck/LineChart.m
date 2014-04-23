@@ -224,7 +224,9 @@
     minData=1000000000.0;
     for (int i=0; i<self.price.count; i++)
     {
-        if ([[self.price objectAtIndex:i] floatValue]<minData) minData=[[self.price objectAtIndex:i] floatValue];
+        // 0 不属于最低价
+        CGFloat floatValue = [[self.price objectAtIndex:i] floatValue];
+        if (floatValue < minData && floatValue != 0) minData=[[self.price objectAtIndex:i] floatValue];
     }
 }
 

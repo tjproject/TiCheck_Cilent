@@ -2,7 +2,6 @@ platform :ios, '7.0'
 
 pod 'GDataXML-HTML'
 pod 'ASIHTTPRequest'
-pod 'NSDate-Extensions'
 pod 'MagicalRecord'
 pod 'AFNetworking'
 pod 'EGOTableViewPullRefresh'

@@ -36,7 +36,6 @@ PODS:
   - MagicalRecord (2.2):
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
-  - NSDate-Extensions (0.0.1)
   - Reachability (3.1.1)
 
 DEPENDENCIES:
@@ -45,7 +44,6 @@ DEPENDENCIES:
   - EGOTableViewPullRefresh
   - GDataXML-HTML
   - MagicalRecord
-  - NSDate-Extensions
 
 SPEC CHECKSUMS:
   AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
@@ -53,7 +51,6 @@ SPEC CHECKSUMS:
   EGOTableViewPullRefresh: 7ed130952ccdc745c06835558cb13193fda22d78
   GDataXML-HTML: 281ea772a286241f860fa152cff5c7a7cd817336
   MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
-  NSDate-Extensions: 4a3be5bdfff735573aae834c93eec99f571dcc20
   Reachability: be4883bb93f31e38266ae3365e5600a317aae735
 
 COCOAPODS: 0.32.1
