@@ -28,26 +28,13 @@
     if ((self = [super initWithFrame: frame]))
     {
         self.backgroundColor = [UIColor whiteColor];
-//        _pickerData = [[NSArray alloc] initWithObjects:@"不购买保险",@"¥30x1份", nil];
-        //_pickerData = [self.delegate generatePickerData];
+        _pickerTitle = @"             是否购买保险          ";
         
         UIPickerView *picker = [[UIPickerView alloc] initWithFrame: CGRectMake(0, MyDateTimePickerToolbarHeight, frame.size.width, frame.size.height - MyDateTimePickerToolbarHeight)];
         picker.dataSource = self;
         picker.delegate = self;
         [self addSubview: picker];
-        
-        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 0, frame.size.width, MyDateTimePickerToolbarHeight)];
-        toolbar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
-        toolbar.tintColor = [UIColor whiteColor];
-        toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle: @"确定" style: UIBarButtonItemStyleBordered target: self action: @selector(donePressed)];
-        UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithTitle: @"             是否购买保险          " style: UIBarButtonItemStyleBordered target: self action: nil];
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: @"取消" style: UIBarButtonItemStyleBordered target: self action: @selector(cancelPressed)];
-        toolbar.items = [NSArray arrayWithObjects:cancelButton,flexibleSpace, doneButton, nil];
-        
-        [self addSubview: toolbar];
-        
+        [self initPickerToolBarWithTitle:_pickerTitle];
         self.picker = picker;
         picker.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
         
@@ -55,6 +42,22 @@
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
     }
     return self;
+}
+
+- (void)initPickerToolBarWithTitle:(NSString*)title
+{
+    _pickerTitle = title;
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 0, self.frame.size.width, MyDateTimePickerToolbarHeight)];
+    toolbar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
+    toolbar.tintColor = [UIColor whiteColor];
+    toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle: @"确定" style: UIBarButtonItemStyleBordered target: self action: @selector(donePressed)];
+    UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithTitle: _pickerTitle style: UIBarButtonItemStyleBordered target: self action: nil];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: @"取消" style: UIBarButtonItemStyleBordered target: self action: @selector(cancelPressed)];
+    toolbar.items = [NSArray arrayWithObjects:cancelButton,flexibleSpace, doneButton, nil];
+    
+    [self addSubview: toolbar];
 }
 
 - (void)initPickerData

@@ -195,6 +195,7 @@
     else if(indexPath.row == 1)
     {
         self.view.userInteractionEnabled = NO;
+        [self navigationController].navigationBar.userInteractionEnabled = NO;
         _TIVC_assurancePicker = [[TickectInfoPicker alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
         _TIVC_assurancePicker.tag = 0;
         _TIVC_assurancePicker.delegate = self;
@@ -208,10 +209,12 @@
     else if(indexPath.row == 2)
     {
         self.view.userInteractionEnabled = NO;
+        [self navigationController].navigationBar.userInteractionEnabled = NO;
         _TIVC_submitPicker = [[TickectInfoPicker alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
         _TIVC_submitPicker.tag = 1;
         _TIVC_submitPicker.delegate = self;
         [_TIVC_submitPicker initPickerData];
+        [_TIVC_submitPicker initPickerToolBarWithTitle:@"         是否需要报销凭证       "];
         [_TIVC_submitPicker addTargetForCancelButton:self action:@selector(submitCancelPressed)];
         [_TIVC_submitPicker addTargetForDoneButton:self action:@selector(submitDonePressed)];
         [[self navigationController].view addSubview:_TIVC_submitPicker];
@@ -248,12 +251,14 @@
 
 - (void)assuranceCancelPressed
 {
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
     [self pushViewAnimationWithView:_TIVC_assurancePicker willHidden:YES];
     self.view.userInteractionEnabled = YES;
 }
 
 - (void)assuranceDonePressed
 {
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
     assranceInfo = [_TIVC_assurancePicker.pickerData objectAtIndex:[_TIVC_assurancePicker.picker selectedRowInComponent:0]];
     [_infoVessel reloadData];
     [self pushViewAnimationWithView:_TIVC_assurancePicker willHidden:YES];
@@ -262,12 +267,14 @@
 
 - (void)submitCancelPressed
 {
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
     [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:YES];
     self.view.userInteractionEnabled = YES;
 }
 
 - (void)submitDonePressed
 {
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
     submitInfo = [_TIVC_submitPicker.pickerData objectAtIndex:[_TIVC_submitPicker.picker selectedRowInComponent:0]];
     [_infoVessel reloadData];
     [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:YES];

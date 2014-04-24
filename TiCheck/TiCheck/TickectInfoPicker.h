@@ -20,11 +20,13 @@
 
 @property (nonatomic, assign, readonly) UIPickerView *picker;
 @property (strong, nonatomic) NSArray *pickerData;
+@property (strong, nonatomic) NSString *pickerTitle;
 
 - (void) addTargetForDoneButton: (id) target action: (SEL) action;
 - (void) addTargetForCancelButton: (id) target action: (SEL) action;
 
 - (void)initPickerData;
+- (void)initPickerToolBarWithTitle:(NSString*)title;
 
 @property (nonatomic, assign) id<TickectInfoPickerDelegate> delegate;
 
