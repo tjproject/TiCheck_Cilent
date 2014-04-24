@@ -8,6 +8,8 @@
 
 #import "TickectInfoViewController.h"
 #import "PayProcessViewController.h"
+#import "PassengerEditViewController.h"
+
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
 @interface TickectInfoViewController ()
@@ -33,8 +35,8 @@
     [self initLabel];
     [self initImage];
     [self initButton];
-    [self initCellButton];
     [self initInfoVessel];
+    [self initDarkUILayer];
 }
 
 - (void)initLabel
@@ -125,17 +127,15 @@
     [self.view bringSubviewToFront:_TIVC_confirmButton];
 }
 
-#pragma mark - buttons in cell
-- (void)initCellButton
+- (void)initDarkUILayer
 {
-    _TIVC_addPassengerButton = [[UIButton alloc] initWithFrame:CELL_BUTTON_RECT];
-    _TIVC_addressBookButton = [[UIButton alloc] initWithFrame:CELL_BUTTON_RECT];
-    [_TIVC_addPassengerButton setImage:[UIImage imageNamed:@"passengerButton"] forState:UIControlStateNormal];
-    [_TIVC_addressBookButton setImage:[UIImage imageNamed:@"addressButton"] forState:UIControlStateNormal];
-    [_TIVC_addPassengerButton addTarget:self action:@selector(addPassenger:) forControlEvents:UIControlEventTouchUpInside];
-    [_TIVC_addressBookButton addTarget:self action:@selector(addAddress:) forControlEvents:UIControlEventTouchUpInside];
+    darkUILayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
+    darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    darkUILayer.userInteractionEnabled = NO;
+    [self.view addSubview:darkUILayer];
 }
 
+#pragma mark - buttons in cell
 - (void)initInfoVessel
 {
     _infoVessel = [[UITableView alloc] initWithFrame:CGRectMake(0, 282, 320, 536-282-45
@@ -144,14 +144,17 @@
     _infoVessel.delegate = self;
     [_infoVessel setSeparatorInset:UIEdgeInsetsZero];
     _infoVessel.scrollEnabled = NO;
+    _infoVessel.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
     [self.view addSubview:_infoVessel];
-    cellTitleArr = [NSArray arrayWithObjects:@"登机人",@"手机号码",@"航空意外险",@"报销凭证", nil];
+    cellTitleArr = [NSArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
+    assranceInfo = @"¥30x1份";
+    submitInfo = @"不需要报销凭证";
 }
 
 #pragma mark - UITableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {return 1;}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {return 4;}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {return 3;}
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -161,16 +164,15 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
-    if (indexPath.row == 0) [cell.contentView addSubview:_TIVC_addPassengerButton];
-    else if(indexPath.row == 1) [cell.contentView addSubview:_TIVC_addressBookButton];
-    else if(indexPath.row == 2)
+    if (indexPath.row == 0) {cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;}
+    else if(indexPath.row == 1)
     {
-        cell.detailTextLabel.text = @"¥30X1份";
+        cell.detailTextLabel.text = assranceInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:1.0 green:0.6 blue:0 alpha:1.0];
     }
     else
     {
-        cell.detailTextLabel.text = @"不需要报销凭证";
+        cell.detailTextLabel.text = submitInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
     }
     cell.textLabel.text = [cellTitleArr objectAtIndex:[indexPath row]];
@@ -182,6 +184,55 @@
 #pragma mark - UITableView Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {return 48;}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0)
+    {
+        PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
+        [self.navigationController pushViewController:peVC animated:YES];
+    }
+    else if(indexPath.row == 1)
+    {
+        self.view.userInteractionEnabled = NO;
+        _TIVC_assurancePicker = [[TickectInfoPicker alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
+        _TIVC_assurancePicker.tag = 0;
+        _TIVC_assurancePicker.delegate = self;
+        [_TIVC_assurancePicker initPickerData];
+        [_TIVC_assurancePicker addTargetForCancelButton:self action:@selector(assuranceCancelPressed)];
+        [_TIVC_assurancePicker addTargetForDoneButton:self action:@selector(assuranceDonePressed)];
+        [[self navigationController].view addSubview:_TIVC_assurancePicker];
+        [self pushViewAnimationWithView:_TIVC_assurancePicker willHidden:NO];
+        _TIVC_assurancePicker.hidden = NO;
+    }
+    else if(indexPath.row == 2)
+    {
+        self.view.userInteractionEnabled = NO;
+        _TIVC_submitPicker = [[TickectInfoPicker alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
+        _TIVC_submitPicker.tag = 1;
+        _TIVC_submitPicker.delegate = self;
+        [_TIVC_submitPicker initPickerData];
+        [_TIVC_submitPicker addTargetForCancelButton:self action:@selector(submitCancelPressed)];
+        [_TIVC_submitPicker addTargetForDoneButton:self action:@selector(submitDonePressed)];
+        [[self navigationController].view addSubview:_TIVC_submitPicker];
+        [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:NO];
+        _TIVC_submitPicker.hidden = NO;
+    }
+}
+
+#pragma mark - ticketInfoPickerDelegate
+- (NSArray*)generatePickerDataWithView:(UIView *)view
+{
+    if (view.tag == 0)
+    {
+        pickerData = [[NSArray alloc] initWithObjects:@"不购买保险",@"¥30x1份", nil];
+    }
+    else
+    {
+        pickerData = [[NSArray alloc] initWithObjects:@"不需要报销凭证",@"邮寄报销凭证", nil];
+    }
+    return pickerData;
+}
 
 #pragma mark - target selector
 - (void)bookButtonPressed:(id)sender
@@ -195,14 +246,52 @@
     [self.navigationController pushViewController:ppVC animated:YES];
 }
 
-- (void)addPassenger:(id)sender
+- (void)assuranceCancelPressed
 {
-    //add
+    [self pushViewAnimationWithView:_TIVC_assurancePicker willHidden:YES];
+    self.view.userInteractionEnabled = YES;
 }
 
-- (void)addAddress:(id)sender
+- (void)assuranceDonePressed
 {
-    //add
+    assranceInfo = [_TIVC_assurancePicker.pickerData objectAtIndex:[_TIVC_assurancePicker.picker selectedRowInComponent:0]];
+    [_infoVessel reloadData];
+    [self pushViewAnimationWithView:_TIVC_assurancePicker willHidden:YES];
+    self.view.userInteractionEnabled = YES;
+}
+
+- (void)submitCancelPressed
+{
+    [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:YES];
+    self.view.userInteractionEnabled = YES;
+}
+
+- (void)submitDonePressed
+{
+    submitInfo = [_TIVC_submitPicker.pickerData objectAtIndex:[_TIVC_submitPicker.picker selectedRowInComponent:0]];
+    [_infoVessel reloadData];
+    [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:YES];
+    self.view.userInteractionEnabled = YES;
+}
+
+#pragma mark - utility functions
+- (void)pushViewAnimationWithView:(UIView*)view willHidden:(BOOL)hidden
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        if (hidden)
+        {
+            view.frame = CGRectMake(0, 568, 320, 215);
+            darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        }
+        else
+        {
+            [view setHidden:hidden];
+            view.frame = CGRectMake(0, 568 - 215, 320, 215);
+            darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+        }
+    } completion:^(BOOL finished){
+        [view setHidden:hidden];
+    }];
 }
 
 - (void)didReceiveMemoryWarning

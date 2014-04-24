@@ -13,6 +13,7 @@
 		131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */; };
 		131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */; };
 		131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */; };
+		132020F7190915EB008EA517 /* TickectInfoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 132020F6190915EB008EA517 /* TickectInfoPicker.m */; };
 		132E4D13190666DE00CF2A4C /* PassengerEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132E4D12190666DE00CF2A4C /* PassengerEditViewController.m */; };
 		135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B93190003E50061F51F /* PersonalCenterViewController.m */; };
 		135F6B97190014C10061F51F /* PersonalOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B96190014C10061F51F /* PersonalOrderViewController.m */; };
@@ -123,6 +124,8 @@
 		131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Condensed.ttf"; sourceTree = "<group>"; };
 		131C6F9018F7CBE500654D6E /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		131C6F9118F7CBE500654D6E /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		132020F5190915EB008EA517 /* TickectInfoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickectInfoPicker.h; sourceTree = "<group>"; };
+		132020F6190915EB008EA517 /* TickectInfoPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickectInfoPicker.m; sourceTree = "<group>"; };
 		132E4D11190666DE00CF2A4C /* PassengerEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerEditViewController.h; sourceTree = "<group>"; };
 		132E4D12190666DE00CF2A4C /* PassengerEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerEditViewController.m; sourceTree = "<group>"; };
 		135F6B92190003E50061F51F /* PersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalCenterViewController.h; sourceTree = "<group>"; };
@@ -335,6 +338,8 @@
 			children = (
 				1370841818F7BC0200FD4949 /* TickectInfoViewController.h */,
 				1370841918F7BC0200FD4949 /* TickectInfoViewController.m */,
+				132020F5190915EB008EA517 /* TickectInfoPicker.h */,
+				132020F6190915EB008EA517 /* TickectInfoPicker.m */,
 			);
 			name = TicketInfo;
 			sourceTree = "<group>";
@@ -924,6 +929,7 @@
 				A0620B6C18D72772003A7A55 /* NSString+EnumTransform.m in Sources */,
 				A0452E2D18FE4A5200DED4EE /* Airport.m in Sources */,
 				A0620B9418D727B6003A7A55 /* OTAGetStatusChangedOrders.m in Sources */,
+				132020F7190915EB008EA517 /* TickectInfoPicker.m in Sources */,
 				A0620B9618D727B6003A7A55 /* OTAFlightCancelOrderResponse.m in Sources */,
 				A0620B6B18D72772003A7A55 /* NSString+DateFormat.m in Sources */,
 				A0CDB5B11904C50300E20649 /* PDTSimpleCalendarViewHeader.m in Sources */,

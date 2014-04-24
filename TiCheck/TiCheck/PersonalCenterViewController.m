@@ -10,6 +10,7 @@
 #import "AccountEditViewController.h"
 #import "PersonalOrderViewController.h"
 #import "PassengerEditViewController.h"
+#import "TickectInfoViewController.h"
 
 @interface PersonalCenterViewController ()
 
@@ -127,7 +128,7 @@
     }
     else if(indexPath.section == 1 && indexPath.row == 2)
     {
-        UIViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TicheckInfoViewController"];
+        TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
         [self.navigationController pushViewController:tiVC animated:YES];
     }
 }
