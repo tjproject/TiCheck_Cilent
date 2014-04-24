@@ -19,6 +19,12 @@
     NSArray *pickerData;
     NSString *assranceInfo;
     NSString *submitInfo;
+    
+    UITextField *nameInputField;
+    UITextField *phoneInputField;
+    UITextField *addressInputField;
+    UITextField *submitTitleInputField;
+    NSArray *inputFieldArray;
 }
 @property (strong, nonatomic) UILabel *TIVC_timeLabel;
 @property (strong, nonatomic) UILabel *TIVC_fromLabel;

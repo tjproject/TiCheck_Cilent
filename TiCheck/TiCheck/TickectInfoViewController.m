@@ -14,7 +14,7 @@
 
 @interface TickectInfoViewController ()
 {
-    NSArray *cellTitleArr;
+    NSMutableArray *cellTitleArr;
 }
 @end
 
@@ -37,6 +37,7 @@
     [self initButton];
     [self initInfoVessel];
     [self initDarkUILayer];
+    [self initTextInputFields];
 }
 
 - (void)initLabel
@@ -93,6 +94,14 @@
     [self.view addSubview:_TIVC_discountLabel];
 }
 
+- (void)initTextInputFields
+{
+    nameInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
+    phoneInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
+    addressInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
+    submitTitleInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
+    inputFieldArray = [[NSArray alloc] initWithObjects:nameInputField,phoneInputField,addressInputField,submitTitleInputField, nil];
+}
 
 - (void)initImage
 {
@@ -138,15 +147,16 @@
 #pragma mark - buttons in cell
 - (void)initInfoVessel
 {
-    _infoVessel = [[UITableView alloc] initWithFrame:CGRectMake(0, 282, 320, 536-282-45
+    _infoVessel = [[UITableView alloc] initWithFrame:CGRectMake(0, 282, 320, 536-282-15
                                                                 )];
     _infoVessel.dataSource = self;
     _infoVessel.delegate = self;
     [_infoVessel setSeparatorInset:UIEdgeInsetsZero];
     _infoVessel.scrollEnabled = NO;
+    _infoVessel.showsVerticalScrollIndicator = NO;
     _infoVessel.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
     [self.view addSubview:_infoVessel];
-    cellTitleArr = [NSArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
+    cellTitleArr = [NSMutableArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
     assranceInfo = @"¥30x1份";
     submitInfo = @"不需要报销凭证";
 }
@@ -154,7 +164,7 @@
 #pragma mark - UITableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {return 1;}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {return 3;}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {return cellTitleArr.count;}
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -170,13 +180,18 @@
         cell.detailTextLabel.text = assranceInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:1.0 green:0.6 blue:0 alpha:1.0];
     }
-    else
+    else if(indexPath.row == 2)
     {
         cell.detailTextLabel.text = submitInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
     }
+    else
+    {
+        [self initInputFieldInView:cell With:[inputFieldArray objectAtIndex:[indexPath row] - 3]];
+    }
     cell.textLabel.text = [cellTitleArr objectAtIndex:[indexPath row]];
-    cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
+    if (indexPath.row < 3) cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
+    else cell.textLabel.textColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -228,7 +243,7 @@
 {
     if (view.tag == 0)
     {
-        pickerData = [[NSArray alloc] initWithObjects:@"不购买保险",@"¥30x1份", nil];
+        pickerData = [[NSArray alloc] initWithObjects:@"¥30x1份",@"不购买保险", nil];
     }
     else
     {
@@ -276,6 +291,25 @@
 {
     [self navigationController].navigationBar.userInteractionEnabled = YES;
     submitInfo = [_TIVC_submitPicker.pickerData objectAtIndex:[_TIVC_submitPicker.picker selectedRowInComponent:0]];
+    if([submitInfo isEqualToString:@"邮寄报销凭证"])
+    {
+        if ([[cellTitleArr objectAtIndex:[cellTitleArr count] - 1] isEqualToString:@"报销凭证"])
+        {
+            [cellTitleArr addObject:@"收件人姓名"];
+            [cellTitleArr addObject:@"联系电话"];
+            [cellTitleArr addObject:@"收件地址"];
+            [cellTitleArr addObject:@"发票抬头"];
+            _infoVessel.scrollEnabled = YES;
+        }
+    }
+    else if([[cellTitleArr objectAtIndex:[cellTitleArr count] - 1] isEqualToString:@"发票抬头"])
+    {
+        [cellTitleArr removeObject:@"收件人姓名"];
+        [cellTitleArr removeObject:@"联系电话"];
+        [cellTitleArr removeObject:@"收件地址"];
+        [cellTitleArr removeObject:@"发票抬头"];
+        _infoVessel.scrollEnabled = NO;
+    }
     [_infoVessel reloadData];
     [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:YES];
     self.view.userInteractionEnabled = YES;
@@ -299,6 +333,11 @@
     } completion:^(BOOL finished){
         [view setHidden:hidden];
     }];
+}
+
+- (void)initInputFieldInView:(UIView*)view With:(UITextField*)textField;
+{
+    [view addSubview:textField];
 }
 
 - (void)didReceiveMemoryWarning
