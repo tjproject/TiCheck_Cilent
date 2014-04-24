@@ -12,7 +12,7 @@
 
 #define SECTION_BUTTON_TAG_START_INDEX 1000;
 #define EXPAND_BUTTON_TAG_START_INDEX 2000;
-
+#define DEFAULT_CELL_NUM 3;
 
 
 @interface BookListViewController ()
@@ -59,7 +59,7 @@
     {
         NSMutableArray *temp=[[NSMutableArray alloc]init];
         
-        for (int j=0; j<8; j++) {
+        for (int j=0; j<i*3; j++) {
             [temp addObject: [NSString stringWithFormat:@"%i",j*i ]];
         }
         
@@ -80,7 +80,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[isCellExpanded objectAtIndex:section] intValue]==1? ((NSMutableArray*)[bookOrderList objectAtIndex:section]).count :3;
+    NSInteger sectionCount=((NSMutableArray*)[bookOrderList objectAtIndex:section]).count;
+    return [[isCellExpanded objectAtIndex:section] intValue]==1? sectionCount :3;//(sectionCount<=3?sectionCount:3);
 }
 
 //- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -150,21 +151,27 @@
     [temp addSubview:sectionButton];
     
     
-    //add expand button for expanding all ticket
-    UIButton* expandButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
-    [expandButton setFrame:CGRectMake(260, 0, 70, 39)];
-    [expandButton setTitle:@"展开" forState:UIControlStateNormal];
-    [expandButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
-    //[expandButton setTitleColor:[UIColor colorWithRed:44/255.0 green:33/255.0 blue:224/255.0 alpha:1] forState:UIControlStateHighlighted];
-    [expandButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    expandButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:14.f];
-    [expandButton addTarget:self action:@selector(expandButtonFunction:) forControlEvents:UIControlEventTouchUpInside];
     
-    expandButton.tag=section+EXPAND_BUTTON_TAG_START_INDEX;
-    
-    [temp addSubview:expandButton];
-    [temp bringSubviewToFront:expandButton];
-    
+    //bug: section 会被重置  button状态也被重置
+
+    if ( ((NSMutableArray*)[bookOrderList objectAtIndex:section]).count>3) {
+        
+        //add expand button for expanding all ticket
+        UIButton* expandButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
+        [expandButton setFrame:CGRectMake(260, 0, 70, 39)];
+        [expandButton setTitle:@"展开" forState:UIControlStateNormal];
+        [expandButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
+        //[expandButton setTitleColor:[UIColor colorWithRed:44/255.0 green:33/255.0 blue:224/255.0 alpha:1] forState:UIControlStateHighlighted];
+        [expandButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        expandButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:14.f];
+        [expandButton addTarget:self action:@selector(expandButtonFunction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        expandButton.tag=section+EXPAND_BUTTON_TAG_START_INDEX;
+        
+        [temp addSubview:expandButton];
+        [temp bringSubviewToFront:expandButton];
+        
+    }
     
     //add separator line
     UIView *separatorline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, temp.frame.size.width, 0.5 )];
@@ -197,12 +204,77 @@
     
     
     int result =([[isCellExpanded objectAtIndex:buttonIndex] intValue]+1)%2;
-    
+    //update state
     [isCellExpanded replaceObjectAtIndex:buttonIndex withObject:[NSNumber numberWithInt:result]];
+    
+    //bug:在收起cell时， 删除了不该删除的cell
+    //animation
+    NSMutableArray *changedCellIndexArray = [NSMutableArray array];
+    for (NSInteger i = 0; i < (((NSMutableArray*)[bookOrderList objectAtIndex:buttonIndex]).count-3 ); i++)
+    {
+        NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 3+i inSection:buttonIndex];
+        [changedCellIndexArray addObject:toChangedCell];
+    }
+    if(result==1)
+    {
+        [temp setTitle:@"收起" forState:UIControlStateNormal];
+        //expand, add cells
+        //[self.bookListTableView beginUpdates];
+        [self.bookListTableView insertRowsAtIndexPaths:changedCellIndexArray withRowAnimation:UITableViewRowAnimationTop];
+        //[self.bookListTableView endUpdates];
+    }
+    else if(result==0)
+    {
+        [temp setTitle:@"展开" forState:UIControlStateNormal];
+        //unexpand, delete cells
+        //[self.bookListTableView beginUpdates];
+        [self.bookListTableView deleteRowsAtIndexPaths:changedCellIndexArray withRowAnimation:UITableViewRowAnimationTop];
+        //[self.bookListTableView endUpdates];
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    NSInteger moreOptionsBeginCounter = 3;
+//    if (isReturn) moreOptionsBeginCounter++;
+//    
+//    NSMutableArray *moreOptionIndexArray = [NSMutableArray array];
+//    for (NSInteger i = 0; i < 4; ++i) {
+//        NSIndexPath *toAddOption = [NSIndexPath indexPathForRow:moreOptionsBeginCounter + i inSection:0];
+//        [moreOptionIndexArray addObject:toAddOption];
+//    }
+//    
+//    NSIndexPath *moreButton = [NSIndexPath indexPathForRow:moreOptionsBeginCounter inSection:0];
+//    
+//    [self.searchOptionTableView beginUpdates];
+//    [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
+//    [self.searchOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];
+//    [self.searchOptionTableView endUpdates];
+//    
+    
+    
+    
+    
+    
     
     
     //change it to cell animation insertion
-    [self.bookListTableView reloadData];
+    //[self.bookListTableView reloadData];
 }
 
 /*
