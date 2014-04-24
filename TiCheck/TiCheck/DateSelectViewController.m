@@ -37,10 +37,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    if (self.routeType == Return) {
-        self.todayButton.hidden = YES;
-    }
+    self.todayButton.hidden = self.isTodayButtonHidden;
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,6 +45,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)setIsTodayButtonHidden:(BOOL)isTodayButtonHidden
+{
+    _isTodayButtonHidden = isTodayButtonHidden;
+    self.todayButton.hidden = _isTodayButtonHidden;
+}
+
+#pragma mark - Click Event
 
 - (IBAction)closeClicked:(id)sender
 {
@@ -96,7 +101,8 @@
         
         self.calendarViewController.firstDate = self.beginDate;
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-        offsetComponents.month = 5;
+        offsetComponents.day = 150;
+//        offsetComponents.month = 5;
         NSDate *lastDate = [self.calendarViewController.calendar dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
         self.calendarViewController.lastDate = lastDate;
         [self.calendarViewController updateSelectedDateWithoutDelegateNotify:self.selectedDate];

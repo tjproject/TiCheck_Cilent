@@ -11,12 +11,14 @@
 #import "CitySelectViewController.h"
 #import "DateSelectViewController.h"
 #import "DateSelectViewController.h"
-#import "NSString+DateFormat.h"
 #import "SearchOption.h"
 
 #import "DateTableViewCell.h"
 #import "FromToTableViewCell.h"
 #import "GeneralOptionTableViewCell.h"
+
+#import "NSString+DateFormat.h"
+#import "NSDate-Utilities.h"
 
 #define TABLE_VIEW_DEFAULT_HEIGHT 44.0f
 #define MORE_OPTION_COUNT 4
@@ -26,9 +28,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *searchOptionTableView;
 
 @property (weak, nonatomic) IBOutlet UIView *buttonsView;
-
-@property (weak, nonatomic) IBOutlet UIButton *lowPriceButton;
-@property (weak, nonatomic) IBOutlet UIButton *myOrderButton;
 
 @property (weak, nonatomic) FromToTableViewCell *fromToCell;
 @property (weak, nonatomic) DateTableViewCell *takeOffDateCell;
@@ -96,9 +95,6 @@
 - (void)optionLabelTapped:(UITapGestureRecognizer *)sender
 {
     UILabel *label = (UILabel *)sender.view;
-
-//    NSLog(@"%dsdadsa");
-//    FromToTableViewCell *fromToCell = (FromToTableViewCell *)[self.searchOptionTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     if (label == self.fromToCell.fromCityLabel) {
         CitySelectViewController *citiesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CitySelectViewConrtoller"];
@@ -119,6 +115,7 @@
         dateViewController.delegate = self;
         dateViewController.routeType = Take_Off;
         dateViewController.beginDate = [NSDate date];
+        dateViewController.isTodayButtonHidden = NO;
         
         [self presentViewController:dateViewController animated:YES completion:nil];
     } else if (label == self.returnDateCell.dateLabel) {
@@ -128,6 +125,7 @@
         dateViewController.delegate = self;
         dateViewController.routeType = Return;
         dateViewController.beginDate = [NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text];
+        dateViewController.isTodayButtonHidden = YES;
         
         [self presentViewController:dateViewController animated:YES completion:nil];
     }
@@ -138,21 +136,29 @@
 - (void)setFromCityLabel:(NSString *)fromCityString
 {
     self.fromToCell.fromCityLabel.text = fromCityString;
+    [SearchOption sharedSearchOption].departCityName = self.fromToCell.fromCityLabel.text;
 }
 
 - (void)setToCityLabel:(NSString *)toCityString
 {
     self.fromToCell.toCityLabel.text = toCityString;
+    [SearchOption sharedSearchOption].arriveCityName = self.fromToCell.toCityLabel.text;
 }
 
 - (void)setTakeOffTimeLabel:(NSDate *)takeOffDate
 {
     self.takeOffDateCell.dateLabel.text = [NSString stringFormatWithDate:takeOffDate];
+    // 若选择开始时间晚于结束时间，调整结束时间为开始时间
+    if (isReturn && [takeOffDate isLaterThanDate:[NSString dateFormatWithString:self.returnDateCell.dateLabel.text]]) {
+        self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:takeOffDate];
+    }
+    [SearchOption sharedSearchOption].takeOffDate = [NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text];
 }
 
 - (void)setReturnTimeLabel:(NSDate *)returnDate
 {
     self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:returnDate];
+    [SearchOption sharedSearchOption].returnDate = [NSString dateFormatWithString:self.returnDateCell.dateLabel.text];
 }
 
 #pragma mark TableView Delegate
@@ -219,6 +225,10 @@
                 UITapGestureRecognizer *returnDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
                 [self.returnDateCell.dateLabel addGestureRecognizer:returnDateSelectGesture];
                 self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
+                // 显示返回日期时，若早于出发时期，调整至出发日期
+                if ([[NSString dateFormatWithString:self.returnDateCell.dateLabel.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text]]) {
+                    self.returnDateCell.dateLabel.text = self.takeOffDateCell.dateLabel.text;
+                }
                 
                 return returnDateCell;
             }
@@ -273,7 +283,6 @@
             generalCell.generalValue.titleLabel.text = @"9:00 ~ 12:00";
             self.takeOffTimeCell = generalCell;
         }
-//        generalCell.generalValue.titleLabel.text = @"不限";
     }
     return generalCell;
 }

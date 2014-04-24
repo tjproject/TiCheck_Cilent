@@ -87,6 +87,8 @@
 		A0A21D2F1905358F004CDD5E /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A21D2B1905358F004CDD5E /* NSDate-Utilities.m */; };
 		A0A21D301905358F004CDD5E /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A21D2D1905358F004CDD5E /* TimeFormatters.m */; };
 		A0A8A66F19036633006070B8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A8A66E19036633006070B8 /* SearchViewController.m */; };
+		A0B4E74F1908F30E00765F1A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B4E74E1908F30E00765F1A /* SubscriptionViewController.m */; };
+		A0B4E7531908FD7800765F1A /* DateIntervalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B4E7521908FD7800765F1A /* DateIntervalTableViewCell.m */; };
 		A0B677F918FABF5700A4DC76 /* DomesticCities.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0B677F818FABF5700A4DC76 /* DomesticCities.xml */; };
 		A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */; };
 		A0B6780918FAC35A00A4DC76 /* DomesticCity.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B6780818FAC35A00A4DC76 /* DomesticCity.m */; };
@@ -254,6 +256,10 @@
 		A0A21D2E1905358F004CDD5E /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		A0A8A66D19036633006070B8 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		A0A8A66E19036633006070B8 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		A0B4E74D1908F30E00765F1A /* SubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
+		A0B4E74E1908F30E00765F1A /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
+		A0B4E7511908FD7800765F1A /* DateIntervalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateIntervalTableViewCell.h; sourceTree = "<group>"; };
+		A0B4E7521908FD7800765F1A /* DateIntervalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateIntervalTableViewCell.m; sourceTree = "<group>"; };
 		A0B677F818FABF5700A4DC76 /* DomesticCities.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = DomesticCities.xml; path = Resources/APIRelated/DomesticCities.xml; sourceTree = "<group>"; };
 		A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIResourceHelper.h; sourceTree = "<group>"; };
 		A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIResourceHelper.m; sourceTree = "<group>"; };
@@ -619,19 +625,29 @@
 			path = OTAResponse;
 			sourceTree = "<group>";
 		};
-		A0A8A66C19036620006070B8 /* Search */ = {
+		A0A8A66C19036620006070B8 /* SearchAndSubscription */ = {
 			isa = PBXGroup;
 			children = (
-				A0BE290419063AD00042D356 /* Cell */,
-				A03CC78B1904C1F500ED3217 /* PDTSimpleCalendar */,
+				A0B4E754190906E800765F1A /* Common */,
+				A0B4E74D1908F30E00765F1A /* SubscriptionViewController.h */,
+				A0B4E74E1908F30E00765F1A /* SubscriptionViewController.m */,
 				A0A8A66D19036633006070B8 /* SearchViewController.h */,
 				A0A8A66E19036633006070B8 /* SearchViewController.m */,
+			);
+			name = SearchAndSubscription;
+			sourceTree = "<group>";
+		};
+		A0B4E754190906E800765F1A /* Common */ = {
+			isa = PBXGroup;
+			children = (
 				A060AA001904ADFB0001219A /* DateSelectViewController.h */,
 				A060AA011904ADFB0001219A /* DateSelectViewController.m */,
 				A0D92B071903D37000AC67F2 /* CitySelectViewController.h */,
 				A0D92B081903D37000AC67F2 /* CitySelectViewController.m */,
+				A0BE290419063AD00042D356 /* Cell */,
+				A03CC78B1904C1F500ED3217 /* PDTSimpleCalendar */,
 			);
-			name = Search;
+			name = Common;
 			sourceTree = "<group>";
 		};
 		A0B677F518FABF1200A4DC76 /* APIRelated */ = {
@@ -664,13 +680,13 @@
 		A0B677FD18FABFD200A4DC76 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				A0A8A66C19036620006070B8 /* Search */,
-				68436EF618FEBB260043B10E /* Pay */,
-				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
 				24FC2B6B18EC3AD000F6A2A9 /* Login */,
+				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
+				68436EF618FEBB260043B10E /* Pay */,
+				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
+				A0A8A66C19036620006070B8 /* SearchAndSubscription */,
 				2491397F18ED271400061780 /* SearchResult */,
 				1370841718F7BB6A00FD4949 /* TicketInfo */,
-				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 			);
 			name = PresentationLayer;
 			sourceTree = "<group>";
@@ -684,6 +700,8 @@
 				A0BE290919063E230042D356 /* FromToTableViewCell.m */,
 				A0BE2901190613840042D356 /* GeneralOptionTableViewCell.h */,
 				A0BE2902190613840042D356 /* GeneralOptionTableViewCell.m */,
+				A0B4E7511908FD7800765F1A /* DateIntervalTableViewCell.h */,
+				A0B4E7521908FD7800765F1A /* DateIntervalTableViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -883,7 +901,9 @@
 				24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */,
 				A0620B0818D7242C003A7A55 /* main.m in Sources */,
 				A060AA021904ADFB0001219A /* DateSelectViewController.m in Sources */,
+				A0B4E74F1908F30E00765F1A /* SubscriptionViewController.m in Sources */,
 				24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */,
+				A0B4E7531908FD7800765F1A /* DateIntervalTableViewCell.m in Sources */,
 				A0620B6418D72743003A7A55 /* Order.m in Sources */,
 				A0620B9518D727B6003A7A55 /* OTAUserUniqueID.m in Sources */,
 				68026C2E1904A72400A61F1A /* BookListViewController.m in Sources */,
