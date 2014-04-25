@@ -100,6 +100,8 @@
     phoneInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
     addressInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
     submitTitleInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
+    nameInputField.delegate = phoneInputField.delegate = addressInputField.delegate = submitTitleInputField.delegate = self;
+    nameInputField.returnKeyType = phoneInputField.returnKeyType = addressInputField.returnKeyType = submitTitleInputField.returnKeyType = UIReturnKeyDone;
     inputFieldArray = [[NSArray alloc] initWithObjects:nameInputField,phoneInputField,addressInputField,submitTitleInputField, nil];
 }
 
@@ -174,6 +176,7 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
+    
     if (indexPath.row == 0) {cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;}
     else if(indexPath.row == 1)
     {
@@ -185,9 +188,12 @@
         cell.detailTextLabel.text = submitInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
     }
-    else
+    else if(indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6)
     {
         [self initInputFieldInView:cell With:[inputFieldArray objectAtIndex:[indexPath row] - 3]];
+    }
+    else
+    {
     }
     cell.textLabel.text = [cellTitleArr objectAtIndex:[indexPath row]];
     if (indexPath.row < 3) cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
@@ -236,6 +242,13 @@
         [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:NO];
         _TIVC_submitPicker.hidden = NO;
     }
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark - ticketInfoPickerDelegate
