@@ -22,6 +22,10 @@
 @property (strong, nonatomic) UILabel *placeLabel;
 @property (strong, nonatomic) UIImageView *flightImage;
 
+//add image view for fight price trend by HZB
+@property (strong, nonatomic) UIImageView *priceTrednImage;
+
+
 - (void)initOrderInfoWithFlight:(NSString*)fInfo Plane:(NSString*)pInfo Time:(NSString*)tInfo Place:(NSString*)p2Info FlightImage:(NSString*)fIName;
 
 @end
