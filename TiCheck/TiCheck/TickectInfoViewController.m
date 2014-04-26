@@ -96,10 +96,14 @@
 
 - (void)initTextInputFields
 {
-    nameInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
-    phoneInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
-    addressInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
-    submitTitleInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
+    nameInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    phoneInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    addressInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    submitTitleInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    nameInputField.tag = 3;
+    phoneInputField.tag = 4;
+    addressInputField.tag = 5;
+    submitTitleInputField.tag = 6;
     nameInputField.delegate = phoneInputField.delegate = addressInputField.delegate = submitTitleInputField.delegate = self;
     nameInputField.returnKeyType = phoneInputField.returnKeyType = addressInputField.returnKeyType = submitTitleInputField.returnKeyType = UIReturnKeyDone;
     inputFieldArray = [[NSArray alloc] initWithObjects:nameInputField,phoneInputField,addressInputField,submitTitleInputField, nil];
@@ -196,8 +200,7 @@
     {
     }
     cell.textLabel.text = [cellTitleArr objectAtIndex:[indexPath row]];
-    if (indexPath.row < 3) cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
-    else cell.textLabel.textColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+    cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
