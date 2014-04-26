@@ -8,7 +8,7 @@
 
 #import "TickectInfoViewController.h"
 #import "PayProcessViewController.h"
-#import "PassengerEditViewController.h"
+#import "PassengerListViewController.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
@@ -214,7 +214,7 @@
 {
     if(indexPath.row == 0)
     {
-        PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
+        PassengerListViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerListViewController"];
         [self.navigationController pushViewController:peVC animated:YES];
     }
     else if(indexPath.row == 1)

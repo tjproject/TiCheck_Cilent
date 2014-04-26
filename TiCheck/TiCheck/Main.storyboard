@@ -1778,6 +1778,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EQL-jc-OoG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1068" y="2744"/>
+        </scene>
+        <!--Passenger List View Controller-->
+        <scene sceneID="oBq-6Z-hMq">
+            <objects>
+                <viewController storyboardIdentifier="PassengerListViewController" id="X7f-Zc-BML" customClass="PassengerListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dam-RG-rmT"/>
+                        <viewControllerLayoutGuide type="bottom" id="DIL-Xh-3m8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KEJ-me-C1I">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqI-Cu-Y8a">
+                                <rect key="frame" x="137" y="225" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="test">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4TC-xt-Pqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="1068" y="2046"/>
         </scene>
         <!--View Controller - 关于Ticheck-->
