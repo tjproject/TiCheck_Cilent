@@ -8,26 +8,16 @@
 
 #import "SearchViewController.h"
 #import "SearchResultViewController.h"
-#import "CitySelectViewController.h"
-#import "DateSelectViewController.h"
-#import "DateSelectViewController.h"
 #import "SearchOption.h"
 
-#import "DateTableViewCell.h"
-#import "FromToTableViewCell.h"
-#import "GeneralOptionTableViewCell.h"
+#import "CommonData.h"
 
-#import "NSString+DateFormat.h"
-#import "NSDate-Utilities.h"
-
-#define TABLE_VIEW_DEFAULT_HEIGHT 44.0f
-#define MORE_OPTION_COUNT 4
-
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource ,CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *searchOptionTableView;
 
 @property (weak, nonatomic) IBOutlet UIView *buttonsView;
+@property (weak, nonatomic) IBOutlet UIPickerView *optionSelectPickerView;
 
 @property (weak, nonatomic) FromToTableViewCell *fromToCell;
 @property (weak, nonatomic) DateTableViewCell *takeOffDateCell;
@@ -64,9 +54,11 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    
+    [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -285,6 +277,35 @@
         }
     }
     return generalCell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (isShowMore) {
+        NSInteger beginOptionCounter = 3;
+        if (isReturn) beginOptionCounter++;
+        if (indexPath.row == beginOptionCounter) {
+            [UIView beginAnimations:nil context:nil];
+            [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
+            [UIView commitAnimations];
+        }
+    }
+}
+
+#pragma mark Picker View Delegate
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return 10;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return @"aaa";
 }
 
 #pragma mark - Component event

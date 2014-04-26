@@ -76,12 +76,12 @@
 
 - (NSDate *)takeOffDate
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:TAKE_OFF_DATE_KEY];
+    return [[NSDate date] isLaterThanDate:[[NSUserDefaults standardUserDefaults] objectForKey:TAKE_OFF_DATE_KEY]] ? [NSDate date] : [[NSUserDefaults standardUserDefaults] objectForKey:TAKE_OFF_DATE_KEY];
 }
 
 - (NSDate *)returnDate
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:RETURN_DATE_KEKY];
+    return [[NSDate date] isLaterThanDate:[[NSUserDefaults standardUserDefaults] objectForKey:RETURN_DATE_KEKY]] ? [NSDate date] : [[NSUserDefaults standardUserDefaults] objectForKey:RETURN_DATE_KEKY];
 }
 
 @end

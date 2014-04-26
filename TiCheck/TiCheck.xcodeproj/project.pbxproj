@@ -176,6 +176,7 @@
 		A00CE48718F286D600151513 /* FlightViewOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightViewOrderTest.m; sourceTree = "<group>"; };
 		A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStatusChangedOrdersTest.m; sourceTree = "<group>"; };
 		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
+		A0245059190B427400CAD37F /* CommonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonData.h; sourceTree = "<group>"; };
 		A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSaveOrderTest.m; sourceTree = "<group>"; };
 		A0452E2B18FE4A5200DED4EE /* Airport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
 		A0452E2C18FE4A5200DED4EE /* Airport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airport.m; sourceTree = "<group>"; };
@@ -645,11 +646,12 @@
 		A0B4E754190906E800765F1A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				A060AA001904ADFB0001219A /* DateSelectViewController.h */,
-				A060AA011904ADFB0001219A /* DateSelectViewController.m */,
+				A0BE290419063AD00042D356 /* Cell */,
 				A0D92B071903D37000AC67F2 /* CitySelectViewController.h */,
 				A0D92B081903D37000AC67F2 /* CitySelectViewController.m */,
-				A0BE290419063AD00042D356 /* Cell */,
+				A0245059190B427400CAD37F /* CommonData.h */,
+				A060AA001904ADFB0001219A /* DateSelectViewController.h */,
+				A060AA011904ADFB0001219A /* DateSelectViewController.m */,
 				A03CC78B1904C1F500ED3217 /* PDTSimpleCalendar */,
 			);
 			name = Common;

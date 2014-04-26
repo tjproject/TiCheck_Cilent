@@ -7,18 +7,9 @@
 //
 
 #import "SubscriptionViewController.h"
-#import "CitySelectViewController.h"
-#import "DateSelectViewController.h"
 
-#import "FromToTableViewCell.h"
-#import "DateIntervalTableViewCell.h"
-#import "GeneralOptionTableViewCell.h"
+#import "CommonData.h"
 
-#import "NSString+DateFormat.h"
-#import "NSDate-Utilities.h"
-
-#define TABLE_VIEW_DEFAULT_HEIGHT 44.0f
-#define MORE_OPTION_COUNT 4
 
 typedef NS_ENUM(NSUInteger, SelectedDateType) {
     BeginDate,
