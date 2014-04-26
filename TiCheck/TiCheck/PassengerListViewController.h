@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PassengerListViewController : UIViewController
+@interface PassengerListViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UITableView *passengerListTableView;
 
 @end

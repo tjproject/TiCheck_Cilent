@@ -7,6 +7,7 @@
 //
 
 #import "PassengerEditViewController.h"
+#import "Passenger.h"
 
 @interface PassengerEditViewController ()
 
@@ -27,6 +28,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // 添加 取消／完成按钮
+    
 }
 
 - (void)didReceiveMemoryWarning
