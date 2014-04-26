@@ -50,4 +50,6 @@
 @property (strong, nonatomic) TickectInfoPicker *TIVC_assurancePicker;
 @property (strong, nonatomic) TickectInfoPicker *TIVC_submitPicker;
 
+@property (strong, nonatomic) NSMutableArray *passengerList;
+
 @end

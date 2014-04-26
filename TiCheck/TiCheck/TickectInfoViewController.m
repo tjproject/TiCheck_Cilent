@@ -165,6 +165,7 @@
     cellTitleArr = [NSMutableArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
     assranceInfo = @"¥30x1份";
     submitInfo = @"不需要报销凭证";
+    _passengerList = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - UITableView dataSource
@@ -271,13 +272,31 @@
 #pragma mark - target selector
 - (void)bookButtonPressed:(id)sender
 {
-    //add
+    //add booking logic
+    if([sender isSelected])
+    {
+        [sender setImage:[UIImage imageNamed:@"bookButton"] forState:UIControlStateNormal];
+        [sender setSelected:NO];
+    }
+    else
+    {
+        [sender setImage:[UIImage imageNamed:@"bookButtonActive"] forState:UIControlStateNormal];
+        [sender setSelected:YES];
+    }
 }
 
 - (void)confirmPressed:(id)sender
 {
-    PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
-    [self.navigationController pushViewController:ppVC animated:YES];
+    if (_passengerList.count > 0)
+    {
+        PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
+        [self.navigationController pushViewController:ppVC animated:YES];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"乘客不能为空" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 - (void)assuranceCancelPressed
