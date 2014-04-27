@@ -48,7 +48,13 @@
     
     
     // 添加 取消／完成按钮
+    UIBarButtonItem *cancel=[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonFunction:)];
     
+    UIBarButtonItem *done=[[UIBarButtonItem alloc] initWithTitle:@"确认修改" style:UIBarButtonSystemItemDone target:self action:@selector(doneButtonFunction:)];
+    
+    
+    self.navigationItem.leftBarButtonItem=cancel;
+    self.navigationItem.rightBarButtonItem=done;
 }
 
 - (void)didReceiveMemoryWarning
@@ -205,13 +211,36 @@
     }
 }
 
+-(void) cancelButtonFunction:(id)sender
+{
+    
+    //[self dismissViewControllerAnimated:YES completion:NULL];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
+- (void) doneButtonFunction:(id) sender
+{
+    [self setPassengerInfoByTableViewData:self.passengerInfoTableView];
+    if ([self checkInfo:self.passengerInfo])
+    {
+        //alert 修改成功
+        //自动返回
+    }
+    else
+    {
+        //
+    }
+}
 
 - (void) setPassengerInfoByTableViewData:(UITableView*)tableView
 {
     
 }
 
+- (Boolean) checkInfo:(Passenger*) passenger
+{
+    return NO;
+}
 
 
 /*
