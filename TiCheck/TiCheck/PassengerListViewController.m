@@ -10,6 +10,7 @@
 #import "PassengerEditViewController.h"
 #import "Passenger.h"
 
+#define PASSENGER_COUNT 5;
 @interface PassengerListViewController ()
 {
     UIButton *addButton;
@@ -67,6 +68,13 @@
     //[view release];
 }
 
+////after edit, reload the tableview
+//- (void)animationDidStart:(CAAnimation *)anim
+//{
+//    [self.passengerListTableView reloadData];
+//    NSLog(@"reload");
+//}
+
 #pragma mark - UITableView datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -75,14 +83,15 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return PASSENGER_COUNT;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"PassengerListCell";
     static NSString *addButtoncellIdentifier = @"PassengerAddButtonCell";
     UITableViewCell *cell;
-    if(indexPath.row==5-1)
+    int count=PASSENGER_COUNT;
+    if(indexPath.row== count-1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:addButtoncellIdentifier];
         if (cell == nil)
@@ -101,10 +110,14 @@
             cell=[[UITableViewCell alloc]  initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
         }
+        
         cell.textLabel.font= [UIFont fontWithName:@"Roboto-Regular" size:15.f];
         cell.textLabel.textColor=[UIColor grayColor];
+        
+        //
+        //get name data from passengers
+        //
         cell.textLabel.text=@"黄泽彪";
         
     }

@@ -31,6 +31,8 @@
 		24FC2B8D18EC682900F6A2A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FC2B8C18EC682900F6A2A9 /* LoginViewController.m */; };
 		68026C2E1904A72400A61F1A /* BookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68026C2D1904A72400A61F1A /* BookListViewController.m */; };
 		68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68436EF818FEC3810043B10E /* PayProcessViewController.m */; };
+		684B6ECA190CC4240046343D /* PassengerInfoTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 684B6EC9190CC4240046343D /* PassengerInfoTextFieldCell.m */; };
+		684B6ECD190CC43F0046343D /* PassengerInfoPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 684B6ECC190CC43F0046343D /* PassengerInfoPickerCell.m */; };
 		68C1F8BB190B96CE00EEB55B /* PassengerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1F8BA190B96CE00EEB55B /* PassengerListViewController.m */; };
 		68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */; };
 		68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */; };
@@ -160,6 +162,10 @@
 		68026C2D1904A72400A61F1A /* BookListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookListViewController.m; sourceTree = "<group>"; };
 		68436EF718FEC3810043B10E /* PayProcessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayProcessViewController.h; sourceTree = "<group>"; };
 		68436EF818FEC3810043B10E /* PayProcessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayProcessViewController.m; sourceTree = "<group>"; };
+		684B6EC8190CC4240046343D /* PassengerInfoTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerInfoTextFieldCell.h; sourceTree = "<group>"; };
+		684B6EC9190CC4240046343D /* PassengerInfoTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerInfoTextFieldCell.m; sourceTree = "<group>"; };
+		684B6ECB190CC43F0046343D /* PassengerInfoPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerInfoPickerCell.h; sourceTree = "<group>"; };
+		684B6ECC190CC43F0046343D /* PassengerInfoPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerInfoPickerCell.m; sourceTree = "<group>"; };
 		68C1F8B9190B96CE00EEB55B /* PassengerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerListViewController.h; sourceTree = "<group>"; };
 		68C1F8BA190B96CE00EEB55B /* PassengerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerListViewController.m; sourceTree = "<group>"; };
 		68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditViewController.h; sourceTree = "<group>"; };
@@ -424,6 +430,10 @@
 				132E4D12190666DE00CF2A4C /* PassengerEditViewController.m */,
 				68C1F8B9190B96CE00EEB55B /* PassengerListViewController.h */,
 				68C1F8BA190B96CE00EEB55B /* PassengerListViewController.m */,
+				684B6EC8190CC4240046343D /* PassengerInfoTextFieldCell.h */,
+				684B6EC9190CC4240046343D /* PassengerInfoTextFieldCell.m */,
+				684B6ECB190CC43F0046343D /* PassengerInfoPickerCell.h */,
+				684B6ECC190CC43F0046343D /* PassengerInfoPickerCell.m */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -928,6 +938,7 @@
 				A0620B6118D72743003A7A55 /* CreditCardInfo.m in Sources */,
 				A0620B9918D727B6003A7A55 /* OTAFlightSearchResponse.m in Sources */,
 				13FA570918FB8D2300FD1C1F /* OIVCPassengerInfoView.m in Sources */,
+				684B6ECD190CC43F0046343D /* PassengerInfoPickerCell.m in Sources */,
 				A0620B6C18D72772003A7A55 /* NSString+EnumTransform.m in Sources */,
 				A0452E2D18FE4A5200DED4EE /* Airport.m in Sources */,
 				A0620B9418D727B6003A7A55 /* OTAGetStatusChangedOrders.m in Sources */,
@@ -942,6 +953,7 @@
 				A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */,
 				68436EF918FEC3810043B10E /* PayProcessViewController.m in Sources */,
 				A0BE29001906000C0042D356 /* OnlinePayViewController.m in Sources */,
+				684B6ECA190CC4240046343D /* PassengerInfoTextFieldCell.m in Sources */,
 				A0620B9018D727B6003A7A55 /* OTAFlightOrderList.m in Sources */,
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
 				A0D92B101903F43100AC67F2 /* pinyin.c in Sources */,
