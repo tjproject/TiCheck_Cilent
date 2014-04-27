@@ -267,7 +267,7 @@ static float scrollViewHeight=169;
     // 搜索失败，网络问题
     NSLog(@"request failedddddddd. error = %@", [request error]);
     NSError *error = [request error];
-    self.showPriceButton.userInteractionEnabled = YES;
+//    self.showPriceButton.userInteractionEnabled = YES;
     
     if (error.code == 2 && request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY]) {
 //        [asiSearchRequest cancel];

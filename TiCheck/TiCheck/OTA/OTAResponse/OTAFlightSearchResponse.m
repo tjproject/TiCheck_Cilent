@@ -63,23 +63,23 @@
     NSMutableArray *tempFlights = [NSMutableArray array];
     for (GDataXMLElement *flightElem in flightsList) {
         Flight *newFlight = [self createFilghtViaXMLElement:flightElem];
-        if ([tempFlights count] != 0) {
-            Flight *lastFlight = [tempFlights lastObject];
-            if (![newFlight.flightNumber isEqualToString:lastFlight.flightNumber]) {
-                [tempFlights addObject:newFlight];
-            }
-        }
-        else {
+//        if ([tempFlights count] != 0) {
+//            Flight *lastFlight = [tempFlights lastObject];
+//            if (![newFlight.flightNumber isEqualToString:lastFlight.flightNumber]) {
+//                [tempFlights addObject:newFlight];
+//            }
+//        }
+//        else {
             [tempFlights addObject:newFlight];
-        }
+//        }
     }
     
     // 按打折后的价格排序
-    NSSortDescriptor *priceSortDescription = [NSSortDescriptor sortDescriptorWithKey:@"_price" ascending:YES];
-    NSSortDescriptor *dateSortDescription = [NSSortDescriptor sortDescriptorWithKey:@"_takeOffTime" ascending:YES];
-    _flightsList = [tempFlights sortedArrayUsingDescriptors:[NSArray arrayWithObjects:priceSortDescription ,dateSortDescription, nil]];
+//    NSSortDescriptor *priceSortDescription = [NSSortDescriptor sortDescriptorWithKey:@"_price" ascending:YES];
+//    NSSortDescriptor *dateSortDescription = [NSSortDescriptor sortDescriptorWithKey:@"_takeOffTime" ascending:YES];
+//    _flightsList = [tempFlights sortedArrayUsingDescriptors:[NSArray arrayWithObjects:priceSortDescription ,dateSortDescription, nil]];
     
-//    _flightsList = tempFlights;
+    _flightsList = tempFlights;
 }
 
 - (Flight *)createFilghtViaXMLElement:(GDataXMLElement *)element

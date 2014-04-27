@@ -8,11 +8,11 @@
 
 #import "BookListViewController.h"
 #import "PersonalOrderTableViewCell.h"
-#import "BookListSectionView.h"
+#import "TickectInfoViewController.h"
 
 #define SECTION_BUTTON_TAG_START_INDEX 1000;
 #define EXPAND_BUTTON_TAG_START_INDEX 2000;
-
+#define DEFAULT_CELL_NUM 3;
 
 
 @interface BookListViewController ()
@@ -20,6 +20,8 @@
     NSMutableArray* bookOrderList;
     
     NSMutableArray* isCellExpanded;
+    
+    NSMutableArray* sectionViewList;
 }
 @end
 
@@ -59,8 +61,8 @@
     {
         NSMutableArray *temp=[[NSMutableArray alloc]init];
         
-        for (int j=0; j<8; j++) {
-            [temp addObject: [NSString stringWithFormat:@"%i",j*i ]];
+        for (int j=0; j<(i+1)*3; j++) {
+            [temp addObject: [NSString stringWithFormat:@"%i",j ]];
         }
         
         [bookOrderList addObject:temp];
@@ -80,7 +82,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[isCellExpanded objectAtIndex:section] intValue]==1? ((NSMutableArray*)[bookOrderList objectAtIndex:section]).count :3;
+    NSInteger sectionCount=((NSMutableArray*)[bookOrderList objectAtIndex:section]).count;
+    return [[isCellExpanded objectAtIndex:section] intValue]==1? sectionCount :3;//(sectionCount<=3?sectionCount:3);
 }
 
 //- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -109,8 +112,28 @@
     if (cell == nil)
     {
         cell = [[PersonalOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        //NSMutableArray *temp=[bookOrderList objectAtIndex:indexPath.section];
+        //NSString *time=[NSString stringWithFormat:@"num: %i", [[temp objectAtIndex: indexPath.row] intValue]];
+        
         [cell initOrderInfoWithFlight:@"东方航空MU5137" Plane:@"320中 经济舱" Time:@"2014-03-11  07:00-09:20" Place:@"虹桥－首都" FlightImage:@"EA_Logo"];
+        
     }
+    
+    
+    //TODO: 根据前一天的价格趋势（或前一个时间段价格），相应显示上升或下降标示
+    //
+    //
+    
+    if(indexPath.section>1)
+    {
+        cell.priceTrednImage.image = [UIImage imageNamed:@"PriceDown"];
+    }
+    else
+    {
+        cell.priceTrednImage.image = [UIImage imageNamed:@"PriceUp"];
+    }
+
+    
     return cell;
 }
 
@@ -122,7 +145,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
+    [self.navigationController pushViewController:tiVC animated:YES];
     
 }
 
@@ -133,51 +157,66 @@
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView* temp=[[UIView alloc]initWithFrame:CGRectMake(0,0, tableView.frame.size.width, 39)];
-    temp.backgroundColor=[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
+    //自定义section view
+    //存储sectionView 使之不被重复创建
+    if(sectionViewList==nil)
+    {
+        sectionViewList = [[NSMutableArray alloc]init];
+    }
     
-    //add sectionbutton for book change
-    UIButton* sectionButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
-    [sectionButton setFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
-    [sectionButton setTitle:@"2013-04-13 至 2013-04-25 上海到北京" forState:UIControlStateNormal];
-    [sectionButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
+    if(section>=sectionViewList.count)
+    {
+        
+        UIView* temp=[[UIView alloc]initWithFrame:CGRectMake(0,0, tableView.frame.size.width, 39)];
+        temp.backgroundColor=[UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:0.8];
+        
+        //add sectionbutton for book change
+        UIButton* sectionButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
+        [sectionButton setFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
+        [sectionButton setTitle:@"2013-04-13 至 2013-04-25 上海到北京" forState:UIControlStateNormal];
+        [sectionButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
+        
+        sectionButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:12.f];
+        [sectionButton addTarget:self action:@selector(sectionListButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        sectionButton.tag=section+SECTION_BUTTON_TAG_START_INDEX;
+        
+        [temp addSubview:sectionButton];
+        
+        if ( ((NSMutableArray*)[bookOrderList objectAtIndex:section]).count>3) {
+            
+            //add expand button for expanding all ticket
+            UIButton* expandButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
+            [expandButton setFrame:CGRectMake(260, 0, 70, 39)];
+            [expandButton setTitle:@"展开" forState:UIControlStateNormal];
+            [expandButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
+            //[expandButton setTitleColor:[UIColor colorWithRed:44/255.0 green:33/255.0 blue:224/255.0 alpha:1] forState:UIControlStateHighlighted];
+            [expandButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+            expandButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:14.f];
+            [expandButton addTarget:self action:@selector(expandButtonFunction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            expandButton.tag=section+EXPAND_BUTTON_TAG_START_INDEX;
+            
+            [temp addSubview:expandButton];
+            [temp bringSubviewToFront:expandButton];
+            
+        }
+        
+        //add separator line
+        UIView *separatorline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, temp.frame.size.width, 0.5 )];
+        separatorline.backgroundColor = [UIColor colorWithRed:200/255.0 green:199/255.0 blue:204/255.0 alpha:1.0];
+        [temp addSubview:separatorline];
+        
+        UIView *separatorline2 = [[UIView alloc] initWithFrame:CGRectMake(0, temp.frame.size.height, temp.frame.size.width, 0.5 )];
+        separatorline2.backgroundColor = [UIColor colorWithRed:200/255.0 green:199/255.0 blue:204/255.0 alpha:1.0];
+        [temp addSubview:separatorline2];
+        
+        
+        [sectionViewList addObject:temp];
+    }
     
-    sectionButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:12.f];
-    [sectionButton addTarget:self action:@selector(sectionListButton:) forControlEvents:UIControlEventTouchUpInside];
-    
-    sectionButton.tag=section+SECTION_BUTTON_TAG_START_INDEX;
-    
-    [temp addSubview:sectionButton];
-    
-    
-    //add expand button for expanding all ticket
-    UIButton* expandButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
-    [expandButton setFrame:CGRectMake(260, 0, 70, 39)];
-    [expandButton setTitle:@"展开" forState:UIControlStateNormal];
-    [expandButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
-    //[expandButton setTitleColor:[UIColor colorWithRed:44/255.0 green:33/255.0 blue:224/255.0 alpha:1] forState:UIControlStateHighlighted];
-    [expandButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    expandButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:14.f];
-    [expandButton addTarget:self action:@selector(expandButtonFunction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    expandButton.tag=section+EXPAND_BUTTON_TAG_START_INDEX;
-    
-    [temp addSubview:expandButton];
-    [temp bringSubviewToFront:expandButton];
-    
-    
-    //add separator line
-    UIView *separatorline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, temp.frame.size.width, 0.5 )];
-    separatorline.backgroundColor = [UIColor colorWithRed:200/255.0 green:199/255.0 blue:204/255.0 alpha:1.0];
-    [temp addSubview:separatorline];
-    
-    UIView *separatorline2 = [[UIView alloc] initWithFrame:CGRectMake(0, temp.frame.size.height, temp.frame.size.width, 0.5 )];
-    separatorline2.backgroundColor = [UIColor colorWithRed:200/255.0 green:199/255.0 blue:204/255.0 alpha:1.0];
-    [temp addSubview:separatorline2];
 
-    
-
-    return temp;
+    return [sectionViewList objectAtIndex:section];
 }
 
 - (void) sectionListButton:(id)sender
@@ -197,12 +236,33 @@
     
     
     int result =([[isCellExpanded objectAtIndex:buttonIndex] intValue]+1)%2;
-    
+    //update state
     [isCellExpanded replaceObjectAtIndex:buttonIndex withObject:[NSNumber numberWithInt:result]];
     
-    
-    //change it to cell animation insertion
-    [self.bookListTableView reloadData];
+    //bug:在收起cell时， 删除了不该删除的cell
+    //animation
+    NSMutableArray *changedCellIndexArray = [NSMutableArray array];
+    for (NSInteger i = 0; i < (((NSMutableArray*)[bookOrderList objectAtIndex:buttonIndex]).count-3 ); i++)
+    {
+        NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 3+i inSection:buttonIndex];
+        [changedCellIndexArray addObject:toChangedCell];
+    }
+    if(result==1)
+    {
+        [temp setTitle:@"收起" forState:UIControlStateNormal];
+        //expand, add cells
+        //[self.bookListTableView beginUpdates];
+        [self.bookListTableView insertRowsAtIndexPaths:changedCellIndexArray withRowAnimation:UITableViewRowAnimationTop];
+        //[self.bookListTableView endUpdates];
+    }
+    else if(result==0)
+    {
+        [temp setTitle:@"展开" forState:UIControlStateNormal];
+        //unexpand, delete cells
+        //[self.bookListTableView beginUpdates];
+        [self.bookListTableView deleteRowsAtIndexPaths:changedCellIndexArray withRowAnimation:UITableViewRowAnimationTop];
+        //[self.bookListTableView endUpdates];
+    }
 }
 
 /*

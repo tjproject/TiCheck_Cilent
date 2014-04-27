@@ -11,6 +11,7 @@
 @class DomesticCity;
 @class Airport;
 @class CraftType;
+@class Airline;
 
 @interface APIResourceHelper : NSObject
 
@@ -86,6 +87,15 @@
  */
 - (NSArray *)findAirportViaCityID:(NSInteger)cityID;
 
+/**
+ *  通过城市名搜索机场名称
+ *
+ *  @param cityName 城市名
+ *
+ *  @return 城市所有机场名
+ */
+- (NSArray *)findAirportsNameInCity:(NSString *)cityName;
+
 #pragma mark - 机型搜索
 
 /**
@@ -96,5 +106,23 @@
  *  @return 机型
  */
 - (CraftType *)findCraftTypeViaCT:(NSString *)craftType;
+
+#pragma mark - 航空公司搜索
+
+/**
+ *  获得所有航空公司名
+ *
+ *  @return 航空公司名数组
+ */
+- (NSArray *)findAllAirlineShortNames;
+
+/**
+ *  通过航空公司二字码搜索航空公司
+ *
+ *  @param airlineCode 航空公司二字码
+ *
+ *  @return 航空公司
+ */
+- (Airline *)findAirlineViaAirlineCode:(NSString *)airlineCode;
 
 @end

@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, RouteType) {
 @property (nonatomic, weak) id<DateSelectViewControllerDelegate> delegate;
 @property (nonatomic) RouteType routeType;
 
+@property (nonatomic) BOOL isTodayButtonHidden;
+
 @property (nonatomic, strong) NSDate *beginDate;
 @property (nonatomic, strong) NSDate *selectedDate;
 

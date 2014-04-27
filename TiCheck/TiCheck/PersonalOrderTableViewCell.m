@@ -63,6 +63,12 @@
 {
     _flightImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 13, 20, 20)];
     [self addSubview:_flightImage];
+    
+    //add by HZB
+    _priceTrednImage = [[UIImageView alloc] initWithFrame:CGRectMake(260, 13, 20, 20)];
+    [self addSubview:_priceTrednImage];
+    
+    
 }
 
 - (void)initImageSource

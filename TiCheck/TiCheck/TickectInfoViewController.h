@@ -7,12 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TickectInfoPicker.h"
 
-@interface TickectInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface TickectInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,TickectInfoPickerDelegate, UITextFieldDelegate>
 {
     UIImageView *edgeImage;
     UIImageView *lineIndicator;
     UIImageView *planeImage;
+    
+    UIView *darkUILayer;
+    NSArray *pickerData;
+    NSString *assranceInfo;
+    NSString *submitInfo;
+    
+    UITextField *nameInputField;
+    UITextField *phoneInputField;
+    UITextField *addressInputField;
+    UITextField *submitTitleInputField;
+    NSArray *inputFieldArray;
 }
 @property (strong, nonatomic) UILabel *TIVC_timeLabel;
 @property (strong, nonatomic) UILabel *TIVC_fromLabel;
@@ -35,5 +47,9 @@
 @property (strong, nonatomic) UIButton *TIVC_addressBookButton;
 
 @property (strong, nonatomic) UITableView *infoVessel;
+@property (strong, nonatomic) TickectInfoPicker *TIVC_assurancePicker;
+@property (strong, nonatomic) TickectInfoPicker *TIVC_submitPicker;
+
+@property (strong, nonatomic) NSMutableArray *passengerList;
 
 @end

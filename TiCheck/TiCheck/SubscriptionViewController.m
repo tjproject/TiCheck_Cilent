@@ -1,28 +1,32 @@
 //
-//  SearchViewController.m
+//  SubscriptionViewController.m
 //  TiCheck
 //
-//  Created by Boyi on 4/20/14.
+//  Created by Boyi on 4/24/14.
 //  Copyright (c) 2014 tac. All rights reserved.
 //
 
-#import "SearchViewController.h"
-#import "SearchResultViewController.h"
-#import "SearchOption.h"
+#import "SubscriptionViewController.h"
 
 #import "CommonData.h"
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *searchOptionTableView;
+typedef NS_ENUM(NSUInteger, SelectedDateType) {
+    BeginDate,
+    EndDate
+};
 
-@property (weak, nonatomic) IBOutlet UIView *buttonsView;
+@interface SubscriptionViewController () <UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, DateSelectViewControllerDelegate, CitySelectViewControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *subscribeOptionTableView;
 @property (weak, nonatomic) IBOutlet UIToolbar *optionSelectToolBar;
 @property (weak, nonatomic) IBOutlet UIPickerView *optionSelectPickerView;
 
+@property (weak, nonatomic) IBOutlet UIView *buttonView;
+
 @property (weak, nonatomic) FromToTableViewCell *fromToCell;
-@property (weak, nonatomic) DateTableViewCell *takeOffDateCell;
-@property (weak, nonatomic) DateTableViewCell *returnDateCell;
+@property (weak, nonatomic) DateIntervalTableViewCell *takeOffDateIntervalCell;
+@property (weak, nonatomic) DateIntervalTableViewCell *returnDateIntervalCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *airlineCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *seatCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *airportCell;
@@ -32,11 +36,12 @@
 
 @end
 
-@implementation SearchViewController
+@implementation SubscriptionViewController
 {
     BOOL isReturn; // 是否返程
     BOOL isShowMore; // 是否显示更多
     
+    SelectedDateType selectedDateType; // 选择是开始还是结束日期
     SelectingOption selectingOption; // 正在进行的选项
 }
 
@@ -55,21 +60,6 @@
     // Do any additional setup after loading the view.
     isReturn = NO;
     isShowMore = NO;
-    
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
-        [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self synchronizeSaveSearchOption];
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,7 +77,110 @@
     return _pickerData;
 }
 
-#pragma mark - 选项gesture
+#pragma mark - Events
+
+- (IBAction)moreOptionClicked:(id)sender
+{
+    isShowMore = YES;
+    
+    NSInteger moreOptionsBeginCounter = 3;
+    if (isReturn) moreOptionsBeginCounter++;
+    
+    NSMutableArray *moreOptionIndexArray = [NSMutableArray array];
+    for (NSInteger i = 0; i < 4; ++i) {
+        NSIndexPath *toAddOption = [NSIndexPath indexPathForRow:moreOptionsBeginCounter + i inSection:0];
+        [moreOptionIndexArray addObject:toAddOption];
+    }
+    
+    NSIndexPath *moreButton = [NSIndexPath indexPathForRow:moreOptionsBeginCounter inSection:0];
+    
+    [self.subscribeOptionTableView beginUpdates];
+    [self.subscribeOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
+    [self.subscribeOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];
+    [self.subscribeOptionTableView endUpdates];
+    
+    if (isReturn) {
+        [UIView animateWithDuration:0.3f animations:^{
+            self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
+            [self.buttonView layoutIfNeeded];
+        }];
+    } else {
+        [UIView animateWithDuration:0.3f animations:^{
+            self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
+            [self.buttonView layoutIfNeeded];
+        }];
+    }
+}
+
+- (IBAction)returnOptionChanged:(id)sender
+{
+    isReturn = !isReturn;
+    
+    if (CGRectEqualToRect(self.optionSelectPickerView.frame, SHOW_PICKER_VIEW_FRAME)) {
+        [self hideToolBarAndPickerWithAnimation:YES];
+    }
+    
+    NSIndexPath *returnIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    if (isReturn) {
+        [self.subscribeOptionTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if (isShowMore) {
+            [UIView animateWithDuration:0.3f animations:^{
+                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
+                [self.buttonView layoutIfNeeded];
+            }];
+        } else {
+            [UIView animateWithDuration:0.3f animations:^{
+                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * 2);
+                [self.buttonView layoutIfNeeded];
+            }];
+        }
+    } else {
+        [self.subscribeOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if (isShowMore) {
+            [UIView animateWithDuration:0.3f animations:^{
+                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
+                [self.buttonView layoutIfNeeded];
+            }];
+        } else {
+            [UIView animateWithDuration:0.3f animations:^{
+                self.buttonView.transform = CGAffineTransformMakeTranslation(0, 0);
+                [self.buttonView layoutIfNeeded];
+            }];
+        }
+    }
+}
+
+- (IBAction)closePicker:(id)sender
+{
+    [self hideToolBarAndPickerWithAnimation:YES];
+}
+
+- (IBAction)confirmPicker:(id)sender
+{
+    NSInteger selectRow = [self.optionSelectPickerView selectedRowInComponent:0];
+    NSString *selectValue = [self.pickerData objectAtIndex:selectRow];
+    
+    switch (selectingOption) {
+        case SelectingAirline:
+            [self.airlineCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingSeat:
+            [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingAirport:
+            [self.airportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingTakeOffTime:
+            [self.takeOffTimeCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+    }
+    
+    [self hideToolBarAndPickerWithAnimation:YES];
+}
+
+#pragma mark - Gesture Selectors
 
 - (void)optionLabelTapped:(UITapGestureRecognizer *)sender
 {
@@ -105,24 +198,49 @@
         citiesViewController.selectCityType = To_City;
         
         [self presentViewController:citiesViewController animated:YES completion:nil];
-    } else if (label == self.takeOffDateCell.dateLabel) {
+    } else if (label == self.takeOffDateIntervalCell.beginDate) {
         DateSelectViewController *dateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateSelectViewController"];
         
-        dateViewController.selectedDate = [NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text];
+        dateViewController.selectedDate = [NSString dateFormatWithString:self.takeOffDateIntervalCell.beginDate.text];
         dateViewController.delegate = self;
         dateViewController.routeType = Take_Off;
         dateViewController.beginDate = [NSDate date];
         dateViewController.isTodayButtonHidden = NO;
+        selectedDateType = BeginDate;
         
         [self presentViewController:dateViewController animated:YES completion:nil];
-    } else if (label == self.returnDateCell.dateLabel) {
+    } else if (label == self.takeOffDateIntervalCell.endDate) {
         DateSelectViewController *dateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateSelectViewController"];
         
-        dateViewController.selectedDate = [NSString dateFormatWithString:self.returnDateCell.dateLabel.text];
+        dateViewController.selectedDate = [NSString dateFormatWithString:self.takeOffDateIntervalCell.endDate.text];
+        dateViewController.delegate = self;
+        dateViewController.routeType = Take_Off;
+        dateViewController.beginDate = [NSString dateFormatWithString:self.takeOffDateIntervalCell.beginDate.text];
+        dateViewController.isTodayButtonHidden = YES;
+        selectedDateType = EndDate;
+        
+        [self presentViewController:dateViewController animated:YES completion:nil];
+    } else if (label == self.returnDateIntervalCell.beginDate) {
+        DateSelectViewController *dateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateSelectViewController"];
+        
+        dateViewController.selectedDate = [NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text];
         dateViewController.delegate = self;
         dateViewController.routeType = Return;
-        dateViewController.beginDate = [NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text];
+        // 暂时把返回时间段的开始时间设定为大于出发时间段的结束时间，之后可调整
+        dateViewController.beginDate = [NSString dateFormatWithString:self.takeOffDateIntervalCell.endDate.text];
         dateViewController.isTodayButtonHidden = YES;
+        selectedDateType = BeginDate;
+        
+        [self presentViewController:dateViewController animated:YES completion:nil];
+    } else if (label == self.returnDateIntervalCell.endDate) {
+        DateSelectViewController *dateViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DateSelectViewController"];
+        
+        dateViewController.selectedDate = [NSString dateFormatWithString:self.returnDateIntervalCell.endDate.text];
+        dateViewController.delegate = self;
+        dateViewController.routeType = Return;
+        dateViewController.beginDate = [NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text];
+        dateViewController.isTodayButtonHidden = YES;
+        selectedDateType = EndDate;
         
         [self presentViewController:dateViewController animated:YES completion:nil];
     }
@@ -133,34 +251,53 @@
 - (void)setFromCityLabel:(NSString *)fromCityString
 {
     self.fromToCell.fromCityLabel.text = fromCityString;
-    [SearchOption sharedSearchOption].departCityName = self.fromToCell.fromCityLabel.text;
-    
-    if (isShowMore) {
-        // 重选出发城市默认机场为不限
-        [self.airportCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
-    }
 }
 
 - (void)setToCityLabel:(NSString *)toCityString
 {
     self.fromToCell.toCityLabel.text = toCityString;
-    [SearchOption sharedSearchOption].arriveCityName = self.fromToCell.toCityLabel.text;
 }
 
 - (void)setTakeOffTimeLabel:(NSDate *)takeOffDate
 {
-    self.takeOffDateCell.dateLabel.text = [NSString stringFormatWithDate:takeOffDate];
-    // 若选择开始时间晚于结束时间，调整结束时间为开始时间
-    if (isReturn && [takeOffDate isLaterThanDate:[NSString dateFormatWithString:self.returnDateCell.dateLabel.text]]) {
-        self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:takeOffDate];
+    switch (selectedDateType) {
+        case BeginDate:
+            self.takeOffDateIntervalCell.beginDate.text = [NSString stringFormatWithDate:takeOffDate];
+            // 若选择开始时间晚于结束时间，调整结束时间为开始时间
+            if ([takeOffDate isLaterThanDate:[NSString dateFormatWithString:self.takeOffDateIntervalCell.endDate.text]]) {
+                self.takeOffDateIntervalCell.endDate.text = [NSString stringFormatWithDate:takeOffDate];
+                if ([[NSString dateFormatWithString:self.takeOffDateIntervalCell.endDate.text] isLaterThanDate:[NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text]]) {
+                    self.returnDateIntervalCell.beginDate.text = self.takeOffDateIntervalCell.endDate.text;
+                    if ([[NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text] isLaterThanDate:[NSString dateFormatWithString:self.returnDateIntervalCell.endDate.text]]) {
+                        self.returnDateIntervalCell.endDate.text = self.returnDateIntervalCell.beginDate.text;
+                    }
+                }
+            }
+            break;
+        case EndDate:
+            self.takeOffDateIntervalCell.endDate.text = [NSString stringFormatWithDate:takeOffDate];
+            if ([takeOffDate isLaterThanDate:[NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text]]) {
+                self.returnDateIntervalCell.beginDate.text = self.takeOffDateIntervalCell.endDate.text;
+                if ([[NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text] isLaterThanDate:[NSString dateFormatWithString:self.returnDateIntervalCell.endDate.text]]) {
+                    self.returnDateIntervalCell.endDate.text = self.returnDateIntervalCell.beginDate.text;
+                }
+            }
     }
-    [SearchOption sharedSearchOption].takeOffDate = [NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text];
 }
 
 - (void)setReturnTimeLabel:(NSDate *)returnDate
 {
-    self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:returnDate];
-    [SearchOption sharedSearchOption].returnDate = [NSString dateFormatWithString:self.returnDateCell.dateLabel.text];
+    switch (selectedDateType) {
+        case BeginDate:
+            self.returnDateIntervalCell.beginDate.text = [NSString stringFormatWithDate:returnDate];
+            // 若选择开始时间晚于结束时间，调整结束时间为开始时间
+            if ([returnDate isLaterThanDate:[NSString dateFormatWithString:self.returnDateIntervalCell.endDate.text]]) {
+                self.returnDateIntervalCell.endDate.text = [NSString stringFormatWithDate:returnDate];
+            }
+            break;
+        case EndDate:
+            self.returnDateIntervalCell.endDate.text = [NSString stringFormatWithDate:returnDate];
+    }
 }
 
 #pragma mark TableView Delegate
@@ -170,7 +307,7 @@
     NSInteger result = 4;
     
     if (isReturn) result++;
-    if (isShowMore) result += MORE_OPTION_COUNT - 1;
+    if (isShowMore) result += 3;
     
     return result;
 }
@@ -178,7 +315,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *fromToCellIdentifier = @"FromToCell";
-    static NSString *dateCellIdentifier = @"DateCell";
+    static NSString *dateCellIdentifier = @"DateIntervalCell";
     static NSString *isReturnCellIdentifier = @"IsReturnCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
@@ -195,41 +332,46 @@
         UITapGestureRecognizer *toSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
         [self.fromToCell.fromCityLabel addGestureRecognizer:fromSelectGesture];
         [self.fromToCell.toCityLabel addGestureRecognizer:toSelectGesture];
-        self.fromToCell.fromCityLabel.text = [SearchOption sharedSearchOption].departCityName;
-        self.fromToCell.toCityLabel.text = [SearchOption sharedSearchOption].arriveCityName;
+//        self.fromToCell.fromCityLabel.text = [SearchOption sharedSearchOption].departCityName;
+//        self.fromToCell.toCityLabel.text = [SearchOption sharedSearchOption].arriveCityName;
         
         return fromToCell;
     } else if (indexPath.row == 1) {
         // TakeOffDate选项
-        DateTableViewCell *takeOffDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
-        if (takeOffDateCell == nil) {
-            takeOffDateCell = [[DateTableViewCell alloc] init];
+        DateIntervalTableViewCell *takeOffDateIntervalCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
+        if (takeOffDateIntervalCell == nil) {
+            takeOffDateIntervalCell = [[DateIntervalTableViewCell alloc] init];
         }
         
-        self.takeOffDateCell = takeOffDateCell;
-        UITapGestureRecognizer *takeOffDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-        [self.takeOffDateCell.dateLabel addGestureRecognizer:takeOffDateSelectGesture];
-        self.takeOffDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].takeOffDate];
+        self.takeOffDateIntervalCell = takeOffDateIntervalCell;
+        UITapGestureRecognizer *takeOffBeginDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
+        UITapGestureRecognizer *takeOffEndDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
+        [self.takeOffDateIntervalCell.beginDate addGestureRecognizer:takeOffBeginDateSelectGesture];
+        [self.takeOffDateIntervalCell.endDate addGestureRecognizer:takeOffEndDateSelectGesture];
+//        self.takeOffDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].takeOffDate];
         
-        return takeOffDateCell;
+        return takeOffDateIntervalCell;
     } else {
         NSInteger isReturnIndexRow = 2;
         // 若为返程则第二行为返程时间
         if (isReturn) {
             isReturnIndexRow++;
             if (indexPath.row == 2) {
-                DateTableViewCell *returnDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
+                DateIntervalTableViewCell *returnDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
                 if (returnDateCell == nil) {
-                    returnDateCell = [[DateTableViewCell alloc] init];
+                    returnDateCell = [[DateIntervalTableViewCell alloc] init];
                 }
                 
-                self.returnDateCell = returnDateCell;
-                UITapGestureRecognizer *returnDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-                [self.returnDateCell.dateLabel addGestureRecognizer:returnDateSelectGesture];
-                self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
-                // 显示返回日期时，若早于出发时期，调整至出发日期
-                if ([[NSString dateFormatWithString:self.returnDateCell.dateLabel.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text]]) {
-                    self.returnDateCell.dateLabel.text = self.takeOffDateCell.dateLabel.text;
+                self.returnDateIntervalCell = returnDateCell;
+                UITapGestureRecognizer *returnBeginDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
+                UITapGestureRecognizer *returnEndDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
+                [self.returnDateIntervalCell.beginDate addGestureRecognizer:returnBeginDateSelectGesture];
+                [self.returnDateIntervalCell.endDate addGestureRecognizer:returnEndDateSelectGesture];
+//                self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
+                
+                // 显示返程时间时，若早于出发时间，调整至出发时间
+                if ([[NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateIntervalCell.endDate.text]]) {
+                    self.returnDateIntervalCell.beginDate.text = self.returnDateIntervalCell.endDate.text = self.takeOffDateIntervalCell.endDate.text;
                 }
                 
                 return returnDateCell;
@@ -285,6 +427,7 @@
             generalCell.generalValue.titleLabel.text = @"不限";
             self.takeOffTimeCell = generalCell;
         }
+        //        generalCell.generalValue.titleLabel.text = @"不限";
     }
     return generalCell;
 }
@@ -341,124 +484,7 @@
     return [self.pickerData objectAtIndex:row];
 }
 
-#pragma mark - Component event
-
-- (IBAction)searchTicket:(id)sender
-{
-    
-}
-
-- (IBAction)moreOptionClicked:(id)sender
-{
-    isShowMore = YES;
-    
-    NSInteger moreOptionsBeginCounter = 3;
-    if (isReturn) moreOptionsBeginCounter++;
-    
-    NSMutableArray *moreOptionIndexArray = [NSMutableArray array];
-    for (NSInteger i = 0; i < 4; ++i) {
-        NSIndexPath *toAddOption = [NSIndexPath indexPathForRow:moreOptionsBeginCounter + i inSection:0];
-        [moreOptionIndexArray addObject:toAddOption];
-    }
-    
-    NSIndexPath *moreButton = [NSIndexPath indexPathForRow:moreOptionsBeginCounter inSection:0];
-
-    [self.searchOptionTableView beginUpdates];
-    [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
-    [self.searchOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];
-    [self.searchOptionTableView endUpdates];
-    
-    if (isReturn) {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-            [self.buttonsView layoutIfNeeded];
-        }];
-    } else {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-            [self.buttonsView layoutIfNeeded];
-        }];
-    }
-}
-
-- (IBAction)returnOptionChanged:(id)sender
-{
-    isReturn = !isReturn;
-    
-    if (CGRectEqualToRect(self.optionSelectPickerView.frame, SHOW_PICKER_VIEW_FRAME)) {
-        [self hideToolBarAndPickerWithAnimation:YES];
-    }
-    
-    NSIndexPath *returnIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
-    if (isReturn) {
-        [self.searchOptionTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * 2);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        }
-    } else {
-        [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-          
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, 0);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        }
-    }
-}
-
-- (IBAction)closePicker:(id)sender
-{
-    [self hideToolBarAndPickerWithAnimation:YES];
-}
-
-- (IBAction)confirmPicker:(id)sender
-{
-    NSInteger selectRow = [self.optionSelectPickerView selectedRowInComponent:0];
-    NSString *selectValue = [self.pickerData objectAtIndex:selectRow];
-    
-    switch (selectingOption) {
-        case SelectingAirline:
-            [self.airlineCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
-            break;
-        case SelectingSeat:
-            [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
-            break;
-        case SelectingAirport:
-            [self.airportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
-            break;
-        case SelectingTakeOffTime:
-            [self.takeOffTimeCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
-            break;
-    }
-    
-    [self hideToolBarAndPickerWithAnimation:YES];
-}
-
 #pragma mark - Helper Methods
-
-- (void)synchronizeSaveSearchOption
-{
-    [SearchOption sharedSearchOption].departCityName = self.fromToCell.fromCityLabel.text;
-    [SearchOption sharedSearchOption].arriveCityName = self.fromToCell.toCityLabel.text;
-    [SearchOption sharedSearchOption].takeOffDate = [NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text];
-    if (isReturn)
-        [SearchOption sharedSearchOption].returnDate = [NSString dateFormatWithString:self.returnDateCell.dateLabel.text];
-}
 
 - (void)showToolBarAndPickerWithAnimation:(BOOL)animate
 {
@@ -532,6 +558,8 @@
     [self showToolBarAndPickerWithAnimation:YES];
 }
 
+
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -539,13 +567,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
-    if ([[segue identifier] isEqualToString:@"SearchSegue"]) {
-        SearchResultViewController *vc = [segue destinationViewController];
-        
-        NSMutableDictionary *optionDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.fromToCell.fromCityLabel.text, FROM_CITY_KEY, self.fromToCell.toCityLabel.text, TO_CITY_KEY, self.takeOffDateCell.dateLabel.text, TAKE_OFF_TIME_KEY, nil];
-        vc.searchOptionDic = optionDic;
-    }
 }
+*/
 
 @end
