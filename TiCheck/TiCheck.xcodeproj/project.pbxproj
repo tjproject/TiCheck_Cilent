@@ -39,6 +39,8 @@
 		A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48518F278E900151513 /* FlightOrderListTest.m */; };
 		A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48718F286D600151513 /* FlightViewOrderTest.m */; };
 		A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */; };
+		A01CDA9D190D1E4700E9F6FB /* Airlines.xml in Resources */ = {isa = PBXBuildFile; fileRef = A01CDA9C190D1E4700E9F6FB /* Airlines.xml */; };
+		A01CDAA0190D1E6700E9F6FB /* Airline.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CDA9F190D1E6700E9F6FB /* Airline.m */; };
 		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
 		A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */; };
 		A0452E2D18FE4A5200DED4EE /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = A0452E2C18FE4A5200DED4EE /* Airport.m */; };
@@ -175,6 +177,9 @@
 		A00CE48518F278E900151513 /* FlightOrderListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightOrderListTest.m; sourceTree = "<group>"; };
 		A00CE48718F286D600151513 /* FlightViewOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightViewOrderTest.m; sourceTree = "<group>"; };
 		A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStatusChangedOrdersTest.m; sourceTree = "<group>"; };
+		A01CDA9C190D1E4700E9F6FB /* Airlines.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Airlines.xml; path = Resources/APIRelated/Airlines.xml; sourceTree = "<group>"; };
+		A01CDA9E190D1E6700E9F6FB /* Airline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airline.h; sourceTree = "<group>"; };
+		A01CDA9F190D1E6700E9F6FB /* Airline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airline.m; sourceTree = "<group>"; };
 		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
 		A0245059190B427400CAD37F /* CommonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonData.h; sourceTree = "<group>"; };
 		A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSaveOrderTest.m; sourceTree = "<group>"; };
@@ -561,6 +566,8 @@
 				A0452E2C18FE4A5200DED4EE /* Airport.m */,
 				A0452E3418FE607000DED4EE /* CraftType.h */,
 				A0452E3518FE607000DED4EE /* CraftType.m */,
+				A01CDA9E190D1E6700E9F6FB /* Airline.h */,
+				A01CDA9F190D1E6700E9F6FB /* Airline.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -660,6 +667,7 @@
 		A0B677F518FABF1200A4DC76 /* APIRelated */ = {
 			isa = PBXGroup;
 			children = (
+				A01CDA9C190D1E4700E9F6FB /* Airlines.xml */,
 				A0452E3218FE605C00DED4EE /* CraftTypes.xml */,
 				A0452E2E18FE4A8400DED4EE /* Airports.xml */,
 				A0B677F818FABF5700A4DC76 /* DomesticCities.xml */,
@@ -816,6 +824,7 @@
 			files = (
 				A0B677F918FABF5700A4DC76 /* DomesticCities.xml in Resources */,
 				131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */,
+				A01CDA9D190D1E4700E9F6FB /* Airlines.xml in Resources */,
 				131C6F9218F7CD1200654D6E /* TiCheck-Info.plist in Resources */,
 				A0040BC418E92768008E6485 /* Main.storyboard in Resources */,
 				131C6F9318F7CD7200654D6E /* Roboto-Bold.ttf in Resources */,
@@ -880,6 +889,7 @@
 			files = (
 				A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */,
 				A0CDB5B01904C50300E20649 /* PDTSimpleCalendarViewFlowLayout.m in Sources */,
+				A01CDAA0190D1E6700E9F6FB /* Airline.m in Sources */,
 				A0CDB5AF1904C50300E20649 /* PDTSimpleCalendarViewController.m in Sources */,
 				686E5C5F190563310074AB60 /* BookListSectionView.m in Sources */,
 				132E4D13190666DE00CF2A4C /* PassengerEditViewController.m in Sources */,

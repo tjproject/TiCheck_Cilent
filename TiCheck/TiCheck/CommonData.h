@@ -18,25 +18,38 @@
 #import "CitySelectViewController.h"
 #import "DateSelectViewController.h"
 
+#import "APIResourceHelper.h"
 #import "NSString+DateFormat.h"
 #import "NSDate-Utilities.h"
+
+#define TOOLBAR_PICKER_ANIMATION_SPEED 0.2f
 
 #define TABLE_VIEW_DEFAULT_HEIGHT 44.0f
 #define MORE_OPTION_COUNT 4
 
+#define SHOW_TOOL_BAR_VIEW_FRAME CGRectMake(0.0f, 362.0f, 320.0f, 44.0f)
+#define HIDE_TOOL_BAR_VIEW_FRAME CGRectMake(0.0f, 568.0f, 320.0f, 44.0f)
+
 #define SHOW_PICKER_VIEW_FRAME CGRectMake(0.0f, 406.0f, 320.0f, 162.0f)
-#define HIDE_PICKER_VIEW_FRAME CGRectMake(0.0f, 568.0f, 320.0f, 162.0f)
+#define HIDE_PICKER_VIEW_FRAME CGRectMake(0.0f, 612.0f, 320.0f, 162.0f)
+
+typedef NS_ENUM(NSInteger, SelectingOption) {
+    SelectingAirline,
+    SelectingSeat,
+    SelectingAirport,
+    SelectingTakeOffTime
+};
 
 const NSArray *___airlinesName;
 const NSArray *___seatType;
 const NSArray *___airportsName;
 const NSArray *___takeOffTimeScope;
 
-#define cSeatTypeGet (___seatType == nil ? ___takeOffTimeScope = [[NSArray alloc] initWithObjects:\
+#define cSeatTypeGet (___seatType == nil ? ___seatType = [[NSArray alloc] initWithObjects:\
 @"不限",\
 @"经济舱",\
 @"商务舱",\
-@"头等舱", nil] : ___takeOffTimeScope)
+@"头等舱", nil] : ___seatType)
 
 #define cTakeOffTimeScopeGet (___takeOffTimeScope == nil ? ___takeOffTimeScope = [[NSArray alloc] initWithObjects:\
 @"不限", \

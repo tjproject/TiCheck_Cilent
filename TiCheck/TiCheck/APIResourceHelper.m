@@ -12,13 +12,15 @@
 #import "Airport.h"
 #import "DomesticCity.h"
 #import "CraftType.h"
+#import "Airline.h"
 
-#define ObjectElementToString(object, element) [[[object elementsForName:element] firstObject] stringValue]
+#define ObjectElementToString(object, element) [[[object elementsForName:element] firstObject] stringValue] == nil ? @"" : [[[object elementsForName:element] firstObject] stringValue]
 
 @implementation APIResourceHelper {
     NSArray *domesticCities;    // 国内城市信息列表
     NSArray *domesticAirports;  // 国内机场信息列表
-    NSArray *craftTypes;        //机型信息列表
+    NSArray *craftTypes;        // 机型信息列表
+    NSArray *airlines;          // 航空公司列表
 }
 
 + (APIResourceHelper *)sharedResourceHelper
@@ -37,6 +39,7 @@
         [self loadDomesticCities];
         [self loadAirports];
         [self loadCraftTypes];
+        [self loadAirlines];
     }
     
     return self;
@@ -142,6 +145,18 @@
     return airports;
 }
 
+- (NSArray *)findAirportsNameInCity:(NSString *)cityName
+{
+    NSMutableArray *airports = [NSMutableArray array];
+    
+    NSArray *airportsCode = [self findDomesticCityViaName:cityName].airports;
+    for (NSString *airportCode in airportsCode) {
+        [airports addObject:[self findAirportViaCode:airportCode].airportName];
+    }
+    
+    return airports;
+}
+
 #pragma mark 机型搜索
 
 - (CraftType *)findCraftTypeViaCT:(NSString *)craftType
@@ -156,6 +171,19 @@
     }
     
     return result;
+}
+
+#pragma mark 航空公司搜索
+
+- (NSArray *)findAllAirlineNames
+{
+    NSMutableArray *allAirlineName = [NSMutableArray array];
+    
+    for (Airline *airline in airlines) {
+        [allAirlineName addObject:airline.airlineName];
+    }
+    
+    return allAirlineName;
 }
 
 #pragma mark - Helper Methods
@@ -267,6 +295,44 @@
     }
     
     craftTypes = craftTypeInfo;
+}
+
+- (void)loadAirlines
+{
+    NSString *airlineFile = [[NSBundle mainBundle] pathForResource:@"Airlines"
+                                                            ofType:@"xml"];
+    NSString *airlineString = [NSString stringWithContentsOfFile:airlineFile
+                                                        encoding:NSUTF8StringEncoding
+                                                           error:nil];
+    
+    GDataXMLDocument *xml = [[GDataXMLDocument alloc] initWithXMLString:airlineString
+                                                               encoding:NSUTF8StringEncoding
+                                                                  error:nil];
+    GDataXMLElement *root = [xml rootElement];
+    
+    NSArray *airlineDetails = [root nodesForXPath:@"//AirlineInfoEntity"
+                                            error:nil];
+    
+    NSMutableArray *airlineInfo = [NSMutableArray array];
+    for (GDataXMLElement *airlineDetail in airlineDetails) {
+        Airline *airline = [[Airline alloc] init];
+        
+        airline.airline             = ObjectElementToString(airlineDetail, @"Airline");
+        airline.airlineCode         = ObjectElementToString(airlineDetail, @"AirLineCode");
+        airline.airlineName         = ObjectElementToString(airlineDetail, @"AirLineName");
+        airline.airlineEName        = ObjectElementToString(airlineDetail, @"AirLineEName");
+        airline.shortName           = ObjectElementToString(airlineDetail, @"ShortName");
+        airline.groupID             = [ObjectElementToString(airlineDetail, @"GroupId") integerValue];
+        airline.groupName           = ObjectElementToString(airlineDetail, @"GroupName");
+        airline.strictType          = ObjectElementToString(airlineDetail, @"StrictType");
+        airline.addonPriceProtected = [ObjectElementToString(airlineDetail, @"AddonPriceProtected") boolValue];
+        airline.isSupportAirPlus    = [ObjectElementToString(airlineDetail, @"IsSupportAirPlus") boolValue];
+        airline.onlineCheckinUrl    = ObjectElementToString(airlineDetail, @"OnlineCheckinUrl");
+        
+        [airlineInfo addObject:airline];
+    }
+    
+    airlines = airlineInfo;
 }
 
 @end

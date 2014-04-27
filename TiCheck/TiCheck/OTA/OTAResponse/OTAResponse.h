@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define ObjectElementToString(object, element) [[[object elementsForName:element] firstObject] stringValue]
+#define ObjectElementToString(object, element) [[[object elementsForName:element] firstObject] stringValue] == nil ? @"" : [[[object elementsForName:element] firstObject] stringValue]
 
 @class GDataXMLElement;
 

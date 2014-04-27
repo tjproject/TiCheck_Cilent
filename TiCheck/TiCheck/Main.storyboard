@@ -300,8 +300,25 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zZ-jG-ZIU">
+                                <rect key="frame" x="0.0" y="568" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="关闭" id="bym-co-gWn">
+                                        <connections>
+                                            <action selector="closePicker:" destination="ANX-1z-3lr" id="YNZ-QH-E90"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="384-w1-1rc"/>
+                                    <barButtonItem title="确定" id="F0P-NP-BeA">
+                                        <connections>
+                                            <action selector="confirmPicker:" destination="ANX-1z-3lr" id="u8w-CU-KhG"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c6a-1h-orY">
-                                <rect key="frame" x="0.0" y="406" width="320" height="162"/>
+                                <rect key="frame" x="0.0" y="612" width="320" height="162"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -324,6 +341,7 @@
                     <connections>
                         <outlet property="buttonsView" destination="x90-nU-F27" id="ZyK-iJ-2iB"/>
                         <outlet property="optionSelectPickerView" destination="c6a-1h-orY" id="WgV-cE-iBm"/>
+                        <outlet property="optionSelectToolBar" destination="4zZ-jG-ZIU" id="TFb-MH-KPz"/>
                         <outlet property="searchOptionTableView" destination="W14-vf-JeO" id="6wG-oe-wJa"/>
                     </connections>
                 </viewController>
