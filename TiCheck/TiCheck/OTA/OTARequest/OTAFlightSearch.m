@@ -22,6 +22,7 @@
         _airline = @"";
         _sendTicketCity = @"";
         _departDate = [NSDate date];
+        _isLowestPrice = YES;
     }
     
     return self;
@@ -44,6 +45,7 @@
         
         _orderBy = Price;
         _orderDirection = ASC;
+        _isLowestPrice = YES;
     }
     
     return self;

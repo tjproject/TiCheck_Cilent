@@ -116,4 +116,13 @@
  */
 - (NSArray *)findAllAirlineShortNames;
 
+/**
+ *  通过航空公司二字码搜索航空公司
+ *
+ *  @param airlineCode 航空公司二字码
+ *
+ *  @return 航空公司
+ */
+- (Airline *)findAirlineViaAirlineCode:(NSString *)airlineCode;
+
 @end
