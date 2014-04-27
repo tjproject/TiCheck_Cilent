@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TickectInfoPicker.h"
 
-@interface TickectInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,TickectInfoPickerDelegate>
+@interface TickectInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,TickectInfoPickerDelegate, UITextFieldDelegate>
 {
     UIImageView *edgeImage;
     UIImageView *lineIndicator;
@@ -49,5 +49,7 @@
 @property (strong, nonatomic) UITableView *infoVessel;
 @property (strong, nonatomic) TickectInfoPicker *TIVC_assurancePicker;
 @property (strong, nonatomic) TickectInfoPicker *TIVC_submitPicker;
+
+@property (strong, nonatomic) NSMutableArray *passengerList;
 
 @end

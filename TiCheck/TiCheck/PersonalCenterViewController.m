@@ -9,7 +9,8 @@
 #import "PersonalCenterViewController.h"
 #import "AccountEditViewController.h"
 #import "PersonalOrderViewController.h"
-#import "PassengerEditViewController.h"
+#import "PassengerListViewController.h"
+//#import "PassengerEditViewController.h"
 #import "TickectInfoViewController.h"
 
 @interface PersonalCenterViewController ()
@@ -123,7 +124,7 @@
     }
     else if(indexPath.section == 1 && indexPath.row == 0)
     {
-        PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
+        PassengerListViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerListViewController"];
         [self.navigationController pushViewController:peVC animated:YES];
     }
     else if(indexPath.section == 1 && indexPath.row == 2)

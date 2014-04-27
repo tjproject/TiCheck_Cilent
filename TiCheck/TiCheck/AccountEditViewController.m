@@ -30,6 +30,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title=@"账号信息";
 }
+
 - (void)animationDidStart:(CAAnimation *)anim
 {
     [self.tableView reloadData];

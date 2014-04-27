@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Passenger.h"
+@interface PassengerEditViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
-@interface PassengerEditViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UITableView *passengerInfoTableView;
+
+
+@property (strong, nonatomic) Passenger *passengerInfo;
 
 @end

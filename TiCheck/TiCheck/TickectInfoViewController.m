@@ -8,7 +8,7 @@
 
 #import "TickectInfoViewController.h"
 #import "PayProcessViewController.h"
-#import "PassengerEditViewController.h"
+#import "PassengerListViewController.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
@@ -96,10 +96,16 @@
 
 - (void)initTextInputFields
 {
-    nameInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
-    phoneInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
-    addressInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
-    submitTitleInputField = [[UITextField alloc] initWithFrame:CGRectMake(15, 0, 320, 48)];
+    nameInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    phoneInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    addressInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    submitTitleInputField = [[UITextField alloc] initWithFrame:CGRectMake(120, 0, 320, 48)];
+    nameInputField.tag = 3;
+    phoneInputField.tag = 4;
+    addressInputField.tag = 5;
+    submitTitleInputField.tag = 6;
+    nameInputField.delegate = phoneInputField.delegate = addressInputField.delegate = submitTitleInputField.delegate = self;
+    nameInputField.returnKeyType = phoneInputField.returnKeyType = addressInputField.returnKeyType = submitTitleInputField.returnKeyType = UIReturnKeyDone;
     inputFieldArray = [[NSArray alloc] initWithObjects:nameInputField,phoneInputField,addressInputField,submitTitleInputField, nil];
 }
 
@@ -159,6 +165,7 @@
     cellTitleArr = [NSMutableArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
     assranceInfo = @"¥30x1份";
     submitInfo = @"不需要报销凭证";
+    _passengerList = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - UITableView dataSource
@@ -168,12 +175,13 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    NSString *CellIdentifier =[NSString stringWithFormat:@"%d",indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
+    
     if (indexPath.row == 0) {cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;}
     else if(indexPath.row == 1)
     {
@@ -185,13 +193,15 @@
         cell.detailTextLabel.text = submitInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
     }
-    else
+    else if(indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6)
     {
         [self initInputFieldInView:cell With:[inputFieldArray objectAtIndex:[indexPath row] - 3]];
     }
+    else
+    {
+    }
     cell.textLabel.text = [cellTitleArr objectAtIndex:[indexPath row]];
-    if (indexPath.row < 3) cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
-    else cell.textLabel.textColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+    cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -204,7 +214,7 @@
 {
     if(indexPath.row == 0)
     {
-        PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
+        PassengerListViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerListViewController"];
         [self.navigationController pushViewController:peVC animated:YES];
     }
     else if(indexPath.row == 1)
@@ -238,6 +248,13 @@
     }
 }
 
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark - ticketInfoPickerDelegate
 - (NSArray*)generatePickerDataWithView:(UIView *)view
 {
@@ -255,13 +272,31 @@
 #pragma mark - target selector
 - (void)bookButtonPressed:(id)sender
 {
-    //add
+    //add booking logic
+    if([sender isSelected])
+    {
+        [sender setImage:[UIImage imageNamed:@"bookButton"] forState:UIControlStateNormal];
+        [sender setSelected:NO];
+    }
+    else
+    {
+        [sender setImage:[UIImage imageNamed:@"bookButtonActive"] forState:UIControlStateNormal];
+        [sender setSelected:YES];
+    }
 }
 
 - (void)confirmPressed:(id)sender
 {
-    PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
-    [self.navigationController pushViewController:ppVC animated:YES];
+    if (_passengerList.count > 0)
+    {
+        PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
+        [self.navigationController pushViewController:ppVC animated:YES];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"乘客不能为空" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 - (void)assuranceCancelPressed
