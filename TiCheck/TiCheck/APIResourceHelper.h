@@ -114,6 +114,6 @@
  *
  *  @return 航空公司名数组
  */
-- (NSArray *)findAllAirlineNames;
+- (NSArray *)findAllAirlineShortNames;
 
 @end

@@ -175,12 +175,12 @@
 
 #pragma mark 航空公司搜索
 
-- (NSArray *)findAllAirlineNames
+- (NSArray *)findAllAirlineShortNames
 {
     NSMutableArray *allAirlineName = [NSMutableArray array];
     
     for (Airline *airline in airlines) {
-        [allAirlineName addObject:airline.airlineName];
+        [allAirlineName addObject:airline.shortName];
     }
     
     return allAirlineName;

@@ -16,9 +16,11 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     EndDate
 };
 
-@interface SubscriptionViewController () <UITableViewDataSource, UITableViewDelegate, DateSelectViewControllerDelegate, CitySelectViewControllerDelegate>
+@interface SubscriptionViewController () <UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, DateSelectViewControllerDelegate, CitySelectViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *subscribeOptionTableView;
+@property (weak, nonatomic) IBOutlet UIToolbar *optionSelectToolBar;
+@property (weak, nonatomic) IBOutlet UIPickerView *optionSelectPickerView;
 
 @property (weak, nonatomic) IBOutlet UIView *buttonView;
 
@@ -30,13 +32,17 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 @property (weak, nonatomic) GeneralOptionTableViewCell *airportCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *takeOffTimeCell;
 
+@property (nonatomic, strong) NSArray *pickerData;
+
 @end
 
 @implementation SubscriptionViewController
 {
     BOOL isReturn; // 是否返程
     BOOL isShowMore; // 是否显示更多
+    
     SelectedDateType selectedDateType; // 选择是开始还是结束日期
+    SelectingOption selectingOption; // 正在进行的选项
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,6 +66,15 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSArray *)pickerData
+{
+    if (_pickerData == nil) {
+        _pickerData = [NSArray array];
+    }
+    
+    return _pickerData;
 }
 
 #pragma mark - Events
@@ -101,6 +116,10 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 {
     isReturn = !isReturn;
     
+    if (CGRectEqualToRect(self.optionSelectPickerView.frame, SHOW_PICKER_VIEW_FRAME)) {
+        [self hideToolBarAndPickerWithAnimation:YES];
+    }
+    
     NSIndexPath *returnIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
     if (isReturn) {
         [self.subscribeOptionTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -131,6 +150,34 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
             }];
         }
     }
+}
+
+- (IBAction)closePicker:(id)sender
+{
+    [self hideToolBarAndPickerWithAnimation:YES];
+}
+
+- (IBAction)confirmPicker:(id)sender
+{
+    NSInteger selectRow = [self.optionSelectPickerView selectedRowInComponent:0];
+    NSString *selectValue = [self.pickerData objectAtIndex:selectRow];
+    
+    switch (selectingOption) {
+        case SelectingAirline:
+            [self.airlineCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingSeat:
+            [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingAirport:
+            [self.airportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingTakeOffTime:
+            [self.takeOffTimeCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+    }
+    
+    [self hideToolBarAndPickerWithAnimation:YES];
 }
 
 #pragma mark - Gesture Selectors
@@ -358,32 +405,159 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
             // Airline选项
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airline"];
             generalCell.generalLabel.text = @"航空公司";
-            [generalCell.generalValue setTitle:@"东方航空" forState:UIControlStateNormal];
+            [generalCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
             [generalCell.generalValue setImage:[UIImage imageNamed:@"EA_Logo"] forState:UIControlStateNormal];
             self.airlineCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 1) {
             // 舱位选项
             generalCell.generalIcon.image = [UIImage imageNamed:@"Seat"];
             generalCell.generalLabel.text = @"舱位";
-            generalCell.generalValue.titleLabel.text = @"经济舱";
+            generalCell.generalValue.titleLabel.text = @"不限";
             self.seatCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 2) {
             // 机场选择
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
             generalCell.generalLabel.text = @"机场";
-            generalCell.generalValue.titleLabel.text = @"浦东机场";
+            generalCell.generalValue.titleLabel.text = @"不限";
             self.airportCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 3) {
             // 起飞时间段
             generalCell.generalIcon.image = [UIImage imageNamed:@"TakeOffTime"];
             generalCell.generalLabel.text = @"起飞时间";
-            generalCell.generalValue.titleLabel.text = @"9:00 ~ 12:00";
+            generalCell.generalValue.titleLabel.text = @"不限";
             self.takeOffTimeCell = generalCell;
         }
         //        generalCell.generalValue.titleLabel.text = @"不限";
     }
     return generalCell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (!isShowMore) return;
+    
+    NSInteger beginOptionCounter = 3;
+    if (isReturn) beginOptionCounter++;
+    // 若PickerView已经展示则隐藏，不做任何更改
+    if (CGRectEqualToRect(self.optionSelectPickerView.frame, SHOW_PICKER_VIEW_FRAME)) {
+        [UIView animateWithDuration:TOOLBAR_PICKER_ANIMATION_SPEED animations:^{
+            [self hideToolBarAndPickerWithAnimation:NO];
+        } completion:^(BOOL finished) {
+            if (indexPath.row == beginOptionCounter) {
+                [self showPickerForAirlineSelect];
+            } else if (indexPath.row == beginOptionCounter + 1) {
+                [self showPickerForSeatSelect];
+            } else if (indexPath.row == beginOptionCounter + 2) {
+                [self showPickerForAirportSelect];
+            } else if (indexPath.row == beginOptionCounter + 3) {
+                [self showPickerForTakeOffTimeSelect];
+            }
+        }];
+    } else {
+        if (indexPath.row == beginOptionCounter) {
+            [self showPickerForAirlineSelect];
+        } else if (indexPath.row == beginOptionCounter + 1) {
+            [self showPickerForSeatSelect];
+        } else if (indexPath.row == beginOptionCounter + 2) {
+            [self showPickerForAirportSelect];
+        } else if (indexPath.row == beginOptionCounter + 3) {
+            [self showPickerForTakeOffTimeSelect];
+        }
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark Picker View Delegate
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return [self.pickerData count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self.pickerData objectAtIndex:row];
+}
+
+#pragma mark - Helper Methods
+
+- (void)showToolBarAndPickerWithAnimation:(BOOL)animate
+{
+    if (animate) {
+        [UIView beginAnimations:nil context:nil];
+        [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
+        [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
+        [UIView commitAnimations];
+    } else {
+        [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
+        [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
+    }
+}
+
+- (void)hideToolBarAndPickerWithAnimation:(BOOL)animate
+{
+    if (animate) {
+        [UIView beginAnimations:nil context:nil];
+        [self.optionSelectToolBar setFrame:HIDE_TOOL_BAR_VIEW_FRAME];
+        [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
+        [UIView commitAnimations];
+    } else {
+        [self.optionSelectToolBar setFrame:HIDE_TOOL_BAR_VIEW_FRAME];
+        [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
+    }
+}
+
+- (void)showPickerForAirlineSelect
+{
+    selectingOption = SelectingAirline;
+    
+    NSMutableArray *airlineData = [NSMutableArray arrayWithObject:@"不限"];
+    [airlineData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNames] mutableCopy]];
+    
+    self.pickerData = airlineData;
+    [self.optionSelectPickerView reloadAllComponents];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airlineCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self showToolBarAndPickerWithAnimation:YES];
+}
+
+- (void)showPickerForSeatSelect
+{
+    selectingOption = SelectingSeat;
+    
+    self.pickerData = [cSeatTypeGet copy];
+    [self.optionSelectPickerView reloadAllComponents];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.seatCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self showToolBarAndPickerWithAnimation:YES];
+}
+
+- (void)showPickerForAirportSelect
+{
+    selectingOption = SelectingAirport;
+    
+    NSMutableArray *airportData = [NSMutableArray arrayWithObject:@"不限"];
+    [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:self.fromToCell.fromCityLabel.text] mutableCopy]];
+    
+    self.pickerData = airportData;
+    [self.optionSelectPickerView reloadAllComponents];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airportCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self showToolBarAndPickerWithAnimation:YES];
+}
+
+- (void)showPickerForTakeOffTimeSelect
+{
+    selectingOption = SelectingTakeOffTime;
+    
+    self.pickerData = [cTakeOffTimeScopeGet copy];
+    [self.optionSelectPickerView reloadAllComponents];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.takeOffTimeCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self showToolBarAndPickerWithAnimation:YES];
+}
+
 
 /*
 #pragma mark - Navigation

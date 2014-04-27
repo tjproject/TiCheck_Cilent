@@ -341,10 +341,6 @@
     return [self.pickerData objectAtIndex:row];
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-}
-
 #pragma mark - Component event
 
 - (IBAction)searchTicket:(id)sender
@@ -495,7 +491,7 @@
     selectingOption = SelectingAirline;
     
     NSMutableArray *airlineData = [NSMutableArray arrayWithObject:@"不限"];
-    [airlineData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAllAirlineNames] mutableCopy]];
+    [airlineData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNames] mutableCopy]];
     
     self.pickerData = airlineData;
     [self.optionSelectPickerView reloadAllComponents];
