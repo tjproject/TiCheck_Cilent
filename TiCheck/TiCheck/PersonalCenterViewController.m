@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     [self initVessel];
+    [self initNavBar];
 }
 
 - (void)initVessel
@@ -42,6 +43,21 @@
     _PCVCVessel.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
     [_PCVCVessel setSeparatorInset:UIEdgeInsetsZero];
     [self.view addSubview:_PCVCVessel];
+}
+
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
+    [tempBtn setImage:[UIImage imageNamed:@"personalCloseButton"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.leftBarButtonItem = closeButton;
+}
+
+#pragma mark - target selector
+- (void)closeButtonPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableView datasource
