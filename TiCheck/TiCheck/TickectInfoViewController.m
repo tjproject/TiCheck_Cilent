@@ -9,6 +9,7 @@
 #import "TickectInfoViewController.h"
 #import "PayProcessViewController.h"
 #import "PassengerListViewController.h"
+#import "PersonalCenterViewController.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
@@ -32,12 +33,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initNavBar];
     [self initLabel];
     [self initImage];
     [self initButton];
     [self initInfoVessel];
     [self initDarkUILayer];
     [self initTextInputFields];
+}
+
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
+    [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.rightBarButtonItem = closeButton;
 }
 
 - (void)initLabel
@@ -106,6 +117,7 @@
     submitTitleInputField.tag = 6;
     nameInputField.delegate = phoneInputField.delegate = addressInputField.delegate = submitTitleInputField.delegate = self;
     nameInputField.returnKeyType = phoneInputField.returnKeyType = addressInputField.returnKeyType = submitTitleInputField.returnKeyType = UIReturnKeyDone;
+    nameInputField.tintColor = phoneInputField.tintColor = addressInputField.tintColor = submitTitleInputField.tintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
     inputFieldArray = [[NSArray alloc] initWithObjects:nameInputField,phoneInputField,addressInputField,submitTitleInputField, nil];
 }
 
@@ -175,7 +187,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier =[NSString stringWithFormat:@"%d",indexPath.row];
+    NSString *CellIdentifier =[NSString stringWithFormat:@"%ld",(long)indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
@@ -252,6 +264,19 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    [UIView animateWithDuration:0.1f animations:^{
+        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    } completion:^(BOOL finished){
+    }];
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [UIView animateWithDuration:0.4f animations:^{
+        self.view.frame = CGRectMake(0, -172, self.view.frame.size.width, self.view.frame.size.height);
+    } completion:^(BOOL finished){
+    }];
     return YES;
 }
 
@@ -270,6 +295,15 @@
 }
 
 #pragma mark - target selector
+- (void)closeButtonPressed:(id)sender
+{
+    PersonalCenterViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
+    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
+    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self presentModalViewController:viewController animated:YES];
+}
+
 - (void)bookButtonPressed:(id)sender
 {
     //add booking logic

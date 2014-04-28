@@ -543,7 +543,16 @@
     if ([[segue identifier] isEqualToString:@"SearchSegue"]) {
         SearchResultViewController *vc = [segue destinationViewController];
         
-        NSMutableDictionary *optionDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.fromToCell.fromCityLabel.text, FROM_CITY_KEY, self.fromToCell.toCityLabel.text, TO_CITY_KEY, self.takeOffDateCell.dateLabel.text, TAKE_OFF_TIME_KEY, nil];
+        NSMutableDictionary *optionDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.fromToCell.fromCityLabel.text, FROM_CITY_KEY, self.fromToCell.toCityLabel.text, TO_CITY_KEY, self.takeOffDateCell.dateLabel.text, TAKE_OFF_TIME_KEY, @(isShowMore), HAS_MORE_OPTION_KEY, nil];
+        if (isReturn) {
+            [optionDic setObject:self.returnDateCell.dateLabel.text forKey:RETURN_TIME_KEY];
+        }
+        if (isShowMore) {
+            [optionDic setObject:self.airlineCell.generalValue.titleLabel.text forKey:AIRLINE_KEY];
+            [optionDic setObject:self.seatCell.generalValue.titleLabel.text forKey:SEAT_TYPE_KEY];
+            [optionDic setObject:self.airportCell.generalValue.titleLabel.text forKey:AIRPORT_KEY];
+            [optionDic setObject:self.takeOffTimeCell.generalValue.titleLabel.text forKey:TAKE_OFF_TIME_INTERVAL_KEY];
+        }
         vc.searchOptionDic = optionDic;
     }
 }

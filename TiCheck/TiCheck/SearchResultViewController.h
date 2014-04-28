@@ -12,6 +12,11 @@
 #define TO_CITY_KEY @"ToCity"
 #define TAKE_OFF_TIME_KEY @"TakeOffTime"
 #define RETURN_TIME_KEY @"ReturnTime"
+#define AIRLINE_KEY @"Airline"
+#define SEAT_TYPE_KEY @"SeatType"
+#define AIRPORT_KEY @"Airport"
+#define TAKE_OFF_TIME_INTERVAL_KEY @"TakeOffTimeInterval"
+#define HAS_MORE_OPTION_KEY @"HasMoreOption"
 
 @interface SearchResultViewController : ViewController
 
