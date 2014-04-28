@@ -37,6 +37,7 @@
 #pragma mark - NSString to Enumeration
 
 + (ClassGrade)classGradeFromString:(NSString *)classGrade;
++ (ClassGrade)classGradeFromChineseString:(NSString *)classGradeChineseString;
 + (PriceType)priceTypeFromString:(NSString *)priceType;
 + (ProductType)productTypeFromString:(NSString *)productType;
 

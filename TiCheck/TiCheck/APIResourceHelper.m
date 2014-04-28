@@ -186,6 +186,20 @@
     return allAirlineName;
 }
 
+- (Airline *)findAirlineViaAirlineShortName:(NSString *)airlineShortName
+{
+    Airline *result = nil;
+    
+    for (Airline *airline in airlines) {
+        if ([airline.shortName isEqualToString:airlineShortName]) {
+            result = airline;
+            break;
+        }
+    }
+    
+    return result;
+}
+
 #pragma mark - Helper Methods
 
 - (void)loadDomesticCities
@@ -317,7 +331,7 @@
     for (GDataXMLElement *airlineDetail in airlineDetails) {
         Airline *airline = [[Airline alloc] init];
         
-        airline.airline             = ObjectElementToString(airlineDetail, @"Airline");
+        airline.airline             = ObjectElementToString(airlineDetail, @"AirLine");
         airline.airlineCode         = ObjectElementToString(airlineDetail, @"AirLineCode");
         airline.airlineName         = ObjectElementToString(airlineDetail, @"AirLineName");
         airline.airlineEName        = ObjectElementToString(airlineDetail, @"AirLineEName");

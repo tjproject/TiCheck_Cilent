@@ -25,6 +25,8 @@
 #import "DomesticCity.h"
 #import "Flight.h"
 #import "CraftType.h"
+#import "Airline.h"
+#import "Airport.h"
 
 #define IS_SEARCH_DATE_USER_INFO_KEY @"IsSearchDate"
 #define SEARCH_DATE_USER_INFO_KEY @"SearchData"
@@ -136,6 +138,19 @@ static float scrollViewHeight=169;
     OTAFlightSearch *searchRequets = [[OTAFlightSearch alloc] initOneWayWithDepartCity:depart
                                                                             arriveCity:arrive
                                                                             departDate:departDate];
+    // 有ShowMore的选项
+    if ([self.searchOptionDic[HAS_MORE_OPTION_KEY] boolValue]) {
+        Airline *selectedAirline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.searchOptionDic[AIRLINE_KEY]];
+        Airport *selectedAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[AIRPORT_KEY]];
+        NSArray *selectedTakeOffTimeInterval = [self.searchOptionDic[TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" "];
+        if (selectedAirline != nil) searchRequets.airline = selectedAirline.airline;
+        searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
+        if (selectedAirport != nil) searchRequets.departPort = selectedAirport.airportCode;
+        if ([selectedTakeOffTimeInterval count] == 3) {
+            searchRequets.earliestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[0]]];
+            searchRequets.latestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[2]]];
+        }
+    }
     NSString *requestXML = [searchRequets generateOTAFlightSearchXMLRequest];
     
     asiSearchRequest = [SoapRequest getASISoap12RequestWithURL:API_URL

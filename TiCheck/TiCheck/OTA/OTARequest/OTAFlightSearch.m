@@ -103,20 +103,40 @@
     NSString *airline            = [NSString stringWithFormat:@"&lt;AirlineDibitCode&gt;%@&lt;/AirlineDibitCode&gt;", self.airline];
     NSString *departPort         = [NSString stringWithFormat:@"&lt;DepartPort&gt;%@&lt;/DepartPort&gt;", self.departPort];
     NSString *arrivePort         = [NSString stringWithFormat:@"&lt;ArrivePort&gt;%@&lt;/ArrivePort&gt;", self.arrivePort];
-//    NSString *earliestDepartTime = [NSString stringWithFormat:@"&lt;EarliestDepartTime&gt;%@&lt;/EarliestDepartTime&gt;", [NSString stringFormatWithTime:self.earliestDepartTime]];
-//    NSString *latestDepartTime   = [NSString stringWithFormat:@"&lt;LatestDepartTime&gt;%@&lt;/LatestDepartTime&gt;", [NSString stringFormatWithTime:self.latestDepartTime]];
-
-    NSString *routesXML          = [NSString stringWithFormat:
-                                    @"&lt;Routes&gt;\n"
-                                    "&lt;FlightRoute&gt;\n"
-                                    "%@\n"
-                                    "%@\n"
-                                    "%@\n"
-                                    "%@\n"
-                                    "%@\n"
-                                    "%@\n"
-                                    "&lt;/FlightRoute&gt;\n"
-                                    "&lt;/Routes&gt;", departCity, arriveCity, departDate, airline, departPort, arrivePort];
+    NSString *earliestDepartTime = [NSString stringWithFormat:@"&lt;EarliestDepartTime&gt;%@&lt;/EarliestDepartTime&gt;", [NSString stringFormatWithTime:self.earliestDepartTime]];
+    NSString *latestDepartTime   = [NSString stringWithFormat:@"&lt;LatestDepartTime&gt;%@&lt;/LatestDepartTime&gt;", [NSString stringFormatWithTime:self.latestDepartTime]];
+    
+    if (self.earliestDepartTime == nil) earliestDepartTime = [NSString stringWithFormat:@"&lt;EarliestDepartTime&gt;&lt;/EarliestDepartTime&gt;"];
+    if (self.latestDepartTime == nil) latestDepartTime = [NSString stringWithFormat:@"&lt;LatestDepartTime&gt;&lt;/LatestDepartTime&gt;"];
+    
+    NSString *routesXML = @"";
+    if (self.earliestDepartTime == nil) {
+        routesXML          = [NSString stringWithFormat:
+                              @"&lt;Routes&gt;\n"
+                              "&lt;FlightRoute&gt;\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "&lt;/FlightRoute&gt;\n"
+                              "&lt;/Routes&gt;", departCity, arriveCity, departDate, airline, departPort, arrivePort];
+    } else {
+        routesXML          = [NSString stringWithFormat:
+                              @"&lt;Routes&gt;\n"
+                              "&lt;FlightRoute&gt;\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "%@\n"
+                              "&lt;/FlightRoute&gt;\n"
+                              "&lt;/Routes&gt;", departCity, arriveCity, departDate, airline, departPort, arrivePort, earliestDepartTime, latestDepartTime];
+    }
     
     return routesXML;
 }

@@ -11,7 +11,7 @@
 @interface Airline : NSObject
 
 /**
- *  航空公司代码
+ *  航空公司二字码
  */
 @property (nonatomic, strong) NSString *airline;
 

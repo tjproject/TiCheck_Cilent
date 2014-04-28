@@ -48,7 +48,7 @@ const NSArray *___takeOffTimeScope;
 #define cSeatTypeGet (___seatType == nil ? ___seatType = [[NSArray alloc] initWithObjects:\
 @"不限",\
 @"经济舱",\
-@"商务舱",\
+@"公务舱",\
 @"头等舱", nil] : ___seatType)
 
 #define cTakeOffTimeScopeGet (___takeOffTimeScope == nil ? ___takeOffTimeScope = [[NSArray alloc] initWithObjects:\
