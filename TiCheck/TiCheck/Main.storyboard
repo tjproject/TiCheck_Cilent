@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bEp-90-t0n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bEp-90-t0n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -426,7 +426,7 @@
         <!--Personal Center View Controller - 个人中心-->
         <scene sceneID="VTO-Lp-7au">
             <objects>
-                <viewController id="wfT-WK-vVw" customClass="PersonalCenterViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PersonalCenterViewController" id="wfT-WK-vVw" customClass="PersonalCenterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kuY-DT-vVo"/>
                         <viewControllerLayoutGuide type="bottom" id="2Cu-gy-bzF"/>
@@ -1279,7 +1279,7 @@
                     <navigationItem key="navigationItem" title="查找结果" id="6kT-uX-Mix">
                         <barButtonItem key="rightBarButtonItem" image="profile" id="ZeC-Hd-QOY">
                             <connections>
-                                <segue destination="wfT-WK-vVw" kind="push" id="Wbb-xk-TIo"/>
+                                <segue destination="wfT-WK-vVw" kind="custom" id="Uq6-Xt-5UA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1432,18 +1432,6 @@
                     <view key="view" contentMode="scaleToFill" id="Yf1-xw-jje">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Gh-mS-AWB">
-                                <rect key="frame" x="177" y="283" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="支付">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="vzD-ay-BvO" kind="push" id="ahN-fK-g5K"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="订单详情" id="2GG-ng-DMG"/>
@@ -1662,13 +1650,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="机票详情" id="sC1-ha-VyS">
-                        <barButtonItem key="rightBarButtonItem" image="profile" id="jKM-X4-7Re">
-                            <connections>
-                                <segue destination="wfT-WK-vVw" kind="push" id="aCC-U5-nQr"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="机票详情" id="sC1-ha-VyS"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kk-Pe-l91" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1989,6 +1971,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yC6-p3-Zs7"/>
+        <segue reference="Uq6-Xt-5UA"/>
     </inferredMetricsTieBreakers>
 </document>

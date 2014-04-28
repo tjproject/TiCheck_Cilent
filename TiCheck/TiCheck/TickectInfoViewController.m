@@ -9,6 +9,7 @@
 #import "TickectInfoViewController.h"
 #import "PayProcessViewController.h"
 #import "PassengerListViewController.h"
+#import "PersonalCenterViewController.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
@@ -32,12 +33,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initNavBar];
     [self initLabel];
     [self initImage];
     [self initButton];
     [self initInfoVessel];
     [self initDarkUILayer];
     [self initTextInputFields];
+}
+
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
+    [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.rightBarButtonItem = closeButton;
 }
 
 - (void)initLabel
@@ -175,7 +186,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier =[NSString stringWithFormat:@"%d",indexPath.row];
+    NSString *CellIdentifier =[NSString stringWithFormat:@"%ld",(long)indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
     {
@@ -270,6 +281,15 @@
 }
 
 #pragma mark - target selector
+- (void)closeButtonPressed:(id)sender
+{
+    PersonalCenterViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
+    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
+    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self presentModalViewController:viewController animated:YES];
+}
+
 - (void)bookButtonPressed:(id)sender
 {
     //add booking logic
