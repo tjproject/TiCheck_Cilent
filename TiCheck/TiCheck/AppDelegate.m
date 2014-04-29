@@ -24,7 +24,7 @@
     
 //    [APIResourceHelper sharedResourceHelper];
     self.window.tintColor = [UIColor whiteColor];
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }
 
