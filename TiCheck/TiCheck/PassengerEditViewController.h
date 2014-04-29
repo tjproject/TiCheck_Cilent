@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Passenger.h"
-@interface PassengerEditViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+#import "TickectInfoPicker.h"
+@interface PassengerEditViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,TickectInfoPickerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *passengerInfoTableView;
 
 
 @property (strong, nonatomic) Passenger *passengerInfo;
 
+@property (strong, nonatomic) NSString *navigationBarDoneItemString;
 @end
