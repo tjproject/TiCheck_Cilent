@@ -57,8 +57,7 @@
 #pragma mark - target selector
 - (void)closeButtonPressed:(id)sender
 {
-    [self.navigationController popViewControllerAnimated:YES];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableView datasource

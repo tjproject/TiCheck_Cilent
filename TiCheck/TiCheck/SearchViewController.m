@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "SearchResultViewController.h"
 #import "SearchOption.h"
+#import "PersonalCenterViewController.h"
 
 #import "CommonData.h"
 
@@ -58,6 +59,26 @@
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
         [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
+    [self initNavBar];
+}
+
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
+    [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+#pragma mark - target selector
+- (void)closeButtonPressed:(id)sender
+{
+    PersonalCenterViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
+    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
+    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self presentModalViewController:viewController animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
