@@ -51,4 +51,27 @@
     return YES;
 }
 
+- (BOOL)loginVerifyWithEmail:(NSString *)email password:(NSString *)password
+{
+    NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys:email, @"Email", password, "Password", nil];
+    NSData *loginInfoJsonData = [NSJSONSerialization dataWithJSONObject:loginInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *requestString = [NSString stringWithFormat:@"User=%@", [[NSString alloc] initWithData:loginInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *responseString = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:User_Login jsonData:jsonBody];
+    
+    return YES;
+}
+
+- (BOOL)createSubscriptionWithDepartCity:(NSString *)departCityName
+                              arriveCity:(NSString *)arriveCityName
+                               startDate:(NSDate *)startDate
+                                 endDate:(NSDate *)endDate
+                              moreOption:(NSDictionary *)moreOptionDic
+{
+    
+    
+    return YES;
+}
+
 @end

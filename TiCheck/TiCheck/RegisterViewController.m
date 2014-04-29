@@ -83,8 +83,6 @@
     [UserData sharedUserData].password=passwordStr;
     [UserData sharedUserData].userName=userNameStr;
     
-    [[ServerCommunicator sharedCommunicator] createUserWithEmail:emailStr password:passwordStr];
-    
     if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
     {
      
