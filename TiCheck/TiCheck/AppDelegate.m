@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "APIResourceHelper.h"
+#import "ServerCommunicator.h"
 
 @implementation AppDelegate
 
