@@ -50,6 +50,7 @@
 		A0452E2F18FE4A8400DED4EE /* Airports.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0452E2E18FE4A8400DED4EE /* Airports.xml */; };
 		A0452E3318FE605C00DED4EE /* CraftTypes.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0452E3218FE605C00DED4EE /* CraftTypes.xml */; };
 		A0452E3618FE607000DED4EE /* CraftType.m in Sources */ = {isa = PBXBuildFile; fileRef = A0452E3518FE607000DED4EE /* CraftType.m */; };
+		A0569967190FD40700EA47E4 /* Subscription.m in Sources */ = {isa = PBXBuildFile; fileRef = A0569966190FD40700EA47E4 /* Subscription.m */; };
 		A060AA021904ADFB0001219A /* DateSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A060AA011904ADFB0001219A /* DateSelectViewController.m */; };
 		A0620AFA18D7242C003A7A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AF918D7242C003A7A55 /* Foundation.framework */; };
 		A0620AFC18D7242C003A7A55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */; };
@@ -199,6 +200,8 @@
 		A0452E3218FE605C00DED4EE /* CraftTypes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = CraftTypes.xml; path = Resources/APIRelated/CraftTypes.xml; sourceTree = "<group>"; };
 		A0452E3418FE607000DED4EE /* CraftType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CraftType.h; sourceTree = "<group>"; };
 		A0452E3518FE607000DED4EE /* CraftType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CraftType.m; sourceTree = "<group>"; };
+		A0569965190FD40700EA47E4 /* Subscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscription.h; sourceTree = "<group>"; };
+		A0569966190FD40700EA47E4 /* Subscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subscription.m; sourceTree = "<group>"; };
 		A060AA001904ADFB0001219A /* DateSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateSelectViewController.h; sourceTree = "<group>"; };
 		A060AA011904ADFB0001219A /* DateSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateSelectViewController.m; sourceTree = "<group>"; };
 		A0620AF618D7242C003A7A55 /* TiCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TiCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -584,6 +587,8 @@
 				A0452E3518FE607000DED4EE /* CraftType.m */,
 				A01CDA9E190D1E6700E9F6FB /* Airline.h */,
 				A01CDA9F190D1E6700E9F6FB /* Airline.m */,
+				A0569965190FD40700EA47E4 /* Subscription.h */,
+				A0569966190FD40700EA47E4 /* Subscription.m */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -929,6 +934,7 @@
 				A0620B9818D727B6003A7A55 /* OTAFlightSaveOrderResponse.m in Sources */,
 				A0620B0C18D7242C003A7A55 /* AppDelegate.m in Sources */,
 				135F6B94190003E50061F51F /* PersonalCenterViewController.m in Sources */,
+				A0569967190FD40700EA47E4 /* Subscription.m in Sources */,
 				1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */,
 				A0BE290D1906404A0042D356 /* DateTableViewCell.m in Sources */,
 				A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */,

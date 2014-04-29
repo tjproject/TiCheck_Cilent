@@ -9,7 +9,17 @@
 #import "ServerCommunicator.h"
 #import "ServerRequest.h"
 #import "ConfigurationHelper.h"
+#import "APIResourceHelper.h"
+
+#import "NSString+DateFormat.h"
+
+#import "Subscription.h"
 #import "UserData.h"
+#import "DomesticCity.h"
+#import "Airline.h"
+#import "Airport.h"
+
+#define STRING_NIL_THEN_EMPTY(string) (string == nil ? @"", string)
 
 @implementation ServerCommunicator
 
@@ -59,17 +69,6 @@
     NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSString *responseString = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:User_Login jsonData:jsonBody];
-    
-    return YES;
-}
-
-- (BOOL)createSubscriptionWithDepartCity:(NSString *)departCityName
-                              arriveCity:(NSString *)arriveCityName
-                               startDate:(NSDate *)startDate
-                                 endDate:(NSDate *)endDate
-                              moreOption:(NSDictionary *)moreOptionDic
-{
-    
     
     return YES;
 }
