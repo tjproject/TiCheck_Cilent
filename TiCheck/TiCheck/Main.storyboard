@@ -692,6 +692,7 @@
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexColor" red="0.062745098040000002" green="0.63529411759999999" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="CIc-CJ-RWl" id="UGX-7m-XEa"/>
                                     <outlet property="delegate" destination="CIc-CJ-RWl" id="Yec-1I-e9n"/>
@@ -1287,7 +1288,7 @@
                     <navigationItem key="navigationItem" title="查找结果" id="6kT-uX-Mix">
                         <barButtonItem key="rightBarButtonItem" image="profile" id="ZeC-Hd-QOY">
                             <connections>
-                                <segue destination="wfT-WK-vVw" kind="custom" id="Uq6-Xt-5UA"/>
+                                <segue destination="wfT-WK-vVw" kind="push" id="Uq6-Xt-5UA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1979,6 +1980,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yC6-p3-Zs7"/>
+        <segue reference="Uq6-Xt-5UA"/>
     </inferredMetricsTieBreakers>
 </document>
