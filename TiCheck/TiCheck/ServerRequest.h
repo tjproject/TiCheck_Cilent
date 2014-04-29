@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(NSInteger, ServerUserRequestType) {
     Create_User = 0,
-    Modity_User,
+    Modify_User,
     User_Login
 };
 

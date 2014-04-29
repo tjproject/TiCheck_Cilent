@@ -22,20 +22,21 @@
  *
  *  @param email    用户邮箱
  *  @param password 用户密码
+ *  @param account  用户账户名
  *
  *  @return 是否成功创建
  */
-- (BOOL)createUserWithEmail:(NSString *)email password:(NSString *)password;
+- (BOOL)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account;
 
 /**
- *  修改用户
+ *  修改用户，如果只修改某几项，其他项用UserData获取填原来的数值
  *
- *  @param email    用户邮箱
- *  @param password 用户密码
- *  @param account  用户账户名
+ *  @param newEmail    用户新邮箱
+ *  @param newPassword 用户新密码
+ *  @param newAccount  用户新账户名
  *
  *  @return 是否成功修改
  */
-- (BOOL)modifyUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account;
+- (BOOL)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount;
 
 @end

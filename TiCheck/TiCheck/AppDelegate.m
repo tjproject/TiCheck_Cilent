@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "APIResourceHelper.h"
-#import "ServerCommunicator.h"
 
 @implementation AppDelegate
 
@@ -25,6 +23,7 @@
 //    [APIResourceHelper sharedResourceHelper];
     self.window.tintColor = [UIColor whiteColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     return YES;
 }
 
