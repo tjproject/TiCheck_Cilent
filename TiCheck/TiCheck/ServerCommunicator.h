@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Subscription;
+
 @interface ServerCommunicator : NSObject
 
 /**
@@ -48,5 +50,33 @@
  *  @return 是否验证成功
  */
 - (BOOL)loginVerifyWithEmail:(NSString *)email password:(NSString *)password;
+
+/**
+ *  使用订阅类创建订阅
+ *
+ *  @param subscription 订阅类，包含订阅信息
+ *
+ *  @return 是否创建成功
+ */
+- (BOOL)createSubscriptionWithSubscription:(Subscription *)subscription;
+
+/**
+ *  将旧的订阅修改为新的
+ *
+ *  @param oldSubscription 旧的订阅类，包含旧的订阅信息
+ *  @param newSubscription 新的订阅类，包含新的订阅信息
+ *
+ *  @return 是否修改成功
+ */
+- (BOOL)modifySubscriptionWithOldSubscription:(Subscription *)oldSubscription asNewSubscription:(Subscription *)newSubscription;
+
+/**
+ *  取消订阅
+ *
+ *  @param subscription 要取消的订阅类订阅信息
+ *
+ *  @return 是否成功取消
+ */
+- (BOOL)cancelSubscriptionWithSubscription:(Subscription *)subscription;
 
 @end

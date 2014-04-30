@@ -21,6 +21,8 @@
 
 #define STRING_NIL_THEN_EMPTY(string) (string == nil ? @"", string)
 
+// TODO: 目前都是按成功处理
+
 @implementation ServerCommunicator
 
 + (ServerCommunicator *)sharedCommunicator
@@ -48,7 +50,7 @@
 - (BOOL)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount
 {
     NSDictionary *newUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:newAccount, @"Account", newPassword, @"Password", newEmail, @"Email", nil];
-    NSDictionary *oldUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:[UserData sharedUserData].userName, @"Account", [UserData sharedUserData].password, @"Password", [UserData sharedUserData].email, @"Email", nil];
+    NSDictionary *oldUserInfo = [self currentUserJsonDataDictionaryWithAccount:YES];
     
     NSData *newUserInfoJsonData = [NSJSONSerialization dataWithJSONObject:newUserInfo options:NSJSONWritingPrettyPrinted error:nil];
     NSData *oldUserInfoJsonData = [NSJSONSerialization dataWithJSONObject:oldUserInfo options:NSJSONWritingPrettyPrinted error:nil];
@@ -71,6 +73,63 @@
     NSString *responseString = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:User_Login jsonData:jsonBody];
     
     return YES;
+}
+
+- (BOOL)createSubscriptionWithSubscription:(Subscription *)subscription
+{
+    NSDictionary *subscriptionInfo = [subscription dictionaryWithSubscriptionOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    NSData *subscriptionInfoJsonData = [NSJSONSerialization dataWithJSONObject:subscriptionInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"Subscription=%@&User=%@", [[NSString alloc] initWithData:subscriptionInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *responseString = [ServerRequest getServerSubscriptionResponseWithServerURL:SERVER_URL requestType:Create_Subscription jsonData:jsonBody];
+    
+    return YES;
+}
+
+- (BOOL)modifySubscriptionWithOldSubscription:(Subscription *)oldSubscription asNewSubscription:(Subscription *)newSubscription
+{
+    NSDictionary *oldSubscriptionInfo = [oldSubscription dictionaryWithSubscriptionOption];
+    NSDictionary *newSubscriptionInfo = [newSubscription dictionaryWithSubscriptionOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    NSData *oldSubscriptionInfoJsonData = [NSJSONSerialization dataWithJSONObject:oldSubscriptionInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *newSubscriptionInfoJsonData = [NSJSONSerialization dataWithJSONObject:newSubscriptionInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"Subscription=%@&NewSubscription=%@&User=%@", [[NSString alloc] initWithData:oldSubscriptionInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:newSubscriptionInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *responseString = [ServerRequest getServerSubscriptionResponseWithServerURL:SERVER_URL requestType:Modify_Subscription jsonData:jsonBody];
+    
+    return YES;
+}
+
+- (BOOL)cancelSubscriptionWithSubscription:(Subscription *)subscription
+{
+    NSDictionary *subscriptionInfo = [subscription dictionaryWithSubscriptionOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    NSData *subscriptionInfoJsonData = [NSJSONSerialization dataWithJSONObject:subscriptionInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"Subscription=%@&User=%@", [[NSString alloc] initWithData:subscriptionInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *responseString = [ServerRequest getServerSubscriptionResponseWithServerURL:SERVER_URL requestType:Cancel_Subscription jsonData:jsonBody];
+    
+    return YES;
+}
+
+- (NSDictionary *)currentUserJsonDataDictionaryWithAccount:(BOOL)withAccount
+{
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UserData sharedUserData].email, @"Email", [UserData sharedUserData].password, @"Password", nil];
+    if (withAccount) [result setObject:[UserData sharedUserData].userName forKey:@"Account"];
+    return result;
 }
 
 @end
