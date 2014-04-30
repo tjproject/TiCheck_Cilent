@@ -10,7 +10,7 @@
 #import "PassengerEditViewController.h"
 #import "Passenger.h"
 
-#define PASSENGER_COUNT 5;
+#define PASSENGER_COUNT 2;
 @interface PassengerListViewController ()
 {
     UIButton *addButton;
@@ -137,6 +137,8 @@
     peVC.navigationItem.title=@"修改联系人";
     [self.navigationController pushViewController:peVC animated:YES];
     
+    peVC.passengerInfo=[Passenger passengerWithPassengerName:@"黄泽彪" birthDay: nil passportType:ID passportNo:@"440508199109223314"];
+    peVC.navigationBarDoneItemString=@"确认修改";
 }
 
 #pragma mark - button event
@@ -146,12 +148,12 @@
     PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
     
     peVC.navigationItem.title=@"添加联系人";
-    
+    peVC.navigationBarDoneItemString=@"添加";
     //
     [self.navigationController pushViewController:peVC animated:YES];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -159,7 +161,8 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
 }
-*/
+
 
 @end

@@ -11,6 +11,8 @@
 #import "PassengerInfoPickerCell.h"
 #import "PassengerInfoTextFieldCell.h"
 #import "EnumCollection.h"
+
+
 #define INFO_ITEM_COUNT 6;
 
 @interface PassengerEditViewController ()
@@ -18,6 +20,9 @@
     UIView *darkUILayer;
     UIView *pickerContainerView;
     UIDatePicker *datePicker;
+    
+    TickectInfoPicker *genderPicker;
+    TickectInfoPicker *passportTypePicker;
 }
 @end
 
@@ -49,7 +54,7 @@
     // 添加 取消／完成按钮
     UIBarButtonItem *cancel=[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonFunction:)];
     
-    UIBarButtonItem *done=[[UIBarButtonItem alloc] initWithTitle:@"确认修改" style:UIBarButtonSystemItemDone target:self action:@selector(doneButtonFunction:)];
+    UIBarButtonItem *done=[[UIBarButtonItem alloc] initWithTitle:self.navigationBarDoneItemString style:UIBarButtonSystemItemDone target:self action:@selector(doneButtonFunction:)];
     
     
     self.navigationItem.leftBarButtonItem=cancel;
@@ -194,6 +199,32 @@
         if(self.passengerInfo.passportType!= 0)
         {
             //根据类型切换
+            switch (self.passengerInfo.passportType) {
+                case ID: cell.labelButton.text=@"身份证";
+                    break;
+                case Passport: cell.labelButton.text=@"护照";
+                    break;
+                case Military: cell.labelButton.text=@"军人证";
+                    break;
+                case HomeReturePermit: cell.labelButton.text=@"回乡证";
+                    break;
+                case TaiWaner: cell.labelButton.text=@"台胞证";
+                    break;
+                case HongKongAndMacaoPermit: cell.labelButton.text=@"港澳通行证";
+                    break;
+                case InternationalSeaman: cell.labelButton.text=@"国际海员证";
+                    break;
+                case GreenCard: cell.labelButton.text=@"外国人永久居留证";
+                    break;
+                case Booklet: cell.labelButton.text=@"户口簿";
+                    break;
+                case BirthCertificate: cell.labelButton.text=@"出生证明";
+                    break;
+                case Other: cell.labelButton.text=@"其他";
+                    break;
+                default:
+                    break;
+            }
             cell.labelButton.textColor=[UIColor colorWithRed:116/255.0 green:116/255.0 blue:116/255.0 alpha:1.0];
         }
         else
@@ -263,13 +294,28 @@
     }
 }
 
-#pragma mark - button event
+#pragma mark - table view cell button event
 - (void) pickerCellTapped:(NSInteger) index
 {
     NSLog(@"test");
     if (index==1)
     {
+        if(genderPicker==nil)
+        {
+            genderPicker = [[TickectInfoPicker alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
+            genderPicker.tag = 0;
+            genderPicker.delegate = self;
+            [genderPicker initPickerData];
+            [genderPicker initPickerToolBarWithTitle:@"                  性别                  "];
+            [genderPicker addTargetForCancelButton:self action:@selector(genderPickerCancelPressed:)];
+            [genderPicker addTargetForDoneButton:self action:@selector(genderPickerDonePressed:)];
+            [[self navigationController].view addSubview:genderPicker];
+        }
+        self.view.userInteractionEnabled = NO;
+        [self navigationController].navigationBar.userInteractionEnabled = NO;
         
+        [self pushViewAnimationWithView:genderPicker willHidden:NO];
+        genderPicker.hidden = NO;
     }
     else if (index==2)
     {
@@ -302,23 +348,130 @@
             pickerContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
             
             [[self navigationController].view addSubview:pickerContainerView];
-            
-            
         }
-        
         self.view.userInteractionEnabled = NO;
         [self navigationController].navigationBar.userInteractionEnabled = NO;
-        
         
         [self  pushViewAnimationWithView:pickerContainerView willHidden:NO];
         pickerContainerView.hidden = NO;
     }
     else if (index==3)
     {
+        //passportTypePicker
+        if(passportTypePicker==nil)
+        {
+            passportTypePicker = [[TickectInfoPicker alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
+            passportTypePicker.tag = 1;
+            passportTypePicker.delegate = self;
+            [passportTypePicker initPickerData];
+            [passportTypePicker initPickerToolBarWithTitle:@"               证件类型               "];
+            [passportTypePicker addTargetForCancelButton:self action:@selector(passportTypePickerCancelPressed:)];
+            [passportTypePicker addTargetForDoneButton:self action:@selector(passportTypePickerDonePressed:)];
+            [[self navigationController].view addSubview:passportTypePicker];
+        }
+        self.view.userInteractionEnabled = NO;
+        [self navigationController].navigationBar.userInteractionEnabled = NO;
         
+        [self pushViewAnimationWithView:passportTypePicker willHidden:NO];
+        passportTypePicker.hidden = NO;
     }
 }
 
+
+
+#pragma mark - ticketInfoPickerDelegate
+- (NSArray*)generatePickerDataWithView:(UIView *)view
+{
+    NSArray* pickerData;
+    if (view.tag == 0)
+    {
+        pickerData = [[NSArray alloc] initWithObjects:@"男",@"女", nil];
+    }
+    else
+    {
+        pickerData = [[NSArray alloc] initWithObjects:@"身份证",@"护照",@"军人证",@"回乡证",@"台胞证",@"港澳通行证",@"国际海员证",@"外国人永久居留证",@"户口簿",@"出生证明",@"其它", nil];
+    }
+    return pickerData;
+}
+
+#pragma mark - ticket info picker button event
+
+- (void)genderPickerCancelPressed:(id)sender
+{
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
+    [self pushViewAnimationWithView:genderPicker willHidden:YES];
+    self.view.userInteractionEnabled = YES;
+}
+- (void)passportTypePickerCancelPressed:(id)sender
+{
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
+    [self pushViewAnimationWithView:passportTypePicker willHidden:YES];
+    self.view.userInteractionEnabled = YES;
+}
+
+
+- (void)genderPickerDonePressed:(id)sender
+{
+    
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
+    
+    //self.passengerInfo.birthDay= datePicker.date;
+    NSInteger index= [genderPicker.picker selectedRowInComponent:0];
+    
+    if(index==0)
+    {
+        self.passengerInfo.gender=Male;
+    }
+    else
+    {
+        self.passengerInfo.gender=Female;
+    }
+    
+    [self.passengerInfoTableView reloadData];
+    [self pushViewAnimationWithView:genderPicker willHidden:YES];
+    self.view.userInteractionEnabled = YES;
+}
+
+- (void)passportTypePickerDonePressed:(id)sender
+{
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
+    
+    //self.passengerInfo.birthDay= datePicker.date;
+    NSInteger index= [passportTypePicker.picker selectedRowInComponent:0];
+    
+    switch (index) {
+        case 0: self.passengerInfo.passportType=ID;
+            break;
+        case 1: self.passengerInfo.passportType=Passport;
+            break;
+        case 2: self.passengerInfo.passportType=Military;
+            break;
+        case 3: self.passengerInfo.passportType=HomeReturePermit;
+            break;
+        case 4: self.passengerInfo.passportType=TaiWaner;
+            break;
+        case 5: self.passengerInfo.passportType=HongKongAndMacaoPermit;
+            break;
+        case 6: self.passengerInfo.passportType=InternationalSeaman;
+            break;
+        case 7: self.passengerInfo.passportType=GreenCard;
+            break;
+        case 8: self.passengerInfo.passportType=Booklet;
+            break;
+        case 9: self.passengerInfo.passportType=BirthCertificate;
+            break;
+        case 10: self.passengerInfo.passportType=Other;
+            break;
+        default:
+            break;
+    }
+    
+    [self.passengerInfoTableView reloadData];
+    [self pushViewAnimationWithView:passportTypePicker willHidden:YES];
+     self.view.userInteractionEnabled = YES;
+}
+
+#pragma mark - navigation button event
 -(void) cancelButtonFunction:(id)sender
 {
     
@@ -328,11 +481,16 @@
 
 - (void) doneButtonFunction:(id) sender
 {
-    [self setPassengerInfoByTableViewData:self.passengerInfoTableView];
+    [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
     if ([self checkInfo:self.passengerInfo])
     {
+        //修改
         //alert 修改成功
-        //自动返回
+        //返回
+        
+        NSLog(@"confirm,Pay");
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
     }
     else
     {
@@ -340,14 +498,34 @@
     }
 }
 
-- (void) setPassengerInfoByTableViewData:(UITableView*)tableView
+- (void) setPassengerInfo:(Passenger*) passengerInfo ByTableViewData:(UITableView*)tableView
 {
+    //set passengerInfo
+    NSIndexPath* path=[NSIndexPath indexPathForRow: 0 inSection:0];
+    PassengerInfoTextFieldCell *cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    passengerInfo.passengerName= cell.inputInfoTextField.text;
+    
+    path=[NSIndexPath indexPathForRow: 4 inSection:0];
+    cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    passengerInfo.passportNumber= cell.inputInfoTextField.text;
+    
+    path=[NSIndexPath indexPathForRow: 5 inSection:0];
+    cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    passengerInfo.contactTelephone= cell.inputInfoTextField.text;
     
 }
 
 - (Boolean) checkInfo:(Passenger*) passenger
 {
-    return NO;
+    return YES;
+}
+
+#pragma mark - ui alert delegate
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //NSLog(@"test");
+    [self cancelButtonFunction:self];
+
 }
 
 #pragma mark - utility functions
@@ -370,7 +548,7 @@
     }];
 }
 
-#pragma mark - time picker
+#pragma mark - date picker bar
 - (void)init:(UIView*) view Picker:(UIDatePicker*) picker ToolBarWithTitle:(NSString*)title
 {
     //picker = title;
@@ -398,8 +576,6 @@
 {
     
     [self navigationController].navigationBar.userInteractionEnabled = YES;
-//    assranceInfo = [_TIVC_assurancePicker.pickerData objectAtIndex:[_TIVC_assurancePicker.picker selectedRowInComponent:0]];
-//    [_infoVessel reloadData];
     
     self.passengerInfo.birthDay= datePicker.date;
     [self.passengerInfoTableView reloadData];
@@ -407,6 +583,8 @@
     [self pushViewAnimationWithView:pickerContainerView willHidden:YES];
     self.view.userInteractionEnabled = YES;
 }
+
+
 
 /*
 #pragma mark - Navigation
