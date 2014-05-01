@@ -31,7 +31,7 @@
     __strong static id _sharedCommunicator = nil;
     dispatch_once(&onceToken, ^{
         _sharedCommunicator = [[self alloc] init];
-    });;
+    });
     return _sharedCommunicator;
 }
 
@@ -71,6 +71,32 @@
     NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSString *responseString = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:User_Login jsonData:jsonBody];
+    
+    return YES;
+}
+
+- (BOOL)addTokenForCurrentUser:(NSString *)token
+{
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"User=%@&DeviceToken=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], token];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *responseString = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:Add_Token jsonData:jsonBody];
+    
+    return YES;
+}
+
+- (BOOL)removeTokenForCurrentUser:(NSString *)token
+{
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"User=%@&DeviceToken=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *responseString = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:Remove_Token jsonData:jsonBody];
     
     return YES;
 }

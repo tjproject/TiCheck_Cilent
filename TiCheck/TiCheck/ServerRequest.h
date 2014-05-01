@@ -13,7 +13,9 @@
 typedef NS_ENUM(NSInteger, ServerUserRequestType) {
     Create_User = 0,
     Modify_User,
-    User_Login
+    User_Login,
+    Add_Token,
+    Remove_Token
 };
 
 typedef NS_ENUM(NSInteger, ServerSubscriptionRequestType) {

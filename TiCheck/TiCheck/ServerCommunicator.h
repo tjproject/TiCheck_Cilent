@@ -52,6 +52,24 @@
 - (BOOL)loginVerifyWithEmail:(NSString *)email password:(NSString *)password;
 
 /**
+ *  将当前用户的token添加到服务器
+ *
+ *  @param token 要添加的设备token
+ *
+ *  @return 是否添加成功
+ */
+- (BOOL)addTokenForCurrentUser:(NSString *)token;
+
+/**
+ *  删除当前用户的token
+ *
+ *  @param token 要删除的token
+ *
+ *  @return 是否删除成功
+ */
+- (BOOL)removeTokenForCurrentUser:(NSString *)token;
+
+/**
  *  使用订阅类创建订阅
  *
  *  @param subscription 订阅类，包含订阅信息

@@ -55,8 +55,9 @@
 - (IBAction)LogoutButtonEvent:(id)sender
 {
     NSLog(@"log out");
+    [(UINavigationController *)self.presentingViewController popToRootViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 #pragma mark - Table View
 

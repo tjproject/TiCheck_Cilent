@@ -11,6 +11,8 @@
 #import "PassengerListViewController.h"
 #import "PersonalCenterViewController.h"
 
+#import "Flight.h"
+
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 
 @interface TickectInfoViewController ()

@@ -68,6 +68,7 @@
     [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
     [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItem = closeButton;
 }
 

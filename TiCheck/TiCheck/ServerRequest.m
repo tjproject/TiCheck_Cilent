@@ -14,7 +14,9 @@ const NSArray *___UserRequestType;
 #define cUserRequestTypeGet (___UserRequestType == nil ? ___UserRequestType = [[NSArray alloc] initWithObjects:\
 @"create",\
 @"modify",\
-@"login", nil] : ___UserRequestType)
+@"login",\
+@"deviceToken/add"\
+@"deviceToken/remove", nil] : ___UserRequestType)
 
 #define cUserRequestTypeString(type) ([cUserRequestTypeGet objectAtIndex:type])
 #define cUserRequestTypeEnum(string) ([cUserRequestTypeGet indexOfObject:string])
