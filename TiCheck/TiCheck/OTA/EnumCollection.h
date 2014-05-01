@@ -120,7 +120,7 @@ typedef NS_ENUM(NSUInteger, FlightOrderClass) {
 };
 
 typedef NS_ENUM(NSUInteger, Gender) {
-    Male,
-    Female
+    Male = 1,
+    Female = 2
 };
 #endif

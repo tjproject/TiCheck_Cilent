@@ -265,6 +265,17 @@
     return result;
 }
 
++ (ClassGrade)classGradeFromChineseString:(NSString *)classGradeChineseString
+{
+    ClassGrade result = Y;
+    
+         if ([classGradeChineseString isEqualToString:@"经济舱"]) result = Y;
+    else if ([classGradeChineseString isEqualToString:@"公务舱"]) result = C;
+    else if ([classGradeChineseString isEqualToString:@"头等舱"]) result = F;
+    
+    return result;
+}
+
 + (PriceType)priceTypeFromString:(NSString *)priceType
 {
     PriceType result = NormalPrice;

@@ -15,6 +15,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.inputInfoTextField.returnKeyType =UIReturnKeyDone;
     }
     return self;
 }

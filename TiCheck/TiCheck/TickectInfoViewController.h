@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TickectInfoPicker.h"
 
+@class Flight;
+
 @interface TickectInfoViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,TickectInfoPickerDelegate, UITextFieldDelegate>
 {
     UIImageView *edgeImage;
@@ -26,6 +28,12 @@
     UITextField *submitTitleInputField;
     NSArray *inputFieldArray;
 }
+
+/**
+ *  点击搜索结果传入相应Flight数据，根据Flight初始化此界面。机型航空公司等编号或代码到名称的转换见APIResourceHelper
+ */
+@property (strong, nonatomic) Flight *selectFlight;
+
 @property (strong, nonatomic) UILabel *TIVC_timeLabel;
 @property (strong, nonatomic) UILabel *TIVC_fromLabel;
 @property (strong, nonatomic) UILabel *TIVC_toLabel;

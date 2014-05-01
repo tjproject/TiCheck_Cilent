@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "APIResourceHelper.h"
 
 @implementation AppDelegate
 

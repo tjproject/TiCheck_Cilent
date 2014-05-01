@@ -17,6 +17,7 @@
 #import "OTAFlightSearchResponse.h"
 #import "APIResourceHelper.h"
 #import "ConfigurationHelper.h"
+#import "TickectInfoViewController.h"
 
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
@@ -25,7 +26,10 @@
 #import "DomesticCity.h"
 #import "Flight.h"
 #import "CraftType.h"
+#import "Airline.h"
+#import "Airport.h"
 
+#define IS_RELOADING_FLAG @"IsReloading"
 #define IS_SEARCH_DATE_USER_INFO_KEY @"IsSearchDate"
 #define SEARCH_DATE_USER_INFO_KEY @"SearchData"
 #define LONGEST_HISTORY_DAYS 7
@@ -97,7 +101,7 @@ static float scrollViewHeight=169;
 - (void)viewWillAppear:(BOOL)animated
 {
     if ([self.data count] == 0) {
-        [self sendFlightSearchRequest];
+        [self sendFlightSearchRequestWithReloading:NO];
         self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:-1];
     }
     
@@ -127,7 +131,7 @@ static float scrollViewHeight=169;
 
 #pragma mark - SearchFlight Helper
 
-- (void)sendFlightSearchRequest
+- (void)sendFlightSearchRequestWithReloading:(BOOL)isReloading
 {
     DomesticCity *depart = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaName:self.searchOptionDic[FROM_CITY_KEY]];
     DomesticCity *arrive = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaName:self.searchOptionDic[TO_CITY_KEY]];
@@ -136,6 +140,19 @@ static float scrollViewHeight=169;
     OTAFlightSearch *searchRequets = [[OTAFlightSearch alloc] initOneWayWithDepartCity:depart
                                                                             arriveCity:arrive
                                                                             departDate:departDate];
+    // 有ShowMore的选项
+    if ([self.searchOptionDic[HAS_MORE_OPTION_KEY] boolValue]) {
+        Airline *selectedAirline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.searchOptionDic[AIRLINE_KEY]];
+        Airport *selectedAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[AIRPORT_KEY]];
+        NSArray *selectedTakeOffTimeInterval = [self.searchOptionDic[TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" "];
+        if (selectedAirline != nil) searchRequets.airline = selectedAirline.airline;
+        searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
+        if (selectedAirport != nil) searchRequets.departPort = selectedAirport.airportCode;
+        if ([selectedTakeOffTimeInterval count] == 3) {
+            searchRequets.earliestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[0]]];
+            searchRequets.latestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[2]]];
+        }
+    }
     NSString *requestXML = [searchRequets generateOTAFlightSearchXMLRequest];
     
     asiSearchRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
@@ -143,7 +160,7 @@ static float scrollViewHeight=169;
                                                   xmlNameSpace:XML_NAME_SPACE
                                                 webServiceName:WEB_SERVICE_NAME
                                                 xmlRequestBody:requestXML];
-    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), IS_SEARCH_DATE_USER_INFO_KEY, departDate, SEARCH_DATE_USER_INFO_KEY, nil];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@(YES), IS_SEARCH_DATE_USER_INFO_KEY, @(isReloading), IS_RELOADING_FLAG, departDate, SEARCH_DATE_USER_INFO_KEY, nil];
     
     [asiSearchRequest setUserInfo:mainUserInfo];
     [asiSearchRequest setDelegate:self];
@@ -230,6 +247,12 @@ static float scrollViewHeight=169;
         
         // 更新搜索结果Title，价格走势可用
         self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:[response.flightsList count]];
+        
+        if ([request.userInfo[IS_RELOADING_FLAG] boolValue]) {
+            [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.resultTableView];
+            _reloading = NO;
+        }
+        
         NSLog(@"搜索结果 finished");
     } else {
         NSDate *searchedDate = request.userInfo[SEARCH_DATE_USER_INFO_KEY];
@@ -265,7 +288,7 @@ static float scrollViewHeight=169;
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     // 搜索失败，网络问题
-    NSLog(@"request failedddddddd. error = %@", [request error]);
+    NSLog(@"请求失败. error = %@", [request error]);
     NSError *error = [request error];
 //    self.showPriceButton.userInteractionEnabled = YES;
     
@@ -385,6 +408,14 @@ static float scrollViewHeight=169;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TickectInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TicketInfoViewConyroller"];
+    vc.selectFlight = [self.data objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - Helper Methods
 
 - (void)updateSearchResultCellViaFlightInfo:(Flight *)flight
@@ -497,15 +528,6 @@ static float scrollViewHeight=169;
 	
 }
 
-- (void)doneLoadingTableViewData{
-	
-	//  model should call this when its done loading
-	_reloading = NO;
-	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.resultTableView];
-	
-}
-
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 	
 	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
@@ -522,8 +544,7 @@ static float scrollViewHeight=169;
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	
 	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
-	
+    [self sendFlightSearchRequestWithReloading:YES];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
@@ -553,7 +574,7 @@ static float scrollViewHeight=169;
         
         [footLabelIndexResult addObject:@([seperateDate[2] integerValue])];
         
-        NSLog(@"date = %@, price = %@", dateString, self.footIndexAndLowPrice[dateKey]);
+//        NSLog(@"date = %@, price = %@", dateString, self.footIndexAndLowPrice[dateKey]);
     }
     
     return footLabelIndexResult;

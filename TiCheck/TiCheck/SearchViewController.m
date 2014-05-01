@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "SearchResultViewController.h"
 #import "SearchOption.h"
+#import "PersonalCenterViewController.h"
 
 #import "CommonData.h"
 
@@ -58,6 +59,27 @@
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
         [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
+    [self initNavBar];
+}
+
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
+    [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+#pragma mark - target selector
+- (void)closeButtonPressed:(id)sender
+{
+    PersonalCenterViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
+    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
+    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self presentModalViewController:viewController animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -543,7 +565,16 @@
     if ([[segue identifier] isEqualToString:@"SearchSegue"]) {
         SearchResultViewController *vc = [segue destinationViewController];
         
-        NSMutableDictionary *optionDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.fromToCell.fromCityLabel.text, FROM_CITY_KEY, self.fromToCell.toCityLabel.text, TO_CITY_KEY, self.takeOffDateCell.dateLabel.text, TAKE_OFF_TIME_KEY, nil];
+        NSMutableDictionary *optionDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.fromToCell.fromCityLabel.text, FROM_CITY_KEY, self.fromToCell.toCityLabel.text, TO_CITY_KEY, self.takeOffDateCell.dateLabel.text, TAKE_OFF_TIME_KEY, @(isShowMore), HAS_MORE_OPTION_KEY, nil];
+        if (isReturn) {
+            [optionDic setObject:self.returnDateCell.dateLabel.text forKey:RETURN_TIME_KEY];
+        }
+        if (isShowMore) {
+            [optionDic setObject:self.airlineCell.generalValue.titleLabel.text forKey:AIRLINE_KEY];
+            [optionDic setObject:self.seatCell.generalValue.titleLabel.text forKey:SEAT_TYPE_KEY];
+            [optionDic setObject:self.airportCell.generalValue.titleLabel.text forKey:AIRPORT_KEY];
+            [optionDic setObject:self.takeOffTimeCell.generalValue.titleLabel.text forKey:TAKE_OFF_TIME_INTERVAL_KEY];
+        }
         vc.searchOptionDic = optionDic;
     }
 }

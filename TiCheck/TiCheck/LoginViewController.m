@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "ServerCommunicator.h"
 #import "UserData.h"
 
 @interface LoginViewController ()

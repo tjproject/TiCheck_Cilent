@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-
+#import "ServerCommunicator.h"
 #import "UserData.h"
 
 @interface RegisterViewController ()
