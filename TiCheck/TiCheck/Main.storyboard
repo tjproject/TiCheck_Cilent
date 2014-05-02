@@ -492,9 +492,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="yqo-6w-ddu" kind="push" identifier="editDetail" id="mVQ-zr-7CP"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -529,7 +526,7 @@
         <!--Account Edit Detail View Controller-->
         <scene sceneID="Jme-s1-KFy">
             <objects>
-                <viewController id="yqo-6w-ddu" userLabel="Account Edit Detail View Controller" customClass="AccountEditDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountEditDetailViewController" id="yqo-6w-ddu" userLabel="Account Edit Detail View Controller" customClass="AccountEditDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RiV-Zq-9R1"/>
                         <viewControllerLayoutGuide type="bottom" id="v2W-Od-ZDm"/>

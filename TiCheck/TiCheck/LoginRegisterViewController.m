@@ -40,7 +40,10 @@
 {
     [super viewDidLoad];
     self.navigationController.delegate=self;
-    [[UserData sharedUserData] autoLoginInViewController:self];
+
+    if ([UserData sharedUserData].email.length!=0) {
+        [[UserData sharedUserData] autoLoginInViewController:self];
+    }
     // Do any additional setup after loading the view.
 }
 

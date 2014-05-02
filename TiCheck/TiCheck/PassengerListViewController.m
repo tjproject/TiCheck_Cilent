@@ -135,20 +135,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //判断是从个人中心跳转进来还是从机票支付页面进来
-    self.isComeFromTicketPay=YES;
+    self.isComeFromTicketPay=NO;
     
-    if(self.isComeFromTicketPay)
+    if(!self.isComeFromTicketPay)
     {
         PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
         peVC.navigationItem.title=@"修改联系人";
         [self.navigationController pushViewController:peVC animated:YES];
         
+        //根据所选择联系人序号，传递联系人数据
+        //
         peVC.passengerInfo=[Passenger passengerWithPassengerName:@"黄泽彪" birthDay: nil passportType:ID passportNo:@"440508199109223314"];
         peVC.navigationBarDoneItemString=@"确认修改";
     }
     else
     {
-        //根据所选择联系人返回 联系人序号或其余信息
+        //根据所选择联系人返回 联系人序号或其余信息 到 机票支付页面
     }
 }
 
@@ -156,10 +158,13 @@
 
 - (void) addButtonFunction:(id)sender
 {
+    //判断是从个人中心跳转进来还是从机票支付页面进来
+    self.isComeFromTicketPay=NO;
     
-
+    
     //若从机票支付页面进来，需要在填写完毕，点击添加后直接选择该联系人 并跳转回机票支付页面
     //若从个人中心进来，则返回即可
+    //？或者直接统一返回联系人列表页面
     PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
     
     peVC.navigationItem.title=@"添加联系人";
@@ -170,7 +175,6 @@
     if (self.isComeFromTicketPay) {
         //设置专门的标识，使得下个页面在返回时直接跳转回机票页面
     }
-    
 }
 
 

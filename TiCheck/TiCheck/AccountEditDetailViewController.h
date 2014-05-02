@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AccountEditDetailViewController : UIViewController //<UITableViewDelegate, UITableViewDataSource>
+@interface AccountEditDetailViewController : UIViewController <UIAlertViewDelegate>//<UITableViewDelegate, UITableViewDataSource>
 - (void)setEditDetailType:(int)type;
 
 

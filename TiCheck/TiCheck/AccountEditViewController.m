@@ -54,7 +54,11 @@
 
 - (IBAction)LogoutButtonEvent:(id)sender
 {
-    NSLog(@"log out");
+    //NSLog(@"log out");
+    [UserData sharedUserData].email=@"";
+    [UserData sharedUserData].password=@"";
+    [UserData sharedUserData].userName=@"";
+    
     [(UINavigationController *)self.presentingViewController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -99,14 +103,16 @@
     }
     
     //TODO: get the personal info
-    NSString* cellTitle=@"tt";
-    NSString* cellContent=@"tt";
+    NSString* cellTitle;
+    NSString* cellContent;
     
     if(indexPath.row==0)
     {
         cellTitle=@"邮箱";
         cellContent=[UserData sharedUserData].email;
         cell.detailTextLabel.hidden=NO;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        //cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     else if(indexPath.row==1)
     {
@@ -154,34 +160,38 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
+    if(indexPath.row==1||indexPath.row==2)
+    {
+        AccountEditDetailViewController *aeVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountEditDetailViewController"];
+        if(indexPath.row==1)
+        {
+            //e-mail
+            aeVC.navigationItem.title=@"修改用户名";
+            [aeVC setEditDetailType:indexPath.row];
+        }
+        else if(indexPath.row==2)
+        {
+            aeVC.navigationItem.title=@"修改密码";
+            [aeVC setEditDetailType:indexPath.row];
+        }
+        [self.navigationController pushViewController:aeVC animated:YES];
+    }
+    
 }
 
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"editDetail"]) {
-         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        AccountEditDetailViewController* tempController= [segue destinationViewController];
-        
-        if(indexPath.row==0)
-        {
-            NSLog(@"change name");
-            tempController.navigationItem.title=@"修改邮箱";
-        }
-        else if(indexPath.row==1)
-        {
-            //e-mail
-            tempController.navigationItem.title=@"修改用户名";
-        }
-        else if(indexPath.row==2)
-        {
-            tempController.navigationItem.title=@"修改密码";
-        }
-        [tempController setEditDetailType:indexPath.row];
-    }
-    
-    //[self.tableView removeFromSuperview];
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"editDetail"]) {
+//         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//        AccountEditDetailViewController* tempController= [segue destinationViewController];
+//        
+//    }
+//    
+//    //[self.tableView removeFromSuperview];
+//}
 @end
