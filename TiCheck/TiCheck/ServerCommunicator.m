@@ -63,13 +63,14 @@
 
 - (NSDictionary *)loginVerifyWithEmail:(NSString *)email password:(NSString *)password
 {
-    NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys:email, @"Email", password, "Password", nil];
+    NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys:email, @"Email", password, @"Password", nil];
     NSData *loginInfoJsonData = [NSJSONSerialization dataWithJSONObject:loginInfo options:NSJSONWritingPrettyPrinted error:nil];
     NSString *requestString = [NSString stringWithFormat:@"User=%@", [[NSString alloc] initWithData:loginInfoJsonData encoding:NSUTF8StringEncoding]];
     NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSData *responseData = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:User_Login jsonData:jsonBody];
     
+    NSString *string = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
     return [self responseDataToJSONDictionary:responseData];
 }
 

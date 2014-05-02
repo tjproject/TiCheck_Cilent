@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "ServerCommunicator.h"
+#import "ConfigurationHelper.h"
 #import "UserData.h"
 
 @interface LoginViewController ()
@@ -43,7 +44,7 @@
 - (IBAction)enter:(id)sender
 {
     NSString* account=self.userName.text;
-    NSString* password=self.password.text;
+    NSString* password=[[ConfigurationHelper sharedConfigurationHelper] md5:self.password.text];
     
     [[UserData sharedUserData] loginWithAccout:account andPassword:password inViewController:self];
 }

@@ -123,7 +123,7 @@
  *
  *  @return 航空公司
  */
-- (Airline *)findAirlineViaAirlineCode:(NSString *)airlineCode;
+- (Airline *)findAirlineViaAirlineDibitCode:(NSString *)airlineDibitCode;
 
 /**
  *  根据航空公司简称搜索航空公司
