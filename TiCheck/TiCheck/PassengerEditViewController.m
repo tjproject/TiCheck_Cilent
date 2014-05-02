@@ -487,8 +487,6 @@
         //修改
         //alert 修改成功
         //返回
-        
-        NSLog(@"confirm,Pay");
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
     }
@@ -517,6 +515,38 @@
 
 - (Boolean) checkInfo:(Passenger*) passenger
 {
+    if (![self checkString:passenger.passengerName WithName:@"姓名"]) {
+        return NO;
+    }
+    //TODO： 对每一项的检查
+    
+    
+    
+    else
+    {
+        return YES;
+    }
+}
+
+- (Boolean)checkString:(NSString*)target WithName:(NSString*) name
+{
+    
+    if (target==nil||target.length==0)
+    {
+        NSString* messageS=[name stringByAppendingString:@"不能为空"];
+        
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message: messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    
+    if ([target rangeOfString:@" "].location!=NSNotFound)
+    {
+        NSString* messageS=[name stringByAppendingString:@"不能有空格"];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写失败" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
     return YES;
 }
 
