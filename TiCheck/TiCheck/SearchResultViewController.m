@@ -18,6 +18,7 @@
 #import "APIResourceHelper.h"
 #import "ConfigurationHelper.h"
 #import "TickectInfoViewController.h"
+#import "PersonalCenterViewController.h"
 
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
@@ -94,8 +95,26 @@ static float scrollViewHeight=169;
 	
 	//  update the last update date
 	[_refreshHeaderView refreshLastUpdatedDate];
-    
-    // Do any additional setup after loading the view.
+    //modal view personal center
+    [self initNavBar];
+}
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
+    [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+#pragma mark - target selector
+- (void)closeButtonPressed:(id)sender
+{
+    PersonalCenterViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
+    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
+    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self presentModalViewController:viewController animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
