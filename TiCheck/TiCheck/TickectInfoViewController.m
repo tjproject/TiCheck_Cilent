@@ -11,6 +11,13 @@
 #import "PassengerListViewController.h"
 #import "PersonalCenterViewController.h"
 
+#import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
+#import "NSString+EnumTransform.h"
+
+#import "APIResourceHelper.h"
+#import "CraftType.h"
+
 #import "Flight.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
@@ -55,39 +62,44 @@
 
 - (void)initLabel
 {
-    _TIVC_timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 68, 140, 30)];
-    _TIVC_timeLabel.text = @"2014年3月11日 周二";
-    _TIVC_fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(185, 68, 60, 30)];
-    _TIVC_fromLabel.text = @"上海";
-    _TIVC_toLabel = [[UILabel alloc] initWithFrame:CGRectMake(220, 68, 68, 30)];
-    _TIVC_toLabel.text = @"到 北京";
+    _TIVC_timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 68, 150, 30)];
+    NSDateFormatter *weekday = [[NSDateFormatter alloc] init];
+    [weekday setDateFormat: @"EEEE"];
+    _TIVC_timeLabel.text = [NSString stringWithFormat:@"%d年%d月%d日 %@",_departureDate.year,_departureDate.month,_departureDate.day,[weekday stringFromDate:_departureDate]];
+    _TIVC_fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 68, 60, 30)];
+    _TIVC_fromLabel.text = _selectFlight.departCityName;
+    _TIVC_toLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 68, 68, 30)];
+    _TIVC_toLabel.text = [NSString stringWithFormat:@"到 %@",_selectFlight.arriveCityName];
     _TIVC_flightLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 100, 280, 30)];
-    _TIVC_flightLabel.text = @"东方航空MU5137 330大型机 经济舱";
+    CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:_selectFlight.craftType];
+    if(_selectFlight.airlineName == nil) _selectFlight.airlineName = @"东方航空";
+    _TIVC_flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",_selectFlight.airlineName,_selectFlight.flightNumber,[ct craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:_selectFlight.classGrade]];
     
     _TIVC_flightTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(13.5, 170, 100, 50)];
-    _TIVC_flightTimeLabel.text = @"07:00";
+    _TIVC_flightTimeLabel.text = [NSString showingStringFormatWithString:_selectFlight.takeOffTime];
     _TIVC_landTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 170, 100, 50)];
-    _TIVC_landTimeLabel.text = @"09:20";
+    _TIVC_landTimeLabel.text = [NSString showingStringFormatWithString:_selectFlight.arrivalTime];
     
     _TIVC_fromAirportLabel = [[UILabel alloc] initWithFrame:CGRectMake(105, 180, 50, 25)];
-    _TIVC_fromAirportLabel.text = @"虹桥T1";
+    _TIVC_fromAirportLabel.text = [NSString stringWithFormat:@"%@%d",_selectFlight.departPortShortName,_selectFlight.departPortBuildingID];
     _TIVC_toAirportLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 180, 50, 25)];
-    _TIVC_toAirportLabel.text = @"首都T2";
+    _TIVC_toAirportLabel.text = [NSString stringWithFormat:@"%@%d",_selectFlight.arrivePortShortName,_selectFlight.arrivePortBuildingID];
+    NSLog(@"%@",_selectFlight.arrivePortBuildingName);
     
     _TIVC_ticketPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 232, 50, 25)];
-    _TIVC_ticketPriceLabel.text = @"¥399";
+    _TIVC_ticketPriceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)_selectFlight.price];
     _TIVC_constructionPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(135, 235, 50, 25)];
     _TIVC_constructionPriceLabel.text = @"¥50";
     _TIVC_fuelPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 235, 50, 25)];
-    _TIVC_fuelPriceLabel.text = @"¥120";
+    _TIVC_fuelPriceLabel.text = [NSString stringWithFormat:@"¥%.0f",_selectFlight.adultOilFee];
     _TIVC_discountLabel = [[UILabel alloc] initWithFrame:CGRectMake(265, 232, 50, 25)];
-    _TIVC_discountLabel.text = @"3.9折";
+    _TIVC_discountLabel.text = [NSString stringWithFormat:@"%.1f折", _selectFlight.rate * 10];
     
     _TIVC_timeLabel.font = _TIVC_fromLabel.font = _TIVC_toLabel.font = _TIVC_flightLabel.font = [UIFont fontWithName:@"Arial" size:15.f];
     _TIVC_fromAirportLabel.font = _TIVC_toAirportLabel.font = _TIVC_discountLabel.font = [UIFont fontWithName:@"Arial" size:13.f];
     _TIVC_fromAirportLabel.textColor = _TIVC_toAirportLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
     _TIVC_flightTimeLabel.font = _TIVC_landTimeLabel.font = [UIFont fontWithName:@"Roboto-BoldCondensed" size:35.f];
-    _TIVC_ticketPriceLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:24.f];
+    _TIVC_ticketPriceLabel.font = _selectFlight.price < 1000 ? [UIFont fontWithName:@"Roboto-Condensed" size:24.f] : [UIFont fontWithName:@"Roboto-Condensed" size:18.f];
     _TIVC_constructionPriceLabel.font = _TIVC_fuelPriceLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:18.f];
     _TIVC_ticketPriceLabel.textColor = _TIVC_constructionPriceLabel.textColor = _TIVC_fuelPriceLabel.textColor = [UIColor colorWithRed:1.0 green:0.6 blue:0.0 alpha:1.0];
     _TIVC_discountLabel.textColor = [UIColor whiteColor];

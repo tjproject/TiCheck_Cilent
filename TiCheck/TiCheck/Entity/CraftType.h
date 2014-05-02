@@ -57,4 +57,11 @@
  */
 - (NSString *)craftKindShowingOnResult;
 
+/**
+ *  获得显示的机型信息(机票结果界面)
+ *
+ *  @return 显示的机型信息
+ */
+- (NSString *)craftKindShowingOnResultInTicketInfo;
+
 @end

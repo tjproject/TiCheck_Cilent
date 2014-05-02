@@ -412,6 +412,7 @@ static float scrollViewHeight=169;
 {
     TickectInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TicketInfoViewConyroller"];
     vc.selectFlight = [self.data objectAtIndex:indexPath.row];
+    vc.departureDate = [NSString dateFormatWithString:self.searchOptionDic[TAKE_OFF_TIME_KEY]];
     [self.navigationController pushViewController:vc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
