@@ -142,7 +142,7 @@
         return NO;
     }
     
-    if ([target rangeOfString:@""].location!=NSNotFound)
+    if ([target rangeOfString:@" "].location!=NSNotFound)
     {
         NSString* messageS=[name stringByAppendingString:@"不能有空格"];
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
