@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSArray *domesticCities;      // 国内城市信息列表
 @property (nonatomic, strong) NSArray *domesticAirports;    // 国内机场信息列表
 @property (nonatomic, strong) NSArray *craftTypes;          // 机型信息列表
-@property (nonatomic, strong) NSArray *airlines;             // 航空公司列表
+@property (nonatomic, strong) NSArray *airlines;            // 航空公司列表
 
 @end
 

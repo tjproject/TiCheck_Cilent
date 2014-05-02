@@ -7,9 +7,8 @@
 //
 
 #import "SubscriptionViewController.h"
-
 #import "CommonData.h"
-
+#import "Subscription.h"
 
 typedef NS_ENUM(NSUInteger, SelectedDateType) {
     BeginDate,
@@ -29,7 +28,8 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 @property (weak, nonatomic) DateIntervalTableViewCell *returnDateIntervalCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *airlineCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *seatCell;
-@property (weak, nonatomic) GeneralOptionTableViewCell *airportCell;
+@property (weak, nonatomic) GeneralOptionTableViewCell *departAirportCell;
+@property (weak, nonatomic) GeneralOptionTableViewCell *arriveAirportCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *takeOffTimeCell;
 
 @property (nonatomic, strong) NSArray *pickerData;
@@ -79,6 +79,15 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 
 #pragma mark - Events
 
+- (IBAction)confirmSubscription:(id)sender
+{
+    Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
+    if (isShowMore) {
+        NSArray *departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
+//        [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.airportCell.generalValue.titleLabel.text departAirportName:]
+    }
+}
+
 - (IBAction)moreOptionClicked:(id)sender
 {
     isShowMore = YES;
@@ -87,7 +96,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     if (isReturn) moreOptionsBeginCounter++;
     
     NSMutableArray *moreOptionIndexArray = [NSMutableArray array];
-    for (NSInteger i = 0; i < 4; ++i) {
+    for (NSInteger i = 0; i < MORE_OPTION_COUNT; ++i) {
         NSIndexPath *toAddOption = [NSIndexPath indexPathForRow:moreOptionsBeginCounter + i inSection:0];
         [moreOptionIndexArray addObject:toAddOption];
     }
@@ -169,8 +178,11 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         case SelectingSeat:
             [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
             break;
-        case SelectingAirport:
-            [self.airportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+        case SelectingDepartAirport:
+            [self.departAirportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingArriveAirport:
+            [self.arriveAirportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
             break;
         case SelectingTakeOffTime:
             [self.takeOffTimeCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
@@ -307,7 +319,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     NSInteger result = 4;
     
     if (isReturn) result++;
-    if (isShowMore) result += 3;
+    if (isShowMore) result += MORE_OPTION_COUNT - 1;
     
     return result;
 }
@@ -415,12 +427,17 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
             generalCell.generalValue.titleLabel.text = @"不限";
             self.seatCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 2) {
-            // 机场选择
+            // 出发机场选择
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
-            generalCell.generalLabel.text = @"机场";
+            generalCell.generalLabel.text = @"出发机场";
             generalCell.generalValue.titleLabel.text = @"不限";
-            self.airportCell = generalCell;
+            self.departAirportCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 3) {
+            generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
+            generalCell.generalLabel.text = @"到达机场";
+            generalCell.generalValue.titleLabel.text = @"不限";
+            self.arriveAirportCell = generalCell;
+        } else if (indexPath.row == moreOptionIndexRow + 4) {
             // 起飞时间段
             generalCell.generalIcon.image = [UIImage imageNamed:@"TakeOffTime"];
             generalCell.generalLabel.text = @"起飞时间";
@@ -448,8 +465,10 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
             } else if (indexPath.row == beginOptionCounter + 1) {
                 [self showPickerForSeatSelect];
             } else if (indexPath.row == beginOptionCounter + 2) {
-                [self showPickerForAirportSelect];
+                [self showPickerForDepartAirportSelect];
             } else if (indexPath.row == beginOptionCounter + 3) {
+                [self showPickerForArriveAirportSelect];
+            } else if (indexPath.row == beginOptionCounter + 4) {
                 [self showPickerForTakeOffTimeSelect];
             }
         }];
@@ -459,8 +478,10 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         } else if (indexPath.row == beginOptionCounter + 1) {
             [self showPickerForSeatSelect];
         } else if (indexPath.row == beginOptionCounter + 2) {
-            [self showPickerForAirportSelect];
+            [self showPickerForDepartAirportSelect];
         } else if (indexPath.row == beginOptionCounter + 3) {
+            [self showPickerForArriveAirportSelect];
+        } else if (indexPath.row == beginOptionCounter + 4) {
             [self showPickerForTakeOffTimeSelect];
         }
     }
@@ -535,16 +556,29 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     [self showToolBarAndPickerWithAnimation:YES];
 }
 
-- (void)showPickerForAirportSelect
+- (void)showPickerForDepartAirportSelect
 {
-    selectingOption = SelectingAirport;
+    selectingOption = SelectingDepartAirport;
     
     NSMutableArray *airportData = [NSMutableArray arrayWithObject:@"不限"];
     [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:self.fromToCell.fromCityLabel.text] mutableCopy]];
     
     self.pickerData = airportData;
     [self.optionSelectPickerView reloadAllComponents];
-    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airportCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.departAirportCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self showToolBarAndPickerWithAnimation:YES];
+}
+
+- (void)showPickerForArriveAirportSelect
+{
+    selectingOption = SelectingArriveAirport;
+    
+    NSMutableArray *airportData = [NSMutableArray arrayWithObject:@"不限"];
+    [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:self.fromToCell.toCityLabel.text] mutableCopy]];
+    
+    self.pickerData = airportData;
+    [self.optionSelectPickerView reloadAllComponents];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.arriveAirportCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
     [self showToolBarAndPickerWithAnimation:YES];
 }
 

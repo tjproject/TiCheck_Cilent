@@ -302,19 +302,20 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zZ-jG-ZIU">
+                            <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zZ-jG-ZIU">
                                 <rect key="frame" x="0.0" y="568" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.15294118225574493" green="0.65098041296005249" blue="0.85098046064376831" alpha="1" colorSpace="deviceRGB"/>
                                 <items>
                                     <barButtonItem title="关闭" id="bym-co-gWn">
-                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="closePicker:" destination="ANX-1z-3lr" id="YNZ-QH-E90"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="384-w1-1rc"/>
                                     <barButtonItem title="确定" id="F0P-NP-BeA">
-                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="confirmPicker:" destination="ANX-1z-3lr" id="u8w-CU-KhG"/>
                                         </connections>
@@ -962,23 +963,27 @@
                                         <state key="normal" image="ConfirmSubscription">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="confirmSubscription:" destination="UZ7-ZQ-98e" eventType="touchUpInside" id="0Ah-ez-6wf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VCG-ir-GAs">
+                            <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VCG-ir-GAs">
                                 <rect key="frame" x="0.0" y="568" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.15294118230000001" green="0.65098041299999998" blue="0.85098046059999999" alpha="1" colorSpace="deviceRGB"/>
                                 <items>
                                     <barButtonItem title="关闭" id="tLu-QH-DEf">
-                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="closePicker:" destination="UZ7-ZQ-98e" id="1qs-4D-Eat"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jEK-1S-Er0"/>
                                     <barButtonItem title="确定" id="cPW-VW-k1o">
-                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="confirmPicker:" destination="UZ7-ZQ-98e" id="0aB-Cw-xLD"/>
                                         </connections>
@@ -1995,6 +2000,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Uq6-Xt-5UA"/>
+        <segue reference="yC6-p3-Zs7"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -143,7 +143,7 @@ static float scrollViewHeight=169;
     // 有ShowMore的选项
     if ([self.searchOptionDic[HAS_MORE_OPTION_KEY] boolValue]) {
         Airline *selectedAirline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.searchOptionDic[AIRLINE_KEY]];
-        Airport *selectedAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[AIRPORT_KEY]];
+        Airport *selectedAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[DEPART_AIRPORT_KEY]];
         NSArray *selectedTakeOffTimeInterval = [self.searchOptionDic[TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" "];
         if (selectedAirline != nil) searchRequets.airline = selectedAirline.airline;
         searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
