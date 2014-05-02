@@ -8,6 +8,7 @@
 
 #import "PassengerListViewController.h"
 #import "PassengerEditViewController.h"
+#import "TickectInfoViewController.h"
 #import "Passenger.h"
 
 #define PASSENGER_COUNT 2;
@@ -135,7 +136,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //判断是从个人中心跳转进来还是从机票支付页面进来
-    self.isComeFromTicketPay=NO;
+    //self.isComeFromTicketPay=NO;
     
     if(!self.isComeFromTicketPay)
     {
@@ -151,6 +152,10 @@
     else
     {
         //根据所选择联系人返回 联系人序号或其余信息 到 机票支付页面
+        [self.navigationController popViewControllerAnimated:YES];
+        //get the last view controller, reload table view data
+        TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
+        
     }
 }
 
@@ -159,7 +164,7 @@
 - (void) addButtonFunction:(id)sender
 {
     //判断是从个人中心跳转进来还是从机票支付页面进来
-    self.isComeFromTicketPay=NO;
+    //self.isComeFromTicketPay=NO;
     
     
     //若从机票支付页面进来，需要在填写完毕，点击添加后直接选择该联系人 并跳转回机票支付页面
@@ -174,6 +179,7 @@
     
     if (self.isComeFromTicketPay) {
         //设置专门的标识，使得下个页面在返回时直接跳转回机票页面
+        
     }
 }
 
