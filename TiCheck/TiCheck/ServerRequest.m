@@ -33,7 +33,7 @@ const NSArray *___SubscriptionRequestType;
 
 @implementation ServerRequest
 
-+ (NSString *)getServerUserResponseWithServerURL:(NSString *)serverUrl
++ (NSData *)getServerUserResponseWithServerURL:(NSString *)serverUrl
                                      requestType:(ServerUserRequestType)userRequestType
                                         jsonData:(NSData *)jsonData
 {
@@ -48,10 +48,11 @@ const NSArray *___SubscriptionRequestType;
     
     NSURLResponse *response = nil;
     NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
-    return [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+    
+    return result;
 }
 
-+ (NSString *)getServerSubscriptionResponseWithServerURL:(NSString *)serverUrl
++ (NSData *)getServerSubscriptionResponseWithServerURL:(NSString *)serverUrl
                                              requestType:(ServerSubscriptionRequestType)subscriptionRequestType
                                                 jsonData:(NSData *)jsonData
 {

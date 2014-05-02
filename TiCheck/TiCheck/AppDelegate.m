@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ServerCommunicator.h"
 
 @implementation AppDelegate
 
@@ -23,6 +24,8 @@
 //    [APIResourceHelper sharedResourceHelper];
     self.window.tintColor = [UIColor whiteColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [[ServerCommunicator sharedCommunicator] createUserWithEmail:@"bdso1dsad1@sian.com" password:@"dsakl1221" account:@"sadkdsj2"];
     
     return YES;
 }

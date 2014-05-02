@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define SERVER_RETURN_CODE_KEY @"Code"
+#define SERVER_RETURN_MESSAGE_KEY @"Message"
+
 @class Subscription;
 
 @interface ServerCommunicator : NSObject
@@ -26,9 +29,9 @@
  *  @param password 用户密码
  *  @param account  用户账户名
  *
- *  @return 是否成功创建
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account;
+- (NSDictionary *)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account;
 
 /**
  *  修改用户，如果只修改某几项，其他项用UserData获取填原来的数值
@@ -37,9 +40,9 @@
  *  @param newPassword 用户新密码
  *  @param newAccount  用户新账户名
  *
- *  @return 是否成功修改
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount;
+- (NSDictionary *)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount;
 
 /**
  *  验证登录
@@ -47,36 +50,36 @@
  *  @param email 用户邮箱
  *  @param password 用户密码
  *
- *  @return 是否验证成功
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)loginVerifyWithEmail:(NSString *)email password:(NSString *)password;
+- (NSDictionary *)loginVerifyWithEmail:(NSString *)email password:(NSString *)password;
 
 /**
  *  将当前用户的token添加到服务器
  *
  *  @param token 要添加的设备token
  *
- *  @return 是否添加成功
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)addTokenForCurrentUser:(NSString *)token;
+- (NSDictionary *)addTokenForCurrentUser:(NSString *)token;
 
 /**
  *  删除当前用户的token
  *
  *  @param token 要删除的token
  *
- *  @return 是否删除成功
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)removeTokenForCurrentUser:(NSString *)token;
+- (NSDictionary *)removeTokenForCurrentUser:(NSString *)token;
 
 /**
  *  使用订阅类创建订阅
  *
  *  @param subscription 订阅类，包含订阅信息
  *
- *  @return 是否创建成功
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)createSubscriptionWithSubscription:(Subscription *)subscription;
+- (NSDictionary *)createSubscriptionWithSubscription:(Subscription *)subscription;
 
 /**
  *  将旧的订阅修改为新的
@@ -84,17 +87,17 @@
  *  @param oldSubscription 旧的订阅类，包含旧的订阅信息
  *  @param newSubscription 新的订阅类，包含新的订阅信息
  *
- *  @return 是否修改成功
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)modifySubscriptionWithOldSubscription:(Subscription *)oldSubscription asNewSubscription:(Subscription *)newSubscription;
+- (NSDictionary *)modifySubscriptionWithOldSubscription:(Subscription *)oldSubscription asNewSubscription:(Subscription *)newSubscription;
 
 /**
  *  取消订阅
  *
  *  @param subscription 要取消的订阅类订阅信息
  *
- *  @return 是否成功取消
+ *  @return 返回消息的Dictionary
  */
-- (BOOL)cancelSubscriptionWithSubscription:(Subscription *)subscription;
+- (NSDictionary *)cancelSubscriptionWithSubscription:(Subscription *)subscription;
 
 @end
