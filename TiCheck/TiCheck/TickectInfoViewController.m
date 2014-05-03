@@ -49,6 +49,7 @@
     [self initInfoVessel];
     [self initDarkUILayer];
     [self initTextInputFields];
+    [self initPassengerList];
 }
 
 - (void)initNavBar
@@ -73,7 +74,7 @@
     _TIVC_flightLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 100, 280, 30)];
     CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:_selectFlight.craftType];
     if(_selectFlight.airlineName == nil) _selectFlight.airlineName = @"东方航空";
-    _TIVC_flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",_selectFlight.airlineName,_selectFlight.flightNumber,[ct craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:_selectFlight.classGrade]];
+    _TIVC_flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",_selectFlight.airlineShortName,_selectFlight.flightNumber,[ct craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:_selectFlight.classGrade]];
     
     _TIVC_flightTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(13.5, 170, 100, 50)];
     _TIVC_flightTimeLabel.text = [NSString showingStringFormatWithString:_selectFlight.takeOffTime];
@@ -174,6 +175,11 @@
     darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     darkUILayer.userInteractionEnabled = NO;
     [self.view addSubview:darkUILayer];
+}
+
+- (void)initPassengerList
+{
+    _passengerList = [[NSMutableArray alloc] init];
 }
 
 #pragma mark - buttons in cell
