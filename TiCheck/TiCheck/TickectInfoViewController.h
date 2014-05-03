@@ -60,5 +60,6 @@
 @property (strong, nonatomic) TickectInfoPicker *TIVC_submitPicker;
 
 @property (strong, nonatomic) NSMutableArray *passengerList;
+@property (strong, nonatomic) NSMutableArray *cellTitleArray;
 
 @end

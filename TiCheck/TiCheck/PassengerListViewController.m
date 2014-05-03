@@ -155,6 +155,8 @@
         [self.navigationController popViewControllerAnimated:YES];
         //get the last view controller, reload table view data
         TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
+        [tiVC.passengerList addObject:@"黄泽彪"];
+        [tiVC.cellTitleArray insertObject:@"  黄泽彪" atIndex:1];
         [tiVC.infoVessel reloadData];
     }
 }
