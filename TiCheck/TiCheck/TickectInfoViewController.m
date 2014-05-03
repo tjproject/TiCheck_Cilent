@@ -429,8 +429,7 @@
     UIButton *senderButton = (UIButton*)sender;
     [_cellTitleArray removeObjectAtIndex:senderButton.tag - PASSENGER_CELL_START_COUNT];
     [_passengerList removeObjectAtIndex:senderButton.tag - PASSENGER_CELL_START_COUNT - 1];
-//    [_infoVessel deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:senderButton.tag - PASSENGER_CELL_START_COUNT inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    [_infoVessel reloadData];
+    [_infoVessel deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:senderButton.tag - PASSENGER_CELL_START_COUNT inSection:0]] withRowAnimation:UITableViewRowAnimationMiddle];
 }
 
 #pragma mark - utility functions
