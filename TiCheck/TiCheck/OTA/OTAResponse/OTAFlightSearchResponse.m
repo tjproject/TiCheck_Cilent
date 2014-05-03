@@ -92,7 +92,7 @@
     flight.arrivalTime             = [NSString timeFormatWithString:ObjectElementToString(element, @"ArriveTime")];
     flight.flightNumber            = ObjectElementToString(element, @"Flight");
     flight.craftType               = ObjectElementToString(element, @"CraftType");
-    flight.airlineCode             = ObjectElementToString(element, @"AirlineCode");
+    flight.airlineDibitCode             = ObjectElementToString(element, @"AirlineCode");
     flight.classGrade              = [NSString classGradeFromString:ObjectElementToString(element, @"Class")];
     flight.subClass                = ObjectElementToString(element, @"SubClass");
     flight.displaySubClass         = ObjectElementToString(element, @"DisplaySubclass");

@@ -162,7 +162,7 @@
     Flight *flight = [[Flight alloc] init];
     
     flight.flightNumber                   = ObjectElementToString(flightElement, @"Flight");
-    flight.airlineCode                    = ObjectElementToString(flightElement, @"AirlineCode");
+    flight.airlineDibitCode                    = ObjectElementToString(flightElement, @"AirlineCode");
     flight.airlineName                    = ObjectElementToString(flightElement, @"AirLineName");
     flight.departCityID                   = [ObjectElementToString(flightElement, @"DCityID") integerValue];
     flight.departCityCode                 = ObjectElementToString(flightElement, @"DCityCode");

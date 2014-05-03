@@ -67,7 +67,7 @@ const NSArray *___SubscriptionRequestType;
     
     NSURLResponse *response = nil;
     NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
-    return [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+    return result;
 }
 
 @end

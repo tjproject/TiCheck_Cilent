@@ -242,6 +242,20 @@
     return result;
 }
 
+- (Airline *)findAirlineViaAirlineName:(NSString *)airlineName
+{
+    Airline *result = nil;
+    
+    for (Airline *airline in self.airlines) {
+        if ([airline.airlineName isEqualToString:airlineName]) {
+            result = airline;
+            break;
+        }
+    }
+    
+    return result;
+}
+
 #pragma mark - Helper Methods
 
 - (void)loadDomesticCities

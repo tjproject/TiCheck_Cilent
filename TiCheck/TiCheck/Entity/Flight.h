@@ -64,7 +64,12 @@
 /**
  *  航空公司代码
  */
-@property (nonatomic, strong) NSString *airlineCode;
+@property (nonatomic, strong) NSString *airlineDibitCode;
+
+/**
+ *  航空公司简称
+ */
+@property (nonatomic, strong) NSString *airlineShortName;
 
 /**
  *  航空公司中文名称

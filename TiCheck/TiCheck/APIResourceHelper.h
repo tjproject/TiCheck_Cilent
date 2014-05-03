@@ -134,4 +134,13 @@
  */
 - (Airline *)findAirlineViaAirlineShortName:(NSString *)airlineShortName;
 
+/**
+ *  根据航空公司名搜索航空公司
+ *
+ *  @param airlineName 要搜索的航空公司名称
+ *
+ *  @return 航空公司
+ */
+- (Airline *)findAirlineViaAirlineName:(NSString *)airlineName;
+
 @end

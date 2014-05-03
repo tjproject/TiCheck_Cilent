@@ -9,6 +9,7 @@
 #import "Flight.h"
 #import "DomesticCity.h"
 #import "Airport.h"
+#import "Airline.h"
 #import "APIResourceHelper.h"
 
 @implementation Flight
@@ -79,6 +80,26 @@
     [self updateArrivePortInfo:targetAirport];
 }
 
+#pragma mark Airline Setter
+
+- (void)setAirlineDibitCode:(NSString *)airlineDibitCode
+{
+    Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineDibitCode:airlineDibitCode];
+    [self updateAirlineInfo:airline];
+}
+
+- (void)setAirlineShortName:(NSString *)airlineShortName
+{
+    Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
+    [self updateAirlineInfo:airline];
+}
+
+- (void)setAirlineName:(NSString *)airlineName
+{
+    Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineName:airlineName];
+    [self updateAirlineInfo:airline];
+}
+
 #pragma mark - Helper Methods
 
 - (void)updateDepartCityInfo:(DomesticCity *)city
@@ -107,6 +128,13 @@
     _arrivePortCode      = airport.airportCode;
     _arrivePortName      = airport.airportName;
     _arrivePortShortName = airport.airportShortName;
+}
+
+- (void)updateAirlineInfo:(Airline *)airline
+{
+    _airlineDibitCode = airline.airline;
+    _airlineShortName = airline.shortName;
+    _airlineName      = airline.airlineName;
 }
 
 @end
