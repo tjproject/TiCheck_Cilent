@@ -663,10 +663,11 @@
 			isa = PBXGroup;
 			children = (
 				A0B4E754190906E800765F1A /* Common */,
-				A0B4E74D1908F30E00765F1A /* SubscriptionViewController.h */,
-				A0B4E74E1908F30E00765F1A /* SubscriptionViewController.m */,
+				2491397F18ED271400061780 /* SearchResult */,
 				A0A8A66D19036633006070B8 /* SearchViewController.h */,
 				A0A8A66E19036633006070B8 /* SearchViewController.m */,
+				A0B4E74D1908F30E00765F1A /* SubscriptionViewController.h */,
+				A0B4E74E1908F30E00765F1A /* SubscriptionViewController.m */,
 			);
 			name = SearchAndSubscription;
 			sourceTree = "<group>";
@@ -725,7 +726,6 @@
 				68436EF618FEBB260043B10E /* Pay */,
 				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 				A0A8A66C19036620006070B8 /* SearchAndSubscription */,
-				2491397F18ED271400061780 /* SearchResult */,
 				1370841718F7BB6A00FD4949 /* TicketInfo */,
 			);
 			name = PresentationLayer;

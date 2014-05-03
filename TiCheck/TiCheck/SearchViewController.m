@@ -193,7 +193,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger result = 4;
+    NSInteger result = 5;
     
     if (isReturn) result++;
     if (isShowMore) result += MORE_OPTION_COUNT - 1;
@@ -316,8 +316,13 @@
             generalCell.generalValue.titleLabel.text = @"不限";
             self.takeOffTimeCell = generalCell;
         }
+        
+        return generalCell;
     }
-    return generalCell;
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfirmButtonCell" forIndexPath:indexPath];
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -359,6 +364,29 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger rowNum = 4;
+    CGFloat confirmButtonCellHeight = 328.0f;
+    
+    if (isReturn) {
+        rowNum++;
+        confirmButtonCellHeight = 284.0f;
+    }
+    if (isShowMore) {
+        rowNum = rowNum + MORE_OPTION_COUNT - 1;
+        confirmButtonCellHeight = 152.0f;
+    }
+    if (isReturn && isShowMore) confirmButtonCellHeight = 140.0f;
+    
+    if (indexPath.row == rowNum) return confirmButtonCellHeight;
+    return 44.0f;
+}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+//
+//{return 0.1;}
 
 #pragma mark Picker View Delegate
 
