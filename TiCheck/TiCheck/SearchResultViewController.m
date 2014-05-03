@@ -162,11 +162,13 @@ static float scrollViewHeight=169;
     // 有ShowMore的选项
     if ([self.searchOptionDic[HAS_MORE_OPTION_KEY] boolValue]) {
         Airline *selectedAirline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.searchOptionDic[AIRLINE_KEY]];
-        Airport *selectedAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[DEPART_AIRPORT_KEY]];
+        Airport *selectedDepartAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[DEPART_AIRPORT_KEY]];
+        Airport *selectedArriveAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[ARRIVE_AIRPORT_KEY]];
         NSArray *selectedTakeOffTimeInterval = [self.searchOptionDic[TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" "];
         if (selectedAirline != nil) searchRequets.airline = selectedAirline.airline;
         searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
-        if (selectedAirport != nil) searchRequets.departPort = selectedAirport.airportCode;
+        if (selectedDepartAirport != nil) searchRequets.departPort = selectedDepartAirport.airportCode;
+        if (selectedArriveAirport != nil) searchRequets.arrivePort = selectedArriveAirport.airportCode;
         if ([selectedTakeOffTimeInterval count] == 3) {
             searchRequets.earliestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[0]]];
             searchRequets.latestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[2]]];

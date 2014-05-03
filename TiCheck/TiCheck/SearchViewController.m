@@ -602,6 +602,7 @@
             [optionDic setObject:self.airlineCell.generalValue.titleLabel.text forKey:AIRLINE_KEY];
             [optionDic setObject:self.seatCell.generalValue.titleLabel.text forKey:SEAT_TYPE_KEY];
             [optionDic setObject:self.departAirportCell.generalValue.titleLabel.text forKey:DEPART_AIRPORT_KEY];
+            [optionDic setObject:self.arriveAirportCell.generalValue.titleLabel.text forKey:ARRIVE_AIRPORT_KEY];
             [optionDic setObject:self.takeOffTimeCell.generalValue.titleLabel.text forKey:TAKE_OFF_TIME_INTERVAL_KEY];
         }
         vc.searchOptionDic = optionDic;
