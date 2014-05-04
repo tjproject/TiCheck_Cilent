@@ -73,6 +73,18 @@
     return [self responseDataToJSONDictionary:responseData];
 }
 
+- (NSDictionary *)userInfoFetch
+{
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    NSData *userInfoData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *requestString = [NSString stringWithFormat:@"User=%@", [[NSString alloc] initWithData:userInfoData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:User_Info jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
 - (NSDictionary *)addTokenForCurrentUser:(NSString *)token
 {
     NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
@@ -153,6 +165,7 @@
 {
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UserData sharedUserData].email, @"Email", [UserData sharedUserData].password, @"Password", nil];
     if (withAccount) [result setObject:[UserData sharedUserData].userName forKey:@"Account"];
+    
     return result;
 }
 

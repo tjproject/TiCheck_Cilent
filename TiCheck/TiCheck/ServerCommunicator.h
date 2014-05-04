@@ -10,6 +10,7 @@
 
 #define SERVER_RETURN_CODE_KEY @"Code"
 #define SERVER_RETURN_MESSAGE_KEY @"Message"
+#define SERVER_USER_DATA @"Data"
 
 #define USER_CREATE_SUCCESS 1
 #define USER_CREATE_DUPLICATE_EMAIL 2
@@ -20,6 +21,8 @@
 #define USER_MODIFY_NOT_EXIST 6
 
 #define USER_LOGIN_SUCCESS 1
+
+#define USER_INFO_SUCCESS 1
 
 #define SUBSCRIPTION_CREATE_SUCCESS 1
 
@@ -69,6 +72,13 @@
  *  @return 返回消息的Dictionary
  */
 - (NSDictionary *)loginVerifyWithEmail:(NSString *)email password:(NSString *)password;
+
+/**
+ *  返回用户信息
+ *
+ *  @return 用户信息
+ */
+- (NSDictionary *)userInfoFetch;
 
 /**
  *  将当前用户的token添加到服务器

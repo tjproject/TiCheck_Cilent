@@ -15,6 +15,7 @@ const NSArray *___UserRequestType;
 @"create",\
 @"modify",\
 @"login",\
+@"info",\
 @"deviceToken/add"\
 @"deviceToken/remove", nil] : ___UserRequestType)
 
