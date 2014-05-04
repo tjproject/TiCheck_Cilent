@@ -29,7 +29,7 @@
     self.window.tintColor = [UIColor whiteColor];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    Reachability *reachability = [Reachability reachabilityWithHostname:@"tac.shbbhs.com"];
+    Reachability *reachability = [Reachability reachabilityWithHostname:@"tac.sbhhbs.com"];
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
     if (netStatus == NotReachable) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器正在例行维护，请稍后再试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
