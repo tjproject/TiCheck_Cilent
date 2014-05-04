@@ -11,14 +11,22 @@
 #import "PassengerListViewController.h"
 #import "PersonalCenterViewController.h"
 
+#import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
+#import "NSString+EnumTransform.h"
+
+#import "APIResourceHelper.h"
+#import "CraftType.h"
+
 #import "Flight.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
+#define PASSENGER_CELL_START_COUNT 6000
 
 @interface TickectInfoViewController ()
-{
-    NSMutableArray *cellTitleArr;
-}
+//{
+//    NSMutableArray *cellTitleArr;
+//}
 @end
 
 @implementation TickectInfoViewController
@@ -42,6 +50,9 @@
     [self initInfoVessel];
     [self initDarkUILayer];
     [self initTextInputFields];
+    [self initPassengerList];
+//    [NSTimer scheduledTimerWithTimeInterval:0.033f target:self
+//                                   selector:@selector(mainLoop:) userInfo:nil repeats:YES];
 }
 
 - (void)initNavBar
@@ -55,39 +66,44 @@
 
 - (void)initLabel
 {
-    _TIVC_timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 68, 140, 30)];
-    _TIVC_timeLabel.text = @"2014年3月11日 周二";
-    _TIVC_fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(185, 68, 60, 30)];
-    _TIVC_fromLabel.text = @"上海";
-    _TIVC_toLabel = [[UILabel alloc] initWithFrame:CGRectMake(220, 68, 68, 30)];
-    _TIVC_toLabel.text = @"到 北京";
+    _TIVC_timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 68, 150, 30)];
+    NSDateFormatter *weekday = [[NSDateFormatter alloc] init];
+    [weekday setDateFormat: @"EEEE"];
+    _TIVC_timeLabel.text = [NSString stringWithFormat:@"%d年%d月%d日 %@",_departureDate.year,_departureDate.month,_departureDate.day,[weekday stringFromDate:_departureDate]];
+    _TIVC_fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 68, 60, 30)];
+    _TIVC_fromLabel.text = _selectFlight.departCityName;
+    _TIVC_toLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 68, 68, 30)];
+    _TIVC_toLabel.text = [NSString stringWithFormat:@"到 %@",_selectFlight.arriveCityName];
     _TIVC_flightLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 100, 280, 30)];
-    _TIVC_flightLabel.text = @"东方航空MU5137 330大型机 经济舱";
+    CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:_selectFlight.craftType];
+    if(_selectFlight.airlineName == nil) _selectFlight.airlineName = @"东方航空";
+    _TIVC_flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",_selectFlight.airlineShortName,_selectFlight.flightNumber,[ct craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:_selectFlight.classGrade]];
     
     _TIVC_flightTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(13.5, 170, 100, 50)];
-    _TIVC_flightTimeLabel.text = @"07:00";
+    _TIVC_flightTimeLabel.text = [NSString showingStringFormatWithString:_selectFlight.takeOffTime];
     _TIVC_landTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 170, 100, 50)];
-    _TIVC_landTimeLabel.text = @"09:20";
+    _TIVC_landTimeLabel.text = [NSString showingStringFormatWithString:_selectFlight.arrivalTime];
     
     _TIVC_fromAirportLabel = [[UILabel alloc] initWithFrame:CGRectMake(105, 180, 50, 25)];
-    _TIVC_fromAirportLabel.text = @"虹桥T1";
+    _TIVC_fromAirportLabel.text = [NSString stringWithFormat:@"%@%d",_selectFlight.departPortShortName,_selectFlight.departPortBuildingID];
     _TIVC_toAirportLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 180, 50, 25)];
-    _TIVC_toAirportLabel.text = @"首都T2";
+    _TIVC_toAirportLabel.text = [NSString stringWithFormat:@"%@%d",_selectFlight.arrivePortShortName,_selectFlight.arrivePortBuildingID];
+    NSLog(@"%@",_selectFlight.arrivePortBuildingName);
     
     _TIVC_ticketPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 232, 50, 25)];
-    _TIVC_ticketPriceLabel.text = @"¥399";
+    _TIVC_ticketPriceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)_selectFlight.price];
     _TIVC_constructionPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(135, 235, 50, 25)];
     _TIVC_constructionPriceLabel.text = @"¥50";
     _TIVC_fuelPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 235, 50, 25)];
-    _TIVC_fuelPriceLabel.text = @"¥120";
+    _TIVC_fuelPriceLabel.text = [NSString stringWithFormat:@"¥%.0f",_selectFlight.adultOilFee];
     _TIVC_discountLabel = [[UILabel alloc] initWithFrame:CGRectMake(265, 232, 50, 25)];
-    _TIVC_discountLabel.text = @"3.9折";
+    _TIVC_discountLabel.text = [NSString stringWithFormat:@"%.1f折", _selectFlight.rate * 10];
     
     _TIVC_timeLabel.font = _TIVC_fromLabel.font = _TIVC_toLabel.font = _TIVC_flightLabel.font = [UIFont fontWithName:@"Arial" size:15.f];
     _TIVC_fromAirportLabel.font = _TIVC_toAirportLabel.font = _TIVC_discountLabel.font = [UIFont fontWithName:@"Arial" size:13.f];
     _TIVC_fromAirportLabel.textColor = _TIVC_toAirportLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
     _TIVC_flightTimeLabel.font = _TIVC_landTimeLabel.font = [UIFont fontWithName:@"Roboto-BoldCondensed" size:35.f];
-    _TIVC_ticketPriceLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:24.f];
+    _TIVC_ticketPriceLabel.font = _selectFlight.price < 1000 ? [UIFont fontWithName:@"Roboto-Condensed" size:24.f] : [UIFont fontWithName:@"Roboto-Condensed" size:18.f];
     _TIVC_constructionPriceLabel.font = _TIVC_fuelPriceLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:18.f];
     _TIVC_ticketPriceLabel.textColor = _TIVC_constructionPriceLabel.textColor = _TIVC_fuelPriceLabel.textColor = [UIColor colorWithRed:1.0 green:0.6 blue:0.0 alpha:1.0];
     _TIVC_discountLabel.textColor = [UIColor whiteColor];
@@ -164,6 +180,11 @@
     [self.view addSubview:darkUILayer];
 }
 
+- (void)initPassengerList
+{
+    _passengerList = [[NSMutableArray alloc] init];
+}
+
 #pragma mark - buttons in cell
 - (void)initInfoVessel
 {
@@ -176,7 +197,7 @@
     _infoVessel.showsVerticalScrollIndicator = NO;
     _infoVessel.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
     [self.view addSubview:_infoVessel];
-    cellTitleArr = [NSMutableArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
+    _cellTitleArray = [NSMutableArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
     assranceInfo = @"¥30x1份";
     submitInfo = @"不需要报销凭证";
     _passengerList = [[NSMutableArray alloc] init];
@@ -185,7 +206,7 @@
 #pragma mark - UITableView dataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {return 1;}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {return cellTitleArr.count;}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {return _cellTitleArray.count;}
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -195,27 +216,43 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
-    
-    if (indexPath.row == 0) {cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;}
-    else if(indexPath.row == 1)
+    cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
+    if (indexPath.row == 0)
     {
+        UIImageView *addPassengerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"passengerButton"]];
+        cell.accessoryView = addPassengerView;
+    }
+    else if(indexPath.row <= _passengerList.count)
+    {
+        if(_passengerList.count > 0)
+        {
+            cell.detailTextLabel.text = @"";
+            cell.textLabel.textColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
+            [self initDeletePassengerButtonInCell:cell withIndexPath:indexPath];
+        }
+    }
+    else if(indexPath.row == _passengerList.count + 1)
+    {
+        cell.accessoryView = nil;
         cell.detailTextLabel.text = assranceInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:1.0 green:0.6 blue:0 alpha:1.0];
     }
-    else if(indexPath.row == 2)
+    else if(indexPath.row == _passengerList.count + 2)
     {
+        cell.accessoryView = nil;
         cell.detailTextLabel.text = submitInfo;
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.88 alpha:1.0];
     }
-    else if(indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 6)
+    else if(indexPath.row == _passengerList.count + 3 || indexPath.row == _passengerList.count + 4 || indexPath.row == _passengerList.count + 5 || indexPath.row == _passengerList.count + 6)
     {
-        [self initInputFieldInView:cell With:[inputFieldArray objectAtIndex:[indexPath row] - 3]];
+        cell.accessoryView = nil;
+        cell.detailTextLabel.text = @"";
+        [self initInputFieldInView:cell With:[inputFieldArray objectAtIndex:[indexPath row] - _passengerList.count - 3]];
     }
     else
     {
     }
-    cell.textLabel.text = [cellTitleArr objectAtIndex:[indexPath row]];
-    cell.textLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
+    cell.textLabel.text = [_cellTitleArray objectAtIndex:[indexPath row]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -229,9 +266,10 @@
     if(indexPath.row == 0)
     {
         PassengerListViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerListViewController"];
+        peVC.isComeFromTicketPay=YES;
         [self.navigationController pushViewController:peVC animated:YES];
     }
-    else if(indexPath.row == 1)
+    else if(indexPath.row == _passengerList.count + 1)
     {
         self.view.userInteractionEnabled = NO;
         [self navigationController].navigationBar.userInteractionEnabled = NO;
@@ -245,7 +283,7 @@
         [self pushViewAnimationWithView:_TIVC_assurancePicker willHidden:NO];
         _TIVC_assurancePicker.hidden = NO;
     }
-    else if(indexPath.row == 2)
+    else if(indexPath.row == _passengerList.count + 2)
     {
         self.view.userInteractionEnabled = NO;
         [self navigationController].navigationBar.userInteractionEnabled = NO;
@@ -364,26 +402,34 @@
     submitInfo = [_TIVC_submitPicker.pickerData objectAtIndex:[_TIVC_submitPicker.picker selectedRowInComponent:0]];
     if([submitInfo isEqualToString:@"邮寄报销凭证"])
     {
-        if ([[cellTitleArr objectAtIndex:[cellTitleArr count] - 1] isEqualToString:@"报销凭证"])
+        if ([[_cellTitleArray objectAtIndex:[_cellTitleArray count] - 1] isEqualToString:@"报销凭证"])
         {
-            [cellTitleArr addObject:@"收件人姓名"];
-            [cellTitleArr addObject:@"联系电话"];
-            [cellTitleArr addObject:@"收件地址"];
-            [cellTitleArr addObject:@"发票抬头"];
+            [_cellTitleArray addObject:@"收件人姓名"];
+            [_cellTitleArray addObject:@"联系电话"];
+            [_cellTitleArray addObject:@"收件地址"];
+            [_cellTitleArray addObject:@"发票抬头"];
             _infoVessel.scrollEnabled = YES;
         }
     }
-    else if([[cellTitleArr objectAtIndex:[cellTitleArr count] - 1] isEqualToString:@"发票抬头"])
+    else if([[_cellTitleArray objectAtIndex:[_cellTitleArray count] - 1] isEqualToString:@"发票抬头"])
     {
-        [cellTitleArr removeObject:@"收件人姓名"];
-        [cellTitleArr removeObject:@"联系电话"];
-        [cellTitleArr removeObject:@"收件地址"];
-        [cellTitleArr removeObject:@"发票抬头"];
+        [_cellTitleArray removeObject:@"收件人姓名"];
+        [_cellTitleArray removeObject:@"联系电话"];
+        [_cellTitleArray removeObject:@"收件地址"];
+        [_cellTitleArray removeObject:@"发票抬头"];
         _infoVessel.scrollEnabled = NO;
     }
     [_infoVessel reloadData];
     [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:YES];
     self.view.userInteractionEnabled = YES;
+}
+
+- (void)deletePassengerButtonPressed:(id)sender
+{
+    UIButton *senderButton = (UIButton*)sender;
+    [_cellTitleArray removeObjectAtIndex:senderButton.tag - PASSENGER_CELL_START_COUNT];
+    [_passengerList removeObjectAtIndex:senderButton.tag - PASSENGER_CELL_START_COUNT - 1];
+    [_infoVessel deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:senderButton.tag - PASSENGER_CELL_START_COUNT inSection:0]] withRowAnimation:UITableViewRowAnimationMiddle];
 }
 
 #pragma mark - utility functions
@@ -409,6 +455,15 @@
 - (void)initInputFieldInView:(UIView*)view With:(UITextField*)textField;
 {
     [view addSubview:textField];
+}
+
+- (void)initDeletePassengerButtonInCell:(UITableViewCell*)cell withIndexPath:(NSIndexPath*)indexPath
+{
+    UIButton *tempDeletePassengerButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 0, 24, 24)];
+    tempDeletePassengerButton.tag = PASSENGER_CELL_START_COUNT + indexPath.row;
+    [tempDeletePassengerButton setImage:[UIImage imageNamed:@"deletePassengerButton"] forState:UIControlStateNormal];
+    [tempDeletePassengerButton addTarget:self action:@selector(deletePassengerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryView = tempDeletePassengerButton;
 }
 
 - (void)didReceiveMemoryWarning

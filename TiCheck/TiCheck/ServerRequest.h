@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, ServerUserRequestType) {
     Create_User = 0,
     Modify_User,
     User_Login,
+    User_Info,
     Add_Token,
     Remove_Token
 };
@@ -33,9 +34,9 @@ typedef NS_ENUM(NSInteger, ServerSubscriptionRequestType) {
  *  @param userRequestType 用户请求类型
  *  @param jsonData        请求的json数据
  *
- *  @return 请求返回字符串
+ *  @return 请求返回数据
  */
-+ (NSString *)getServerUserResponseWithServerURL:(NSString *)serverUrl
++ (NSData *)getServerUserResponseWithServerURL:(NSString *)serverUrl
                                      requestType:(ServerUserRequestType)userRequestType
                                         jsonData:(NSData *)jsonData;
 
@@ -46,9 +47,9 @@ typedef NS_ENUM(NSInteger, ServerSubscriptionRequestType) {
  *  @param subscriptionRequestType 订阅请求类型
  *  @param jsonData                请求的json数据
  *
- *  @return 请求返回字符串
+ *  @return 请求返回数据
  */
-+ (NSString *)getServerSubscriptionResponseWithServerURL:(NSString *)serverUrl
++ (NSData *)getServerSubscriptionResponseWithServerURL:(NSString *)serverUrl
                                              requestType:(ServerSubscriptionRequestType)subscriptionRequestType
                                                 jsonData:(NSData *)jsonData;
 

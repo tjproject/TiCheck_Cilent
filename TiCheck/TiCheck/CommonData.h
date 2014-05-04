@@ -25,7 +25,7 @@
 #define TOOLBAR_PICKER_ANIMATION_SPEED 0.2f
 
 #define TABLE_VIEW_DEFAULT_HEIGHT 44.0f
-#define MORE_OPTION_COUNT 4
+#define MORE_OPTION_COUNT 5
 
 #define SHOW_TOOL_BAR_VIEW_FRAME CGRectMake(0.0f, 362.0f, 320.0f, 44.0f)
 #define HIDE_TOOL_BAR_VIEW_FRAME CGRectMake(0.0f, 568.0f, 320.0f, 44.0f)
@@ -36,7 +36,8 @@
 typedef NS_ENUM(NSInteger, SelectingOption) {
     SelectingAirline,
     SelectingSeat,
-    SelectingAirport,
+    SelectingDepartAirport,
+    SelectingArriveAirport,
     SelectingTakeOffTime
 };
 

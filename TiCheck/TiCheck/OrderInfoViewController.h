@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OIVCPassengerInfoView.h"
+#import <PassKit/PKAddPassesViewController.h>
 
-@interface OrderInfoViewController : UIViewController
+@interface OrderInfoViewController : UIViewController<PKAddPassesViewControllerDelegate>
 {
     UIScrollView *contentVessel;
     CGFloat contentSize;

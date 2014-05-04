@@ -90,7 +90,7 @@
         NSString *arriveCity  = [NSString stringWithFormat:@"&lt;ArriveCityID&gt;%ld&lt;/ArriveCityID&gt;", flight.arriveCityID];
         NSString *departPort  = [NSString stringWithFormat:@"&lt;DPortCode&gt;%@&lt;/DPortCode&gt;", flight.departPortCode];
         NSString *arrivePort  = [NSString stringWithFormat:@"&lt;APortCode&gt;%@&lt;/APortCode&gt;", flight.arrivePortCode];
-        NSString *airline     = [NSString stringWithFormat:@"&lt;AirlineCode&gt;%@&lt;/AirlineCode&gt;", flight.airlineCode];
+        NSString *airline     = [NSString stringWithFormat:@"&lt;AirlineCode&gt;%@&lt;/AirlineCode&gt;", flight.airlineDibitCode];
         NSString *flightNo    = [NSString stringWithFormat:@"&lt;Flight&gt;%@&lt;/Flight&gt;", flight.flightNumber];
         NSString *classGrade  = [NSString stringWithFormat:@"&lt;Class&gt;%@&lt;/Class&gt;", [NSString classGradeToString:flight.classGrade]];
         NSString *subClass    = [NSString stringWithFormat:@"&lt;SubClass&gt;%@&lt;/SubClass&gt;", flight.subClass];

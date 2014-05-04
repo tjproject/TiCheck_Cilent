@@ -5,7 +5,7 @@
 //  Created by 大畅 on 14-4-22.
 //  Copyright (c) 2014年 tac. All rights reserved.
 //
-
+#import "PassengerListViewController.h"
 #import "PassengerEditViewController.h"
 #import "Passenger.h"
 #import "PassengerInfoPickerCell.h"
@@ -474,9 +474,14 @@
 #pragma mark - navigation button event
 -(void) cancelButtonFunction:(id)sender
 {
-    
     //[self dismissViewControllerAnimated:YES completion:NULL];
     [self.navigationController popViewControllerAnimated:YES];
+    //get the last view controller, reload table view data
+    PassengerListViewController *plVC= (PassengerListViewController *)[self.navigationController visibleViewController];
+    [plVC.passengerListTableView reloadData];
+    
+    //test
+    //plVC.isComeFromTicketPay=YES;
 }
 
 - (void) doneButtonFunction:(id) sender
@@ -485,13 +490,18 @@
     if ([self checkInfo:self.passengerInfo])
     {
         //修改
+        //更新对应的 passenger 或者添加 新的 passenger
+        //
+        //
+        //
+        //
+        
         //alert 修改成功
         //返回
-        
-        NSLog(@"confirm,Pay");
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
-    }
+        
+            }
     else
     {
         //
@@ -517,6 +527,93 @@
 
 - (Boolean) checkInfo:(Passenger*) passenger
 {
+    //name
+    if (![self checkString:passenger.passengerName WithName:@"姓名"]) {
+        return NO;
+    }
+    //gender
+    if (self.passengerInfo.gender==0) {
+        NSString* messageS=[@"性别" stringByAppendingString:@"不能为空"];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+        return NO;
+    }
+    //birthday
+    if (self.passengerInfo.birthDay==nil) {
+        NSString* messageS=[@"出生日期" stringByAppendingString:@"不能为空"];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    //passport type
+    if (self.passengerInfo.passportType==0) {
+        NSString* messageS=[@"证件类型" stringByAppendingString:@"不能为空"];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    //passport num
+    if (![self checkString:passenger.passportNumber WithName:@"证件号"]) {
+        return NO;
+    }
+    //phone number
+    if (![self isPureInt:passenger.contactTelephone WithName:@"手机号"]) {
+        return NO;
+    }
+    
+    
+    else
+    {
+        return YES;
+    }
+}
+
+- (Boolean)checkString:(NSString*)target WithName:(NSString*) name
+{
+    
+    if (target==nil||target.length==0)
+    {
+        NSString* messageS=[name stringByAppendingString:@"不能为空"];
+        
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message: messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    
+    if ([target rangeOfString:@" "].location!=NSNotFound)
+    {
+        NSString* messageS=[name stringByAppendingString:@"不能有空格"];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    return YES;
+}
+
+//判断是否为整形：
+
+- (BOOL)isPureInt:(NSString*)string WithName:(NSString*) name
+{
+    if (string==nil||string.length==0||[string isEqualToString:@"联系手机"])
+    {
+        NSString* messageS=[name stringByAppendingString:@"不能为空"];
+        
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message: messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
+    
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    if (!([scan scanInt:&val] && [scan isAtEnd]))
+    {
+        NSString* messageS=[name stringByAppendingString:@"只能包含纯数字"];
+        
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message: messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+    }
     return YES;
 }
 

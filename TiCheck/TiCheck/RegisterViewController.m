@@ -8,6 +8,7 @@
 
 #import "RegisterViewController.h"
 #import "ServerCommunicator.h"
+#import "ConfigurationHelper.h"
 #import "UserData.h"
 
 @interface RegisterViewController ()
@@ -70,22 +71,26 @@
         [alert show];
         return ;
     }
-
-#warning aleady register account;
-//    if ()
-//    {
-//        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"该账号已被注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [alert show];
-//        return ;
-//
-//    }
-    [UserData sharedUserData].email=emailStr;
-    [UserData sharedUserData].password=passwordStr;
-    [UserData sharedUserData].userName=userNameStr;
     
-    if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
+    passwordStr = [[ConfigurationHelper sharedConfigurationHelper] md5:passwordStr];
+    
+    NSDictionary *responseDic = [[ServerCommunicator sharedCommunicator] createUserWithEmail:emailStr password:passwordStr account:userNameStr];
+    NSInteger returnCode = [responseDic[SERVER_RETURN_CODE_KEY] integerValue];
+    
+    if (returnCode == USER_CREATE_SUCCESS)
     {
-     
+        [UserData sharedUserData].email=emailStr;
+        [UserData sharedUserData].password=passwordStr;
+        [UserData sharedUserData].userName=userNameStr;
+        
+        if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
+        {
+            
+        }
+
+    } else if (returnCode == USER_CREATE_DUPLICATE_EMAIL) {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"该账号已被注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 

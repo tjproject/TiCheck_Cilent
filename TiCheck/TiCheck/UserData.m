@@ -8,6 +8,7 @@
 
 #import "UserData.h"
 #import "ConfigurationHelper.h"
+#import "ServerCommunicator.h"
 
 @implementation UserData
 
@@ -36,7 +37,7 @@
 
 -(void) setPassword:(NSString *)password
 {
-    [[NSUserDefaults standardUserDefaults] setObject:[[ConfigurationHelper sharedConfigurationHelper] md5:password] forKey:@"password"];
+    [[NSUserDefaults standardUserDefaults] setObject:password forKey:@"password"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -63,12 +64,24 @@
 
 -(BOOL) loginWithAccout:(NSString *)email andPassword:(NSString *)password inViewController:(UIViewController *)viewController
 {
-    self.email=email;
-    self.password=password;
-    UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
-    [viewController.navigationController pushViewController:nextController animated:YES];
-    return YES;
+    BOOL result = NO;
+    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] loginVerifyWithEmail:email password:password];
+    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+    
+    if (returnCode == USER_LOGIN_SUCCESS) {
+        self.email=email;
+        self.password=password;
+        UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
+        [viewController.navigationController pushViewController:nextController animated:YES];
+        result = YES;
+        
+    } else {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"登录失败" message:@"邮箱或密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    return result;
 }
 
 -(BOOL) autoLoginInViewController:(UIViewController *)viewController

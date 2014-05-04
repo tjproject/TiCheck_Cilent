@@ -8,6 +8,9 @@
 
 #import "AccountEditDetailViewController.h"
 #import "UserData.h"
+#import "ServerCommunicator.h"
+#import "ConfigurationHelper.h"
+
 @interface AccountEditDetailViewController ()
 {
     //0 1 2 : account name, email password
@@ -82,7 +85,7 @@
 - (IBAction)confirmButtonEvent:(id)sender
 {
     //
-    NSLog(@"yes");
+    //NSLog(@"yes");
     
     NSString* firstS=self.firstField.text;
     NSString* secondS=self.secondField.text;
@@ -94,8 +97,10 @@
             //update email
             if ([self checkString:firstS WithName:@"邮箱"])
             {
-                [UserData sharedUserData].email=firstS;
-                [self.navigationController popViewControllerAnimated:YES];
+                if ([self isValidEmail:firstS]) {
+                    [UserData sharedUserData].email=firstS;
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
             }
             
             break;
@@ -103,31 +108,67 @@
             //update username
             if ([self checkString:firstS WithName:@"用户名"])
             {
-                [UserData sharedUserData].userName=firstS;
-                [self.navigationController popViewControllerAnimated:YES];
+                
+                //update server
+                 NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:[UserData sharedUserData].password account:firstS];
+                NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+                if (returnCode == USER_LOGIN_SUCCESS)
+                {
+                    [UserData sharedUserData].userName=firstS;
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                    alert.tag=1;
+                }
+                else
+                {
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"该用户名已被注册" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+                //[self.navigationController popViewControllerAnimated:YES];
             }
             break;
         case 2:
             //update password after confirm the old one
             if([self checkString:firstS  WithName:@"旧密码"])
             {
-                //TODO: password check
-                if(YES)//firstS== [UserData sharedUserData].password)
+                if([self checkString:secondS  WithName:@"新密码"])//firstS== [UserData sharedUserData].password)
                 {
-                    if([self checkString:secondS  WithName:@"新密码"])
+                    NSString *theRealOldPassword= [UserData sharedUserData].password;
+                    NSString *textedByUser=[[ConfigurationHelper sharedConfigurationHelper] md5:firstS];
+                    if( [theRealOldPassword isEqualToString:textedByUser] )
                     {
-                        [UserData sharedUserData].password=secondS;
+                        NSString *theNewOne=[[ConfigurationHelper sharedConfigurationHelper] md5:secondS];
+                        
+                        NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:theNewOne account:[UserData sharedUserData].userName];
+                        
+                        NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+                        if (returnCode == USER_LOGIN_SUCCESS)
+                        {
+                            [UserData sharedUserData].password=theNewOne;
+                            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            [alert show];
+                            alert.tag=1;
+                        }
+                        else
+                        {
+                            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"密码错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            [alert show];
+                        }
+
+                        //[self.navigationController popViewControllerAnimated:YES];
                     }
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
-                else
-                {
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"旧密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                    [alert show];
+                    else
+                    {
+                        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"旧密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
+                    
                 }
             }
             break;
     }
+    
+    //更新服务器数据
     
 }
 
@@ -142,14 +183,32 @@
         return NO;
     }
     
-    if ([target rangeOfString:@""].location!=NSNotFound)
+    if ([target rangeOfString:@" "].location!=NSNotFound)
     {
         NSString* messageS=[name stringByAppendingString:@"不能有空格"];
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
+    
     return YES;
+}
+
+- (BOOL)isValidEmail:(NSString *)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Z0-9a-z.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailValidate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailValidate evaluateWithObject:email];
+}
+
+#pragma mark - ui alert delegate
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //NSLog(@"test");
+    if (alertView.tag==1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 /*
 #pragma mark - Navigation

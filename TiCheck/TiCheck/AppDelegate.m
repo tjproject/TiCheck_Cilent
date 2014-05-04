@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "Reachability.h"
+
+@interface AppDelegate () <UIAlertViewDelegate>
+
+@end
 
 @implementation AppDelegate
 
@@ -21,6 +26,13 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     [APIResourceHelper sharedResourceHelper];
+    
+    Reachability *reachability = [Reachability reachabilityWithHostname:@"tac.sbhhbs.com"];
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    if (netStatus == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器正在例行维护，请稍后再试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }
     
     return YES;
 }
@@ -150,6 +162,11 @@
     }    
     
     return _persistentStoreCoordinator;
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    exit(0);
 }
 
 #pragma mark - Application's Documents directory

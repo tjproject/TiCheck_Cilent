@@ -26,7 +26,8 @@
 @property (weak, nonatomic) DateTableViewCell *returnDateCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *airlineCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *seatCell;
-@property (weak, nonatomic) GeneralOptionTableViewCell *airportCell;
+@property (weak, nonatomic) GeneralOptionTableViewCell *departAirportCell;
+@property (weak, nonatomic) GeneralOptionTableViewCell *arriveAirportCell;
 @property (weak, nonatomic) GeneralOptionTableViewCell *takeOffTimeCell;
 
 @property (nonatomic, strong) NSArray *pickerData;
@@ -159,7 +160,7 @@
     
     if (isShowMore) {
         // 重选出发城市默认机场为不限
-        [self.airportCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
+        [self.departAirportCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
     }
 }
 
@@ -167,6 +168,9 @@
 {
     self.fromToCell.toCityLabel.text = toCityString;
     [SearchOption sharedSearchOption].arriveCityName = self.fromToCell.toCityLabel.text;
+    if (isShowMore) {
+        [self.arriveAirportCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
+    }
 }
 
 - (void)setTakeOffTimeLabel:(NSDate *)takeOffDate
@@ -189,7 +193,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger result = 4;
+    NSInteger result = 5;
     
     if (isReturn) result++;
     if (isShowMore) result += MORE_OPTION_COUNT - 1;
@@ -297,18 +301,28 @@
         } else if (indexPath.row == moreOptionIndexRow + 2) {
             // 机场选择
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
-            generalCell.generalLabel.text = @"机场";
+            generalCell.generalLabel.text = @"出发机场";
             generalCell.generalValue.titleLabel.text = @"不限";
-            self.airportCell = generalCell;
+            self.departAirportCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 3) {
+            generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
+            generalCell.generalLabel.text = @"到达机场";
+            generalCell.generalValue.titleLabel.text = @"不限";
+            self.arriveAirportCell = generalCell;
+        } else if (indexPath.row == moreOptionIndexRow + 4) {
             // 起飞时间段
             generalCell.generalIcon.image = [UIImage imageNamed:@"TakeOffTime"];
             generalCell.generalLabel.text = @"起飞时间";
             generalCell.generalValue.titleLabel.text = @"不限";
             self.takeOffTimeCell = generalCell;
         }
+        
+        return generalCell;
     }
-    return generalCell;
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfirmButtonCell" forIndexPath:indexPath];
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -327,8 +341,10 @@
             } else if (indexPath.row == beginOptionCounter + 1) {
                 [self showPickerForSeatSelect];
             } else if (indexPath.row == beginOptionCounter + 2) {
-                [self showPickerForAirportSelect];
+                [self showPickerForDepartAirportSelect];
             } else if (indexPath.row == beginOptionCounter + 3) {
+                [self showPickerForArriveAirportSelect];
+            } else if (indexPath.row == beginOptionCounter + 4) {
                 [self showPickerForTakeOffTimeSelect];
             }
         }];
@@ -338,14 +354,39 @@
         } else if (indexPath.row == beginOptionCounter + 1) {
             [self showPickerForSeatSelect];
         } else if (indexPath.row == beginOptionCounter + 2) {
-            [self showPickerForAirportSelect];
+            [self showPickerForDepartAirportSelect];
         } else if (indexPath.row == beginOptionCounter + 3) {
+            [self showPickerForArriveAirportSelect];
+        } else if (indexPath.row == beginOptionCounter + 4) {
             [self showPickerForTakeOffTimeSelect];
         }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger rowNum = 4;
+    CGFloat confirmButtonCellHeight = 328.0f;
+    
+    if (isReturn) {
+        rowNum++;
+        confirmButtonCellHeight = 284.0f;
+    }
+    if (isShowMore) {
+        rowNum = rowNum + MORE_OPTION_COUNT - 1;
+        confirmButtonCellHeight = 152.0f;
+    }
+    if (isReturn && isShowMore) confirmButtonCellHeight = 140.0f;
+    
+    if (indexPath.row == rowNum) return confirmButtonCellHeight;
+    return 44.0f;
+}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+//
+//{return 0.1;}
 
 #pragma mark Picker View Delegate
 
@@ -378,7 +419,7 @@
     if (isReturn) moreOptionsBeginCounter++;
     
     NSMutableArray *moreOptionIndexArray = [NSMutableArray array];
-    for (NSInteger i = 0; i < 4; ++i) {
+    for (NSInteger i = 0; i < MORE_OPTION_COUNT; ++i) {
         NSIndexPath *toAddOption = [NSIndexPath indexPathForRow:moreOptionsBeginCounter + i inSection:0];
         [moreOptionIndexArray addObject:toAddOption];
     }
@@ -460,8 +501,11 @@
         case SelectingSeat:
             [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
             break;
-        case SelectingAirport:
-            [self.airportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+        case SelectingDepartAirport:
+            [self.departAirportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            break;
+        case SelectingArriveAirport:
+            [self.arriveAirportCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
             break;
         case SelectingTakeOffTime:
             [self.takeOffTimeCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
@@ -531,16 +575,29 @@
     [self showToolBarAndPickerWithAnimation:YES];
 }
 
-- (void)showPickerForAirportSelect
+- (void)showPickerForDepartAirportSelect
 {
-    selectingOption = SelectingAirport;
+    selectingOption = SelectingDepartAirport;
     
     NSMutableArray *airportData = [NSMutableArray arrayWithObject:@"不限"];
     [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:self.fromToCell.fromCityLabel.text] mutableCopy]];
     
     self.pickerData = airportData;
     [self.optionSelectPickerView reloadAllComponents];
-    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airportCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.departAirportCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
+    [self showToolBarAndPickerWithAnimation:YES];
+}
+
+- (void)showPickerForArriveAirportSelect
+{
+    selectingOption = SelectingArriveAirport;
+    
+    NSMutableArray *airportData = [NSMutableArray arrayWithObject:@"不限"];
+    [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:self.fromToCell.toCityLabel.text] mutableCopy]];
+    
+    self.pickerData = airportData;
+    [self.optionSelectPickerView reloadAllComponents];
+    [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.arriveAirportCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
     [self showToolBarAndPickerWithAnimation:YES];
 }
 
@@ -572,7 +629,8 @@
         if (isShowMore) {
             [optionDic setObject:self.airlineCell.generalValue.titleLabel.text forKey:AIRLINE_KEY];
             [optionDic setObject:self.seatCell.generalValue.titleLabel.text forKey:SEAT_TYPE_KEY];
-            [optionDic setObject:self.airportCell.generalValue.titleLabel.text forKey:AIRPORT_KEY];
+            [optionDic setObject:self.departAirportCell.generalValue.titleLabel.text forKey:DEPART_AIRPORT_KEY];
+            [optionDic setObject:self.arriveAirportCell.generalValue.titleLabel.text forKey:ARRIVE_AIRPORT_KEY];
             [optionDic setObject:self.takeOffTimeCell.generalValue.titleLabel.text forKey:TAKE_OFF_TIME_INTERVAL_KEY];
         }
         vc.searchOptionDic = optionDic;

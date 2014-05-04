@@ -141,6 +141,7 @@
     else if(indexPath.section == 1 && indexPath.row == 0)
     {
         PassengerListViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerListViewController"];
+        peVC.isComeFromTicketPay=NO;
         [self.navigationController pushViewController:peVC animated:YES];
     }
     else if(indexPath.section == 1 && indexPath.row == 2)

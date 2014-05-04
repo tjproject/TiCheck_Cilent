@@ -18,6 +18,7 @@
 #import "APIResourceHelper.h"
 #import "ConfigurationHelper.h"
 #import "TickectInfoViewController.h"
+#import "PersonalCenterViewController.h"
 
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
@@ -94,8 +95,26 @@ static float scrollViewHeight=169;
 	
 	//  update the last update date
 	[_refreshHeaderView refreshLastUpdatedDate];
-    
-    // Do any additional setup after loading the view.
+    //modal view personal center
+    [self initNavBar];
+}
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
+    [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+#pragma mark - target selector
+- (void)closeButtonPressed:(id)sender
+{
+    PersonalCenterViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
+    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
+    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self presentModalViewController:viewController animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -143,11 +162,13 @@ static float scrollViewHeight=169;
     // 有ShowMore的选项
     if ([self.searchOptionDic[HAS_MORE_OPTION_KEY] boolValue]) {
         Airline *selectedAirline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.searchOptionDic[AIRLINE_KEY]];
-        Airport *selectedAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[AIRPORT_KEY]];
+        Airport *selectedDepartAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[DEPART_AIRPORT_KEY]];
+        Airport *selectedArriveAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[ARRIVE_AIRPORT_KEY]];
         NSArray *selectedTakeOffTimeInterval = [self.searchOptionDic[TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" "];
         if (selectedAirline != nil) searchRequets.airline = selectedAirline.airline;
         searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
-        if (selectedAirport != nil) searchRequets.departPort = selectedAirport.airportCode;
+        if (selectedDepartAirport != nil) searchRequets.departPort = selectedDepartAirport.airportCode;
+        if (selectedArriveAirport != nil) searchRequets.arrivePort = selectedArriveAirport.airportCode;
         if ([selectedTakeOffTimeInterval count] == 3) {
             searchRequets.earliestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[0]]];
             searchRequets.latestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[2]]];
@@ -412,6 +433,7 @@ static float scrollViewHeight=169;
 {
     TickectInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TicketInfoViewConyroller"];
     vc.selectFlight = [self.data objectAtIndex:indexPath.row];
+    vc.departureDate = [NSString dateFormatWithString:self.searchOptionDic[TAKE_OFF_TIME_KEY]];
     [self.navigationController pushViewController:vc animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

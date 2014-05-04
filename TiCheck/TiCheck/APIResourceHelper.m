@@ -16,33 +16,61 @@
 
 #define ObjectElementToString(object, element) [[[object elementsForName:element] firstObject] stringValue] == nil ? @"" : [[[object elementsForName:element] firstObject] stringValue]
 
-@implementation APIResourceHelper {
-    NSArray *domesticCities;    // 国内城市信息列表
-    NSArray *domesticAirports;  // 国内机场信息列表
-    NSArray *craftTypes;        // 机型信息列表
-    NSArray *airlines;          // 航空公司列表
-}
+@interface APIResourceHelper ()
+
+@property (nonatomic, strong) NSArray *domesticCities;      // 国内城市信息列表
+@property (nonatomic, strong) NSArray *domesticAirports;    // 国内机场信息列表
+@property (nonatomic, strong) NSArray *craftTypes;          // 机型信息列表
+@property (nonatomic, strong) NSArray *airlines;            // 航空公司列表
+
+@end
+
+@implementation APIResourceHelper
 
 + (APIResourceHelper *)sharedResourceHelper
 {
     static dispatch_once_t pred = 0;
     __strong static APIResourceHelper *_sharedObject = nil;
     dispatch_once(&pred, ^{
-        _sharedObject = [[self alloc] initStaticInfo];
+        _sharedObject = [[self alloc] init];
     });
     return _sharedObject;
 }
 
-- (id)initStaticInfo
+- (NSArray *)domesticCities
 {
-    if (self = [super init]) {
+    if (_domesticCities == nil) {
         [self loadDomesticCities];
+    }
+    
+    return _domesticCities;
+}
+
+- (NSArray *)domesticAirports
+{
+    if (_domesticAirports == nil) {
         [self loadAirports];
+    }
+    
+    return _domesticAirports;
+}
+
+- (NSArray *)craftTypes
+{
+    if (_craftTypes == nil) {
         [self loadCraftTypes];
+    }
+    
+    return _craftTypes;
+}
+
+- (NSArray *)airlines
+{
+    if (_airlines == nil) {
         [self loadAirlines];
     }
     
-    return self;
+    return _airlines;
 }
 
 #pragma mark - 搜索方法
@@ -52,7 +80,7 @@
 {
     DomesticCity *result = nil;
     
-    for (DomesticCity *city in domesticCities) {
+    for (DomesticCity *city in self.domesticCities) {
         if (city.cityID == cityID) {
             result = city;
             break;
@@ -66,7 +94,7 @@
 {
     DomesticCity *result = nil;
     
-    for (DomesticCity *city in domesticCities) {
+    for (DomesticCity *city in self.domesticCities) {
         if ([city.cityCode isEqualToString:cityCode]) {
             result = city;
             break;
@@ -80,7 +108,7 @@
 {
     DomesticCity *result = nil;
     
-    for (DomesticCity *city in domesticCities) {
+    for (DomesticCity *city in self.domesticCities) {
         if ([city.cityName isEqualToString:cityName]) {
             result = city;
             break;
@@ -94,7 +122,7 @@
 {
     NSMutableArray *cities = [NSMutableArray array];
     
-    for (DomesticCity *city in domesticCities) {
+    for (DomesticCity *city in self.domesticCities) {
         if ([city.airports count] != 0) {
             [cities addObject:city.cityName];
         }
@@ -109,7 +137,7 @@
 {
     Airport *result = nil;
     
-    for (Airport *airport in domesticAirports) {
+    for (Airport *airport in self.domesticAirports) {
         if ([airport.airportCode isEqualToString:airportCode]) {
             result = airport;
             break;
@@ -123,7 +151,7 @@
 {
     Airport *result = nil;
     
-    for (Airport *airport in domesticAirports) {
+    for (Airport *airport in self.domesticAirports) {
         if ([airport.airportName isEqualToString:airportName]) {
             result = airport;
             break;
@@ -163,7 +191,7 @@
 {
     CraftType *result = nil;
     
-    for (CraftType *ct in craftTypes) {
+    for (CraftType *ct in self.craftTypes) {
         if ([ct.craftType isEqualToString:craftType]) {
             result = ct;
             break;
@@ -179,19 +207,47 @@
 {
     NSMutableArray *allAirlineName = [NSMutableArray array];
     
-    for (Airline *airline in airlines) {
+    for (Airline *airline in self.airlines) {
         [allAirlineName addObject:airline.shortName];
     }
     
     return allAirlineName;
 }
 
+- (Airline *)findAirlineViaAirlineDibitCode:(NSString *)airlineDibitCode
+{
+    Airline *result = nil;
+    
+    for (Airline *airline in self.airlines) {
+        if ([airline.airline isEqualToString:airlineDibitCode]) {
+            result = airline;
+            break;
+        }
+    }
+    
+    return result;
+}
+
 - (Airline *)findAirlineViaAirlineShortName:(NSString *)airlineShortName
 {
     Airline *result = nil;
     
-    for (Airline *airline in airlines) {
+    for (Airline *airline in self.airlines) {
         if ([airline.shortName isEqualToString:airlineShortName]) {
+            result = airline;
+            break;
+        }
+    }
+    
+    return result;
+}
+
+- (Airline *)findAirlineViaAirlineName:(NSString *)airlineName
+{
+    Airline *result = nil;
+    
+    for (Airline *airline in self.airlines) {
+        if ([airline.airlineName isEqualToString:airlineName]) {
             result = airline;
             break;
         }
@@ -240,7 +296,7 @@
         [cityInfo addObject:city];
     }
     
-    domesticCities = cityInfo;
+    self.domesticCities = cityInfo;
 }
 
 - (void)loadAirports
@@ -273,7 +329,7 @@
         [airportInfo addObject:airport];
     }
     
-    domesticAirports = airportInfo;
+    self.domesticAirports = airportInfo;
 }
 
 - (void)loadCraftTypes
@@ -308,7 +364,7 @@
         [craftTypeInfo addObject:craftType];
     }
     
-    craftTypes = craftTypeInfo;
+    self.craftTypes = craftTypeInfo;
 }
 
 - (void)loadAirlines
@@ -346,7 +402,7 @@
         [airlineInfo addObject:airline];
     }
     
-    airlines = airlineInfo;
+    self.airlines = airlineInfo;
 }
 
 @end
