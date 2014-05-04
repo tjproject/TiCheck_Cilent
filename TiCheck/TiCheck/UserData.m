@@ -71,6 +71,12 @@
     if (returnCode == USER_LOGIN_SUCCESS) {
         self.email=email;
         self.password=password;
+        
+        //get user name
+        NSDictionary *dic=[[ServerCommunicator sharedCommunicator] userInfoFetch];
+        NSDictionary *userDic=dic[SERVER_USER_DATA];
+        self.userName= userDic[@"Account"];
+        
         UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
         [viewController.navigationController pushViewController:nextController animated:YES];
