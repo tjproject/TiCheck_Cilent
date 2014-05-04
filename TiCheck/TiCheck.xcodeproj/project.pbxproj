@@ -20,6 +20,10 @@
 		135F6B9B190018280061F51F /* PersonalOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 135F6B99190018280061F51F /* PersonalOrderTableViewCell.m */; };
 		135F6B9C190018280061F51F /* PersonalOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 135F6B9A190018280061F51F /* PersonalOrderTableViewCell.xib */; };
 		1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1370841918F7BC0200FD4949 /* TickectInfoViewController.m */; };
+		13AEFCDC191646580057ACB0 /* tichecktest.pkpass in Resources */ = {isa = PBXBuildFile; fileRef = 13AEFCDB191646580057ACB0 /* tichecktest.pkpass */; };
+		13AEFCDE191646710057ACB0 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13AEFCDD191646710057ACB0 /* PassKit.framework */; };
+		13AEFCE119164A1C0057ACB0 /* Skyport Airways.pkpass in Resources */ = {isa = PBXBuildFile; fileRef = 13AEFCE019164A1C0057ACB0 /* Skyport Airways.pkpass */; };
+		13AEFCE3191680840057ACB0 /* TicheckPass.pkpass in Resources */ = {isa = PBXBuildFile; fileRef = 13AEFCE2191680840057ACB0 /* TicheckPass.pkpass */; };
 		13BF8D9718FB820C00B8E0E1 /* OrderInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BF8D9618FB820C00B8E0E1 /* OrderInfoViewController.m */; };
 		13FA570918FB8D2300FD1C1F /* OIVCPassengerInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA570818FB8D2300FD1C1F /* OIVCPassengerInfoView.m */; };
 		2491398218ED273D00061780 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2491398118ED273D00061780 /* SearchResultViewController.m */; };
@@ -144,6 +148,11 @@
 		135F6B9A190018280061F51F /* PersonalOrderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalOrderTableViewCell.xib; sourceTree = "<group>"; };
 		1370841818F7BC0200FD4949 /* TickectInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TickectInfoViewController.h; sourceTree = "<group>"; };
 		1370841918F7BC0200FD4949 /* TickectInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TickectInfoViewController.m; sourceTree = "<group>"; };
+		13AEFCDB191646580057ACB0 /* tichecktest.pkpass */ = {isa = PBXFileReference; lastKnownFileType = file; path = tichecktest.pkpass; sourceTree = "<group>"; };
+		13AEFCDD191646710057ACB0 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		13AEFCDF191646710057ACB0 /* TiCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TiCheck.entitlements; sourceTree = "<group>"; };
+		13AEFCE019164A1C0057ACB0 /* Skyport Airways.pkpass */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skyport Airways.pkpass"; sourceTree = "<group>"; };
+		13AEFCE2191680840057ACB0 /* TicheckPass.pkpass */ = {isa = PBXFileReference; lastKnownFileType = file; path = TicheckPass.pkpass; sourceTree = "<group>"; };
 		13BF8D9518FB820C00B8E0E1 /* OrderInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfoViewController.h; sourceTree = "<group>"; };
 		13BF8D9618FB820C00B8E0E1 /* OrderInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfoViewController.m; sourceTree = "<group>"; };
 		13FA570718FB8D2300FD1C1F /* OIVCPassengerInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OIVCPassengerInfoView.h; sourceTree = "<group>"; };
@@ -320,6 +329,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13AEFCDE191646710057ACB0 /* PassKit.framework in Frameworks */,
 				A0620AFC18D7242C003A7A55 /* CoreGraphics.framework in Frameworks */,
 				A0620B0018D7242C003A7A55 /* CoreData.framework in Frameworks */,
 				A0620AFE18D7242C003A7A55 /* UIKit.framework in Frameworks */,
@@ -363,6 +373,16 @@
 				132020F6190915EB008EA517 /* TickectInfoPicker.m */,
 			);
 			name = TicketInfo;
+			sourceTree = "<group>";
+		};
+		13AEFCDA191646450057ACB0 /* PassKit */ = {
+			isa = PBXGroup;
+			children = (
+				13AEFCE2191680840057ACB0 /* TicheckPass.pkpass */,
+				13AEFCE019164A1C0057ACB0 /* Skyport Airways.pkpass */,
+				13AEFCDB191646580057ACB0 /* tichecktest.pkpass */,
+			);
+			name = PassKit;
 			sourceTree = "<group>";
 		};
 		13BF8D9418FB81D000B8E0E1 /* OrderInfo */ = {
@@ -501,6 +521,7 @@
 		A0620AF818D7242C003A7A55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13AEFCDD191646710057ACB0 /* PassKit.framework */,
 				A0620AF918D7242C003A7A55 /* Foundation.framework */,
 				A0620AFB18D7242C003A7A55 /* CoreGraphics.framework */,
 				A0620AFD18D7242C003A7A55 /* UIKit.framework */,
@@ -514,6 +535,7 @@
 		A0620B0118D7242C003A7A55 /* TiCheck */ = {
 			isa = PBXGroup;
 			children = (
+				13AEFCDF191646710057ACB0 /* TiCheck.entitlements */,
 				A0620B0A18D7242C003A7A55 /* AppDelegate.h */,
 				A0620B0B18D7242C003A7A55 /* AppDelegate.m */,
 				A0620B6618D72772003A7A55 /* Category */,
@@ -700,6 +722,7 @@
 		A0B677FA18FABF7000A4DC76 /* LogicLayer */ = {
 			isa = PBXGroup;
 			children = (
+				13AEFCDA191646450057ACB0 /* PassKit */,
 				A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */,
 				A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */,
 				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
@@ -817,6 +840,11 @@
 				TargetAttributes = {
 					A0620AF518D7242C003A7A55 = {
 						DevelopmentTeam = 6992736KPW;
+						SystemCapabilities = {
+							com.apple.Passbook = {
+								enabled = 1;
+							};
+						};
 					};
 					A0620B1518D7242C003A7A55 = {
 						TestTargetID = A0620AF518D7242C003A7A55;
@@ -849,14 +877,17 @@
 			files = (
 				A0B677F918FABF5700A4DC76 /* DomesticCities.xml in Resources */,
 				131C6F9618F7CD7200654D6E /* Roboto-Medium.ttf in Resources */,
+				13AEFCE119164A1C0057ACB0 /* Skyport Airways.pkpass in Resources */,
 				A01CDA9D190D1E4700E9F6FB /* Airlines.xml in Resources */,
 				131C6F9218F7CD1200654D6E /* TiCheck-Info.plist in Resources */,
+				13AEFCE3191680840057ACB0 /* TicheckPass.pkpass in Resources */,
 				A0040BC418E92768008E6485 /* Main.storyboard in Resources */,
 				131C6F9318F7CD7200654D6E /* Roboto-Bold.ttf in Resources */,
 				A0620B0618D7242C003A7A55 /* InfoPlist.strings in Resources */,
 				131C6F9418F7CD7200654D6E /* Roboto-BoldCondensed.ttf in Resources */,
 				131C6F9718F7CD7200654D6E /* Roboto-Regular.ttf in Resources */,
 				A0452E2F18FE4A8400DED4EE /* Airports.xml in Resources */,
+				13AEFCDC191646580057ACB0 /* tichecktest.pkpass in Resources */,
 				A0620B1118D7242C003A7A55 /* Images.xcassets in Resources */,
 				A0452E3318FE605C00DED4EE /* CraftTypes.xml in Resources */,
 				131C6F9518F7CD7200654D6E /* Roboto-Condensed.ttf in Resources */,

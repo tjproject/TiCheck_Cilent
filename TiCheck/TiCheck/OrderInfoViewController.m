@@ -7,6 +7,8 @@
 //
 
 #import "OrderInfoViewController.h"
+#import <PassKit/PassKit.h>
+#import <PassKit/PKPassLibrary.h>
 
 @interface OrderInfoViewController ()
 
@@ -126,10 +128,23 @@
 #pragma mark - target selector
 - (void)passbookPressed
 {
+    NSData *passData = [NSData dataWithContentsOfFile:[[[NSBundle mainBundle] resourcePath]
+                        stringByAppendingPathComponent:@"Skyport Airways.pkpass"]];
+    NSError* error = nil;
+    PKPass *newPass = [[PKPass alloc] initWithData:passData error:&error];
+    PKAddPassesViewController *addController = [[PKAddPassesViewController alloc] initWithPass:newPass];
+    addController.delegate = self;
+    [self presentViewController:addController animated:YES completion:nil];
 }
 
 - (void)cancelPressed
 {
+}
+
+#pragma mark - pkaddpassviewcontroller delegate
+- (void)addPassesViewControllerDidFinish:(PKAddPassesViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
