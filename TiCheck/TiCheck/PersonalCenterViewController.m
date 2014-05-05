@@ -14,7 +14,11 @@
 #import "TickectInfoViewController.h"
 #import "UserData.h"
 @interface PersonalCenterViewController ()
-
+{
+    UISwitch *ntfTrigger;
+    UIImageView *bookNtfBg;
+    UILabel *bookNumLabel;
+}
 @end
 
 @implementation PersonalCenterViewController
@@ -26,6 +30,14 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    // table view 自刷新
+    // 但导致 ntfTrigger bookNtfBg 生成两次
+    // 通过记录变量 通过nil判断来避免生成两次
+    [self.PCVCVessel reloadData];
 }
 
 - (void)viewDidLoad
@@ -154,22 +166,26 @@
 #pragma mark - utilities
 - (void)initNotificationTriggerOnView:(UIView*)view
 {
-    UISwitch *ntfTrigger = [[UISwitch alloc] initWithFrame:CGRectMake(260, 10, 60, 30)];
-    [view addSubview:ntfTrigger];
+    if (ntfTrigger == nil) {
+        ntfTrigger = [[UISwitch alloc] initWithFrame:CGRectMake(260, 10, 60, 30)];
+        [view addSubview:ntfTrigger];
+    }
     [view bringSubviewToFront:ntfTrigger];
 }
 
 - (void)initBookNotificationBackgroundOnView:(UIView*)view
 {
-    UIImageView *bookNtfBg = [[UIImageView alloc] initWithFrame:CGRectMake(285, 10, 24, 24)];
-    bookNtfBg.image = [UIImage imageNamed:@"PersonalBookNtfBG"];
-    UILabel *bookNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(293, 10, 24, 24)];
+    if (bookNtfBg == nil) {
+        bookNtfBg = [[UIImageView alloc] initWithFrame:CGRectMake(285, 10, 24, 24)];
+        bookNtfBg.image = [UIImage imageNamed:@"PersonalBookNtfBG"];
+        bookNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(293, 10, 24, 24)];
+        bookNumLabel.textColor = [UIColor whiteColor];
+        bookNumLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:13.f];
+        [view addSubview:bookNtfBg];
+        [view addSubview:bookNumLabel];
+        [view bringSubviewToFront:bookNumLabel];
+    }
     bookNumLabel.text = @"3";
-    bookNumLabel.textColor = [UIColor whiteColor];
-    bookNumLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:13.f];
-    [view addSubview:bookNtfBg];
-    [view addSubview:bookNumLabel];
-    [view bringSubviewToFront:bookNumLabel];
 }
 
 - (void)didReceiveMemoryWarning
