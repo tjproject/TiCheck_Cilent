@@ -364,6 +364,13 @@
     if (_passengerList.count > 0)
     {
         PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
+        //传递值
+        ppVC.selectFlight = _selectFlight;
+        ppVC.departureDate = _departureDate;
+        ppVC.passengerList = _passengerList;
+        //
+        //...
+        //
         [self.navigationController pushViewController:ppVC animated:YES];
     }
     else

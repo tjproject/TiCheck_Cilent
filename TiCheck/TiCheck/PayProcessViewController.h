@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Flight.h"
+#import "Passenger.h"
 @interface PayProcessViewController : UIViewController
 
+/**
+ *  在订单确认后跳到支付页面时，赋值以下变量
+ */
+@property (strong, nonatomic) Flight *selectFlight;
+@property (strong, nonatomic) NSDate *departureDate;
+@property (strong, nonatomic) NSMutableArray *passengerList;
 
 //ticket info label
 @property (strong, nonatomic) IBOutlet UIImageView *flightLogoImage;
