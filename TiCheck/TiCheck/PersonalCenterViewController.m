@@ -12,7 +12,7 @@
 #import "PassengerListViewController.h"
 //#import "PassengerEditViewController.h"
 #import "TickectInfoViewController.h"
-
+#import "UserData.h"
 @interface PersonalCenterViewController ()
 
 @end
@@ -85,7 +85,7 @@
     
     if (indexPath.section == 0) cell.textLabel.text = [s1CellTitleArray objectAtIndex:indexPath.row];
     else cell.textLabel.text = [s2CellTitleArray objectAtIndex:indexPath.row];
-    if (indexPath.section == 0 && indexPath.row == 0) cell.detailTextLabel.text = @"蜗壳";
+    if (indexPath.section == 0 && indexPath.row == 0) cell.detailTextLabel.text = [UserData sharedUserData].userName;
     else if(indexPath.section == 0 && indexPath.row == 3) [self initBookNotificationBackgroundOnView:cell];
     else if(indexPath.section == 1 && indexPath.row == 1) [self initNotificationTriggerOnView:cell];
     
