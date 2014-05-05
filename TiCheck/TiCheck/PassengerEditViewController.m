@@ -306,7 +306,7 @@
             genderPicker.tag = 0;
             genderPicker.delegate = self;
             [genderPicker initPickerData];
-            [genderPicker initPickerToolBarWithTitle:@"                  性别                  "];
+            [genderPicker initPickerToolBarWithTitle:@"                    性别                  "];
             [genderPicker addTargetForCancelButton:self action:@selector(genderPickerCancelPressed:)];
             [genderPicker addTargetForDoneButton:self action:@selector(genderPickerDonePressed:)];
             [[self navigationController].view addSubview:genderPicker];
@@ -317,10 +317,10 @@
         [self pushViewAnimationWithView:genderPicker willHidden:NO];
         genderPicker.hidden = NO;
     }
-    else if (index==2)
+    else if (index == 2)
     {
-        if (pickerContainerView==nil) {
-            pickerContainerView= [[UIView alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
+        if (pickerContainerView == nil) {
+            pickerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 568, 320, 215)];
             pickerContainerView.backgroundColor=[UIColor whiteColor];
             
             //date picker
@@ -339,7 +339,7 @@
             datePicker.maximumDate = maxDate;
             
             [pickerContainerView addSubview:datePicker];
-            [self init:pickerContainerView Picker:datePicker ToolBarWithTitle:@"                出生日期              "];
+            [self init:pickerContainerView Picker:datePicker ToolBarWithTitle:@"                出生日期               "];
             
             datePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
             
@@ -364,7 +364,7 @@
             passportTypePicker.tag = 1;
             passportTypePicker.delegate = self;
             [passportTypePicker initPickerData];
-            [passportTypePicker initPickerToolBarWithTitle:@"               证件类型               "];
+            [passportTypePicker initPickerToolBarWithTitle:@"                证件类型               "];
             [passportTypePicker addTargetForCancelButton:self action:@selector(passportTypePickerCancelPressed:)];
             [passportTypePicker addTargetForDoneButton:self action:@selector(passportTypePickerDonePressed:)];
             [[self navigationController].view addSubview:passportTypePicker];
@@ -498,7 +498,7 @@
         
         //alert 修改成功
         //返回
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         
             }

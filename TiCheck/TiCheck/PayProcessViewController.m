@@ -81,7 +81,7 @@
 - (void)setFlightLogo:(NSString*) airlineName
 {
     //get the image of airlineName;
-    //self.flightLogoImage.image=[UIImage imageNamed:(NSString *)];
+    self.flightLogoImage.image=[UIImage imageNamed:self.selectFlight.airlineDibitCode];
     //or other function...
 }
 
