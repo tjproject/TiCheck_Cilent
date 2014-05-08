@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Reachability.h"
+#import "APIResourceHelper.h"
 
 @interface AppDelegate () <UIAlertViewDelegate>
 

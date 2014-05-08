@@ -14,7 +14,9 @@
 #import "CommonData.h"
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
-
+{
+    UIView *darkUILayer;
+}
 @property (weak, nonatomic) IBOutlet UITableView *searchOptionTableView;
 
 @property (weak, nonatomic) IBOutlet UIView *buttonsView;
@@ -59,8 +61,18 @@
     isShowMore = NO;
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
-        [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
+    [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
+    
     [self initNavBar];
+    [self initDarkUILayer];
+}
+
+- (void)initDarkUILayer
+{
+    darkUILayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
+    darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    darkUILayer.userInteractionEnabled = NO;
+    [_searchOptionTableView addSubview:darkUILayer];
 }
 
 - (void)initNavBar
@@ -532,6 +544,7 @@
         [UIView beginAnimations:nil context:nil];
         [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
         [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
+        darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         [UIView commitAnimations];
     } else {
         [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
@@ -545,6 +558,7 @@
         [UIView beginAnimations:nil context:nil];
         [self.optionSelectToolBar setFrame:HIDE_TOOL_BAR_VIEW_FRAME];
         [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
+        darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         [UIView commitAnimations];
     } else {
         [self.optionSelectToolBar setFrame:HIDE_TOOL_BAR_VIEW_FRAME];
