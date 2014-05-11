@@ -60,7 +60,7 @@
     isReturn = NO;
     isShowMore = YES;
     
-//    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
+    //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
     [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
     
     [self initNavBar];
@@ -99,6 +99,7 @@
 
 - (void)confirmButtonPressed:(id)sender
 {
+    [_delegate prepareScreeningDataWithFromCity:_fromCity ToCity:_toCity TakeOffDate:_takeOffDate Airline:self.airlineCell.generalValue.titleLabel.text SeatType:self.seatCell.generalValue.titleLabel.text FromAirport:self.departAirportCell.generalValue.titleLabel.text ToAirport:self.arriveAirportCell.generalValue.titleLabel.text TakeOffTime:self.takeOffTimeCell.generalValue.titleLabel.text];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
@@ -227,66 +228,6 @@
     static NSString *isReturnCellIdentifier = @"IsReturnCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
-    
-//    if (indexPath.row == 0) {
-//        // FromTo选项
-//        FromToTableViewCell *fromToCell = [tableView dequeueReusableCellWithIdentifier:fromToCellIdentifier];
-//        if (fromToCell == nil) {
-//            fromToCell = [[FromToTableViewCell alloc] init];
-//        }
-//        
-//        self.fromToCell = fromToCell;
-//        UITapGestureRecognizer *fromSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-//        UITapGestureRecognizer *toSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-//        [self.fromToCell.fromCityLabel addGestureRecognizer:fromSelectGesture];
-//        [self.fromToCell.toCityLabel addGestureRecognizer:toSelectGesture];
-//        self.fromToCell.fromCityLabel.text = [SearchOption sharedSearchOption].departCityName;
-//        self.fromToCell.toCityLabel.text = [SearchOption sharedSearchOption].arriveCityName;
-//        
-//        return fromToCell;
-//    } else if (indexPath.row == 1) {
-//        // TakeOffDate选项
-//        DateTableViewCell *takeOffDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
-//        if (takeOffDateCell == nil) {
-//            takeOffDateCell = [[DateTableViewCell alloc] init];
-//        }
-//        
-//        self.takeOffDateCell = takeOffDateCell;
-//        UITapGestureRecognizer *takeOffDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-//        [self.takeOffDateCell.dateLabel addGestureRecognizer:takeOffDateSelectGesture];
-//        self.takeOffDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].takeOffDate];
-//        
-//        return takeOffDateCell;
-//    } else {
-//        NSInteger isReturnIndexRow = 2;
-//        // 若为返程则第二行为返程时间
-//        if (isReturn) {
-//            isReturnIndexRow++;
-//            if (indexPath.row == 2) {
-//                DateTableViewCell *returnDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
-//                if (returnDateCell == nil) {
-//                    returnDateCell = [[DateTableViewCell alloc] init];
-//                }
-//                
-//                self.returnDateCell = returnDateCell;
-//                UITapGestureRecognizer *returnDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-//                [self.returnDateCell.dateLabel addGestureRecognizer:returnDateSelectGesture];
-//                self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
-//                // 显示返回日期时，若早于出发时期，调整至出发日期
-//                if ([[NSString dateFormatWithString:self.returnDateCell.dateLabel.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text]]) {
-//                    self.returnDateCell.dateLabel.text = self.takeOffDateCell.dateLabel.text;
-//                }
-//                
-//                return returnDateCell;
-//            }
-//        }
-//        // 是否返程Option
-//        if (indexPath.row == isReturnIndexRow) {
-//            UITableViewCell *isReturnCell = [tableView dequeueReusableCellWithIdentifier:isReturnCellIdentifier
-//                                                                            forIndexPath:indexPath];
-//            return isReturnCell;
-//        }
-//    }
     
     NSInteger moreOptionIndexRow = 0;
     if (isReturn) moreOptionIndexRow++;

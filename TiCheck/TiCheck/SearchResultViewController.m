@@ -36,7 +36,7 @@
 #define SEARCH_DATE_USER_INFO_KEY @"SearchData"
 #define LONGEST_HISTORY_DAYS 7
 
-@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource,EGORefreshTableHeaderDelegate,ASIHTTPRequestDelegate>
+@interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,LineChartDataSource,EGORefreshTableHeaderDelegate,ASIHTTPRequestDelegate, ScreeningViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *searchResultTitle;
 
@@ -192,7 +192,7 @@ static float scrollViewHeight=169;
 - (void)sendLowPriceTraceRequest
 {
     NSDate *departDate = [NSString dateFormatWithString:self.searchOptionDic[TAKE_OFF_TIME_KEY]];
-
+    
     NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
     offsetComponents.month = 5;
     NSDate *lastDate = [[NSCalendar currentCalendar] dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
@@ -206,7 +206,7 @@ static float scrollViewHeight=169;
             if ([toSearchDate isEqualToDateIgnoringTime:departDate]) {
                 currentIndex = i;
             }
-//            NSLog(@"%@", toSearchDateArray[i]);
+            //            NSLog(@"%@", toSearchDateArray[i]);
         }
     } else if ([departDate daysBeforeDate:lastDate] < 5) {
         for (NSInteger i = 0; i < 7; ++i) {
@@ -215,14 +215,14 @@ static float scrollViewHeight=169;
             if ([toSearchDate isEqualToDateIgnoringTime:departDate]) {
                 currentIndex = LONGEST_HISTORY_DAYS - i - 1;
             }
-//            NSLog(@"%@", toSearchDateArray[i]);
+            //            NSLog(@"%@", toSearchDateArray[i]);
         }
         toSearchDateArray = [NSMutableArray arrayWithArray:[[toSearchDateArray reverseObjectEnumerator] allObjects]];
     } else {
         NSDate *beginDate = [departDate dateBySubtractingDays:2];
         for (NSInteger i = 0; i < 7; ++i) {
             [toSearchDateArray addObject:[beginDate dateByAddingDays:i]];
-//            NSLog(@"%@", toSearchDateArray[i]);
+            //            NSLog(@"%@", toSearchDateArray[i]);
         }
         currentIndex = 2;
     }
@@ -279,7 +279,7 @@ static float scrollViewHeight=169;
     } else {
         NSDate *searchedDate = request.userInfo[SEARCH_DATE_USER_INFO_KEY];
         NSString *searchedStringKey = [NSString stringWithFormat:@"%lf", [searchedDate timeIntervalSince1970]];
-
+        
         if (response.recordCount == 0) {
             [self.footIndex addObject:searchedStringKey];
             [self.footLowPrice addObject:@(0)];
@@ -312,18 +312,18 @@ static float scrollViewHeight=169;
     // 搜索失败，网络问题
     NSLog(@"请求失败. error = %@", [request error]);
     NSError *error = [request error];
-//    self.showPriceButton.userInteractionEnabled = YES;
+    //    self.showPriceButton.userInteractionEnabled = YES;
     
     if (error.code == 2 && request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY]) {
-//        [asiSearchRequest cancel];
-//        self.data = nil;
-//        [self sendFlightSearchRequest];
+        //        [asiSearchRequest cancel];
+        //        self.data = nil;
+        //        [self sendFlightSearchRequest];
     } else if (error.code == 2 && !request.userInfo[IS_SEARCH_DATE_USER_INFO_KEY]) {
-//        [asiSearchQueue cancelAllOperations];
-//        self.footIndexAndLowPrice = nil;
-//        self.footIndex = nil;
-//        self.footLowPrice = nil;
-//        [self sendLowPriceTraceRequest];
+        //        [asiSearchQueue cancelAllOperations];
+        //        self.footIndexAndLowPrice = nil;
+        //        self.footIndex = nil;
+        //        self.footLowPrice = nil;
+        //        [self sendLowPriceTraceRequest];
     }
 }
 
@@ -338,8 +338,10 @@ static float scrollViewHeight=169;
     if ([[segue identifier] isEqualToString:@"ScreeningSegue"])
     {
         ScreeningViewController *sVC = [segue destinationViewController];
+        sVC.delegate = self;
         sVC.fromCity = [self.searchOptionDic valueForKey:FROM_CITY_KEY];
         sVC.toCity = [self.searchOptionDic valueForKey:TO_CITY_KEY];
+        sVC.takeOffDate = [self.searchOptionDic valueForKey:TAKE_OFF_TIME_KEY];
     }
 }
 
@@ -418,14 +420,14 @@ static float scrollViewHeight=169;
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return 10;
+    //    return 10;
     return self.data.count;
 }
 
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString* cellIdentifier=@"SearchResultCell";
-   
+    
     Flight *flight = self.data[indexPath.row];
     SearchResultCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier
                                                            forIndexPath:indexPath];
@@ -543,7 +545,6 @@ static float scrollViewHeight=169;
     }
 }
 
-
 #pragma mark - EGORefreshTableHeaderDelegate
 
 
@@ -593,9 +594,9 @@ static float scrollViewHeight=169;
 -(NSMutableArray*) setFooterLabel
 {
     NSMutableArray *footLabelIndexResult = [NSMutableArray array];
-//    
-//    NSArray *keyArray = [[self.footIndexAndLowPrice.keyEnumerator allObjects] mutableCopy];
-//    
+    //
+    //    NSArray *keyArray = [[self.footIndexAndLowPrice.keyEnumerator allObjects] mutableCopy];
+    //
     for (NSString *dateKey in self.footIndex) {
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:[dateKey doubleValue]];
         NSString *dateString = [NSString stringFormatWithDate:date];
@@ -603,7 +604,7 @@ static float scrollViewHeight=169;
         
         [footLabelIndexResult addObject:@([seperateDate[2] integerValue])];
         
-//        NSLog(@"date = %@, price = %@", dateString, self.footIndexAndLowPrice[dateKey]);
+        //        NSLog(@"date = %@, price = %@", dateString, self.footIndexAndLowPrice[dateKey]);
     }
     
     return footLabelIndexResult;
@@ -613,7 +614,7 @@ static float scrollViewHeight=169;
 {
     NSMutableArray *footLabelPriceResult = [NSMutableArray array];
     
-//    NSArray *valueArray = [[self.footIndexAndLowPrice.objectEnumerator allObjects] mutableCopy];
+    //    NSArray *valueArray = [[self.footIndexAndLowPrice.objectEnumerator allObjects] mutableCopy];
     
     for (NSNumber *value in self.footLowPrice) {
         [footLabelPriceResult addObject:value];
@@ -668,8 +669,26 @@ static float scrollViewHeight=169;
 
 -(int) setCurrentIndex
 {
-//    NSLog(@"current day index = %ld", (long)currentIndex);
+    //    NSLog(@"current day index = %ld", (long)currentIndex);
     return currentIndex;
+}
+
+#pragma mark - ScreeningViewControllerDelegate
+- (void)prepareScreeningDataWithFromCity:(NSString *)fCity ToCity:(NSString *)tCity TakeOffDate:(NSString *)tDate Airline:(NSString *)airlineName SeatType:(NSString *)seatType FromAirport:(NSString *)fAirport ToAirport:(NSString *)tAirport TakeOffTime:(NSString *)tTime
+{
+    NSMutableDictionary *optionDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:fCity, FROM_CITY_KEY, tCity, TO_CITY_KEY, tDate, TAKE_OFF_TIME_KEY, @(YES), HAS_MORE_OPTION_KEY, nil];
+    //    if (isReturn) {
+    //        [optionDic setObject:self.returnDateCell.dateLabel.text forKey:RETURN_TIME_KEY];
+    //    }
+    [optionDic setObject:airlineName forKey:AIRLINE_KEY];
+    [optionDic setObject:seatType forKey:SEAT_TYPE_KEY];
+    [optionDic setObject:fAirport forKey:DEPART_AIRPORT_KEY];
+    [optionDic setObject:tAirport forKey:ARRIVE_AIRPORT_KEY];
+    [optionDic setObject:tTime forKey:TAKE_OFF_TIME_INTERVAL_KEY];
+    
+    self.searchOptionDic = optionDic;
+    [self sendFlightSearchRequestWithReloading:NO];
+    NSLog(@"ScreeningViewControllerDelegate");
 }
 
 @end
