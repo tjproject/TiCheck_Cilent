@@ -15,6 +15,7 @@
 @synthesize email=_email;
 @synthesize password=_password;
 @synthesize userName=_userName;
+@synthesize uniqueID=_uniqueID;
 
 +(UserData*) sharedUserData
 {
@@ -47,6 +48,12 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+-(void) setUniqueID:(NSString *)uniqueID
+{
+    [[NSUserDefaults standardUserDefaults] setObject:uniqueID forKey:@"uniqueID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 -(NSString*) email
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
@@ -60,6 +67,11 @@
 -(NSString*) userName
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"email"];
+}
+
+-(NSString*) uniqueID
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"uniqueID"];
 }
 
 -(BOOL) loginWithAccout:(NSString *)email andPassword:(NSString *)password inViewController:(UIViewController *)viewController

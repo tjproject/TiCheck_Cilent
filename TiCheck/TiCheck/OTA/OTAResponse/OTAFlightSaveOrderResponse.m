@@ -25,10 +25,14 @@
 - (void)parseResponseXML:(NSString *)xml
 {
     GDataXMLElement *root = [self getRootElement:xml];
-    GDataXMLElement *saveOrderResponse = [[root nodesForXPath:@"//ctrip:FltSaveOrderResponse"
-                                                   namespaces:self.namespacesDic
-                                                        error:nil] objectAtIndex:0];
-    
+    NSArray *data = [root nodesForXPath:@"//ctrip:FlightSaveOrderResponse"
+                             namespaces:self.namespacesDic
+                                  error:nil];
+    GDataXMLElement *saveOrderResponse = [data objectAtIndex:0];
+//    GDataXMLElement *saveOrderResponse = [[root nodesForXPath:@"//ctrip:FltSaveOrderResponse"
+//                                                   namespaces:self.namespacesDic
+//                                                        error:nil] objectAtIndex:0];
+    //int i = 1;
     // Parsing Reuslt
     _result = [ObjectElementToString(saveOrderResponse, @"Result") boolValue];
     

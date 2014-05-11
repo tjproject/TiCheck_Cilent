@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Reachability.h"
+#import "APIResourceHelper.h"
 
 @interface AppDelegate () <UIAlertViewDelegate>
 
@@ -33,6 +34,8 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器正在例行维护，请稍后再试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
     }
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     return YES;
 }

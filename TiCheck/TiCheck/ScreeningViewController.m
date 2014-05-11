@@ -1,19 +1,19 @@
 //
-//  SearchViewController.m
+//  ScreeningViewController.m
 //  TiCheck
 //
-//  Created by Boyi on 4/20/14.
-//  Copyright (c) 2014 tac. All rights reserved.
+//  Created by 大畅 on 14-5-11.
+//  Copyright (c) 2014年 tac. All rights reserved.
 //
 
-#import "SearchViewController.h"
+#import "ScreeningViewController.h"
 #import "SearchResultViewController.h"
 #import "SearchOption.h"
 #import "PersonalCenterViewController.h"
 
 #import "CommonData.h"
 
-@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
+@interface ScreeningViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
 {
     UIView *darkUILayer;
 }
@@ -36,7 +36,7 @@
 
 @end
 
-@implementation SearchViewController
+@implementation ScreeningViewController
 {
     BOOL isReturn; // 是否返程
     BOOL isShowMore; // 是否显示更多
@@ -58,13 +58,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     isReturn = NO;
-    isShowMore = NO;
+    isShowMore = YES;
     
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
+    //    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
     [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
     
     [self initNavBar];
     [self initDarkUILayer];
+    [self setTableViewFooter];
 }
 
 - (void)initDarkUILayer
@@ -77,22 +78,29 @@
 
 - (void)initNavBar
 {
-    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
-    [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
-    [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 39, 19)];
+    [tempBtn setImage:[UIImage imageNamed:@"screeningConfirmButton"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(confirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
-    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.hidesBackButton = NO;
     self.navigationItem.rightBarButtonItem = closeButton;
+}
+
+- (void)setTableViewFooter
+{
+    self.searchOptionTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
 }
 
 #pragma mark - target selector
 - (void)closeButtonPressed:(id)sender
 {
-    PersonalCenterViewController *pVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
-    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
-    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
-    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [self presentModalViewController:viewController animated:YES];
+    
+}
+
+- (void)confirmButtonPressed:(id)sender
+{
+    [_delegate prepareScreeningDataWithFromCity:_fromCity ToCity:_toCity TakeOffDate:_takeOffDate Airline:self.airlineCell.generalValue.titleLabel.text SeatType:self.seatCell.generalValue.titleLabel.text FromAirport:self.departAirportCell.generalValue.titleLabel.text ToAirport:self.arriveAirportCell.generalValue.titleLabel.text TakeOffTime:self.takeOffTimeCell.generalValue.titleLabel.text];
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -205,7 +213,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger result = 5;
+    NSInteger result = 1;
     
     if (isReturn) result++;
     if (isShowMore) result += MORE_OPTION_COUNT - 1;
@@ -221,71 +229,7 @@
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
     
-    if (indexPath.row == 0) {
-        // FromTo选项
-        FromToTableViewCell *fromToCell = [tableView dequeueReusableCellWithIdentifier:fromToCellIdentifier];
-        if (fromToCell == nil) {
-            fromToCell = [[FromToTableViewCell alloc] init];
-        }
-        
-        self.fromToCell = fromToCell;
-        UITapGestureRecognizer *fromSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-        UITapGestureRecognizer *toSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-        [self.fromToCell.fromCityLabel addGestureRecognizer:fromSelectGesture];
-        [self.fromToCell.toCityLabel addGestureRecognizer:toSelectGesture];
-        self.fromToCell.fromCityLabel.text = [SearchOption sharedSearchOption].departCityName;
-        self.fromToCell.toCityLabel.text = [SearchOption sharedSearchOption].arriveCityName;
-        
-        fromToCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return fromToCell;
-    } else if (indexPath.row == 1) {
-        // TakeOffDate选项
-        DateTableViewCell *takeOffDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
-        if (takeOffDateCell == nil) {
-            takeOffDateCell = [[DateTableViewCell alloc] init];
-        }
-        
-        self.takeOffDateCell = takeOffDateCell;
-        UITapGestureRecognizer *takeOffDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-        [self.takeOffDateCell.dateLabel addGestureRecognizer:takeOffDateSelectGesture];
-        self.takeOffDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].takeOffDate];
-        
-        takeOffDateCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return takeOffDateCell;
-    } else {
-        NSInteger isReturnIndexRow = 2;
-        // 若为返程则第二行为返程时间
-        if (isReturn) {
-            isReturnIndexRow++;
-            if (indexPath.row == 2) {
-                DateTableViewCell *returnDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
-                if (returnDateCell == nil) {
-                    returnDateCell = [[DateTableViewCell alloc] init];
-                }
-                
-                self.returnDateCell = returnDateCell;
-                UITapGestureRecognizer *returnDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-                [self.returnDateCell.dateLabel addGestureRecognizer:returnDateSelectGesture];
-                self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
-                // 显示返回日期时，若早于出发时期，调整至出发日期
-                if ([[NSString dateFormatWithString:self.returnDateCell.dateLabel.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text]]) {
-                    self.returnDateCell.dateLabel.text = self.takeOffDateCell.dateLabel.text;
-                }
-                
-                returnDateCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return returnDateCell;
-            }
-        }
-        // 是否返程Option
-        if (indexPath.row == isReturnIndexRow) {
-            UITableViewCell *isReturnCell = [tableView dequeueReusableCellWithIdentifier:isReturnCellIdentifier
-                                                                            forIndexPath:indexPath];
-            isReturnCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return isReturnCell;
-        }
-    }
-    
-    NSInteger moreOptionIndexRow = 3;
+    NSInteger moreOptionIndexRow = 0;
     if (isReturn) moreOptionIndexRow++;
     
     GeneralOptionTableViewCell *generalCell = [tableView dequeueReusableCellWithIdentifier:generalOptionCellIdentifier];
@@ -298,7 +242,6 @@
         if (indexPath.row == moreOptionIndexRow) {
             UITableViewCell *showMoreCell = [tableView dequeueReusableCellWithIdentifier:showMoreCellIdentifier
                                                                             forIndexPath:indexPath];
-            showMoreCell.selectionStyle = UITableViewCellSelectionStyleNone;
             return showMoreCell;
         }
     } else {
@@ -334,13 +277,11 @@
             self.takeOffTimeCell = generalCell;
         }
         
-        generalCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return generalCell;
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfirmButtonCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -348,7 +289,7 @@
 {
     if (!isShowMore) return;
     
-    NSInteger beginOptionCounter = 3;
+    NSInteger beginOptionCounter = 0;
     if (isReturn) beginOptionCounter++;
     // 若PickerView已经展示则隐藏，不做任何更改
     if (CGRectEqualToRect(self.optionSelectPickerView.frame, SHOW_PICKER_VIEW_FRAME)) {
@@ -444,7 +385,7 @@
     }
     
     NSIndexPath *moreButton = [NSIndexPath indexPathForRow:moreOptionsBeginCounter inSection:0];
-
+    
     [self.searchOptionTableView beginUpdates];
     [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
     [self.searchOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];
@@ -488,7 +429,7 @@
         }
     } else {
         [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-          
+        
         if (isShowMore) {
             [UIView animateWithDuration:0.3f animations:^{
                 self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
@@ -601,7 +542,7 @@
     selectingOption = SelectingDepartAirport;
     
     NSMutableArray *airportData = [NSMutableArray arrayWithObject:@"不限"];
-    [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:self.fromToCell.fromCityLabel.text] mutableCopy]];
+    [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:_fromCity] mutableCopy]];
     
     self.pickerData = airportData;
     [self.optionSelectPickerView reloadAllComponents];
@@ -614,7 +555,7 @@
     selectingOption = SelectingArriveAirport;
     
     NSMutableArray *airportData = [NSMutableArray arrayWithObject:@"不限"];
-    [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:self.fromToCell.toCityLabel.text] mutableCopy]];
+    [airportData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAirportsNameInCity:_toCity] mutableCopy]];
     
     self.pickerData = airportData;
     [self.optionSelectPickerView reloadAllComponents];
@@ -657,5 +598,6 @@
         vc.searchOptionDic = optionDic;
     }
 }
+
 
 @end
