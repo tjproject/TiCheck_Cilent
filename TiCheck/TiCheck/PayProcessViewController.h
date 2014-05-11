@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Flight.h"
-#import "Passenger.h"
+
 @interface PayProcessViewController : UIViewController
 
 /**

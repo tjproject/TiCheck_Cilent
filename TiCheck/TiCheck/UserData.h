@@ -33,6 +33,13 @@
  */
 @property (nonatomic,strong) NSString* userName;
 
+
+/**
+ *  携程id test
+ */
+@property (nonatomic,strong) NSString* uniqueID;
+
+
 /**
  *  与后台连接 登录账号
  *

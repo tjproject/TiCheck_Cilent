@@ -7,12 +7,48 @@
 //
 
 #import "PayProcessViewController.h"
+#import "ASIHTTPRequest.h"
+#import "ASINetworkQueue.h"
+#import "SoapRequest.h"
+#import "OTAFlightSaveOrder.h"
+#import "OTAFlightSaveOrderResponse.h"
+#import "APIResourceHelper.h"
+#import "ConfigurationHelper.h"
+#import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
+#import "NSString+EnumTransform.h"
+#import "DomesticCity.h"
+#import "Flight.h"
+#import "CraftType.h"
+#import "Airline.h"
+#import "Airport.h"
+#import "Passenger.h"
+#import "Contact.h"
+#import "CreditCardInfo.h"
+#import "UserData.h"
 
-@interface PayProcessViewController ()
+#import "OTAUserUniqueID.h"
+#import "OTAUserUniqueIDResponse.h"
+
+#import "OTAFlightOrderList.h"
+#import "OTAFlightOrderListResponse.h"
+
+#import "OTAFlightViewOrder.h"
+#import "OTAFlightViewOrderResponse.h"
+@interface PayProcessViewController ()<ASIHTTPRequestDelegate>
 
 @end
 
 @implementation PayProcessViewController
+{
+    ASIHTTPRequest *asiFlightOrderRequest; //
+    ASIHTTPRequest *asiUniqueIDRequest; //
+    ASIHTTPRequest *asiOrderListRequest;
+    ASIHTTPRequest *asiOrderViewRequest;
+    
+    NSString *orderID;
+    //ASINetworkQueue *asiSearchQueue; //
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,8 +144,178 @@
     
     
     //TODO: when clicked, jump to a web page to continue the pay process
+    //get userid
+    //[self sendUniqueIDRequest];
+    //create temp flight order
+    [self sendFlightSaveOrderRequest];
+    
+    //test order list
+    //[self sendOrderListRequest];
+    
+    //get order view
+    [self sendOrderViewRequest];
 }
 
+- (void)sendOrderViewRequest
+{
+    
+    OTAFlightViewOrder *orderViewRequest = [[OTAFlightViewOrder alloc] initWithUserUniqueUID:[UserData sharedUserData].uniqueID orderLists: [NSArray arrayWithObjects:orderID, nil]];
+    
+    
+    NSString *requestXML = [orderViewRequest generateOTAFlightViewOrderXMLRequest];
+    
+    asiOrderViewRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
+                                                flightRequestType:FlightViewOrderRequest
+                                                     xmlNameSpace:XML_NAME_SPACE
+                                                   webServiceName:WEB_SERVICE_NAME
+                                                   xmlRequestBody:requestXML];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"3", @"IS_GET_ID", nil];
+    
+    [asiOrderViewRequest setUserInfo:mainUserInfo];
+    [asiOrderViewRequest setDelegate:self];
+    [asiOrderViewRequest startAsynchronous];
+}
+
+
+
+- (void)sendOrderListRequest
+{
+    NSDateComponents *comp = [[NSDateComponents alloc]init];
+    [comp setMonth:5];
+    [comp setDay:9];
+    [comp setYear:2014];
+    NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *efDate = [myCal dateFromComponents:comp];
+    
+    [comp setMonth:6];
+    [comp setDay:9];
+    [comp setYear:2014];
+    NSDate *exData = [myCal dateFromComponents:comp];
+    
+    OTAFlightOrderList *orderListRequest = [[OTAFlightOrderList alloc] initWithUserUniqueUID:[UserData sharedUserData].uniqueID effectDate:efDate expiryDate:exData orderStatus:AllOrders];
+    
+    
+    NSString *requestXML = [orderListRequest generateOTAFlightOrderListXMLRequest];
+    
+    asiOrderListRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
+                                                  flightRequestType:FlightOrderListRequest
+                                                       xmlNameSpace:XML_NAME_SPACE
+                                                     webServiceName:WEB_SERVICE_NAME
+                                                     xmlRequestBody:requestXML];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"2", @"IS_GET_ID", nil];
+    
+    [asiOrderListRequest setUserInfo:mainUserInfo];
+    [asiOrderListRequest setDelegate:self];
+    [asiOrderListRequest startAsynchronous];
+}
+
+- (void)sendUniqueIDRequest
+{
+    OTAUserUniqueID *idRequest = [[OTAUserUniqueID alloc] initWithUserName:[UserData sharedUserData].userName telNumber:@"18817598462"];
+    NSString *requsetXML = [idRequest generateOTAUserUniqueIDXMLRequest];
+    asiUniqueIDRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
+                                               flightRequestType:UserUniqueID
+                                                    xmlNameSpace:XML_NAME_SPACE
+                                                  webServiceName:WEB_SERVICE_NAME
+                                                  xmlRequestBody:requsetXML];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"0", @"IS_GET_ID", nil];
+    
+    [asiUniqueIDRequest setUserInfo:mainUserInfo];
+    [asiUniqueIDRequest setDelegate:self];
+    [asiUniqueIDRequest startAsynchronous];
+}
+
+#pragma mark - SearchFlight Helper
+
+- (void)sendFlightSaveOrderRequest
+{
+    //添加机票订购信息
+    
+    NSArray *flightList = [NSArray arrayWithObjects:self.selectFlight, nil];
+    
+    //预先设置 乘客
+    NSDateComponents *comp = [[NSDateComponents alloc]init];
+    [comp setMonth:9];
+    [comp setDay:22];
+    [comp setYear:1991];
+    NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDate *bDate = [myCal dateFromComponents:comp];
+    
+    Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthDay:bDate  passportType:ID passportNo:@"440508199109223314"];
+    tempPassenger.gender = Male;
+    tempPassenger.nationalityCode = @"1";
+    tempPassenger.contactTelephone = @"18817598462";
+    
+    NSArray *pList = [NSArray arrayWithObjects:tempPassenger, nil];
+    
+    //联系人
+    Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
+    
+    //差 uniqueUID
+    OTAFlightSaveOrder *orderRequest=  [[OTAFlightSaveOrder alloc] initWithUserUniqueUID:[UserData sharedUserData].uniqueID AgeType:ADU flightList:flightList passengerList:pList contact:contact];
+    
+    NSString *requestXML = [orderRequest generateOTAFlightSaveOrderXMLRequest];
+    
+    asiFlightOrderRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
+                                             flightRequestType:FlightSaveOrderRequest
+                                                  xmlNameSpace:XML_NAME_SPACE
+                                                webServiceName:WEB_SERVICE_NAME
+                                                xmlRequestBody:requestXML];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"IS_GET_ID", nil];
+    
+    [asiFlightOrderRequest setUserInfo:mainUserInfo];
+    [asiFlightOrderRequest setDelegate:self];
+    [asiFlightOrderRequest startAsynchronous];
+}
+
+#pragma mark - ASIHTTPRequest Delegate
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    //获取user id
+    if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"0"])
+    {
+        OTAUserUniqueIDResponse *response = [[OTAUserUniqueIDResponse alloc] initWithOTAUserUniqueIDResponse:[request responseString]];
+        if (response.retCode == 0) {
+            NSLog(@"Unique ID = %@",response.uniqueUID);
+            [UserData sharedUserData].uniqueID = response.uniqueUID;
+        }
+    }
+    else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"1"])
+
+    {
+        OTAFlightSaveOrderResponse *response = [[OTAFlightSaveOrderResponse alloc] initWithOTASaveOrderResponse:[request responseString]];
+        orderID = response.orderID;
+        
+        NSLog(@"订单结果 = %@",response.resultMsg);
+        NSLog(@"订单ID = %@",response.orderID);
+
+    }
+    else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"2"])
+        
+    {
+        OTAFlightOrderListResponse *response = [[OTAFlightOrderListResponse alloc] initWithOTAFlightOrderListResponse:[request responseString]];
+        NSLog(@"查询订单结果 = %i",response.recordsCount);
+        
+        NSArray *temp=response.orderList;
+    }
+    else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"3"])
+        
+    {
+        OTAFlightViewOrder *response = [[OTAFlightViewOrderResponse alloc] initWithOTAFlightViewOrderResponse:[request responseString]];
+        //NSLog(@"查询订单结果 = %i",response.recordsCount);
+        
+        //NSArray *temp=response.orderList;
+    }
+    //
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    // 搜索失败，网络问题
+    NSLog(@"订单请求失败. error = %@", [request error]);
+    //NSError *error = [request error];
+}
 
 
 /*
