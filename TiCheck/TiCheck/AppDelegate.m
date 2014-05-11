@@ -35,6 +35,8 @@
         [alert show];
     }
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     return YES;
 }
 

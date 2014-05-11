@@ -66,13 +66,13 @@
 
 - (void)initLabel
 {
-    _TIVC_timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 68, 150, 30)];
+    _TIVC_timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 68, 160, 30)];
     NSDateFormatter *weekday = [[NSDateFormatter alloc] init];
     [weekday setDateFormat: @"EEEE"];
     _TIVC_timeLabel.text = [NSString stringWithFormat:@"%d年%d月%d日 %@",_departureDate.year,_departureDate.month,_departureDate.day,[weekday stringFromDate:_departureDate]];
-    _TIVC_fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(190, 68, 60, 30)];
+    _TIVC_fromLabel = [[UILabel alloc] initWithFrame:CGRectMake(192, 68, 60, 30)];
     _TIVC_fromLabel.text = _selectFlight.departCityName;
-    _TIVC_toLabel = [[UILabel alloc] initWithFrame:CGRectMake(225, 68, 68, 30)];
+    _TIVC_toLabel = [[UILabel alloc] initWithFrame:CGRectMake(227, 68, 68, 30)];
     _TIVC_toLabel.text = [NSString stringWithFormat:@"到 %@",_selectFlight.arriveCityName];
     _TIVC_flightLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 100, 280, 30)];
     CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:_selectFlight.craftType];

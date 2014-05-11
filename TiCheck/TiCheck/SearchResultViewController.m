@@ -19,6 +19,7 @@
 #import "ConfigurationHelper.h"
 #import "TickectInfoViewController.h"
 #import "PersonalCenterViewController.h"
+#import "ScreeningViewController.h"
 
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
@@ -334,6 +335,12 @@ static float scrollViewHeight=169;
     [self foldPrice:self.foldPriceButton];
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:@"ScreeningSegue"])
+    {
+        ScreeningViewController *sVC = [segue destinationViewController];
+        sVC.fromCity = [self.searchOptionDic valueForKey:FROM_CITY_KEY];
+        sVC.toCity = [self.searchOptionDic valueForKey:TO_CITY_KEY];
+    }
 }
 
 
