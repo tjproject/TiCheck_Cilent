@@ -1433,7 +1433,7 @@
         <!--Online Pay View Controller-->
         <scene sceneID="ZDa-Dt-YHU">
             <objects>
-                <viewController id="gSc-H1-dsu" customClass="OnlinePayViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OnlinePayViewController" id="gSc-H1-dsu" customClass="OnlinePayViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PNE-Ty-xfv"/>
                         <viewControllerLayoutGuide type="bottom" id="fq0-Te-M5z"/>
@@ -1456,7 +1456,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOw-qc-XL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1513" y="-551"/>
+            <point key="canvasLocation" x="1957" y="1344"/>
         </scene>
         <!--Tickect Info View Controller - 订单详情-->
         <scene sceneID="rzk-lT-pFE">
@@ -2038,7 +2038,7 @@
                                                     <color key="textColor" red="0.45555382970000002" green="0.45554021" blue="0.4555479288" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="F50BA667-4B13-400A-AE23-FE2A8B787A93" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="C03845EF-BF04-49F4-B015-680E8125E09B" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
                                                     <rect key="frame" x="276" y="0.0" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2128,13 +2128,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Calendar" width="25" height="25"/>
-        <image name="CityBackground" width="320" height="64"/>
-        <image name="ConfirmButton" width="275" height="47"/>
-        <image name="ConfirmSubscription" width="275" height="47"/>
-        <image name="DownArrow" width="24" height="24"/>
-        <image name="EA_Logo" width="21" height="22"/>
-        <image name="F50BA667-4B13-400A-AE23-FE2A8B787A93" width="24" height="24">
+        <image name="C03845EF-BF04-49F4-B015-680E8125E09B" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2223,6 +2217,12 @@ LQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwApwCpAKsArQCyALUAtwC5ALsAvQDCANkA
 KBMtAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAEy8
 </mutableData>
         </image>
+        <image name="Calendar" width="25" height="25"/>
+        <image name="CityBackground" width="320" height="64"/>
+        <image name="ConfirmButton" width="275" height="47"/>
+        <image name="ConfirmSubscription" width="275" height="47"/>
+        <image name="DownArrow" width="24" height="24"/>
+        <image name="EA_Logo" width="21" height="22"/>
         <image name="FromArrow" width="24" height="24"/>
         <image name="Logout" width="320" height="50"/>
         <image name="LowPriceButton" width="276" height="49"/>

@@ -16,6 +16,7 @@
 #define XML_NAME_SPACE @"http://ctrip.com/"
 #define WEB_SERVICE_NAME @"Request"
 #define SERVER_URL @"http://www.ticheck.com/server/index.php"
+#define BUSINESS_TYPE @"Flight"
 
 // 用于测试
 #define TEMPORARY_UNIQUE_UID @"a19265a5-21c1-40a1-841d-e9605bfe53a7"

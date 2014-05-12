@@ -8,6 +8,7 @@
 
 #import "PayProcessViewController.h"
 #import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
 #import "SoapRequest.h"
 #import "OTAFlightSaveOrder.h"
@@ -27,6 +28,8 @@
 #import "CreditCardInfo.h"
 #import "UserData.h"
 
+#import "ServerRequest.h"
+
 #import "OTAUserUniqueID.h"
 #import "OTAUserUniqueIDResponse.h"
 
@@ -35,6 +38,10 @@
 
 #import "OTAFlightViewOrder.h"
 #import "OTAFlightViewOrderResponse.h"
+
+#import "OnlinePayViewController.h"
+#define PAY_REQUEST_TYPE @"PaymentEntry"
+
 @interface PayProcessViewController ()<ASIHTTPRequestDelegate>
 
 @end
@@ -46,6 +53,7 @@
     ASIHTTPRequest *asiOrderListRequest;
     ASIHTTPRequest *asiOrderViewRequest;
     
+    ASIFormDataRequest *asiFlightPayDataRequest;
     NSString *orderID;
     //ASINetworkQueue *asiSearchQueue; //
 }
@@ -153,7 +161,11 @@
     //[self sendOrderListRequest];
     
     //get order view
-    [self sendOrderViewRequest];
+    //[self sendOrderViewRequest];
+    
+    //pay
+    //[self sendFlightPayPost];
+    
 }
 
 - (void)sendOrderViewRequest
@@ -268,6 +280,46 @@
     [asiFlightOrderRequest startAsynchronous];
 }
 
+#pragma mark - flight pay Helper
+
+- (void)sendFlightPayPost
+{
+    //http://{API_Url}/{BusinessType}/MobilePayEntry.aspx?AllianceId={AllianceId}&SID={SID}&TimeStamp={TimeStamp}&Signature={Signature}&RequestType={RequestType}
+    NSString *timeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+    NSString *secretKeyMD5 = [[[ConfigurationHelper sharedConfigurationHelper] md5:STATION_KEY] uppercaseString];
+    NSString *keyString = [timeStamp stringByAppendingFormat:@"%d%@%d%@", ALLIANCE_ID, secretKeyMD5, STATION_ID, PAY_REQUEST_TYPE];
+    NSString *signature = [[[ConfigurationHelper sharedConfigurationHelper] md5:keyString]uppercaseString];
+    
+    
+    //NSString *header = [NSString stringWithFormat:@"&lt;Header AllianceID=\"%d\" SID=\"%d\" TimeStamp=\"%@\" RequestType=\"%@\" Signature=\"%@\" /&gt;\n", ALLIANCE_ID, STATION_ID, timeStamp, cFlightRequestTypeString(requestType), signature];
+
+    
+    //NSString *sURL = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx?AllianceId=\"%d\"&SID=\"%d\"&TimeStamp=\"%@\"&Signature=\"%@\"&RequestType=\"%@\" \n",API_URL,BUSINESS_TYPE,ALLIANCE_ID,STATION_ID,timeStamp,signature,PAY_REQUEST_TYPE];
+    NSString *sURL = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx?AllianceId=%d&SID=%d&TimeStamp=%@&Signature=%@&RequestType=%@",API_URL,BUSINESS_TYPE,ALLIANCE_ID,STATION_ID,timeStamp,signature,PAY_REQUEST_TYPE];// stringByAddingPercentEscapesUsingEncoding:];
+    NSURL *url = [NSURL URLWithString:sURL];
+    
+    OnlinePayViewController *opVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OnlinePayViewController"];
+    opVC.url = url;
+    opVC.tempOrderID = orderID;
+    //peVC.navigationItem.title=@"修改联系人";
+    [self.navigationController pushViewController:opVC animated:YES];
+
+    
+    
+//    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+//    [req setCachePolicy:NSURLCacheStorageAllowedInMemoryOnly];
+//    
+//    [req setHTTPMethod:@"POST"];
+//    //[req setHTTPBody:jsonData];
+//    
+//    NSURLResponse *response = nil;
+//    NSError *error = [[NSError alloc] init];
+//    NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error];
+//    NSString *resultS = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+    //return [self responseDataToJSONDictionary:result];
+    //return result;
+}
+
 #pragma mark - ASIHTTPRequest Delegate
 
 - (void)requestFinished:(ASIHTTPRequest *)request
@@ -285,11 +337,14 @@
 
     {
         OTAFlightSaveOrderResponse *response = [[OTAFlightSaveOrderResponse alloc] initWithOTASaveOrderResponse:[request responseString]];
-        orderID = response.orderID;
+        orderID = response.tempOrderID;
         
         NSLog(@"订单结果 = %@",response.resultMsg);
         NSLog(@"订单ID = %@",response.orderID);
 
+        //pay
+        //NSDictionary* dicR = [self sendFlightPayPost];
+        [self sendFlightPayPost];
     }
     else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"2"])
         
@@ -317,6 +372,11 @@
     //NSError *error = [request error];
 }
 
+- (NSDictionary *)responseDataToJSONDictionary:(NSData *)response
+{
+    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    return [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+}
 
 /*
 #pragma mark - Navigation

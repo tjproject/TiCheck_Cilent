@@ -39,7 +39,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self setGetParameterForURL];
+    //[self setGetParameterForURL];
+    [self loadWebUrl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,16 +53,32 @@
 
 - (NSURL *)setGetParameterForURL
 {
-    NSString *allianceId = [NSString stringWithFormat:@"%@=%d", ALLIANCE_ID_KEY, ALLIANCE_ID];
-    NSString *sid = [NSString stringWithFormat:@"%@=%d", STATION_ID_KEY, STATION_ID];
-    NSString *nowTimeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-    NSString *timestamp = [NSString stringWithFormat:@"%@=%@", TIMESTAMP_KEY, nowTimeStamp];
-    NSArray *parameters = [NSArray array];
-    
-    
+//    NSString *allianceId = [NSString stringWithFormat:@"%@=%d", ALLIANCE_ID_KEY, ALLIANCE_ID];
+//    NSString *sid = [NSString stringWithFormat:@"%@=%d", STATION_ID_KEY, STATION_ID];
+//    NSString *nowTimeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+//    NSString *timestamp = [NSString stringWithFormat:@"%@=%@", TIMESTAMP_KEY, nowTimeStamp];
+//    NSArray *parameters = [NSArray array];
+//    
+//    
     return nil;
 }
 
+- (void)loadWebUrl
+{
+    NSURL *url = self.url;
+    NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",self.tempOrderID,@"1",@"ZH",@"test"];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
+    [request setHTTPMethod: @"POST"];
+    [request setHTTPBody: [self UTF8_To_GB2312:body]]; //] dataUsingEncoding: NSUTF8StringEncoding]];
+    [self.onlinePayWebView loadRequest: request];
+}
+- (NSData*)UTF8_To_GB2312:(NSString*)utf8string
+{
+    NSStringEncoding encoding =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSData* gb2312data = [utf8string dataUsingEncoding:encoding];
+    return gb2312data; //[[NSString alloc] initWithData:gb2312data encoding:encoding];
+}
 /*
 #pragma mark - Navigation
 
