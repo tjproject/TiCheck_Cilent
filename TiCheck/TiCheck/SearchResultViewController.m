@@ -452,6 +452,7 @@ static float scrollViewHeight=169;
 - (void)updateSearchResultCellViaFlightInfo:(Flight *)flight
                                     forCell:(SearchResultCell *)toUpdateCell
 {
+    toUpdateCell.flightLogo.image=[UIImage imageNamed:flight.airlineDibitCode];
     toUpdateCell.startTime.text = [NSString showingStringFormatWithString:flight.takeOffTime];
     toUpdateCell.endTime.text = [NSString showingStringFormatWithString:flight.arrivalTime];
     toUpdateCell.address.text = [NSString stringWithFormat:@"%@——%@", flight.departPortShortName, flight.arrivePortShortName];

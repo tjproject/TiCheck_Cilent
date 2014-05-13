@@ -141,8 +141,8 @@
 
 - (void)initImage
 {
-    _TIVC_flightImage = [[UIImageView alloc] initWithFrame:CGRectMake(25, 105, 22, 22)];
-    _TIVC_flightImage.image = [UIImage imageNamed:@"EA_Logo"];
+    _TIVC_flightImage = [[UIImageView alloc] initWithFrame:CGRectMake(20, 100, 30, 30)];
+    _TIVC_flightImage.image = [UIImage imageNamed:self.selectFlight.airlineDibitCode];
     [self.view addSubview:_TIVC_flightImage];
     
     lineIndicator = [[UIImageView alloc] initWithFrame:CGRectMake(0, 150, 320, 0.5)];

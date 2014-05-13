@@ -1211,7 +1211,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUg-lQ-eCg" userLabel="flightLogo">
-                                                    <rect key="frame" x="9" y="8" width="35" height="28"/>
+                                                    <rect key="frame" x="9" y="8" width="35" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33U-8B-dOt" userLabel="timeView">
@@ -2038,7 +2038,7 @@
                                                     <color key="textColor" red="0.45555382970000002" green="0.45554021" blue="0.4555479288" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="C03845EF-BF04-49F4-B015-680E8125E09B" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="30561E04-482C-4AF1-8F48-C0414D6384A7" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
                                                     <rect key="frame" x="276" y="0.0" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2128,7 +2128,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="C03845EF-BF04-49F4-B015-680E8125E09B" width="24" height="24">
+        <image name="30561E04-482C-4AF1-8F48-C0414D6384A7" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
