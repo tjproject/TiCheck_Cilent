@@ -40,7 +40,7 @@
 #import "OTAFlightViewOrderResponse.h"
 
 #import "OnlinePayViewController.h"
-#define PAY_REQUEST_TYPE @"PaymentEntry"
+#define PAY_REQUEST_TYPE @"PaymentEntry.aspx"
 
 @interface PayProcessViewController ()<ASIHTTPRequestDelegate>
 
@@ -285,18 +285,19 @@
 - (void)sendFlightPayPost
 {
     //http://{API_Url}/{BusinessType}/MobilePayEntry.aspx?AllianceId={AllianceId}&SID={SID}&TimeStamp={TimeStamp}&Signature={Signature}&RequestType={RequestType}
-    NSString *timeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-    NSString *secretKeyMD5 = [[[ConfigurationHelper sharedConfigurationHelper] md5:STATION_KEY] uppercaseString];
-    NSString *keyString = [timeStamp stringByAppendingFormat:@"%d%@%d%@", ALLIANCE_ID, secretKeyMD5, STATION_ID, PAY_REQUEST_TYPE];
-    NSString *signature = [[[ConfigurationHelper sharedConfigurationHelper] md5:keyString]uppercaseString];
+//    NSString *timeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+//    NSString *secretKeyMD5 = [[ConfigurationHelper sharedConfigurationHelper] MD5ExtWithUpperCase:STATION_KEY];
+//    NSString *keyString = [timeStamp stringByAppendingFormat:@"%d%@%d%@", ALLIANCE_ID, secretKeyMD5, STATION_ID, PAY_REQUEST_TYPE];
+//    NSString *signature = [[ConfigurationHelper sharedConfigurationHelper] MD5ExtWithUpperCase:keyString];
+//    
+//    
+//    NSString *strURL1 = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx?AllianceId=%d&SID=%d&TimeStamp=%@&Signature=%@&RequestType=%@",API_URL,BUSINESS_TYPE,ALLIANCE_ID,STATION_ID,timeStamp,signature,PAY_REQUEST_TYPE];// stringByAddingPercentEscapesUsingEncoding:];
     
-    
-    //NSString *header = [NSString stringWithFormat:@"&lt;Header AllianceID=\"%d\" SID=\"%d\" TimeStamp=\"%@\" RequestType=\"%@\" Signature=\"%@\" /&gt;\n", ALLIANCE_ID, STATION_ID, timeStamp, cFlightRequestTypeString(requestType), signature];
-
-    
-    //NSString *sURL = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx?AllianceId=\"%d\"&SID=\"%d\"&TimeStamp=\"%@\"&Signature=\"%@\"&RequestType=\"%@\" \n",API_URL,BUSINESS_TYPE,ALLIANCE_ID,STATION_ID,timeStamp,signature,PAY_REQUEST_TYPE];
-    NSString *sURL = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx?AllianceId=%d&SID=%d&TimeStamp=%@&Signature=%@&RequestType=%@",API_URL,BUSINESS_TYPE,ALLIANCE_ID,STATION_ID,timeStamp,signature,PAY_REQUEST_TYPE];// stringByAddingPercentEscapesUsingEncoding:];
-    NSURL *url = [NSURL URLWithString:sURL];
+    NSString *strURLTrail = [[ConfigurationHelper sharedConfigurationHelper] getURLStringWithRequestType:PaymentEntry];
+    //NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",orderID,@"1",@"ZH",@"test"];
+    //strURLTrail = [NSString stringWithFormat:@"%@&%@", strURLTrail, body];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx%@",API_URL,BUSINESS_TYPE,strURLTrail];
+    NSURL *url = [NSURL URLWithString:strURL];
     
     OnlinePayViewController *opVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OnlinePayViewController"];
     opVC.url = url;
