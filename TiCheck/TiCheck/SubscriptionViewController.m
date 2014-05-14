@@ -9,6 +9,7 @@
 #import "SubscriptionViewController.h"
 #import "CommonData.h"
 #import "Subscription.h"
+#import "ServerCommunicator.h"
 
 typedef NS_ENUM(NSUInteger, SelectedDateType) {
     BeginDate,
@@ -84,9 +85,11 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
     if (isShowMore) {
         NSArray *departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
-//        [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.airportCell.generalValue.titleLabel.text departAirportName:]
+        [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.arriveAirportCell.generalValue.titleLabel.text departAirportName:self.departAirportCell.generalValue.titleLabel.text];
     }
-    [[self navigationController] popViewControllerAnimated:YES];
+    NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:takeOffSubscription];
+    NSLog(@"%@",tempD);
+    //[[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (IBAction)moreOptionClicked:(id)sender
