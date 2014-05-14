@@ -341,7 +341,7 @@
         orderID = response.tempOrderID;
         
         NSLog(@"订单结果 = %@",response.resultMsg);
-        NSLog(@"订单ID = %@",response.orderID);
+        NSLog(@"订单ID = %@",response.tempOrderID);
 
         //pay
         //NSDictionary* dicR = [self sendFlightPayPost];

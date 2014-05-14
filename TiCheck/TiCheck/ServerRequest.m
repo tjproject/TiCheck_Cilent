@@ -27,7 +27,8 @@ const NSArray *___SubscriptionRequestType;
 #define cSubscriptionRequestTypeGet (___SubscriptionRequestType == nil ? ___SubscriptionRequestType = [[NSArray alloc] initWithObjects:\
 @"create",\
 @"cancel",\
-@"modify", nil] : ___SubscriptionRequestType)
+@"modify",\
+@"info", nil] : ___SubscriptionRequestType)
 
 #define cSubscriptionRequestTypeString(type) ([cSubscriptionRequestTypeGet objectAtIndex:type])
 #define cSubscriptionRequestTypeEnum(string) ([cSubscriptionRequestTypeGet indexOfObject:string])

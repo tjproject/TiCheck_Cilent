@@ -9,6 +9,30 @@
 #import "BookListViewController.h"
 #import "PersonalOrderTableViewCell.h"
 #import "TickectInfoViewController.h"
+#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
+#import "ASINetworkQueue.h"
+#import "SoapRequest.h"
+
+#import "ConfigurationHelper.h"
+#import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
+#import "NSString+EnumTransform.h"
+#import "DomesticCity.h"
+#import "Flight.h"
+#import "CraftType.h"
+#import "Airline.h"
+#import "Airport.h"
+#import "Passenger.h"
+#import "Contact.h"
+#import "CreditCardInfo.h"
+#import "UserData.h"
+
+#import "ConfigurationHelper.h"
+#import "ServerCommunicator.h"
+
+#import "ServerRequest.h"
+
 
 #define SECTION_BUTTON_TAG_START_INDEX 1000;
 #define EXPAND_BUTTON_TAG_START_INDEX 2000;
@@ -22,6 +46,8 @@
     NSMutableArray* isCellExpanded;
     
     NSMutableArray* sectionViewList;
+    
+    
 }
 @end
 
@@ -44,12 +70,28 @@
     self.navigationItem.title=@"我的订阅";
     
     [self initBookOrderList];
+    
+    [self initSubscriptionInfoData];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initSubscriptionInfoData
+{
+    //get subscription data for server
+    
+    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
+    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+    
+    if (returnCode == USER_LOGIN_SUCCESS)
+    {
+        
+    }
+    
 }
 
 - (void)initBookOrderList

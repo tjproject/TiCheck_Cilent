@@ -161,6 +161,24 @@
     return [self responseDataToJSONDictionary:responseData];
 }
 
+- (NSDictionary *)getSubscriptionInfo
+{
+    
+    //NSDictionary *subscriptionInfo = [subscription dictionaryWithSubscriptionOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    //NSData *subscriptionInfoJsonData = [NSJSONSerialization dataWithJSONObject:subscriptionInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"User=%@",[[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerSubscriptionResponseWithServerURL:SERVER_URL requestType:Get_Subscription jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
+
 - (NSDictionary *)currentUserJsonDataDictionaryWithAccount:(BOOL)withAccount
 {
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UserData sharedUserData].email, @"Email", [UserData sharedUserData].password, @"Password", nil];
