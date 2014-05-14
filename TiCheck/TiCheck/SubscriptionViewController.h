@@ -10,4 +10,10 @@
 
 @interface SubscriptionViewController : UIViewController
 
+@property (strong, nonatomic) NSString *startDate;
+@property (strong, nonatomic) NSString *endDate;
+
+@property (strong, nonatomic) NSString *fromCity;
+@property (strong, nonatomic) NSString *toCity;
+
 @end

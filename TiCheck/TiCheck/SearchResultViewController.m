@@ -20,6 +20,7 @@
 #import "TickectInfoViewController.h"
 #import "PersonalCenterViewController.h"
 #import "ScreeningViewController.h"
+#import "SubscriptionViewController.h"
 
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
@@ -342,6 +343,14 @@ static float scrollViewHeight=169;
         sVC.fromCity = [self.searchOptionDic valueForKey:FROM_CITY_KEY];
         sVC.toCity = [self.searchOptionDic valueForKey:TO_CITY_KEY];
         sVC.takeOffDate = [self.searchOptionDic valueForKey:TAKE_OFF_TIME_KEY];
+    }
+    else if([[segue identifier] isEqualToString:@"BookingSegue"])
+    {
+        SubscriptionViewController *sbscpVC = [segue destinationViewController];
+        sbscpVC.startDate = [self.searchOptionDic valueForKey:TAKE_OFF_TIME_KEY];
+        sbscpVC.endDate = [self.searchOptionDic valueForKey:TAKE_OFF_TIME_KEY];
+        sbscpVC.fromCity = [self.searchOptionDic valueForKey:FROM_CITY_KEY];
+        sbscpVC.toCity = [self.searchOptionDic valueForKey:TO_CITY_KEY];
     }
 }
 

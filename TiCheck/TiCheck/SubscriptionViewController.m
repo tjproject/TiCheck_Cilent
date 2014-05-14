@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     EndDate
 };
 
-@interface SubscriptionViewController () <UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, DateSelectViewControllerDelegate, CitySelectViewControllerDelegate>
+@interface SubscriptionViewController () <UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, DateSelectViewControllerDelegate, CitySelectViewControllerDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *subscribeOptionTableView;
 @property (weak, nonatomic) IBOutlet UIToolbar *optionSelectToolBar;
@@ -50,7 +50,6 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -93,7 +92,10 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     }
     NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:takeOffSubscription];
     NSLog(@"%@",tempD);
-    //[[self navigationController] popViewControllerAnimated:YES];
+    
+    UIAlertView *tempAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"订阅成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    tempAlert.delegate = self;
+    [tempAlert show];
 }
 
 - (IBAction)moreOptionClicked:(id)sender
@@ -350,6 +352,8 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         self.fromToCell = fromToCell;
         UITapGestureRecognizer *fromSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
         UITapGestureRecognizer *toSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
+        self.fromToCell.fromCityLabel.text = _fromCity;
+        self.fromToCell.toCityLabel.text = _toCity;
         [self.fromToCell.fromCityLabel addGestureRecognizer:fromSelectGesture];
         [self.fromToCell.toCityLabel addGestureRecognizer:toSelectGesture];
 //        self.fromToCell.fromCityLabel.text = [SearchOption sharedSearchOption].departCityName;
@@ -364,6 +368,8 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         }
         
         self.takeOffDateIntervalCell = takeOffDateIntervalCell;
+        self.takeOffDateIntervalCell.beginDate.text = _startDate;
+        self.takeOffDateIntervalCell.endDate.text = _endDate;
         UITapGestureRecognizer *takeOffBeginDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
         UITapGestureRecognizer *takeOffEndDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
         [self.takeOffDateIntervalCell.beginDate addGestureRecognizer:takeOffBeginDateSelectGesture];
@@ -600,6 +606,13 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     [self showToolBarAndPickerWithAnimation:YES];
 }
 
+
+#pragma mark - UIAlertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    if (buttonIndex == 0)
+        [[self navigationController] popViewControllerAnimated:YES];
+}
 
 /*
 #pragma mark - Navigation
