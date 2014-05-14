@@ -53,4 +53,17 @@ typedef NS_ENUM(NSInteger, ServerSubscriptionRequestType) {
                                              requestType:(ServerSubscriptionRequestType)subscriptionRequestType
                                                 jsonData:(NSData *)jsonData;
 
+///**
+// *  同步获取付款界面
+// *
+// *  @param serverUrl               请求服务器url
+// *  @param subscriptionRequestType 请求类型
+// *  @param jsonData                请求的json数据
+// *
+// *  @return 请求返回数据
+// */
+//+ (NSData *)getOTAPayResponseWithServerURL:(NSString *)serverUrl
+//                                           requestType:(ServerSubscriptionRequestType)subscriptionRequestType
+//                                              jsonData:(NSData *)jsonData;
+
 @end

@@ -86,6 +86,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         NSArray *departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
 //        [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.airportCell.generalValue.titleLabel.text departAirportName:]
     }
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (IBAction)moreOptionClicked:(id)sender

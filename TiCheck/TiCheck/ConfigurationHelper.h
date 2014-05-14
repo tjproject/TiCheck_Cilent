@@ -16,6 +16,7 @@
 #define XML_NAME_SPACE @"http://ctrip.com/"
 #define WEB_SERVICE_NAME @"Request"
 #define SERVER_URL @"http://www.ticheck.com/server/index.php"
+#define BUSINESS_TYPE @"Flight"
 
 // 用于测试
 #define TEMPORARY_UNIQUE_UID @"a19265a5-21c1-40a1-841d-e9605bfe53a7"
@@ -27,7 +28,8 @@ typedef NS_ENUM(NSUInteger, FlightRequestType) {
     FlightOrderListRequest,
     FlightViewOrderRequest,
     FlightStatusChangedOrdersRequest,
-    UserUniqueID
+    UserUniqueID,
+    PaymentEntry
 };
 
 const NSArray *___FlightRequestType;
@@ -39,7 +41,8 @@ const NSArray *___FlightRequestType;
 @"OTA_FltOrderList",\
 @"OTA_FltViewOrder",\
 @"OTA_GetStatusChangedOrders",\
-@"OTA_UserUniqueID", nil] : ___FlightRequestType)
+@"OTA_UserUniqueID",\
+@"PaymentEntry.aspx", nil] : ___FlightRequestType)
 
 #define cFlightRequestTypeString(type) ([cFlightRequestTypeGet objectAtIndex:type])
 #define cFlightRequestTypeEnum(string) ([cFlightRequestTypeGet indexOfObject:string])
@@ -68,6 +71,14 @@ const NSArray *___FlightRequestType;
 - (NSString *)getHeaderStringWithRequestType:(FlightRequestType)requestType;
 
 /**
+ *  获取界面输入的联盟信息对应的字符串URL
+ *
+ *  @param requestType 请求的类型
+ *
+ *  @return 生成Header
+ */
+- (NSString *)getURLStringWithRequestType:(FlightRequestType)requestType;
+/**
  *  MD5 32位加密算法
  *
  *  @param string 待加密的字串
@@ -76,5 +87,13 @@ const NSArray *___FlightRequestType;
  */
 - (NSString *)md5:(NSString *)string;
 
+/**
+ *  MD5 32位加密算法，结果转换为大写
+ *
+ *  @param string 待加密的字串
+ *
+ *  @return 加密后并转换为大写的字串
+ */
+- (NSString *)MD5ExtWithUpperCase:(NSString *)string;
 
 @end

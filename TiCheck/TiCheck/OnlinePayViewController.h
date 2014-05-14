@@ -10,4 +10,6 @@
 
 @interface OnlinePayViewController : UIViewController
 
+@property (strong, nonatomic) NSURL *url;
+@property (strong, nonatomic) NSString *tempOrderID;
 @end
