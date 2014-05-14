@@ -294,8 +294,8 @@
 //    NSString *strURL1 = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx?AllianceId=%d&SID=%d&TimeStamp=%@&Signature=%@&RequestType=%@",API_URL,BUSINESS_TYPE,ALLIANCE_ID,STATION_ID,timeStamp,signature,PAY_REQUEST_TYPE];// stringByAddingPercentEscapesUsingEncoding:];
     
     NSString *strURLTrail = [[ConfigurationHelper sharedConfigurationHelper] getURLStringWithRequestType:PaymentEntry];
-    NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",orderID,@"1",@"ZH",@"test"];
-    strURLTrail = [NSString stringWithFormat:@"%@&%@", strURLTrail, body];
+    //NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",orderID,@"1",@"ZH",@"test"];
+    //strURLTrail = [NSString stringWithFormat:@"%@&%@", strURLTrail, body];
     NSString *strURL = [NSString stringWithFormat:@"%@%@/mobilepayentry.aspx%@",API_URL,BUSINESS_TYPE,strURLTrail];
     NSURL *url = [NSURL URLWithString:strURL];
     
