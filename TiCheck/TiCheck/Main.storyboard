@@ -2053,7 +2053,7 @@
                                                     <color key="textColor" red="0.45555382970000002" green="0.45554021" blue="0.4555479288" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="13B7258F-9162-4429-A7F9-CBD01B28EAB8" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BCC333F1-BB99-43FF-B5F4-CFE1E875821D" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
                                                     <rect key="frame" x="276" y="0.0" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2143,7 +2143,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="13B7258F-9162-4429-A7F9-CBD01B28EAB8" width="24" height="24">
+        <image name="BCC333F1-BB99-43FF-B5F4-CFE1E875821D" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
