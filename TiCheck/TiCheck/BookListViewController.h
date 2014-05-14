@@ -11,5 +11,5 @@
 @interface BookListViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView* bookListTableView;
-
+@property (strong, nonatomic) NSMutableArray *subscriptionArray;
 @end

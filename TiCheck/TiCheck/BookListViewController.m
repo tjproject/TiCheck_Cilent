@@ -89,9 +89,19 @@
     
     if (returnCode == USER_LOGIN_SUCCESS)
     {
+        self.subscriptionArray = [[NSMutableArray alloc] init];
         
+        //get data
+        NSArray *dataArray = returnDic[@"Data"];
+        for(int i = 0; i < dataArray.count; i++)
+        {
+            NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
+            //
+            //TODO: change dictionary data to subscription entity stored in subscriptionArray.
+            //      research flight and display them in table view
+            //      add edit function for subscription
+        }
     }
-    
 }
 
 - (void)initBookOrderList

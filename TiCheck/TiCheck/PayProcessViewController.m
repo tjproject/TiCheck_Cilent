@@ -152,8 +152,10 @@
     
     
     //TODO: when clicked, jump to a web page to continue the pay process
+    
     //get userid
     [self sendUniqueIDRequest];
+    
     //create temp flight order
     [self sendFlightSaveOrderRequest];
     
@@ -162,9 +164,6 @@
     
     //get order view
     //[self sendOrderViewRequest];
-    
-    //pay
-    //[self sendFlightPayPost];
     
 }
 
@@ -181,7 +180,7 @@
                                                      xmlNameSpace:XML_NAME_SPACE
                                                    webServiceName:WEB_SERVICE_NAME
                                                    xmlRequestBody:requestXML];
-    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"3", @"IS_GET_ID", nil];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"3", @"asiRequestType", nil];
     
     [asiOrderViewRequest setUserInfo:mainUserInfo];
     [asiOrderViewRequest setDelegate:self];
@@ -214,7 +213,7 @@
                                                        xmlNameSpace:XML_NAME_SPACE
                                                      webServiceName:WEB_SERVICE_NAME
                                                      xmlRequestBody:requestXML];
-    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"2", @"IS_GET_ID", nil];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"2", @"asiRequestType", nil];
     
     [asiOrderListRequest setUserInfo:mainUserInfo];
     [asiOrderListRequest setDelegate:self];
@@ -230,7 +229,7 @@
                                                     xmlNameSpace:XML_NAME_SPACE
                                                   webServiceName:WEB_SERVICE_NAME
                                                   xmlRequestBody:requsetXML];
-    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"0", @"IS_GET_ID", nil];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"0", @"asiRequestType", nil];
     
     [asiUniqueIDRequest setUserInfo:mainUserInfo];
     [asiUniqueIDRequest setDelegate:self];
@@ -242,7 +241,6 @@
 - (void)sendFlightSaveOrderRequest
 {
     //添加机票订购信息
-    
     NSArray *flightList = [NSArray arrayWithObjects:self.selectFlight, nil];
     
     //预先设置 乘客
@@ -263,7 +261,7 @@
     //联系人
     Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
     
-    //差 uniqueUID
+    //生成请求
     OTAFlightSaveOrder *orderRequest=  [[OTAFlightSaveOrder alloc] initWithUserUniqueUID:[UserData sharedUserData].uniqueID AgeType:ADU flightList:flightList passengerList:pList contact:contact];
     
     NSString *requestXML = [orderRequest generateOTAFlightSaveOrderXMLRequest];
@@ -273,8 +271,8 @@
                                                   xmlNameSpace:XML_NAME_SPACE
                                                 webServiceName:WEB_SERVICE_NAME
                                                 xmlRequestBody:requestXML];
-    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"IS_GET_ID", nil];
-    
+    //异步发送
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"asiRequestType", nil];
     [asiFlightOrderRequest setUserInfo:mainUserInfo];
     [asiFlightOrderRequest setDelegate:self];
     [asiFlightOrderRequest startAsynchronous];
@@ -285,41 +283,13 @@
 - (void)sendFlightPayPost
 {
     //http://{API_Url}/{BusinessType}/MobilePayEntry.aspx?AllianceId={AllianceId}&SID={SID}&TimeStamp={TimeStamp}&Signature={Signature}&RequestType={RequestType}
-//    NSString *timeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-//    NSString *secretKeyMD5 = [[ConfigurationHelper sharedConfigurationHelper] MD5ExtWithUpperCase:STATION_KEY];
-//    NSString *keyString = [timeStamp stringByAppendingFormat:@"%d%@%d%@", ALLIANCE_ID, secretKeyMD5, STATION_ID, PAY_REQUEST_TYPE];
-//    NSString *signature = [[ConfigurationHelper sharedConfigurationHelper] MD5ExtWithUpperCase:keyString];
-//    
-//    
-//    NSString *strURL1 = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx?AllianceId=%d&SID=%d&TimeStamp=%@&Signature=%@&RequestType=%@",API_URL,BUSINESS_TYPE,ALLIANCE_ID,STATION_ID,timeStamp,signature,PAY_REQUEST_TYPE];// stringByAddingPercentEscapesUsingEncoding:];
-    
     NSString *strURLTrail = [[ConfigurationHelper sharedConfigurationHelper] getURLStringWithRequestType:PaymentEntry];
-    //NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",orderID,@"1",@"ZH",@"test"];
-    //strURLTrail = [NSString stringWithFormat:@"%@&%@", strURLTrail, body];
     NSString *strURL = [NSString stringWithFormat:@"%@%@/mobilepayentry.aspx%@",API_URL,BUSINESS_TYPE,strURLTrail];
     NSURL *url = [NSURL URLWithString:strURL];
-    
     OnlinePayViewController *opVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OnlinePayViewController"];
-    NSLog(@"%@", strURL);
     opVC.url = url;
     opVC.tempOrderID = orderID;
-    //peVC.navigationItem.title=@"修改联系人";
     [self.navigationController pushViewController:opVC animated:YES];
-
-    
-    
-//    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
-//    [req setCachePolicy:NSURLCacheStorageAllowedInMemoryOnly];
-//    
-//    [req setHTTPMethod:@"POST"];
-//    //[req setHTTPBody:jsonData];
-//    
-//    NSURLResponse *response = nil;
-//    NSError *error = [[NSError alloc] init];
-//    NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error];
-//    NSString *resultS = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
-    //return [self responseDataToJSONDictionary:result];
-    //return result;
 }
 
 #pragma mark - ASIHTTPRequest Delegate
@@ -327,7 +297,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     //获取user id
-    if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"0"])
+    if([request.userInfo[@"asiRequestType"] isEqualToString:@"0"])
     {
         OTAUserUniqueIDResponse *response = [[OTAUserUniqueIDResponse alloc] initWithOTAUserUniqueIDResponse:[request responseString]];
         if (response.retCode == 0) {
@@ -335,8 +305,8 @@
             [UserData sharedUserData].uniqueID = response.uniqueUID;
         }
     }
-    //订单
-    else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"1"])
+    //订单支付请求
+    else if([request.userInfo[@"asiRequestType"] isEqualToString:@"1"])
     {
         OTAFlightSaveOrderResponse *response = [[OTAFlightSaveOrderResponse alloc] initWithOTASaveOrderResponse:[request responseString]];
         orderID = response.tempOrderID;
@@ -344,26 +314,22 @@
         NSLog(@"订单结果 = %@",response.resultMsg);
         NSLog(@"订单ID = %@",response.tempOrderID);
 
-        //pay
-        //NSDictionary* dicR = [self sendFlightPayPost];
+        //pay － 获取临时订单号后跳转支付页面
         [self sendFlightPayPost];
     }
-    else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"2"])
+    //订单列表查询请求 － 查找携程数据库
+    else if([request.userInfo[@"asiRequestType"] isEqualToString:@"2"])
     {
         OTAFlightOrderListResponse *response = [[OTAFlightOrderListResponse alloc] initWithOTAFlightOrderListResponse:[request responseString]];
         NSLog(@"查询订单结果 = %i",response.recordsCount);
         
         NSArray *temp=response.orderList;
     }
-    else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"3"])
-        
+    //单张订单详情查询请求 － 查找携程数据库
+    else if([request.userInfo[@"asiRequestType"] isEqualToString:@"3"])
     {
         OTAFlightViewOrder *response = [[OTAFlightViewOrderResponse alloc] initWithOTAFlightViewOrderResponse:[request responseString]];
-        //NSLog(@"查询订单结果 = %i",response.recordsCount);
-        
-        //NSArray *temp=response.orderList;
     }
-    //
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request

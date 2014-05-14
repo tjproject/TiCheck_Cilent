@@ -57,22 +57,22 @@
 //    NSString *sid = [NSString stringWithFormat:@"%@=%d", STATION_ID_KEY, STATION_ID];
 //    NSString *nowTimeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 //    NSString *timestamp = [NSString stringWithFormat:@"%@=%@", TIMESTAMP_KEY, nowTimeStamp];
-//    NSArray *parameters = [NSArray array];
-//    
-//    
+//    NSArray *parameters = [NSArray array];  
     return nil;
 }
 
 - (void)loadWebUrl
 {
     NSURL *url = self.url;
+    
+    // set the post body
+    // and post body encode must be GB2312
     NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"http://www.baidu.com",@"test",@"http://www.baidu.com",@"test",self.tempOrderID,@"1",@"ZH",@"test"];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     [request setHTTPMethod: @"POST"];
-    [request setHTTPBody: [self UTF8_To_GB2312:body]]; //] dataUsingEncoding: NSUTF8StringEncoding]];
-    //[request setHTTPBody: [body dataUsingEncoding: NSUTF8StringEncoding]];
+    [request setHTTPBody: [self UTF8_To_GB2312:body]];
     [self.onlinePayWebView loadRequest: request];
 }
 

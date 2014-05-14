@@ -43,17 +43,12 @@
 
 - (NSString *)getURLStringWithRequestType:(FlightRequestType)requestType
  {
-    //http://{API_Url}/{BusinessType}/MobilePayEntry.aspx?AllianceId={AllianceId}&SID={SID}&TimeStamp={TimeStamp}&Signature={Signature}&RequestType={RequestType}
-     
-    //requestType = [requestType lowercaseString];
+    // the request type must be lower case when calculate the signature
     NSString *timeStamp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
     NSString *secretKeyMD5 = [self MD5ExtWithUpperCase:STATION_KEY];
     NSString *keyString = [timeStamp stringByAppendingFormat:@"%d%@%d%@", ALLIANCE_ID, secretKeyMD5, STATION_ID,cFlightRequestTypeString(requestType) ];
     NSString *signature = [self MD5ExtWithUpperCase:keyString];
-    
     NSString *header = [NSString stringWithFormat:@"?AllianceID=%d&SID=%d&TimeStamp=%@&Signature=%@&RequestType=%@", ALLIANCE_ID, STATION_ID, timeStamp, signature, cFlightRequestTypeString(requestType)];
-     NSLog(@"%@", header);
-    //NSString *header = [NSString stringWithFormat:@"?AllianceID=%d&SID=%d&TimeStamp=%@&Signature=%@", ALLIANCE_ID, STATION_ID, timeStamp, signature];
     return  header;
 }
 
