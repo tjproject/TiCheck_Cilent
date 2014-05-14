@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bEp-90-t0n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bEp-90-t0n">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -1199,7 +1199,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fbl-Vg-ZDH">
-                                <rect key="frame" x="0.0" y="118" width="320" height="395"/>
+                                <rect key="frame" x="0.0" y="163" width="320" height="350"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1310,6 +1310,21 @@
                                     <outlet property="delegate" destination="W4w-de-f2W" id="2y5-T1-N7e"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RQH-KJ-zBq">
+                                <rect key="frame" x="106" y="124" width="108" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="ResultViewBookButton">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="bookButtonPressed:" destination="W4w-de-f2W" eventType="touchUpInside" id="9Mg-On-ZPH"/>
+                                    <segue destination="UZ7-ZQ-98e" kind="push" id="DMt-15-A6C"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="ThK-Ax-j5m">
+                                <rect key="frame" x="0.0" y="162" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -2038,7 +2053,7 @@
                                                     <color key="textColor" red="0.45555382970000002" green="0.45554021" blue="0.4555479288" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="30561E04-482C-4AF1-8F48-C0414D6384A7" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="13B7258F-9162-4429-A7F9-CBD01B28EAB8" translatesAutoresizingMaskIntoConstraints="NO" id="C97-XG-zCA">
                                                     <rect key="frame" x="276" y="0.0" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -2128,7 +2143,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="30561E04-482C-4AF1-8F48-C0414D6384A7" width="24" height="24">
+        <image name="13B7258F-9162-4429-A7F9-CBD01B28EAB8" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -2228,6 +2243,8 @@ KBMtAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAEy8
         <image name="LowPriceButton" width="276" height="49"/>
         <image name="MyOrderButton" width="276" height="49"/>
         <image name="PayWay" width="320" height="33"/>
+        <image name="ResultViewBookButton" width="97" height="31"/>
+        <image name="Separator" width="320" height="1"/>
         <image name="ToArrow" width="24" height="24"/>
         <image name="foldPrice" width="160" height="55"/>
         <image name="login" width="276" height="46"/>
@@ -2245,6 +2262,7 @@ KBMtAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAEy8
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="DMt-15-A6C"/>
         <segue reference="Uq6-Xt-5UA"/>
     </inferredMetricsTieBreakers>
 </document>
