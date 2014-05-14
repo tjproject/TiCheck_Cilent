@@ -22,7 +22,9 @@ typedef NS_ENUM(NSInteger, ServerUserRequestType) {
 typedef NS_ENUM(NSInteger, ServerSubscriptionRequestType) {
     Create_Subscription = 0,
     Cancel_Subscription,
-    Modify_Subscription
+    Modify_Subscription,
+    Get_Subscription
+    
 };
 
 @interface ServerRequest : NSObject

@@ -85,9 +85,9 @@
     _TIVC_landTimeLabel.text = [NSString showingStringFormatWithString:_selectFlight.arrivalTime];
     
     _TIVC_fromAirportLabel = [[UILabel alloc] initWithFrame:CGRectMake(105, 180, 50, 25)];
-    _TIVC_fromAirportLabel.text = [NSString stringWithFormat:@"%@%d",_selectFlight.departPortShortName,_selectFlight.departPortBuildingID];
+    _TIVC_fromAirportLabel.text = [NSString stringWithFormat:@"%@%ld",_selectFlight.departPortShortName,_selectFlight.departPortBuildingID];
     _TIVC_toAirportLabel = [[UILabel alloc] initWithFrame:CGRectMake(175, 180, 50, 25)];
-    _TIVC_toAirportLabel.text = [NSString stringWithFormat:@"%@%d",_selectFlight.arrivePortShortName,_selectFlight.arrivePortBuildingID];
+    _TIVC_toAirportLabel.text = [NSString stringWithFormat:@"%@%ld",_selectFlight.arrivePortShortName,_selectFlight.arrivePortBuildingID];
     NSLog(@"%@",_selectFlight.arrivePortBuildingName);
     
     _TIVC_ticketPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 232, 50, 25)];

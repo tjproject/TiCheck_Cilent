@@ -126,4 +126,16 @@
  */
 - (NSDictionary *)cancelSubscriptionWithSubscription:(Subscription *)subscription;
 
+
+/**
+ *  获取订阅
+ *
+ *  @return 返回消息的Dictionary
+ */
+- (NSDictionary *)getSubscriptionInfo;//:(Subscription *)subscription;
+
+
+
+
+
 @end
