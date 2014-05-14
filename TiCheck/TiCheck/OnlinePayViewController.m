@@ -66,15 +66,16 @@
 - (void)loadWebUrl
 {
     NSURL *url = self.url;
-    //NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",self.tempOrderID,@"1",@"ZH",@"test"];
+    NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",self.tempOrderID,@"1",@"ZH",@"test"];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL: url];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     [request setHTTPMethod: @"POST"];
-    //[request setHTTPBody: [self UTF8_To_GB2312:body]]; //] dataUsingEncoding: NSUTF8StringEncoding]];
-    //[request setHTTPBody: [body dataUsingEncoding: NSUTF8StringEncoding]];
+//    [request setHTTPBody: [self UTF8_To_GB2312:body]]; //] dataUsingEncoding: NSUTF8StringEncoding]];
+    [request setHTTPBody: [body dataUsingEncoding: NSUTF8StringEncoding]];
     [self.onlinePayWebView loadRequest: request];
 }
+
 - (NSData*)UTF8_To_GB2312:(NSString*)utf8string
 {
     NSStringEncoding encoding =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);

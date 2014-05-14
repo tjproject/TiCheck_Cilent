@@ -52,7 +52,7 @@
     NSString *signature = [self MD5ExtWithUpperCase:keyString];
     
     NSString *header = [NSString stringWithFormat:@"?AllianceID=%d&SID=%d&TimeStamp=%@&Signature=%@&RequestType=%@", ALLIANCE_ID, STATION_ID, timeStamp, signature, cFlightRequestTypeString(requestType)];
-    
+     NSLog(@"%@", header);
     //NSString *header = [NSString stringWithFormat:@"?AllianceID=%d&SID=%d&TimeStamp=%@&Signature=%@", ALLIANCE_ID, STATION_ID, timeStamp, signature];
     return  header;
 }

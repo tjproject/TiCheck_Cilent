@@ -26,7 +26,7 @@
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
-    [APIResourceHelper sharedResourceHelper];
+    //[APIResourceHelper sharedResourceHelper];
     
     Reachability *reachability = [Reachability reachabilityWithHostname:@"tac.sbhhbs.com"];
     NetworkStatus netStatus = [reachability currentReachabilityStatus];

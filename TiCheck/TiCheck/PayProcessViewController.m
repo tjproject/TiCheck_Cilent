@@ -153,7 +153,7 @@
     
     //TODO: when clicked, jump to a web page to continue the pay process
     //get userid
-    //[self sendUniqueIDRequest];
+    [self sendUniqueIDRequest];
     //create temp flight order
     [self sendFlightSaveOrderRequest];
     
@@ -296,10 +296,11 @@
     NSString *strURLTrail = [[ConfigurationHelper sharedConfigurationHelper] getURLStringWithRequestType:PaymentEntry];
     NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"www.baidu.com",@"test",@"www.baidu.com",@"test",orderID,@"1",@"ZH",@"test"];
     strURLTrail = [NSString stringWithFormat:@"%@&%@", strURLTrail, body];
-    NSString *strURL = [NSString stringWithFormat:@"%@%@/MobilePayEntry.aspx%@",API_URL,BUSINESS_TYPE,strURLTrail];
+    NSString *strURL = [NSString stringWithFormat:@"%@%@/mobilepayentry.aspx%@",API_URL,BUSINESS_TYPE,strURLTrail];
     NSURL *url = [NSURL URLWithString:strURL];
     
     OnlinePayViewController *opVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OnlinePayViewController"];
+    NSLog(@"%@", strURL);
     opVC.url = url;
     opVC.tempOrderID = orderID;
     //peVC.navigationItem.title=@"修改联系人";
@@ -334,8 +335,8 @@
             [UserData sharedUserData].uniqueID = response.uniqueUID;
         }
     }
+    //订单
     else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"1"])
-
     {
         OTAFlightSaveOrderResponse *response = [[OTAFlightSaveOrderResponse alloc] initWithOTASaveOrderResponse:[request responseString]];
         orderID = response.tempOrderID;
@@ -348,7 +349,6 @@
         [self sendFlightPayPost];
     }
     else if([request.userInfo[@"IS_GET_ID"] isEqualToString:@"2"])
-        
     {
         OTAFlightOrderListResponse *response = [[OTAFlightOrderListResponse alloc] initWithOTAFlightOrderListResponse:[request responseString]];
         NSLog(@"查询订单结果 = %i",response.recordsCount);

@@ -42,7 +42,7 @@ const NSArray *___FlightRequestType;
 @"OTA_FltViewOrder",\
 @"OTA_GetStatusChangedOrders",\
 @"OTA_UserUniqueID",\
-@"PaymentEntry.aspx", nil] : ___FlightRequestType)
+@"mobilepayentry", nil] : ___FlightRequestType)
 
 #define cFlightRequestTypeString(type) ([cFlightRequestTypeGet objectAtIndex:type])
 #define cFlightRequestTypeEnum(string) ([cFlightRequestTypeGet indexOfObject:string])
