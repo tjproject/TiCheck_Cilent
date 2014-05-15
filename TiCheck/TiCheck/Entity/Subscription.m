@@ -52,6 +52,28 @@
     return self;
 }
 
+- (id)initWithDepartCityCode:(NSString *)departCityCode
+              arriveCityCode:(NSString *)arriveCityCode
+               startDate:(NSString *)startDateStr
+                 endDate:(NSString *)endDateStr
+{
+    if (self = [super init]) {
+        self.departCity         = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:departCityCode];
+        self.arriveCity         = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:arriveCityCode];
+        self.startDate          = [NSString dateFormatWithString:startDateStr];
+        self.endDate            = [NSString dateFormatWithString:endDateStr];
+        
+        self.earliestDepartTime = @"";
+        self.latestDepartTime   = @"";
+        self.airline            = nil;
+        self.arriveAirport      = nil;
+        self.departAirport      = nil;
+    }
+    
+    return self;
+}
+
+
 - (void)modifyMoreOptionWithEarliestDepartTime:(NSString *)earliestDepartTime
                               LatestDepartTime:(NSString *)latestDepartTime
                               airlineShortName:(NSString *)airlineShortName

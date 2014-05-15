@@ -85,6 +85,23 @@
                  endDate:(NSString *)endDateStr;
 
 /**
+ *  采用必填信息初始化，选填信息全部设置为空
+ *
+ *  @param departCityCode 出发城市名编号
+ *  @param arriveCityCode 到达城市名编号
+ *  @param startDate      订阅的开始时间字符串
+ *  @param endDate        订阅的结束时间字符串
+ *
+ *  @return 初始化的订阅类
+ */
+- (id)initWithDepartCityCode:(NSString *)departCityCode
+              arriveCityCode:(NSString *)arriveCityCode
+                   startDate:(NSString *)startDateStr
+                     endDate:(NSString *)endDateStr;
+
+
+
+/**
  *  添加更多选项，如果不限则传空字符串
  *
  *  @param earliestDepartTime 出发最早时间，如08:00:00

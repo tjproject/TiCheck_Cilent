@@ -31,6 +31,7 @@
 #import "ConfigurationHelper.h"
 #import "ServerCommunicator.h"
 
+#import "Subscription.h"
 #import "ServerRequest.h"
 
 
@@ -96,10 +97,24 @@
         for(int i = 0; i < dataArray.count; i++)
         {
             NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
+//            ‘DepartCity' : ’SHA',
+//            ‘ArriveCity' :’DYG',
+//            'StartDate' : '2014-7-25',
+//            ‘EndDate' : '2014-7-25',
+//            ‘EarliestDepartTime’ : ‘08:00:00’,
+//            ‘LatestDepartTime’  : ‘12:00:00’,
+//            ‘AirlineDibitCode’ : ‘CA’,
+//            ’ArriveAirport’ : ’PVG’,
+//            ‘DepartAirport’ : ‘SHA’,
             //
             //TODO: change dictionary data to subscription entity stored in subscriptionArray.
-            //      research flight and display them in table view
+            //      research flight by using subscription info and display them in table view
             //      add edit function for subscription
+            Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempDictionary[@"DepartCity"] arriveCityCode:tempDictionary[@"ArriveCity"] startDate:tempDictionary[@"StartDate"] endDate:tempDictionary[@"EndDate"]];
+            
+            
+            
+            [self.subscriptionArray addObject:tempSubscription];
         }
     }
 }
@@ -129,7 +144,7 @@
 #pragma mark - UITableView datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return bookOrderList.count;
+    return  self.subscriptionArray.count;  //bookOrderList.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -225,7 +240,13 @@
         //add sectionbutton for book change
         UIButton* sectionButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
         [sectionButton setFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
-        [sectionButton setTitle:@"2013-04-13 至 2013-04-25 上海到北京" forState:UIControlStateNormal];
+        
+        //section title name
+        NSString *title = [self getSectionTitleWithSubscription:[self.subscriptionArray objectAtIndex:section]];
+        [sectionButton setTitle:title forState:UIControlStateNormal];
+        
+        
+        
         [sectionButton setTitleColor:[UIColor colorWithRed:12/255.0 green:162/255.0 blue:224/255.0 alpha:1] forState:UIControlStateNormal];
         
         sectionButton.titleLabel.font = [UIFont fontWithName:@"Roboto-Regular" size:12.f];
@@ -314,6 +335,30 @@
         //[self.bookListTableView beginUpdates];
         [self.bookListTableView deleteRowsAtIndexPaths:changedCellIndexArray withRowAnimation:UITableViewRowAnimationTop];
         //[self.bookListTableView endUpdates];
+    }
+}
+
+- (NSString*)getSectionTitleWithSubscription:(Subscription*) subscription
+{
+    //@"2013-04-13 至 2013-04-25 上海到北京"
+    //格式化日期时间
+    if (subscription!=nil) {
+        
+    
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *result = [dateformatter stringFromDate:subscription.startDate];
+    result = [result stringByAppendingString:[NSString stringWithFormat:@" 至 %@ ", [dateformatter stringFromDate:subscription.endDate]]];
+    
+    NSString *cityStr = subscription.departCity.cityName;
+    cityStr = [cityStr stringByAppendingString:[NSString stringWithFormat:@"到%@", subscription.arriveCity.cityName]];
+    
+    result = [result stringByAppendingString:cityStr];
+    return result;
+    }
+    else
+    {
+        return nil;
     }
 }
 
