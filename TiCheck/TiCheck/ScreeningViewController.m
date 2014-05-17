@@ -16,6 +16,11 @@
 @interface ScreeningViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
 {
     UIView *darkUILayer;
+    NSString *mAirlineText;
+    NSString *mSeatText;
+    NSString *mFromText;
+    NSString *mToText;
+    NSString *mTakeOffText;
 }
 @property (weak, nonatomic) IBOutlet UITableView *searchOptionTableView;
 
@@ -249,31 +254,31 @@
             // Airline选项
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airline"];
             generalCell.generalLabel.text = @"航空公司";
-            [generalCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
+            [generalCell.generalValue setTitle:mAirlineText forState:UIControlStateNormal];
             [generalCell.generalValue setImage:[UIImage imageNamed:@"EA_Logo"] forState:UIControlStateNormal];
             self.airlineCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 1) {
             // 舱位选项
             generalCell.generalIcon.image = [UIImage imageNamed:@"Seat"];
             generalCell.generalLabel.text = @"舱位";
-            generalCell.generalValue.titleLabel.text = @"不限";
+            generalCell.generalValue.titleLabel.text = mSeatText;
             self.seatCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 2) {
             // 机场选择
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
             generalCell.generalLabel.text = @"出发机场";
-            generalCell.generalValue.titleLabel.text = @"不限";
+            generalCell.generalValue.titleLabel.text = mFromText;
             self.departAirportCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 3) {
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
             generalCell.generalLabel.text = @"到达机场";
-            generalCell.generalValue.titleLabel.text = @"不限";
+            generalCell.generalValue.titleLabel.text = mToText;
             self.arriveAirportCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 4) {
             // 起飞时间段
             generalCell.generalIcon.image = [UIImage imageNamed:@"TakeOffTime"];
             generalCell.generalLabel.text = @"起飞时间";
-            generalCell.generalValue.titleLabel.text = @"不限";
+            generalCell.generalValue.titleLabel.text = mTakeOffText;
             self.takeOffTimeCell = generalCell;
         }
         
@@ -597,6 +602,16 @@
         }
         vc.searchOptionDic = optionDic;
     }
+}
+
+#pragma mark - public method
+- (void)setAirplineCellTextWithString:(NSString *)airlineText SeatCell:(NSString *)seatText FromCell:(NSString *)fromText ToCell:(NSString *)toText takeOffCell:(NSString *)takeOffText
+{
+    mAirlineText = airlineText;
+    mSeatText = seatText;
+    mFromText = fromText;
+    mToText = toText;
+    mTakeOffText = takeOffText;
 }
 
 

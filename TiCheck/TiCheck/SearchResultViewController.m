@@ -343,6 +343,21 @@ static float scrollViewHeight=169;
         sVC.fromCity = [self.searchOptionDic valueForKey:FROM_CITY_KEY];
         sVC.toCity = [self.searchOptionDic valueForKey:TO_CITY_KEY];
         sVC.takeOffDate = [self.searchOptionDic valueForKey:TAKE_OFF_TIME_KEY];
+        
+        NSString *tempAirline, *tempSeat, *tempFrom, *tempTo, *tempTakeOff;
+        tempAirline = tempSeat = tempFrom = tempTo = tempTakeOff = @"不限";
+        if ([self.searchOptionDic valueForKey:AIRLINE_KEY])
+            tempAirline = [self.searchOptionDic valueForKey:AIRLINE_KEY];
+        if ([self.searchOptionDic valueForKey:SEAT_TYPE_KEY])
+            tempSeat = [self.searchOptionDic valueForKey:SEAT_TYPE_KEY];
+        if ([self.searchOptionDic valueForKey:DEPART_AIRPORT_KEY])
+            tempFrom = [self.searchOptionDic valueForKey:DEPART_AIRPORT_KEY];
+        if ([self.searchOptionDic valueForKey:ARRIVE_AIRPORT_KEY])
+            tempTo = [self.searchOptionDic valueForKey:ARRIVE_AIRPORT_KEY];
+        if ([self.searchOptionDic valueForKey:TAKE_OFF_TIME_KEY])
+            tempTakeOff = [self.searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY];
+        
+        [sVC setAirplineCellTextWithString:tempAirline SeatCell:tempSeat FromCell:tempFrom ToCell:tempTo takeOffCell:tempTakeOff];
     }
     else if([[segue identifier] isEqualToString:@"BookingSegue"])
     {
@@ -701,8 +716,11 @@ static float scrollViewHeight=169;
     [optionDic setObject:tAirport forKey:ARRIVE_AIRPORT_KEY];
     [optionDic setObject:tTime forKey:TAKE_OFF_TIME_INTERVAL_KEY];
     
-    self.searchOptionDic = optionDic;
-    [self sendFlightSearchRequestWithReloading:NO];
+    if (([airlineName isEqualToString:[self.searchOptionDic valueForKey:AIRLINE_KEY]] == NO) || ([seatType isEqualToString:[self.searchOptionDic valueForKey:SEAT_TYPE_KEY]] == NO) || ([fAirport isEqualToString:[self.searchOptionDic valueForKey:DEPART_AIRPORT_KEY]] == NO) || ([tAirport isEqualToString:[self.searchOptionDic valueForKey:ARRIVE_AIRPORT_KEY]] == NO) || ([tTime isEqualToString:[self.searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY]] == NO))
+    {
+        self.searchOptionDic = optionDic;
+        [self sendFlightSearchRequestWithReloading:YES];
+    }
     NSLog(@"ScreeningViewControllerDelegate");
 }
 

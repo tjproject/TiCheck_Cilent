@@ -22,4 +22,6 @@
 
 @property (nonatomic, assign) id<ScreeningViewControllerDelegate> delegate;
 
+- (void)setAirplineCellTextWithString:(NSString*)airlineText SeatCell:(NSString*)seatText FromCell:(NSString*)fromText ToCell:(NSString*)toText takeOffCell:(NSString*)takeOffText;
+
 @end

@@ -9,6 +9,12 @@
 #import "OTAResponse.h"
 #import "EnumCollection.h"
 
+#define ORDER_ID @"OrderID"
+#define ORDER_TIME @"OrderTime"
+#define AMOUNT @"Amount"
+#define ORDER_DESC @"OrderDesc"
+#define PERSONS @"Persons"
+
 @class DeliverInfo;
 
 @interface Order : NSObject
@@ -142,5 +148,12 @@
  *  提示信息
  */
 @property (nonatomic, strong) NSString *promopts;
+
+/**
+ *  生成订单信息的字典，用于转换为json格式数据
+ *
+ *  @return 订单信息的Dictionary
+ */
+- (NSDictionary *)dictionaryWithOrderOption;
 
 @end
