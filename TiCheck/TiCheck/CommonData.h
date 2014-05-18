@@ -33,6 +33,8 @@
 #define SHOW_PICKER_VIEW_FRAME CGRectMake(0.0f, 406.0f, 320.0f, 162.0f)
 #define HIDE_PICKER_VIEW_FRAME CGRectMake(0.0f, 612.0f, 320.0f, 162.0f)
 
+#define AIRLINE_CELL_IMAGE_SIZE CGSizeMake(30.0f, 30.0f)
+
 typedef NS_ENUM(NSInteger, SelectingOption) {
     SelectingAirline,
     SelectingSeat,

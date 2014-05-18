@@ -96,6 +96,7 @@
 		A0620B9D18D727B6003A7A55 /* OTAUserUniqueIDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B8E18D727B6003A7A55 /* OTAUserUniqueIDResponse.m */; };
 		A0620BA218D727D6003A7A55 /* ConfigurationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */; };
 		A0620BA318D727D6003A7A55 /* SoapRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620BA118D727D6003A7A55 /* SoapRequest.m */; };
+		A081BE051928B93100209D46 /* UIImage+ImageResize.m in Sources */ = {isa = PBXBuildFile; fileRef = A081BE041928B93100209D46 /* UIImage+ImageResize.m */; };
 		A0A21D2F1905358F004CDD5E /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A21D2B1905358F004CDD5E /* NSDate-Utilities.m */; };
 		A0A21D301905358F004CDD5E /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A21D2D1905358F004CDD5E /* TimeFormatters.m */; };
 		A0A8A66F19036633006070B8 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A8A66E19036633006070B8 /* SearchViewController.m */; };
@@ -284,6 +285,8 @@
 		A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationHelper.m; sourceTree = "<group>"; };
 		A0620BA018D727D6003A7A55 /* SoapRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoapRequest.h; sourceTree = "<group>"; };
 		A0620BA118D727D6003A7A55 /* SoapRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoapRequest.m; sourceTree = "<group>"; };
+		A081BE031928B93100209D46 /* UIImage+ImageResize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageResize.h"; sourceTree = "<group>"; };
+		A081BE041928B93100209D46 /* UIImage+ImageResize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageResize.m"; sourceTree = "<group>"; };
 		A0A21D2B1905358F004CDD5E /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
 		A0A21D2C1905358F004CDD5E /* TimeFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFormatters.h; sourceTree = "<group>"; };
 		A0A21D2D1905358F004CDD5E /* TimeFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFormatters.m; sourceTree = "<group>"; };
@@ -628,6 +631,8 @@
 				A0620B6818D72772003A7A55 /* NSString+DateFormat.m */,
 				A0620B6918D72772003A7A55 /* NSString+EnumTransform.h */,
 				A0620B6A18D72772003A7A55 /* NSString+EnumTransform.m */,
+				A081BE031928B93100209D46 /* UIImage+ImageResize.h */,
+				A081BE041928B93100209D46 /* UIImage+ImageResize.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -981,6 +986,7 @@
 				13BF8D9718FB820C00B8E0E1 /* OrderInfoViewController.m in Sources */,
 				24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */,
 				A0620B0818D7242C003A7A55 /* main.m in Sources */,
+				A081BE051928B93100209D46 /* UIImage+ImageResize.m in Sources */,
 				132E37B0191F792400DC76D1 /* ScreeningViewController.m in Sources */,
 				A060AA021904ADFB0001219A /* DateSelectViewController.m in Sources */,
 				A0B4E74F1908F30E00765F1A /* SubscriptionViewController.m in Sources */,

@@ -700,7 +700,7 @@ static float scrollViewHeight=169;
 -(int) setCurrentIndex
 {
     //    NSLog(@"current day index = %ld", (long)currentIndex);
-    return currentIndex;
+    return (int)currentIndex;
 }
 
 #pragma mark - ScreeningViewControllerDelegate

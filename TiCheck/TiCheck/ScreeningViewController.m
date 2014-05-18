@@ -10,6 +10,9 @@
 #import "SearchResultViewController.h"
 #import "SearchOption.h"
 #import "PersonalCenterViewController.h"
+#import "APIResourceHelper.h"
+#import "Airline.h"
+#import "UIImage+ImageResize.h"
 
 #import "CommonData.h"
 
@@ -255,7 +258,6 @@
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airline"];
             generalCell.generalLabel.text = @"航空公司";
             [generalCell.generalValue setTitle:mAirlineText forState:UIControlStateNormal];
-            [generalCell.generalValue setImage:[UIImage imageNamed:@"EA_Logo"] forState:UIControlStateNormal];
             self.airlineCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 1) {
             // 舱位选项
@@ -461,8 +463,13 @@
     
     switch (selectingOption) {
         case SelectingAirline:
+        {
             [self.airlineCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            NSString *airlineShortName = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.airlineCell.generalValue.titleLabel.text].airline;
+            UIImage *airlineImg = [UIImage imageWithImage:[UIImage imageNamed:airlineShortName] scaledToSize:AIRLINE_CELL_IMAGE_SIZE];
+            [self.airlineCell.generalValue setImage:airlineImg forState:UIControlStateNormal];
             break;
+        }
         case SelectingSeat:
             [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
             break;

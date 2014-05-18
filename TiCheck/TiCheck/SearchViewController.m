@@ -10,6 +10,9 @@
 #import "SearchResultViewController.h"
 #import "SearchOption.h"
 #import "PersonalCenterViewController.h"
+#import "UIImage+ImageResize.h"
+#import "APIResourceHelper.h"
+#import "Airline.h"
 
 #import "CommonData.h"
 
@@ -92,7 +95,7 @@
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
     viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
     viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [self presentModalViewController:viewController animated:YES];
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -307,7 +310,6 @@
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airline"];
             generalCell.generalLabel.text = @"航空公司";
             [generalCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
-            [generalCell.generalValue setImage:[UIImage imageNamed:@"EA_Logo"] forState:UIControlStateNormal];
             self.airlineCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 1) {
             // 舱位选项
@@ -414,7 +416,8 @@
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
     return [self.pickerData count];
 }
 
@@ -515,8 +518,13 @@
     
     switch (selectingOption) {
         case SelectingAirline:
+        {
             [self.airlineCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            NSString *airlineShortName = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.airlineCell.generalValue.titleLabel.text].airline;
+            UIImage *airlineImg = [UIImage imageWithImage:[UIImage imageNamed:airlineShortName] scaledToSize:AIRLINE_CELL_IMAGE_SIZE];
+            [self.airlineCell.generalValue setImage:airlineImg forState:UIControlStateNormal];
             break;
+        }
         case SelectingSeat:
             [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
             break;

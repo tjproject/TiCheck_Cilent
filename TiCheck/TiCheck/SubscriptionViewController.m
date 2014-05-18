@@ -10,6 +10,9 @@
 #import "CommonData.h"
 #import "Subscription.h"
 #import "ServerCommunicator.h"
+#import "UIImage+ImageResize.h"
+#import "APIResourceHelper.h"
+#import "Airline.h"
 
 typedef NS_ENUM(NSUInteger, SelectedDateType) {
     BeginDate,
@@ -183,8 +186,13 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     
     switch (selectingOption) {
         case SelectingAirline:
+        {
             [self.airlineCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
+            NSString *airlineShortName = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:self.airlineCell.generalValue.titleLabel.text].airline;
+            UIImage *airlineImg = [UIImage imageWithImage:[UIImage imageNamed:airlineShortName] scaledToSize:AIRLINE_CELL_IMAGE_SIZE];
+            [self.airlineCell.generalValue setImage:airlineImg forState:UIControlStateNormal];
             break;
+        }
         case SelectingSeat:
             [self.seatCell.generalValue setTitle:selectValue forState:UIControlStateNormal];
             break;
@@ -432,7 +440,6 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airline"];
             generalCell.generalLabel.text = @"航空公司";
             [generalCell.generalValue setTitle:@"不限" forState:UIControlStateNormal];
-            [generalCell.generalValue setImage:[UIImage imageNamed:@"EA_Logo"] forState:UIControlStateNormal];
             self.airlineCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 1) {
             // 舱位选项
