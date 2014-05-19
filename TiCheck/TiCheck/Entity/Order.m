@@ -10,6 +10,32 @@
 
 @implementation Order
 
+- (id)init
+{
+    if (self = [super init]) {
+        
+    }
+    
+    return  self;
+}
+
++ (Order *)orderWithOrderId:(NSString *)orderId
+                flightsList:(NSArray *)flighs
+             passengersList:(NSArray *)passengers
+                orderStatus:(OrderStatus)status
+                totalAmount:(NSInteger)tAmount
+                  insurance:(NSInteger)fee
+{
+    Order *order = [[Order alloc] init];
+    order.OrderID = orderId;
+    order.flightsList = flighs;
+    order.passengersList = passengers;
+    order.orderStatus = status;
+    order.amount = tAmount;
+    order.insuranceFee = fee;
+    return order;
+}
+
 - (NSDictionary *)dictionaryWithOrderOption
 {
     NSMutableDictionary *orderDictionary = [NSMutableDictionary dictionary];
@@ -22,5 +48,7 @@
     
     return orderDictionary;
 }
+
+
 
 @end

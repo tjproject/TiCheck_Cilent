@@ -8,7 +8,7 @@
 
 #import "OTAResponse.h"
 #import "EnumCollection.h"
-
+#import "OTAFlightSaveOrder.h"
 #define ORDER_ID @"OrderID"
 #define ORDER_TIME @"OrderTime"
 #define AMOUNT @"Amount"
@@ -18,6 +18,26 @@
 @class DeliverInfo;
 
 @interface Order : NSObject
+
+/**
+ *  航班订单（OTA 携程方）(不填)
+ */
+@property (nonatomic, strong) OTAFlightSaveOrder *otaFlightOrder;
+
+/**
+ *  航班信息列表（必填）
+ */
+@property (nonatomic, strong) NSArray *flightsList;
+
+/**
+ *  乘客信息列表（必填）
+ */
+@property (nonatomic, strong) NSArray *passengersList;
+
+/**
+ *  订单号（必填）
+ */
+@property (nonatomic, strong) NSString *OrderID;
 
 /**
  *  送票城市
@@ -35,11 +55,6 @@
 @property (nonatomic) FlightSearchType flightWay;
 
 /**
- *  订单号
- */
-@property (nonatomic, strong) NSString *OrderID;
-
-/**
  *  订单时间
  */
 @property (nonatomic, strong) NSDate *orderTime;
@@ -55,14 +70,19 @@
 @property (nonatomic, strong) NSString *orderDesc;
 
 /**
- *  订单状态：W-未处理，P-处理中，S-已成交，C-已取消，R-全部退票，T-部分退票，U-未提交
+ *  订单状态：W-未处理，P-处理中，S-已成交，C-已取消，R-全部退票，T-部分退票，U-未提交 （必填）
  */
 @property (nonatomic) OrderStatus orderStatus;
 
 /**
- *  订单总金额
+ *  订单总金额（必填）- ?（不确定）包括保险费 ？
  */
 @property (nonatomic) NSInteger amount;
+
+/**
+ *  保险费（必填）
+ */
+@property (nonatomic) NSInteger insuranceFee;
 
 /**
  *  电子券/游票支付金额
@@ -110,11 +130,6 @@
 @property (nonatomic) NSInteger persons;
 
 /**
- *  保险费
- */
-@property (nonatomic) NSInteger insuranceFee;
-
-/**
  *  是否英文
  */
 @property (nonatomic) BOOL isEnglish;
@@ -123,16 +138,6 @@
  *  订单分类：D国内机票，I国际机票
  */
 @property (nonatomic) FlightOrderClass flightOrderClass;
-
-/**
- *  航班信息列表
- */
-@property (nonatomic, strong) NSArray *flightsList;
-
-/**
- *  乘客信息列表
- */
-@property (nonatomic, strong) NSArray *passengersList;
 
 /**
  *  配送信息
@@ -155,5 +160,22 @@
  *  @return 订单信息的Dictionary
  */
 - (NSDictionary *)dictionaryWithOrderOption;
+
+/**
+ *  创建并返回一个 order 订单实例s
+ *  @param orderId          机票订单号（目前为临时订单号）
+ *  @param flighs           航班列表
+ *  @param passengers       乘机人列表
+ *  @param status           订单状态
+ *  @param tAmount          总价格
+ *  @param fee              保险价格
+ *  @return 订单实例
+ */
++ (Order *)orderWithOrderId:(NSString *)orderId
+                flightsList:(NSArray *)flighs
+             passengersList:(NSArray *)passengers
+                orderStatus:(OrderStatus)status
+                totalAmount:(NSInteger)tAmount
+                  insurance:(NSInteger)fee;
 
 @end

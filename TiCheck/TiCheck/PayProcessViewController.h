@@ -22,7 +22,7 @@
  */
 @property (strong, nonatomic) Flight *selectFlight;
 @property (strong, nonatomic) NSDate *departureDate;
-@property (strong, nonatomic) NSMutableArray *passengerList;
+@property (strong, nonatomic) NSArray *passengerList;
 
 //ticket info label
 @property (strong, nonatomic) IBOutlet UIImageView *flightLogoImage;

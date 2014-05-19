@@ -39,6 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self initNavigationBar];
     //[self setGetParameterForURL];
     [self loadWebUrl];
 }
@@ -47,6 +48,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)initNavigationBar
+{
+    self.navigationItem.title = @"支付";
+    // 添加 取消／完成按钮
+    UIBarButtonItem *done=[[UIBarButtonItem alloc] initWithTitle:@"确认" style:UIBarButtonSystemItemDone target:self action:@selector(doneButtonFunction:)];
+
+    self.navigationItem.rightBarButtonItem=done;
 }
 
 #pragma mark - Helper Methods
@@ -67,7 +77,7 @@
     
     // set the post body
     // and post body encode must be GB2312
-    NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"http://www.baidu.com",@"test",@"http://www.baidu.com",@"test",self.tempOrderID,@"1",@"ZH",@"test"];
+    NSString *body = [NSString stringWithFormat: @"ReturnUrl=%@&Description=%@&ShowUrl=%@&PaymentDescription=%@&OrderID=%@&OrderType=%@&Language=%@&OrderSummary=%@",@"http://www.baidu.com",@"test",@"http://www.baidu.com",@"test",self.flightOrder.OrderID,@"1",@"ZH",@"test"];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
@@ -81,6 +91,13 @@
     NSStringEncoding encoding =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData* gb2312data = [utf8string dataUsingEncoding:encoding];
     return gb2312data; //[[NSString alloc] initWithData:gb2312data encoding:encoding];
+}
+
+- (void) doneButtonFunction:(id) sender
+{
+    NSLog(@"finished pay");
+    //send order to server
+    //go into ticket info and pass order
 }
 /*
 #pragma mark - Navigation

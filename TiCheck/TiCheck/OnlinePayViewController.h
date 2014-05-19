@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Order.h"
 @interface OnlinePayViewController : UIViewController
 
+
+@property (strong, nonatomic) Order *flightOrder;
 @property (strong, nonatomic) NSURL *url;
 @property (strong, nonatomic) NSString *tempOrderID;
 @end
