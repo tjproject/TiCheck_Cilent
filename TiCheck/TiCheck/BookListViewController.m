@@ -70,9 +70,10 @@
     //
     self.navigationItem.title=@"我的订阅";
     
+    [self initSubscriptionInfoData];
     [self initBookOrderList];
     
-    [self initSubscriptionInfoData];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -124,7 +125,7 @@
     bookOrderList=[[NSMutableArray alloc]init];
     isCellExpanded=[[NSMutableArray alloc]init];
     
-    for(int i=0; i<4;i++)
+    for(int i=0; i<self.subscriptionArray.count;i++)
     {
         NSMutableArray *temp=[[NSMutableArray alloc]init];
         
@@ -342,19 +343,18 @@
 {
     //@"2013-04-13 至 2013-04-25 上海到北京"
     //格式化日期时间
-    if (subscription!=nil) {
-        
+    if (subscription!=nil)
+    {
+        NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+        [dateformatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *result = [dateformatter stringFromDate:subscription.startDate];
+        result = [result stringByAppendingString:[NSString stringWithFormat:@" 至 %@ ", [dateformatter stringFromDate:subscription.endDate]]];
     
-    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *result = [dateformatter stringFromDate:subscription.startDate];
-    result = [result stringByAppendingString:[NSString stringWithFormat:@" 至 %@ ", [dateformatter stringFromDate:subscription.endDate]]];
+        NSString *cityStr = subscription.departCity.cityName;
+        cityStr = [cityStr stringByAppendingString:[NSString stringWithFormat:@"到%@", subscription.arriveCity.cityName]];
     
-    NSString *cityStr = subscription.departCity.cityName;
-    cityStr = [cityStr stringByAppendingString:[NSString stringWithFormat:@"到%@", subscription.arriveCity.cityName]];
-    
-    result = [result stringByAppendingString:cityStr];
-    return result;
+        result = [result stringByAppendingString:cityStr];
+        return result;
     }
     else
     {
