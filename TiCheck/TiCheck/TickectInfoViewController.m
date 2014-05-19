@@ -28,9 +28,10 @@
 #define PASSENGER_CELL_START_COUNT 6000
 
 @interface TickectInfoViewController ()
-//{
-//    NSMutableArray *cellTitleArr;
-//}
+{
+    //NSMutableArray *cellTitleArr;
+    BOOL isShowingDeliverInfo;
+}
 @end
 
 @implementation TickectInfoViewController
@@ -187,6 +188,7 @@
 - (void)initPassengerList
 {
     _passengerList = [[NSMutableArray alloc] init];
+    isShowingDeliverInfo = NO;
 }
 
 #pragma mark - buttons in cell
@@ -312,6 +314,11 @@
         self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     } completion:^(BOOL finished){
     }];
+    if (textField.text.length == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"内容不能为空" delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
+        [alert show];
+    }
     return YES;
 }
 
@@ -376,6 +383,7 @@
         //...
         NSArray *tempFlightList = [NSArray arrayWithObjects:_selectFlight, nil];
         //联系人
+        
         Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:@"18917260806" contactEmail: [UserData sharedUserData].email];
         OTAFlightSaveOrder *flightOrder = [[OTAFlightSaveOrder alloc] initWithUserUniqueUID: [[UserData sharedUserData] uniqueID] AgeType:ADU flightList:tempFlightList passengerList:_passengerList contact:contact];
         ppVC.flightOrder = flightOrder;
@@ -424,6 +432,7 @@
             [_cellTitleArray addObject:@"收件地址"];
             [_cellTitleArray addObject:@"发票抬头"];
             _infoVessel.scrollEnabled = YES;
+            isShowingDeliverInfo = YES;
         }
     }
     else if([[_cellTitleArray objectAtIndex:[_cellTitleArray count] - 1] isEqualToString:@"发票抬头"])
@@ -433,6 +442,7 @@
         [_cellTitleArray removeObject:@"收件地址"];
         [_cellTitleArray removeObject:@"发票抬头"];
         _infoVessel.scrollEnabled = NO;
+        isShowingDeliverInfo = NO;
     }
     [_infoVessel reloadData];
     [self pushViewAnimationWithView:_TIVC_submitPicker willHidden:YES];
@@ -445,6 +455,7 @@
     [_cellTitleArray removeObjectAtIndex:senderButton.tag - PASSENGER_CELL_START_COUNT];
     [_passengerList removeObjectAtIndex:senderButton.tag - PASSENGER_CELL_START_COUNT - 1];
     [_infoVessel deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:senderButton.tag - PASSENGER_CELL_START_COUNT inSection:0]] withRowAnimation:UITableViewRowAnimationMiddle];
+    if (_passengerList.count == 0) _infoVessel.scrollEnabled = NO;
 }
 
 #pragma mark - utility functions

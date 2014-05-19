@@ -354,7 +354,7 @@ static float scrollViewHeight=169;
             tempFrom = [self.searchOptionDic valueForKey:DEPART_AIRPORT_KEY];
         if ([self.searchOptionDic valueForKey:ARRIVE_AIRPORT_KEY])
             tempTo = [self.searchOptionDic valueForKey:ARRIVE_AIRPORT_KEY];
-        if ([self.searchOptionDic valueForKey:TAKE_OFF_TIME_KEY])
+        if ([self.searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY])
             tempTakeOff = [self.searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY];
         
         [sVC setAirplineCellTextWithString:tempAirline SeatCell:tempSeat FromCell:tempFrom ToCell:tempTo takeOffCell:tempTakeOff];

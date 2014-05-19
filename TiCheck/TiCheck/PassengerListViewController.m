@@ -157,6 +157,7 @@
         TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
         [tiVC.passengerList addObject:@"黄泽彪"];
         [tiVC.cellTitleArray insertObject:@"  黄泽彪" atIndex:1];
+        tiVC.infoVessel.scrollEnabled = YES;
         [tiVC.infoVessel reloadData];
     }
 }
