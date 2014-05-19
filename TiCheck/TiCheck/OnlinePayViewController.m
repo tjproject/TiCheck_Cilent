@@ -53,7 +53,7 @@
 - (void)initNavigationBar
 {
     self.navigationItem.title = @"支付";
-    // 添加 取消／完成按钮
+    // 添加 取消/完成按钮
     UIBarButtonItem *done=[[UIBarButtonItem alloc] initWithTitle:@"确认" style:UIBarButtonSystemItemDone target:self action:@selector(doneButtonFunction:)];
 
     self.navigationItem.rightBarButtonItem=done;

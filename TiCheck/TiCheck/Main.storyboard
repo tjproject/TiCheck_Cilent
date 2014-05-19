@@ -1523,16 +1523,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nlk-rC-YM2">
-                                <rect key="frame" x="130" y="478" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="支付详情">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Pls-0a-DSc" kind="push" id="JBw-AC-HE5"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFe-D5-79t" userLabel="用户名分割线">
                                 <rect key="frame" x="0.0" y="154" width="320" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2153,7 +2143,7 @@
         <image name="Logout" width="320" height="50"/>
         <image name="LowPriceButton" width="276" height="49"/>
         <image name="MyOrderButton" width="276" height="49"/>
-        <image name="PayWay" width="320" height="33"/>
+        <image name="PayWay" width="319" height="30"/>
         <image name="ResultViewBookButton" width="97" height="31"/>
         <image name="Separator" width="320" height="1"/>
         <image name="ToArrow" width="24" height="24"/>

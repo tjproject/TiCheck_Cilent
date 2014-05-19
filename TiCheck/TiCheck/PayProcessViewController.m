@@ -184,9 +184,9 @@
 #pragma mark - pay 
 - (IBAction)confirmPayButton:(id)sender
 {
-    NSLog(@"confirm,Pay");
-    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"支付中" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alert show];
+//    NSLog(@"confirm,Pay");
+//    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"支付中" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//    [alert show];
     
     
     //TODO: when clicked, jump to a web page to continue the pay process
@@ -301,7 +301,7 @@
                                 passengersList:flightOrderRequest.passengerList
                                    orderStatus:Deal
                                    totalAmount:(self.selectFlight.price + self.selectFlight.adultOilFee + self.selectFlight.adultTax)//flightOrderRequest.amount
-                                     insurance:20];
+                                     insurance:30];
     
     //http://{API_Url}/{BusinessType}/MobilePayEntry.aspx?AllianceId={AllianceId}&SID={SID}&TimeStamp={TimeStamp}&Signature={Signature}&RequestType={RequestType}
     NSString *strURLTrail = [[ConfigurationHelper sharedConfigurationHelper] getURLStringWithRequestType:PaymentEntry];
