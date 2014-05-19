@@ -18,7 +18,11 @@
 #import "APIResourceHelper.h"
 #import "CraftType.h"
 
+#import "EnumCollection.h"
+#import "UserData.h"
+#import "OTAFlightSaveOrder.h"
 #import "Flight.h"
+#import "Contact.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 #define PASSENGER_CELL_START_COUNT 6000
@@ -370,7 +374,11 @@
         ppVC.passengerList = _passengerList;
         //
         //...
-        //
+        NSArray *tempFlightList = [NSArray arrayWithObjects:_selectFlight, nil];
+        //联系人
+        Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:@"18917260806" contactEmail: [UserData sharedUserData].email];
+        OTAFlightSaveOrder *flightOrder = [[OTAFlightSaveOrder alloc] initWithUserUniqueUID: [[UserData sharedUserData] uniqueID] AgeType:ADU flightList:tempFlightList passengerList:_passengerList contact:contact];
+        ppVC.flightOrder = flightOrder;
         [self.navigationController pushViewController:ppVC animated:YES];
     }
     else

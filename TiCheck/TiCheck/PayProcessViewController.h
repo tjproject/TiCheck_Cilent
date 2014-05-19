@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Flight.h"
 
+@class OTAFlightSaveOrder;
 @interface PayProcessViewController : UIViewController
+
+/**
+ *  机票详情的flightSaveOrder
+ */
+@property (strong, nonatomic) OTAFlightSaveOrder *flightOrder;
 
 /**
  *  在订单确认后跳到支付页面时，赋值以下变量
