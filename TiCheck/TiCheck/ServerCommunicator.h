@@ -134,8 +134,60 @@
  */
 - (NSDictionary *)getSubscriptionInfo;//:(Subscription *)subscription;
 
+/**
+ *  添加用户一条伪订单
+ *
+ *  @param orderDetail NSDictionary * 订单详情字典
+ *  @param tempOrderID NSString * 临时订单号
+ *
+ *  @return 返回消息的字典
+ */
+- (NSDictionary *)addOrder:(NSDictionary *)orderDetail tempOrderID:(NSString *)tempOrderID;
 
+/**
+ *  获取订单列表与信息
+ *
+ *  @param tempOrderID NSString 可以为空，为空时，返回用户所有订单数据
+ *
+ *  @return 返回订单数据
+ */
+- (NSDictionary *)getOrderInfo:(NSString *)tempOrderID;
 
+/**
+ *  添加联系人
+ *
+ *  @param contacts NSArray 联系人信息
+ *
+ *  @return 返回消息
+ */
+- (NSDictionary *)addContacts:(NSArray *)contacts;
 
+/**
+ *  删除联系人
+ *
+ *  @param contacts  NSArray 联系人信息
+ *
+ *  @return 返回消息
+ */
+- (NSDictionary *)deleteConatcs:(NSArray *)contacts;
+
+/**
+ *  修改联系人信息
+ *
+ *  @param oldContact NSDictionary 旧联系人
+ *  @param newContact NSDictionary 新联系人
+ *
+ *  @return 返回消息
+ */
+- (NSDictionary *)modifyContact:(NSDictionary *)oldContact toNewContact:(NSDictionary *)newContact;
+
+/**
+ *  获取联系人信息
+ *
+ *  @param contacts NSArray 联系人，可为空，为空时返回所有联系人信息
+ *
+ *  @return 返回带联系人数据字典
+ */
+- (NSDictionary *)getContacts:(NSArray *)contacts;
 
 @end

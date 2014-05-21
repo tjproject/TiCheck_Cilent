@@ -23,6 +23,9 @@
 
 @implementation ServerCommunicator
 
+#pragma mark -
+#pragma mark Singleton
+
 + (ServerCommunicator *)sharedCommunicator
 {
     static dispatch_once_t onceToken = 0;
@@ -32,6 +35,9 @@
     });
     return _sharedCommunicator;
 }
+
+#pragma mark -
+#pragma mark User
 
 - (NSDictionary *)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account
 {
@@ -85,6 +91,9 @@
     return [self responseDataToJSONDictionary:responseData];
 }
 
+#pragma mark -
+#pragma mark Token
+
 - (NSDictionary *)addTokenForCurrentUser:(NSString *)token
 {
     NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
@@ -110,6 +119,9 @@
     
     return [self responseDataToJSONDictionary:responseData];
 }
+
+#pragma mark -
+#pragma mark Subscription
 
 - (NSDictionary *)createSubscriptionWithSubscription:(Subscription *)subscription
 {
@@ -178,6 +190,8 @@
     return [self responseDataToJSONDictionary:responseData];
 }
 
+#pragma mark -
+#pragma mark Utilities
 
 - (NSDictionary *)currentUserJsonDataDictionaryWithAccount:(BOOL)withAccount
 {
@@ -189,7 +203,7 @@
 
 - (NSDictionary *)responseDataToJSONDictionary:(NSData *)response
 {
-    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+//    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
     return [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
 }
 
