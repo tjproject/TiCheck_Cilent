@@ -371,15 +371,8 @@
     {
         //subscription logic
         Subscription *singleSubscription = [[Subscription alloc] initWithDepartCity:self.selectFlight.departCityName arriveCity:self.selectFlight.arriveCityName startDate:[NSString stringFormatWithDate:self.departureDate] endDate:[NSString stringFormatWithDate:self.departureDate]];
-        if (_isShowMore)
-        {
-            NSArray *departTime = [[NSArray alloc] init];
-            if ([[_searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY] isEqualToString:@"不限"])
-                departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
-            else
-                departTime = [[_searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" ~ "];
-            [singleSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[0] airlineShortName:[_searchOptionDic valueForKey:AIRLINE_KEY] arriveAirportName:[_searchOptionDic valueForKey:ARRIVE_AIRPORT_KEY] departAirportName:[_searchOptionDic valueForKey:DEPART_AIRPORT_KEY]];
-        }
+        [singleSubscription modifyMoreOptionWithEarliestDepartTime:[NSString showingStringFormatWithString:_selectFlight.takeOffTime] LatestDepartTime:[NSString showingStringFormatWithString:_selectFlight.takeOffTime] airlineShortName:self.selectFlight.airlineShortName arriveAirportName:self.selectFlight.arrivePortName departAirportName:self.selectFlight.departPortName];
+        
         NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:singleSubscription];
         NSLog(@"%@",tempD);
         
