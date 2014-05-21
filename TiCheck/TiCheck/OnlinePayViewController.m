@@ -8,7 +8,7 @@
 
 #import "OnlinePayViewController.h"
 #import "ConfigurationHelper.h"
-
+#import "OrderInfoViewController.h"
 #define WEB_ONLINE_PAYMENT_URL @"http://openapi.ctrip.com/Flight/PaymentEntry.aspx"
 
 #define ALLIANCE_ID_KEY @"AllianceId"
@@ -98,6 +98,14 @@
     NSLog(@"finished pay");
     //send order to server
     //go into ticket info and pass order
+    [self sendToOrderInfo];
+}
+
+- (void) sendToOrderInfo
+{
+    OrderInfoViewController *oiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderInfoViewController"];
+    oiVC.OIVC_Order = self.flightOrder;
+    [self.navigationController pushViewController:oiVC animated:YES];
 }
 /*
 #pragma mark - Navigation
