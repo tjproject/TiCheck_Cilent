@@ -207,4 +207,21 @@
     return [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
 }
 
+#pragma mark -
+#pragma mark Order
+- (NSDictionary *)addOrder:(NSDictionary *)orderDetail tempOrderID:(NSString *)tempOrderID
+{
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    NSData *orderDetailJsonData = [NSJSONSerialization dataWithJSONObject:orderDetail options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"OrderDetail=%@&User=%@&TempOrder=%@", [[NSString alloc] initWithData:orderDetailJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], tempOrderID];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerSubscriptionResponseWithServerURL:SERVER_URL requestType:Create_Subscription jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
 @end

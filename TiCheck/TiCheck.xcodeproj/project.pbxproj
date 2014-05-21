@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		BB1648D4192C541D00CD4E5D /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = BB1648D5192C541D00CD4E5D /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				BB1648D8192C544100CD4E5D /* Run Script */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		131C6F9218F7CD1200654D6E /* TiCheck-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0620B0318D7242C003A7A55 /* TiCheck-Info.plist */; };
 		131C6F9318F7CD7200654D6E /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8D18F7CBE500654D6E /* Roboto-Bold.ttf */; };
@@ -328,6 +342,7 @@
 		A0D92B0F1903F43100AC67F2 /* pinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pinyin.h; sourceTree = "<group>"; };
 		A0F8D73F190E7936009EEEAA /* ServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRequest.h; sourceTree = "<group>"; };
 		A0F8D740190E7936009EEEAA /* ServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRequest.m; sourceTree = "<group>"; };
+		BB1648D3192C53A000CD4E5D /* TiCheck copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TiCheck copy-Info.plist"; path = "/Users/markyoung/Projects/TiCheck/TiCheck_Cilent/TiCheck/TiCheck copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -514,6 +529,7 @@
 				A0620AF818D7242C003A7A55 /* Frameworks */,
 				A0620AF718D7242C003A7A55 /* Products */,
 				42AADAB7606D44D9A9B23A74 /* Pods.xcconfig */,
+				BB1648D3192C53A000CD4E5D /* TiCheck copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -876,6 +892,7 @@
 			targets = (
 				A0620AF518D7242C003A7A55 /* TiCheck */,
 				A0620B1518D7242C003A7A55 /* TiCheckTests */,
+				BB1648D4192C541D00CD4E5D /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -945,6 +962,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		BB1648D8192C544100CD4E5D /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Start constants\ncompany=\"Tongji Apple Club\";\ncompanyID=\"com.TAC\";\ncompanyURL=\"www.ticheck.com\";\ntarget=\"iphoneos\";\noutputPath=\"~/help\";\n# outputPath=\"~/Sites/xcode_workspace/help/${PROJECT_NAME}\";\n# End constants\n\n/usr/local/bin/appledoc \\\n--exit-threshold 2 \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/docs/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/docs/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/docs\" \\\n--docset-platform-family \"${target}\" \\\n--include \"${PROJECT_DIR}/Pods/Headers/LocalLibrary-lib\" \\\n--index-desc \"${PROJECT_DIR}/Documentation/appledoc/Top_level.markdown\" \\\n--keep-intermediate-files \\\n--keep-undocumented-objects \\\n--keep-undocumented-members \\\n--logformat xcode \\\n--merge-categories \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--no-warn-undocumented-object \\\n--no-warn-undocumented-member \\\n--no-warn-empty-description \\\n--output \"${outputPath}\" \\\n--install-docset \\\n--print-information-block-titles \\\n--use-code-order \\\n--verbose 4 \\\n--ignore \"*.m\" \\\n--ignore \"*.pch\" \\\n--ignore \"*.config\" \\\n--ignore \"*.xcconfig\" \\\n--ignore \"*.docset\" \\\n--ignore \"*.xcodeproj\" \\\n--ignore \"*.xcworkspace\" \\\n--ignore \"*.lock\" \\\n--ignore \"*.plist\" \\\n--ignore \"*.strings\" \\\n--ignore \"*.txt\" \\\n--ignore \"*.app\" \\\n--ignore \"*.podspec\" \\\n--ignore \"*.jnlp\" \\\n--ignore \"*.jar\" \\\n--ignore \"*.png\" \\\n--ignore \"*.jpg\" \\\n--ignore \"*.html\" \\\n--ignore \"*.xml\" \\\n--ignore \"*.sh\" \\\n--ignore \"*.gitignore\" \\\n--ignore \"Podfile\" \\\n--ignore \"ci_build\" \\\n--ignore \"LoadableCategory.h\" \\\n--ignore \".idea\" \\\n--ignore \"build\" \\\n--ignore \"Documentation\" \\\n--ignore \"XXXXXX_Unit_Tests\" \\\n--ignore \"Jenkins\" \\\n--ignore \"Resources\" \\\n--ignore \"BuildHeaders\" \\\n--ignore \"Igor\" \\\n--ignore \"Kiwi\" \\\n--ignore \"Local Podspecs\" \\\n--ignore \"PublicAutomation\" \\\n--ignore \"SDWebImage\" \\\n--ignore \"SVProgressHUD\" \\\n--ignore \"SVPullToRefresh\" \\\n--ignore \"CocoaLumberjack\" \\\n--ignore \"Toast\" \\\n--ignore \"PonyDebugger\" \\\n--ignore \"PonyDebuggerLogger\" \\\n--ignore \"SocketRocket\" \\\n\"${PROJECT_DIR}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1231,6 +1262,20 @@
 			};
 			name = Release;
 		};
+		BB1648D6192C541D00CD4E5D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BB1648D7192C541D00CD4E5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1260,6 +1305,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		BB1648D5192C541D00CD4E5D /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB1648D6192C541D00CD4E5D /* Debug */,
+				BB1648D7192C541D00CD4E5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
