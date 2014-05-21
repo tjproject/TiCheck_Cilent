@@ -10,6 +10,8 @@
 #import "OIVCPassengerInfoView.h"
 #import <PassKit/PKAddPassesViewController.h>
 
+@class Order;
+
 @interface OrderInfoViewController : UIViewController<PKAddPassesViewControllerDelegate>
 {
     UIScrollView *contentVessel;
@@ -32,5 +34,7 @@
 
 @property (strong, nonatomic) UIButton *passbookButton;
 @property (strong, nonatomic) UIButton *cancelButton;
+
+@property (strong, nonatomic) Order *OIVC_Order;
 
 @end
