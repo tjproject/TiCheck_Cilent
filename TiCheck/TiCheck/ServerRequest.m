@@ -33,6 +33,17 @@ const NSArray *___SubscriptionRequestType;
 #define cSubscriptionRequestTypeString(type) ([cSubscriptionRequestTypeGet objectAtIndex:type])
 #define cSubscriptionRequestTypeEnum(string) ([cSubscriptionRequestTypeGet indexOfObject:string])
 
+const NSArray *___OrderRequestType;
+
+#define cOrderRequestTypeGet (___OrderRequestType == nil ? ___OrderRequestType = [[NSArray alloc] initWithObjects:\
+@"add",\
+@"delete",\
+@"info", nil] : ___OrderRequestType)
+
+#define cOrderRequestTypeString(type) ([cOrderRequestTypeGet objectAtIndex:type])
+#define cOrderRequestTypeEnum(string) ([cOrderRequestTypeGet indexOfObject:string])
+
+
 @implementation ServerRequest
 
 + (NSData *)getServerUserResponseWithServerURL:(NSString *)serverUrl
@@ -59,6 +70,24 @@ const NSArray *___SubscriptionRequestType;
                                                 jsonData:(NSData *)jsonData
 {
     NSString *urlStr = [serverUrl stringByAppendingFormat:@"?r=Subscription/%@", cSubscriptionRequestTypeString(subscriptionRequestType)];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setCachePolicy:NSURLCacheStorageAllowedInMemoryOnly];
+    
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:jsonData];
+    
+    NSURLResponse *response = nil;
+    NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
+    return result;
+}
+
++ (NSData *)getServerOrderResponseWithServerURL:(NSString *)serverUrl
+                                           requestType:(ServerOrderRequestType)orderRequestType
+                                              jsonData:(NSData *)jsonData
+{
+    NSString *urlStr = [serverUrl stringByAppendingFormat:@"?r=Order/%@", cOrderRequestTypeString(orderRequestType)];
     NSURL *url = [NSURL URLWithString:urlStr];
     
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];

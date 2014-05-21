@@ -7,7 +7,7 @@
 //
 
 #import "Order.h"
-
+#import "PrintObject.h"
 @implementation Order
 
 - (id)init
@@ -36,19 +36,20 @@
     return order;
 }
 
-- (NSDictionary *)dictionaryWithOrderOption
++ (Order *)orderWithDiscitionary:(NSDictionary*) dictionary
 {
-    NSMutableDictionary *orderDictionary = [NSMutableDictionary dictionary];
-    
-    [orderDictionary setValue:self.OrderID forKeyPath:ORDER_ID];
-    [orderDictionary setValue:self.orderTime forKeyPath:ORDER_TIME];
-    [orderDictionary setValue:[NSString stringWithFormat:@"%ld",(long)self.amount] forKeyPath:AMOUNT];
-    [orderDictionary setValue:self.orderDesc forKeyPath:ORDER_DESC];
-    [orderDictionary setValue:[NSString stringWithFormat:@"%ld",(long)self.persons] forKeyPath:PERSONS];
-    
-    return orderDictionary;
+    Order *order = [[Order alloc] init];
+    return order;
 }
 
 
+
+
+- (NSDictionary *)dictionaryWithOrderOption
+{
+    NSDictionary *result = [PrintObject getObjectData:self];
+    //[PrintObject print:self];
+    return result;
+}
 
 @end

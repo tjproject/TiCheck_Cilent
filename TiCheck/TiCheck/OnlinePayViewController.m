@@ -9,6 +9,7 @@
 #import "OnlinePayViewController.h"
 #import "ConfigurationHelper.h"
 #import "OrderInfoViewController.h"
+#import "ServerCommunicator.h"
 #define WEB_ONLINE_PAYMENT_URL @"http://openapi.ctrip.com/Flight/PaymentEntry.aspx"
 
 #define ALLIANCE_ID_KEY @"AllianceId"
@@ -98,8 +99,31 @@
 {
     NSLog(@"finished pay");
     //send order to server
-    //go into ticket info and pass order
-    [self sendToOrderInfo];
+    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] addOrder:self.flightOrder];
+    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+    
+    
+    if(returnCode==USER_LOGIN_SUCCESS)
+    {
+        //test get order from server
+        NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getOrderInfo:nil];
+        NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+        
+        
+        //test: 把 string 提取出来， 再重新执行一次 json 转化， 即得到 dictionary
+        NSDictionary *d = [returnDic[@"Data"] objectAtIndex:5];
+        NSData *testData2 = [d[@"OrderDetail"] dataUsingEncoding:NSUTF8StringEncoding];
+
+        
+        NSData *testData = [@"testdata" dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *testD = [NSJSONSerialization JSONObjectWithData:testData2 options:NSJSONReadingMutableContainers error:nil];
+        
+       
+        
+        //go into ticket info and pass order
+        
+        [self sendToOrderInfo];
+    }
 }
 
 - (void) sendToOrderInfo

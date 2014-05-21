@@ -54,6 +54,7 @@
 		684B6ECD190CC43F0046343D /* PassengerInfoPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 684B6ECC190CC43F0046343D /* PassengerInfoPickerCell.m */; };
 		68C1F8BB190B96CE00EEB55B /* PassengerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C1F8BA190B96CE00EEB55B /* PassengerListViewController.m */; };
 		68EDF8C118F5A09A008E19B4 /* AccountEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */; };
+		68F81160192C9BB800E01AC3 /* PrintObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F8115F192C9BB800E01AC3 /* PrintObject.m */; };
 		68FDEE8418F7C9C5006C4A99 /* AccountEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */; };
 		A0040BC418E92768008E6485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0040BC318E92768008E6485 /* Main.storyboard */; };
 		A0040BC718E92783008E6485 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0040BC618E92783008E6485 /* ViewController.m */; };
@@ -202,6 +203,8 @@
 		68C1F8BA190B96CE00EEB55B /* PassengerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerListViewController.m; sourceTree = "<group>"; };
 		68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditViewController.h; sourceTree = "<group>"; };
 		68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountEditViewController.m; sourceTree = "<group>"; };
+		68F8115E192C9BB800E01AC3 /* PrintObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintObject.h; sourceTree = "<group>"; };
+		68F8115F192C9BB800E01AC3 /* PrintObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintObject.m; sourceTree = "<group>"; };
 		68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountEditDetailViewController.h; sourceTree = "<group>"; };
 		68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountEditDetailViewController.m; sourceTree = "<group>"; };
 		74C29AE6E97F440E8ABC5203 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -748,6 +751,8 @@
 		A0B677FA18FABF7000A4DC76 /* LogicLayer */ = {
 			isa = PBXGroup;
 			children = (
+				68F8115E192C9BB800E01AC3 /* PrintObject.h */,
+				68F8115F192C9BB800E01AC3 /* PrintObject.m */,
 				13AEFCDA191646450057ACB0 /* PassKit */,
 				A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */,
 				A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */,
@@ -1010,6 +1015,7 @@
 				1370841A18F7BC0200FD4949 /* TickectInfoViewController.m in Sources */,
 				A0BE290D1906404A0042D356 /* DateTableViewCell.m in Sources */,
 				A0B6780618FAC2E900A4DC76 /* APIResourceHelper.m in Sources */,
+				68F81160192C9BB800E01AC3 /* PrintObject.m in Sources */,
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
 				A0620B6318D72743003A7A55 /* Flight.m in Sources */,
 				2491398518ED290700061780 /* SearchResultCell.m in Sources */,
@@ -1313,6 +1319,7 @@
 				BB1648D7192C541D00CD4E5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

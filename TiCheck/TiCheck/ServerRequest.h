@@ -24,8 +24,14 @@ typedef NS_ENUM(NSInteger, ServerSubscriptionRequestType) {
     Cancel_Subscription,
     Modify_Subscription,
     Get_Subscription
-    
 };
+
+typedef NS_ENUM(NSInteger, ServerOrderRequestType) {
+    Create_Order = 0,
+    Cancel_Order,
+    Get_Order
+};
+
 
 @interface ServerRequest : NSObject
 
@@ -55,6 +61,19 @@ typedef NS_ENUM(NSInteger, ServerSubscriptionRequestType) {
                                              requestType:(ServerSubscriptionRequestType)subscriptionRequestType
                                                 jsonData:(NSData *)jsonData;
 
+
+/**
+ *  同步获取订单相关请求字符串
+ *
+ *  @param serverUrl               请求服务器url
+ *  @param orderRequestType        订单请求类型
+ *  @param jsonData                请求的json数据
+ *
+ *  @return 请求返回数据
+ */
++ (NSData *)getServerOrderResponseWithServerURL:(NSString *)serverUrl
+                                    requestType:(ServerOrderRequestType)orderRequestType
+                                       jsonData:(NSData *)jsonData;
 ///**
 // *  同步获取付款界面
 // *
