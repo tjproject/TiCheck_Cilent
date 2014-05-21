@@ -183,8 +183,11 @@
  *
  *  @param dictionary 字典
  *
- *  @return 订单实例
+ *  @return 订单实例数组集合
  */
-+ (Order *)orderWithDiscitionary:(NSDictionary*) dictionary;
++ (NSMutableArray *)orderWithDiscitionary:(NSDictionary*) dictionary;
+
+
++ (Order *)createOrderWithDictionary:(NSDictionary *)dictionary;
 
 @end

@@ -105,19 +105,20 @@
     
     if(returnCode==USER_LOGIN_SUCCESS)
     {
-        //test get order from server
+//        //test get order from server
         NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getOrderInfo:nil];
         NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+//        
+//        
+//        //test: 把 string 提取出来， 再重新执行一次 json 转化， 即得到 dictionary
+//        NSDictionary *d = [returnDic[@"Data"] objectAtIndex:5];
+//        NSData *testData2 = [d[@"OrderDetail"] dataUsingEncoding:NSUTF8StringEncoding];
+//
+//        
+//        NSData *testData = [@"testdata" dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *testD = [NSJSONSerialization JSONObjectWithData:testData2 options:NSJSONReadingMutableContainers error:nil];
         
-        
-        //test: 把 string 提取出来， 再重新执行一次 json 转化， 即得到 dictionary
-        NSDictionary *d = [returnDic[@"Data"] objectAtIndex:5];
-        NSData *testData2 = [d[@"OrderDetail"] dataUsingEncoding:NSUTF8StringEncoding];
-
-        
-        NSData *testData = [@"testdata" dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *testD = [NSJSONSerialization JSONObjectWithData:testData2 options:NSJSONReadingMutableContainers error:nil];
-        
+        [Order orderWithDiscitionary:returnDic];
        
         
         //go into ticket info and pass order
