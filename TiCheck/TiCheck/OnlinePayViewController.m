@@ -105,6 +105,7 @@
 {
     OrderInfoViewController *oiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderInfoViewController"];
     oiVC.OIVC_Order = self.flightOrder;
+    oiVC.OIVC_departureDate = self.departureDate;
     [self.navigationController pushViewController:oiVC animated:YES];
 }
 /*

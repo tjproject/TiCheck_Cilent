@@ -10,6 +10,16 @@
 #import <PassKit/PassKit.h>
 #import <PassKit/PKPassLibrary.h>
 
+#import "Order.h"
+#import "Flight.h"
+#import "CraftType.h"
+#import "APIResourceHelper.h"
+#import "Passenger.h"
+
+#import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
+#import "NSString+EnumTransform.h"
+
 @interface OrderInfoViewController ()
 
 @end
@@ -57,30 +67,58 @@
 - (void)initOrderInfos
 {
     timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 105, 200, 30)];
-    timeLabel.text = @"2014-04-14 周一";
+    if (_OIVC_departureDate)
+    {
+        NSDateFormatter *weekday = [[NSDateFormatter alloc] init];
+        [weekday setDateFormat: @"EEEE"];
+        timeLabel.text = [NSString stringWithFormat:@"%ld年%ld月%ld日 %@",_OIVC_departureDate.year,_OIVC_departureDate.month,_OIVC_departureDate.day,[weekday stringFromDate:_OIVC_departureDate]];
+    }
+    else timeLabel.text = @"2014-04-14 周一";
     [contentVessel addSubview:timeLabel];
     
     airlineImage = [[UIImageView alloc] initWithFrame:CGRectMake(13, 152, 22, 22)];
-    airlineImage.image = [UIImage imageNamed:@"EA_Logo"];
+    if(_OIVC_Order)
+    {
+        airlineImage.image = [UIImage imageNamed:[[_OIVC_Order.flightsList objectAtIndex:0] airlineDibitCode]];
+    }
+    else airlineImage.image = [UIImage imageNamed:@"EA_Logo"];
     [contentVessel addSubview:airlineImage];
     
     flightLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 148, 280, 30)];
-    flightLabel.text = @"东方航空MU5137 330大型机 经济舱";
+    CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[_OIVC_Order.flightsList objectAtIndex:0] craftType]];
+    if (_OIVC_Order) flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",[[_OIVC_Order.flightsList objectAtIndex:0] airlineShortName],[[_OIVC_Order.flightsList objectAtIndex:0] flightNumber],[ct craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[_OIVC_Order.flightsList objectAtIndex:0] classGrade]]];
+    else flightLabel.text = @"东方航空MU5137 330大型机 经济舱";
     flightLabel.font = [UIFont fontWithName:@"Arial" size:16.f];
     [contentVessel addSubview:flightLabel];
     
     departTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 178, 100, 50)];
     arriveTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 215, 100, 50)];
-    departTimeLabel.text = @"7:00";
-    arriveTimeLabel.text = @"9:25";
+    if (_OIVC_Order)
+    {
+        departTimeLabel.text = [NSString showingStringFormatWithString:[[_OIVC_Order.flightsList objectAtIndex:0] takeOffTime]];
+        arriveTimeLabel.text = [NSString showingStringFormatWithString:[[_OIVC_Order.flightsList objectAtIndex:0] arrivalTime]];
+    }
+    else
+    {
+        departTimeLabel.text = @"7:00";
+        arriveTimeLabel.text = @"9:25";
+    }
     departTimeLabel.font = arriveTimeLabel.font = [UIFont fontWithName:@"Roboto-BoldCondensed" size:25.f];
     [contentVessel addSubview:departTimeLabel];
     [contentVessel addSubview:arriveTimeLabel];
     
     departInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(92, 186, 200, 30)];
     arriveInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(92, 223, 200, 30)];
-    departInfoLabel.text = @"上海虹桥机场T1航站楼 出发";
-    arriveInfoLabel.text = @"首都国际机场T2航站楼 到达";
+    if(_OIVC_Order)
+    {
+        departInfoLabel.text = [NSString stringWithFormat:@"%@%@机场%d航站楼 出发",[[_OIVC_Order.flightsList objectAtIndex:0] departCityName],[[_OIVC_Order.flightsList objectAtIndex:0] departPortShortName],[[_OIVC_Order.flightsList objectAtIndex:0] departPortBuildingID]];
+        arriveInfoLabel.text = [NSString stringWithFormat:@"%@%@机场%d航站楼 到达",[[_OIVC_Order.flightsList objectAtIndex:0] arriveCityName],[[_OIVC_Order.flightsList objectAtIndex:0] arrivePortShortName],[[_OIVC_Order.flightsList objectAtIndex:0] arrivePortBuildingID]];
+    }
+    else
+    {
+        departInfoLabel.text = @"上海虹桥机场T1航站楼 出发";
+        arriveInfoLabel.text = @"首都国际机场T2航站楼 到达";
+    }
     departInfoLabel.font = arriveInfoLabel.font = [UIFont fontWithName:@"Arial" size:16.f];
     departInfoLabel.textColor = arriveInfoLabel.textColor = [UIColor colorWithRed:0.51 green:0.51 blue:0.51 alpha:1.0];
     [contentVessel addSubview:departInfoLabel];
@@ -89,9 +127,17 @@
     priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 283, 50, 25)];
     constructLabel = [[UILabel alloc] initWithFrame:CGRectMake(135, 283, 50, 25)];
     fuelLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 283, 50, 25)];
-    priceLabel.text = @"¥399";
+    if (_OIVC_Order)
+    {
+        priceLabel.text = [NSString stringWithFormat:@"¥%d",[[_OIVC_Order.flightsList objectAtIndex:0] price]];
+        fuelLabel.text = [NSString stringWithFormat:@"¥%.0f",[[_OIVC_Order.flightsList objectAtIndex:0] adultOilFee]];
+    }
+    else
+    {
+        priceLabel.text = @"¥399";
+        fuelLabel.text = @"¥120";
+    }
     constructLabel.text = @"¥50";
-    fuelLabel.text = @"¥120";
     priceLabel.font = constructLabel.font = fuelLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:18.f];
     priceLabel.textColor = constructLabel.textColor = fuelLabel.textColor = [UIColor colorWithRed:1.0 green:0.6 blue:0.0 alpha:1.0];
     [contentVessel addSubview:priceLabel];
@@ -99,7 +145,8 @@
     [contentVessel addSubview:fuelLabel];
     
     assuranceLabel = [[UILabel alloc] initWithFrame:CGRectMake(260, 282, 50, 25)];
-    assuranceLabel.text = @"已投保";
+    if ([[_OIVC_Order.flightsList objectAtIndex:0] adultOilFee] == 0) assuranceLabel.text = @"未投保";
+    else assuranceLabel.text = @"已投保";
     assuranceLabel.font = [UIFont fontWithName:@"Arial" size:13.f];
     assuranceLabel.textColor = [UIColor whiteColor];
     [contentVessel addSubview:assuranceLabel];
@@ -108,7 +155,7 @@
 - (void)initPassengerInfoViews
 {
     OIVCPassengerInfoView* passenger = [[OIVCPassengerInfoView alloc] initWithFrame:CGRectMake(0, 323, 320, 111)];
-    [passenger initPassengerInfoWithName:@"刘大畅" idNum:@"120103199212012613" phoneNum:@"18917260806"];
+    [passenger initPassengerInfoWithName:[[_OIVC_Order.passengersList objectAtIndex:0] passengerName] idNum:[[_OIVC_Order.passengersList objectAtIndex:0] passportNumber] phoneNum:[[_OIVC_Order.passengersList objectAtIndex:0] contactTelephone]];
     [_passengerList addObject:passenger];
     [contentVessel addSubview:passenger];
 }
