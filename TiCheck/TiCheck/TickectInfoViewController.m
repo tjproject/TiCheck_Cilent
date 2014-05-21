@@ -384,8 +384,13 @@
         NSArray *tempFlightList = [NSArray arrayWithObjects:_selectFlight, nil];
         //联系人
         
+        //@TODO: 联系人逻辑
         Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:@"18917260806" contactEmail: [UserData sharedUserData].email];
-        OTAFlightSaveOrder *flightOrder = [[OTAFlightSaveOrder alloc] initWithUserUniqueUID: [[UserData sharedUserData] uniqueID] AgeType:ADU flightList:tempFlightList passengerList:_passengerList contact:contact];
+        OTAFlightSaveOrder *flightOrder = [[OTAFlightSaveOrder alloc] initWithUserUniqueUID:[[UserData sharedUserData] uniqueID]
+                                                                                    AgeType:ADU
+                                                                                 flightList:tempFlightList
+                                                                              passengerList:_passengerList
+                                                                                    contact:contact];
         ppVC.flightOrder = flightOrder;
         [self.navigationController pushViewController:ppVC animated:YES];
     }

@@ -8,8 +8,54 @@
 
 #import <Foundation/Foundation.h>
 #import "EnumCollection.h"
+#import "Contact.h"
 
 @interface Passenger : NSObject
+
+/**
+ *  联系人
+ */
+@property (nonatomic, strong) Contact *contact;
+
+/**
+ *  联系人姓名：string类型；必填
+ */
+@property (nonatomic, strong) NSString *contactName;
+
+/**
+ *  联系人确认方式：string类型；必填；电话确认TEL，邮件确认EML
+ */
+@property (nonatomic) ConfirmOption confirmOption;
+
+/**
+ *  联系手机号码(国内) ：string类型；必填
+ */
+@property (nonatomic, strong) NSString *mobilePhone;
+
+/**
+ *  联系电话：string类型；必填
+ */
+@property (nonatomic, strong) NSString *contactTel;
+
+/**
+ *  境外手机号码：string类型；可空
+ */
+@property (nonatomic, strong) NSString *foreignMobile;
+
+/**
+ *  境外手机前缀：string类型；可空
+ */
+@property (nonatomic, strong) NSString *mobileCountryFix;
+
+/**
+ *  联系邮件地址：string类型；必填
+ */
+@property (nonatomic, strong) NSString *contactEmail;
+
+/**
+ *  联系传真号码：string类型；可空
+ */
+@property (nonatomic, strong) NSString *contactFax;
 
 /**
  *  乘机人姓名：string类型；必填

@@ -32,7 +32,8 @@
         _processDescription = @"";
         _flightInfoList = flights;
         _passengerList = passengers;
-        _contact = contact;
+        Passenger *firstPassenger = [passengers firstObject];
+        _contact = firstPassenger.contact;
         _deliverInfo = [DeliverInfo deliverInfoWithoutTicketSend];
     }
     
