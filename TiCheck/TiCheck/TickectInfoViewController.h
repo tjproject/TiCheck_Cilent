@@ -33,6 +33,8 @@
  *  点击搜索结果传入相应Flight数据，根据Flight初始化此界面。机型航空公司等编号或代码到名称的转换见APIResourceHelper
  */
 @property (strong, nonatomic) Flight *selectFlight;
+@property (nonatomic, strong) NSDictionary *searchOptionDic;
+@property BOOL isShowMore;
 @property (strong, nonatomic) NSDate *departureDate;
 
 @property (strong, nonatomic) UILabel *TIVC_timeLabel;

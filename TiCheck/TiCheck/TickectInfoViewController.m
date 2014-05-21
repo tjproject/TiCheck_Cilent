@@ -10,6 +10,7 @@
 #import "PayProcessViewController.h"
 #import "PassengerListViewController.h"
 #import "PersonalCenterViewController.h"
+#import "SearchResultViewController.h"
 
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
@@ -23,6 +24,9 @@
 #import "OTAFlightSaveOrder.h"
 #import "Flight.h"
 #import "Contact.h"
+
+#import "Subscription.h"
+#import "ServerCommunicator.h"
 
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 #define PASSENGER_CELL_START_COUNT 6000
@@ -365,6 +369,20 @@
     }
     else
     {
+        //subscription logic
+        Subscription *singleSubscription = [[Subscription alloc] initWithDepartCity:self.selectFlight.departCityName arriveCity:self.selectFlight.arriveCityName startDate:[NSString stringFormatWithDate:self.departureDate] endDate:[NSString stringFormatWithDate:self.departureDate]];
+        if (_isShowMore)
+        {
+            NSArray *departTime = [[NSArray alloc] init];
+            if ([[_searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY] isEqualToString:@"不限"])
+                departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
+            else
+                departTime = [[_searchOptionDic valueForKey:TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" ~ "];
+            [singleSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[0] airlineShortName:[_searchOptionDic valueForKey:AIRLINE_KEY] arriveAirportName:[_searchOptionDic valueForKey:ARRIVE_AIRPORT_KEY] departAirportName:[_searchOptionDic valueForKey:DEPART_AIRPORT_KEY]];
+        }
+        NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:singleSubscription];
+        NSLog(@"%@",tempD);
+        
         [sender setImage:[UIImage imageNamed:@"bookButtonActive"] forState:UIControlStateNormal];
         [sender setSelected:YES];
     }
