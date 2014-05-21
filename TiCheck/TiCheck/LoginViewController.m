@@ -10,6 +10,8 @@
 #import "ServerCommunicator.h"
 #import "ConfigurationHelper.h"
 #import "UserData.h"
+#import "AppDelegate.h"
+#import "ServerRequest.h"
 
 @interface LoginViewController ()
 
@@ -45,6 +47,9 @@
 {
     NSString* account=self.userName.text;
     NSString* password=[[ConfigurationHelper sharedConfigurationHelper] md5:self.password.text];
+    
+    NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
+    NSLog(@"%@",tempD);
     
     [[UserData sharedUserData] loginWithAccout:account andPassword:password inViewController:self];
 }
