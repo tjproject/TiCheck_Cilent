@@ -16,6 +16,7 @@
 #define TIMESTAMP_KEY @"TimeStamp"
 #define SIGNATURE_KEY @"Signature"
 #define REQUEST_TYPE @"RequestType"
+#define SEGUE_TAG 4000
 
 @interface OnlinePayViewController ()
 
@@ -106,6 +107,7 @@
     OrderInfoViewController *oiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderInfoViewController"];
     oiVC.OIVC_Order = self.flightOrder;
     oiVC.OIVC_departureDate = self.departureDate;
+    oiVC.segueFromOnlinePayTag = SEGUE_TAG;
     [self.navigationController pushViewController:oiVC animated:YES];
 }
 /*

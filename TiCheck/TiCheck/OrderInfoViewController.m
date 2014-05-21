@@ -20,6 +20,10 @@
 #import "NSString+DateFormat.h"
 #import "NSString+EnumTransform.h"
 
+#import "SearchViewController.h"
+
+#define SEGUE_TAG 4000
+
 @interface OrderInfoViewController ()
 
 @end
@@ -43,6 +47,20 @@
     [self initOrderInfos];
     [self initPassengerInfoViews];
     [self initButton];
+    if (_segueFromOnlinePayTag == SEGUE_TAG)
+    {
+        [self initNavBar];
+    }
+}
+
+- (void)initNavBar
+{
+    UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 39, 19)];
+    [tempBtn setImage:[UIImage imageNamed:@"screeningConfirmButton"] forState:UIControlStateNormal];
+    [tempBtn addTarget:self action:@selector(confirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.rightBarButtonItem = closeButton;
 }
 
 - (void)initScrollView
@@ -107,8 +125,8 @@
     [contentVessel addSubview:departTimeLabel];
     [contentVessel addSubview:arriveTimeLabel];
     
-    departInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(92, 186, 200, 30)];
-    arriveInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(92, 223, 200, 30)];
+    departInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(102, 186, 200, 30)];
+    arriveInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(102, 223, 200, 30)];
     if(_OIVC_Order)
     {
         departInfoLabel.text = [NSString stringWithFormat:@"%@%@机场%d航站楼 出发",[[_OIVC_Order.flightsList objectAtIndex:0] departCityName],[[_OIVC_Order.flightsList objectAtIndex:0] departPortShortName],[[_OIVC_Order.flightsList objectAtIndex:0] departPortBuildingID]];
@@ -186,6 +204,12 @@
 
 - (void)cancelPressed
 {
+}
+
+- (void)confirmButtonPressed:(id)sender
+{
+    SearchViewController *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
+    [self.navigationController pushViewController:sVC animated:YES];
 }
 
 #pragma mark - pkaddpassviewcontroller delegate

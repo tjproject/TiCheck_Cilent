@@ -35,6 +35,7 @@
 @property (strong, nonatomic) UIButton *passbookButton;
 @property (strong, nonatomic) UIButton *cancelButton;
 
+@property NSInteger segueFromOnlinePayTag;
 @property (strong, nonatomic) Order *OIVC_Order;
 @property (strong, nonatomic) NSDate *OIVC_departureDate;
 
