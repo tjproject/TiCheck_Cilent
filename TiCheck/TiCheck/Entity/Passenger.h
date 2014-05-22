@@ -132,4 +132,13 @@
                              passportType:(PassportType)passportType
                                passportNo:(NSString *)passportNumber;
 
+/**
+ *  通过字典创建实例
+ *
+ *  @param dictionary 字典
+ *
+ *  @return 实例
+ */
++ (Passenger *)createPassengerWithDictionary:(NSDictionary *)dictionary;
+
 @end

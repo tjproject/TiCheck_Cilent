@@ -8,6 +8,7 @@
 
 #import "Passenger.h"
 #import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
 
 @implementation Passenger
 
@@ -34,8 +35,31 @@
     passenger.passportType = passportType;
     passenger.passportNumber = passportNumber;
     
+    //默认国籍：中国
+    passenger.nationalityCode = @"1";
     return passenger;
 }
+
++ (Passenger *)createPassengerWithDictionary:(NSDictionary *)dictionary
+{
+    Passenger *result = [[Passenger alloc] init];
+    result.passengerName = dictionary[@"passengerName"];
+    @try
+    {
+        result.birthDay = [NSString timeFormatWithString:dictionary[@"birthDay"]];
+    }
+    @catch(NSException * exception)
+    {
+        //
+    }
+    result.passportType = [dictionary[@"passportType"] integerValue];
+    result.passportNumber = dictionary[@"passportNumber"];
+    result.contactTelephone = dictionary[@"contactTelephone"];
+    result.gender = [dictionary[@"gender"] integerValue];
+    result.nationalityCode = @"1";
+    return result;
+}
+
 
 - (Contact *)contact
 {

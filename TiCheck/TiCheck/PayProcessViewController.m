@@ -105,7 +105,7 @@
     NSArray *pList = [NSArray arrayWithObjects:tempPassenger, nil];
 //    
 //    //联系人
-//    Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
+    Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
 //    
     
     self.flightOrder.passengerList = pList;

@@ -20,11 +20,6 @@
 @interface Order : NSObject
 
 /**
- *  航班订单（OTA 携程方）(不填)
- */
-@property (nonatomic, strong) OTAFlightSaveOrder *otaFlightOrder;
-
-/**
  *  航班信息列表（必填）
  */
 @property (nonatomic, strong) NSArray *flightsList;
