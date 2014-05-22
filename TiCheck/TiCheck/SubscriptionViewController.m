@@ -86,7 +86,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 {
     Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
     if (isShowMore) {
-        NSArray *departTime = [[NSArray alloc] init];
+        NSArray *departTime;
         if ([self.takeOffTimeCell.generalValue.titleLabel.text isEqualToString:@"不限"])
             departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
         else

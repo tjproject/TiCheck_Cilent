@@ -25,7 +25,7 @@
     NSString *result = @"未知";
     
     if (_craftType != nil && ![_craftType isEqualToString:@""]) {
-        result = _craftType;
+//        result = _craftType;
         NSString *kind = @"";
         
         if ([_craftKind isEqualToString:@"S"]) kind = @"小";
@@ -44,7 +44,7 @@
     NSString *result = @"未知机型";
     
     if (_craftType != nil && ![_craftType isEqualToString:@"未知机型"]) {
-        result = _craftType;
+//        result = _craftType;
         NSString *kind = @"未知机型";
         
         if ([_craftKind isEqualToString:@"S"]) kind = @"小型机";

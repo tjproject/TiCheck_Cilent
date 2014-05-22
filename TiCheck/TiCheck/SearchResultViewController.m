@@ -501,7 +501,7 @@ static float scrollViewHeight=169;
 
 - (NSAttributedString *)resultTitleAttributedStringWithResultCount:(NSInteger)resultCount
 {
-    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithString:@""];
+    NSMutableAttributedString *result;// = [[NSMutableAttributedString alloc] initWithString:@""];
     NSString *takeOffDateStr = self.searchOptionDic[TAKE_OFF_TIME_KEY];
     NSArray *takeOffDateArray = [takeOffDateStr componentsSeparatedByString:@"-"];
     NSInteger month = [takeOffDateArray[1] integerValue];

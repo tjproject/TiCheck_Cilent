@@ -266,7 +266,9 @@
         if ([tempSectionHeader containsObject:[sr uppercaseString]]) {
             [tempArrayForGrouping addObject:domesticCityArray[i]];
             if (checkValueAtIndex == NO) {
-                [arrayForArrays addObject:tempArrayForGrouping];
+                if (tempArrayForGrouping != nil) {
+                    [arrayForArrays addObject:tempArrayForGrouping];
+                }
                 checkValueAtIndex = YES;
             }
         }

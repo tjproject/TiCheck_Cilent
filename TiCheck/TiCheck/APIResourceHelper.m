@@ -179,7 +179,9 @@
     
     NSArray *airportsCode = [self findDomesticCityViaName:cityName].airports;
     for (NSString *airportCode in airportsCode) {
-        [airports addObject:[self findAirportViaCode:airportCode].airportName];
+        if ([self findAirportViaCode:airportCode].airportName != nil) {
+            [airports addObject:[self findAirportViaCode:airportCode].airportName];
+        }
     }
     
     return airports;
