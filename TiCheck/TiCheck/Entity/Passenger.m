@@ -9,7 +9,7 @@
 #import "Passenger.h"
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
-
+#import "UserData.h"
 @implementation Passenger
 
 @synthesize contact = _contact;
@@ -66,13 +66,13 @@
     if (_contact == nil) {
         _contact = [[Contact alloc] init];
         _contact.contactName = self.passengerName;
-        _contact.confirmOption = self.confirmOption;
-        _contact.mobilePhone = self.mobilePhone;
-        _contact.contactTel = self.contactTel;
-        _contact.foreignMobile = self.foreignMobile;
-        _contact.mobileCountryFix = self.mobileCountryFix;
-        _contact.contactEmail = self.contactEmail;
-        _contact.contactFax = self.contactFax;
+        _contact.confirmOption = EML;
+        _contact.mobilePhone = self.contactTelephone;
+        //_contact.contactTel = self.contactTelephone;
+        //_contact.foreignMobile = self.foreignMobile;
+        //_contact.mobileCountryFix = self.mobileCountryFix;
+        _contact.contactEmail = [UserData sharedUserData].email;
+        //_contact.contactFax = self.contactFax;
     }
     return _contact;
 }

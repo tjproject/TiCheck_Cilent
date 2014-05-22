@@ -29,19 +29,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initData];
+    [self initOrderData];
     [self initVessel];
 }
 
-- (void)initData
+- (void)initOrderData
 {
-    //test get order from server
+    //get order from server
     NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getOrderInfo:nil];
     NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
     
     if(returnCode == USER_LOGIN_SUCCESS)
     {
-        [Order orderWithDiscitionary:returnDic];
+        NSArray *orderList = [Order orderWithDiscitionary:returnDic];
     }
 }
 
