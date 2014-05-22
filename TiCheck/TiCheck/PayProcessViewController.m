@@ -308,6 +308,7 @@
     NSString *strURL = [NSString stringWithFormat:@"%@%@/mobilepayentry.aspx%@",API_URL,BUSINESS_TYPE,strURLTrail];
     NSURL *url = [NSURL URLWithString:strURL];
     OnlinePayViewController *opVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OnlinePayViewController"];
+    opVC.departureDate = self.departureDate;
     opVC.url = url;
     opVC.flightOrder = tempOrder;
     [self.navigationController pushViewController:opVC animated:YES];
@@ -366,7 +367,7 @@
     return [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -375,6 +376,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

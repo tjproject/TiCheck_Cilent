@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Order.h"
 #define SERVER_RETURN_CODE_KEY @"Code"
 #define SERVER_RETURN_MESSAGE_KEY @"Message"
 #define SERVER_USER_DATA @"Data"
@@ -31,7 +31,7 @@
 #define SUBSCRIPTION_CANCEL_SUCCESS 1
 
 @class Subscription;
-
+@class Order;
 @interface ServerCommunicator : NSObject
 
 /**
@@ -135,14 +135,13 @@
 - (NSDictionary *)getSubscriptionInfo;//:(Subscription *)subscription;
 
 /**
- *  添加用户一条伪订单
+ *  添加订单
  *
- *  @param orderDetail NSDictionary * 订单详情字典
- *  @param tempOrderID NSString * 临时订单号
+ *  @param orderDetail 订单实例
  *
- *  @return 返回消息的字典
+ *  @return 返回消息的Dictionary
  */
-- (NSDictionary *)addOrder:(NSDictionary *)orderDetail tempOrderID:(NSString *)tempOrderID;
+- (NSDictionary *)addOrder:(Order *)orderDetail;
 
 /**
  *  获取订单列表与信息

@@ -7,6 +7,8 @@
 //
 
 #import "Order.h"
+#import "PrintObject.h"
+//@class Order;
 
 @implementation Order
 
@@ -36,19 +38,52 @@
     return order;
 }
 
-- (NSDictionary *)dictionaryWithOrderOption
++ (Order *)createOrderWithDictionary:(NSDictionary *) dictionary
 {
-    NSMutableDictionary *orderDictionary = [NSMutableDictionary dictionary];
-    
-    [orderDictionary setValue:self.OrderID forKeyPath:ORDER_ID];
-    [orderDictionary setValue:self.orderTime forKeyPath:ORDER_TIME];
-    [orderDictionary setValue:[NSString stringWithFormat:@"%ld",(long)self.amount] forKeyPath:AMOUNT];
-    [orderDictionary setValue:self.orderDesc forKeyPath:ORDER_DESC];
-    [orderDictionary setValue:[NSString stringWithFormat:@"%ld",(long)self.persons] forKeyPath:PERSONS];
-    
-    return orderDictionary;
+    //
+    Order *order = [[Order alloc] init];
+    //
+    return order;
 }
 
++ (NSMutableArray *)orderWithDiscitionary:(NSDictionary*) dictionary
+{
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *dataDictionary in dictionary[@"Data"]) {
+        //把 string 提取出来， 再重新执行一次 json 转化， 即得到 dictionary
+        NSData *dData = [dataDictionary[@"OrderDetail"] dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *entityDictionary = [NSJSONSerialization JSONObjectWithData:dData options:NSJSONReadingMutableContainers error:nil];
+        //
+        Order *tempOrder = [self createOrderWithDictionary:entityDictionary];
+        [resultArray addObject:tempOrder];
+    }
+    
+    return resultArray;
+}
+//    //test get order from server
+//    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getOrderInfo:nil];
+//    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+//    
+//    
+//    //test: 把 string 提取出来， 再重新执行一次 json 转化， 即得到 dictionary
+//    NSDictionary *d = [returnDic[@"Data"] objectAtIndex:5];
+//    NSData *testData2 = [d[@"OrderDetail"] dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    
+//    NSData *testData = [@"testdata" dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary *testD = [NSJSONSerialization JSONObjectWithData:testData2 options:NSJSONReadingMutableContainers error:nil];
 
+
+
+
+
+
+- (NSDictionary *)dictionaryWithOrderOption
+{
+    NSDictionary *result = [PrintObject getObjectData:self];
+    //[PrintObject print:self];
+    return result;
+}
 
 @end

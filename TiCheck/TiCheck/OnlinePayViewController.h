@@ -12,6 +12,7 @@
 
 
 @property (strong, nonatomic) Order *flightOrder;
+@property (strong, nonatomic) NSDate *departureDate;
 @property (strong, nonatomic) NSURL *url;
 @property (strong, nonatomic) NSString *tempOrderID;
 @end

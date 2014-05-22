@@ -663,6 +663,7 @@
             [optionDic setObject:self.takeOffTimeCell.generalValue.titleLabel.text forKey:TAKE_OFF_TIME_INTERVAL_KEY];
         }
         vc.searchOptionDic = optionDic;
+        vc.isShowMore = isShowMore;
     }
 }
 

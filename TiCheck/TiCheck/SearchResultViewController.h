@@ -22,5 +22,6 @@
 @interface SearchResultViewController : ViewController
 
 @property (nonatomic, strong) NSDictionary *searchOptionDic;
+@property BOOL isShowMore;
 
 @end

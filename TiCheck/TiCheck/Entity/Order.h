@@ -162,7 +162,7 @@
 - (NSDictionary *)dictionaryWithOrderOption;
 
 /**
- *  创建并返回一个 order 订单实例s
+ *  创建并返回一个 order 订单实例
  *  @param orderId          机票订单号（目前为临时订单号）
  *  @param flighs           航班列表
  *  @param passengers       乘机人列表
@@ -177,5 +177,17 @@
                 orderStatus:(OrderStatus)status
                 totalAmount:(NSInteger)tAmount
                   insurance:(NSInteger)fee;
+
+/**
+ *  由字典创建返回一个 order 实例
+ *
+ *  @param dictionary 字典
+ *
+ *  @return 订单实例数组集合
+ */
++ (NSMutableArray *)orderWithDiscitionary:(NSDictionary*) dictionary;
+
+
++ (Order *)createOrderWithDictionary:(NSDictionary *)dictionary;
 
 @end

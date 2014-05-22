@@ -204,24 +204,74 @@
 - (NSDictionary *)responseDataToJSONDictionary:(NSData *)response
 {
 //    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-    return [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+
+    return result;
 }
 
+- (NSDictionary *)responseDataToJSONDictionaryTest:(NSData *)response
+{
+    //    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
+    
+    return result;
+}
 #pragma mark -
 #pragma mark Order
-- (NSDictionary *)addOrder:(NSDictionary *)orderDetail tempOrderID:(NSString *)tempOrderID
+- (NSDictionary *)addOrder:(Order *)orderDetail
 {
     NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    NSDictionary *orderInfo = [orderDetail dictionaryWithOrderOption];
     
-    NSData *orderDetailJsonData = [NSJSONSerialization dataWithJSONObject:orderDetail options:NSJSONWritingPrettyPrinted error:nil];
-    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    //NSError *error = [[NSError alloc] init];
+    if([NSJSONSerialization isValidJSONObject:orderInfo])
+    {
+        NSData *orderDetailJsonData = [NSJSONSerialization dataWithJSONObject:orderInfo options:NSJSONWritingPrettyPrinted error:nil];
+        //NSLog(@"%@", error);
+        NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSDictionary *OrderIDDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:orderDetail.OrderID,@"OrderID", nil];
+        
+        NSData *orderIdInfoJsonData = [NSJSONSerialization dataWithJSONObject:OrderIDDictionary options:NSJSONWritingPrettyPrinted error:nil];
+        //
+        NSString *requestString = [NSString stringWithFormat:@"OrderDetail=%@&User=%@&TempOrder=%@", [[NSString alloc] initWithData:orderDetailJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:orderIdInfoJsonData encoding:NSUTF8StringEncoding]];
+        NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        //
+        NSData *responseData = [ServerRequest getServerOrderResponseWithServerURL:SERVER_URL requestType:Create_Order jsonData:jsonBody];
+        
+        return [self responseDataToJSONDictionary:responseData];
+    }
+    else
+    {
+        //
+    }
+    return nil;
+}
+- (NSDictionary *)getOrderInfo:(NSString *)tempOrderID
+{
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    //NSDictionary *orderInfo = [orderDetail dictionaryWithOrderOption];
     
-    NSString *requestString = [NSString stringWithFormat:@"OrderDetail=%@&User=%@&TempOrder=%@", [[NSString alloc] initWithData:orderDetailJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], tempOrderID];
-    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSData *responseData = [ServerRequest getServerSubscriptionResponseWithServerURL:SERVER_URL requestType:Create_Subscription jsonData:jsonBody];
-    
-    return [self responseDataToJSONDictionary:responseData];
+    //NSError *error = [[NSError alloc] init];
+    if([NSJSONSerialization isValidJSONObject:userInfo])
+    {
+        //NSLog(@"%@", error);
+        NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+        
+        //NSDictionary *OrderIDDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:orderDetail.OrderID,@"OrderID", nil];
+        
+        //NSData *orderIdInfoJsonData = [NSJSONSerialization dataWithJSONObject:OrderIDDictionary options:NSJSONWritingPrettyPrinted error:nil];
+        //
+        NSString *requestString = [NSString stringWithFormat:@"User=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
+        NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+        
+        //
+        NSData *responseData = [ServerRequest getServerOrderResponseWithServerURL:SERVER_URL requestType:Get_Order jsonData:jsonBody];
+        
+        return [self responseDataToJSONDictionaryTest:responseData];
+    }
+    return nil;
 }
 
 @end
