@@ -83,4 +83,56 @@
 #endif
 }
 
+
+
+
++ (id)getObject:(id)object WithData:(NSDictionary *)dictionary
+{
+    NSEnumerator *enumerator = [dictionary keyEnumerator];
+    id key;
+    
+    while ((key = [enumerator nextObject])) {
+        NSString *keyName = key;
+        id propertyValue = [object valueForKey:keyName];
+        
+
+    }
+    
+    
+    
+    return object;
+}
+
++ (NSDictionary *)getObjectProperty:(id)object
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    unsigned int propsCount;
+    objc_property_t *props = class_copyPropertyList([object class], &propsCount);
+    for(int i = 0;i < propsCount; i++) {
+        objc_property_t prop = props[i];
+        id value = nil;
+        @try
+        {
+            //NSString *propName = [NSString stringWithUTF8String:property_getName(prop)];
+            //[dic setObject:prop forKey:propName];
+            
+            
+//            value = [self getObjectInternal:[obj valueForKey:propName]];
+//            if(value != nil) {
+//                [dic setObject:value forKey:propName];
+//            }
+        }
+        @catch (NSException *exception) {
+            [self logError:exception];
+        }
+        
+    }
+    return dic;
+}
+
+
+
+
+
+
 @end

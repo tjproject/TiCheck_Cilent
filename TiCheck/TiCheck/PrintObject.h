@@ -18,4 +18,15 @@
 //直接通过NSLog输出getObjectData方法返回的NSDictionary
 + (void)print:(id)obj;
 
+/**
+ *  通过数据返回相应的实例
+ *
+ *  @param object     需要返回的实例
+ *  @param dictionary 填入实例的数据
+ *
+ *  @return 实例
+ */
++ (id)getObject:(id)object WithData:(NSDictionary *)dictionary;
+
+
 @end
