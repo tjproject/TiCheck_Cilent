@@ -1,0 +1,5 @@
+#include "Pods-GDataXML-HTML.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/GDataXML-HTML" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/ASIHTTPRequest" "${PODS_ROOT}/Headers/EGOTableViewPullRefresh" "${PODS_ROOT}/Headers/GDataXML-HTML" "${PODS_ROOT}/Headers/MagicalRecord" "${PODS_ROOT}/Headers/Reachability" ${PODS_GDATAXML_HTML_HEADER_SEARCH_PATHS}
+OTHER_LDFLAGS = -ObjC ${PODS_GDATAXML_HTML_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}
