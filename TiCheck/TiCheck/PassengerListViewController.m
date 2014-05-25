@@ -144,19 +144,34 @@
         peVC.navigationItem.title=@"修改联系人";
         [self.navigationController pushViewController:peVC animated:YES];
         
-        //根据所选择联系人序号，传递联系人数据
+        //根据所选择联系人，传递联系人数据
         //
         peVC.passengerInfo=[Passenger passengerWithPassengerName:@"黄泽彪" birthDay: nil passportType:ID passportNo:@"440508199109223314"];
         peVC.navigationBarDoneItemString=@"确认修改";
     }
     else
     {
-        //根据所选择联系人返回 联系人序号或其余信息 到 机票支付页面
+        //根据所选择联系人返回 联系人信息 到 机票支付页面
         [self.navigationController popViewControllerAnimated:YES];
         //get the last view controller, reload table view data
         TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
-        [tiVC.passengerList addObject:@"黄泽彪"];
-        [tiVC.cellTitleArray insertObject:@"  黄泽彪" atIndex:1];
+        
+        //预先设置 乘客
+        NSDateComponents *comp = [[NSDateComponents alloc]init];
+        [comp setMonth:9];
+        [comp setDay:22];
+        [comp setYear:1991];
+        NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDate *bDate = [myCal dateFromComponents:comp];
+        
+        Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthDay:bDate  passportType:ID passportNo:@"440508199109223314"];
+        tempPassenger.gender = Male;
+        tempPassenger.nationalityCode = @"1";
+        tempPassenger.contactTelephone = @"18817598462";
+        
+        
+        [tiVC.passengerList addObject:tempPassenger];
+        [tiVC.cellTitleArray insertObject:[NSString stringWithFormat:@"  %@",tempPassenger.passengerName] atIndex:1];
         tiVC.infoVessel.scrollEnabled = YES;
         [tiVC.infoVessel reloadData];
     }

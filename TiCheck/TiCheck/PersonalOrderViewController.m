@@ -9,7 +9,7 @@
 #import "PersonalOrderViewController.h"
 #import "PersonalOrderTableViewCell.h"
 #import "OrderInfoViewController.h"
-
+#import "ServerCommunicator.h"
 @interface PersonalOrderViewController ()
 
 @end
@@ -29,7 +29,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initOrderData];
     [self initVessel];
+}
+
+- (void)initOrderData
+{
+    //get order from server
+    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getOrderInfo:nil];
+    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+    
+    if(returnCode == USER_LOGIN_SUCCESS)
+    {
+        NSArray *orderList = [Order orderWithDiscitionary:returnDic];
+    }
 }
 
 - (void)initVessel

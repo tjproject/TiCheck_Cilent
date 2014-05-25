@@ -443,4 +443,14 @@
  */
 @property (nonatomic) CGFloat serverFee;
 
+
+/**
+ *  根据字典生成航班实例
+ *
+ *  @param dictionary 字典
+ *
+ *  @return 航班实例
+ */
++ (Flight *)createFilghtWithDictionary:(NSDictionary *)dictionary;
+
 @end

@@ -103,19 +103,20 @@
     tempPassenger.contactTelephone = @"18817598462";
     
     NSArray *pList = [NSArray arrayWithObjects:tempPassenger, nil];
-//    
+
 //    //联系人
-//    Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
+    Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
 //    
     
-    self.flightOrder.passengerList = pList;
+    //self.flightOrder.passengerList = pList;
+    //self.flightOrder.contact = contact;
     flightOrderRequest = self.flightOrder;
     
     self.selectFlight = [flightOrderRequest.flightInfoList objectAtIndex:0];
     self.passengerList = flightOrderRequest.passengerList;
     
     //生成请求
-    flightOrderRequest = [[OTAFlightSaveOrder alloc] initWithUserUniqueUID:[UserData sharedUserData].uniqueID AgeType:ADU flightList:flightOrderRequest.flightInfoList passengerList:flightOrderRequest.passengerList contact:flightOrderRequest.contact];
+    //flightOrderRequest = [[OTAFlightSaveOrder alloc] initWithUserUniqueUID:[UserData sharedUserData].uniqueID AgeType:ADU flightList:flightOrderRequest.flightInfoList passengerList:flightOrderRequest.passengerList contact:flightOrderRequest.contact];
     [flightOrderRequest generateOTAFlightSaveOrderXMLRequest];
 }
 

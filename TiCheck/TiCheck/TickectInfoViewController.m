@@ -387,21 +387,21 @@
     {
         PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
         //传递值
-        ppVC.selectFlight = _selectFlight;
-        ppVC.departureDate = _departureDate;
-        ppVC.passengerList = _passengerList;
+        //ppVC.selectFlight = _selectFlight;
+        //ppVC.departureDate = _departureDate;
+        //ppVC.passengerList = _passengerList;
         //
         //...
         NSArray *tempFlightList = [NSArray arrayWithObjects:_selectFlight, nil];
         //联系人
         
         //@TODO: 联系人逻辑
-        Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:@"18917260806" contactEmail: [UserData sharedUserData].email];
+        //Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:@"18917260806" contactEmail: [UserData sharedUserData].email];
         OTAFlightSaveOrder *flightOrder = [[OTAFlightSaveOrder alloc] initWithUserUniqueUID:[[UserData sharedUserData] uniqueID]
                                                                                     AgeType:ADU
                                                                                  flightList:tempFlightList
                                                                               passengerList:_passengerList
-                                                                                    contact:contact];
+                                                                                    contact:nil];
         ppVC.flightOrder = flightOrder;
         [self.navigationController pushViewController:ppVC animated:YES];
     }

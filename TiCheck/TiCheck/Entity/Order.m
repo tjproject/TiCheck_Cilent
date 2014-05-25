@@ -8,6 +8,9 @@
 
 #import "Order.h"
 #import "PrintObject.h"
+#import "NSString+DateFormat.h"
+#import "Flight.h"
+#import "Passenger.h"
 //@class Order;
 
 @implementation Order
@@ -42,8 +45,49 @@
 {
     //
     Order *order = [[Order alloc] init];
-    //
-    order = [PrintObject getObject:order WithData:dictionary];
+    //手动生成order
+    //单独生成Array类型
+    NSMutableArray *flightsList = [[NSMutableArray alloc] init];
+    NSArray *flightsData = dictionary[@"flightsList"];
+    for (NSDictionary * flightDictionary in flightsData) {
+        Flight *tempFlight = [Flight createFilghtWithDictionary:flightDictionary];
+        [flightsList addObject:tempFlight];
+    }
+    order.flightsList = flightsList;
+    
+    NSMutableArray *passengersList = [[NSMutableArray alloc] init];
+    NSArray *passengersData = dictionary[@"passengersList"];
+    for (NSDictionary * passengerDictionary in passengersData) {
+        Passenger *tempPassenger = [Passenger createPassengerWithDictionary:passengerDictionary];
+        [passengersList addObject:tempPassenger];
+    }
+    order.passengersList = passengersList;
+    
+    //日期类型
+    order.orderTime = [NSString timeFormatWithString:dictionary[@"orderTime"]];
+    order.latestChangedTime = [NSString timeFormatWithString:dictionary[@"latestChangedTime"]];
+    //基本类型
+    order.OrderID = dictionary[@"OrderID"];
+    order.sendTicketCity = dictionary[@"sendTicketCity"];
+    order.sendTicketCityID = [dictionary[@"sendTicketCityID"] integerValue];
+    order.flightWay = [dictionary[@"flightWay"] integerValue];
+    order.orderDesc = dictionary[@"orderDesc"];
+    order.orderStatus = [dictionary[@"orderStatus"] integerValue];
+    order.amount = [dictionary[@"amount"] integerValue];
+    order.insuranceFee = [dictionary[@"insuranceFee"] integerValue];
+    order.emoney = [dictionary[@"emoney"] integerValue];
+    order.actualAmount = [dictionary[@"actualAmount"] integerValue];
+    order.cCardPayFee = [dictionary[@"cCardPayFee"] floatValue];
+    order.serverFee = [dictionary[@"serverFee"] floatValue];
+    order.processStatus = [dictionary[@"processStatus"] integerValue];
+    order.sendTicketFee = [dictionary[@"sendTicketFee"] integerValue];
+    order.getTicketWay = dictionary[@"getTicketWay"];
+    order.eAccountAmount = [dictionary[@"eAccountAmount"] integerValue];
+    order.persons = [dictionary[@"persons"] integerValue];
+    order.isEnglish = [dictionary[@"isEnglish"] boolValue];
+    order.flightOrderClass = [dictionary[@"flightOrderClass"] integerValue];
+    order.stopsInfo = dictionary[@"stopsInfo"];
+    order.promopts = dictionary[@"promopts"];
     
     return order;
 }
