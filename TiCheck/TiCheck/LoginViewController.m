@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "ServerRequest.h"
 
+extern NSString *mDeviceToken;
+
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *userName;
@@ -47,6 +49,7 @@
 {
     NSString* account=self.userName.text;
     NSString* password=[[ConfigurationHelper sharedConfigurationHelper] md5:self.password.text];
+    
     
     NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
     NSLog(@"%@",tempD);

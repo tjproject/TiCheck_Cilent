@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-static NSString *mDeviceToken;
+NSString *mDeviceToken;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

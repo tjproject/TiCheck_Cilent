@@ -82,7 +82,7 @@
     }
 }
 
-#pragma mark - Push Notification
+#pragma mark - Token
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
