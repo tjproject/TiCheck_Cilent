@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Reachability.h"
 #import "APIResourceHelper.h"
+#import "ServerCommunicator.h"
 
 @interface AppDelegate () <UIAlertViewDelegate>
 
@@ -93,6 +94,8 @@
                           ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),
                           ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
     NSLog(@"Token is: %@", mDeviceToken);
+    NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
+    NSLog(@"%@",tempD);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

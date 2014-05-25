@@ -168,7 +168,7 @@
  *
  *  @return 返回消息
  */
-- (NSDictionary *)deleteConatcs:(NSArray *)contacts;
+- (NSDictionary *)deleteContacts:(NSArray *)contacts;
 
 /**
  *  修改联系人信息

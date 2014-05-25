@@ -13,8 +13,11 @@
 #import "UIImage+ImageResize.h"
 #import "APIResourceHelper.h"
 #import "Airline.h"
-
+#import "AppDelegate.h"
 #import "CommonData.h"
+#import "ServerCommunicator.h"
+
+extern NSString *mDeviceToken;
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
 {
@@ -69,7 +72,8 @@
     
     [self initNavBar];
     [self initDarkUILayer];
-}
+
+    NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];}
 
 - (void)initDarkUILayer
 {
