@@ -776,10 +776,10 @@
 			isa = PBXGroup;
 			children = (
 				24FC2B6B18EC3AD000F6A2A9 /* Login */,
+				A0A8A66C19036620006070B8 /* SearchAndSubscription */,
 				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
 				68436EF618FEBB260043B10E /* Pay */,
 				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
-				A0A8A66C19036620006070B8 /* SearchAndSubscription */,
 				1370841718F7BB6A00FD4949 /* TicketInfo */,
 			);
 			name = PresentationLayer;

@@ -64,6 +64,7 @@
     isShowMore = NO;
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TiCheckTitle"]];
+    
     [self.optionSelectPickerView setFrame:HIDE_PICKER_VIEW_FRAME];
     
     [self initNavBar];
@@ -557,8 +558,13 @@
 {
     if (animate) {
         [UIView beginAnimations:nil context:nil];
-        [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
-        [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
+        if (IS_IPHONE_5) {
+            [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
+            [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
+        } else {
+            [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME_SMALL];
+            [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME_SMALL];
+        }
         darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         [UIView commitAnimations];
     } else {

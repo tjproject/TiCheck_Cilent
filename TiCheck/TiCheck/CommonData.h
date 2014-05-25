@@ -22,15 +22,22 @@
 #import "NSString+DateFormat.h"
 #import "NSDate-Utilities.h"
 
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0)
+#define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0)
+
 #define TOOLBAR_PICKER_ANIMATION_SPEED 0.2f
 
 #define TABLE_VIEW_DEFAULT_HEIGHT 44.0f
 #define MORE_OPTION_COUNT 5
 
-#define SHOW_TOOL_BAR_VIEW_FRAME CGRectMake(0.0f, 362.0f, 320.0f, 44.0f)
+#define SHOW_TOOL_BAR_VIEW_FRAME CGRectMake(0.0f, 362.0f, 320.0f, 44.0f) // 362
+#define SHOW_TOOL_BAR_VIEW_FRAME_SMALL CGRectMake(0.0f, 302.0f, 320.0f, 44.0f) // 362-38
 #define HIDE_TOOL_BAR_VIEW_FRAME CGRectMake(0.0f, 568.0f, 320.0f, 44.0f)
 
-#define SHOW_PICKER_VIEW_FRAME CGRectMake(0.0f, 406.0f, 320.0f, 162.0f)
+#define SHOW_PICKER_VIEW_FRAME CGRectMake(0.0f, 406.0f, 320.0f, 162.0f)// 406
+#define SHOW_PICKER_VIEW_FRAME_SMALL CGRectMake(0.0f, 346.0f, 320.0f, 162.0f)// 406-38
 #define HIDE_PICKER_VIEW_FRAME CGRectMake(0.0f, 612.0f, 320.0f, 162.0f)
 
 #define AIRLINE_CELL_IMAGE_SIZE CGSizeMake(30.0f, 30.0f)
