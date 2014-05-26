@@ -36,7 +36,7 @@
     _flightLabel.font = [UIFont fontWithName:@"Arial" size:15.f];
     [self addSubview:_flightLabel];
     
-    _planeLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 10, 80, 30)];
+    _planeLabel = [[UILabel alloc] initWithFrame:CGRectMake(170, 10, 150, 30)];
     _planeLabel.font = [UIFont fontWithName:@"Arial" size:12.f];
     _planeLabel.textColor = [UIColor colorWithRed:0.57 green:0.57 blue:0.57 alpha:1.0];
     [self addSubview:_planeLabel];
@@ -61,7 +61,7 @@
 
 - (void)initImage
 {
-    _flightImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 13, 20, 20)];
+    _flightImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 11, 25, 25)];
     [self addSubview:_flightImage];
     
     //add by HZB
@@ -73,10 +73,10 @@
 
 - (void)initImageSource
 {
-    _flightImage.image = [UIImage imageNamed:flightImageName];
+    _flightImage.image = flightImageName;
 }
 
-- (void)initOrderInfoWithFlight:(NSString *)fInfo Plane:(NSString *)pInfo Time:(NSString *)tInfo Place:(NSString *)p2Info FlightImage:(NSString*)fIName
+- (void)initOrderInfoWithFlight:(NSString *)fInfo Plane:(NSString *)pInfo Time:(NSString *)tInfo Place:(NSString *)p2Info FlightImage:(UIImage*)fIName
 {
     flightInfo = fInfo;
     planeInfo = pInfo;
