@@ -27,6 +27,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //
+    [self setExtraCellLineHidden:self.tableView];
+    [self.tableView setScrollEnabled:NO];
+    
     // Do any additional setup after loading the view.
     self.navigationItem.title=@"账号信息";
 }
@@ -67,9 +72,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //
-    [self setExtraCellLineHidden:tableView];
-    [tableView setScrollEnabled:NO];
+    
     //
     return 1;
 }
@@ -80,7 +83,6 @@
     UIView *view = [UIView new];
     view.backgroundColor = [UIColor clearColor];
     [tableView setTableFooterView:view];
-    //[view release];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
