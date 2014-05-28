@@ -52,10 +52,8 @@ const NSArray *___OrderRequestType;
 {
     NSString *urlStr = [serverUrl stringByAppendingFormat:@"?r=User/%@", cUserRequestTypeString(userRequestType)];
     NSURL *url = [NSURL URLWithString:urlStr];
-    NSLog(@"%@", url);
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setCachePolicy:NSURLCacheStorageAllowedInMemoryOnly];
-    NSLog(@"%@", req);
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:jsonData];
     

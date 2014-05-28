@@ -73,7 +73,10 @@ extern NSString *mDeviceToken;
     [self initNavBar];
     [self initDarkUILayer];
 
-    NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];}
+    if (mDeviceToken != NULL) {
+       [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
+    }
+}
 
 - (void)initDarkUILayer
 {
