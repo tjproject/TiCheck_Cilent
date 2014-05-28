@@ -13,8 +13,11 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *passengerInfoTableView;
 
-
+@property (strong, nonatomic) Passenger *oldPassengerInfo;
 @property (strong, nonatomic) Passenger *passengerInfo;
 
 @property (strong, nonatomic) NSString *navigationBarDoneItemString;
+
+@property (nonatomic) BOOL isDirectlyBackToTicketInfo;
+
 @end

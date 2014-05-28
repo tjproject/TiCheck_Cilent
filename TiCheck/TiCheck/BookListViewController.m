@@ -98,6 +98,7 @@
         for(int i = 0; i < dataArray.count; i++)
         {
             NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
+            NSDictionary *tempSubscriptionDictionary = tempDictionary[@"Subscription"];
 //            ‘DepartCity' : ’SHA',
 //            ‘ArriveCity' :’DYG',
 //            'StartDate' : '2014-7-25',
@@ -111,7 +112,7 @@
             //TODO: change dictionary data to subscription entity stored in subscriptionArray.
             //      research flight by using subscription info and display them in table view
             //      add edit function for subscription
-            Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempDictionary[@"DepartCity"] arriveCityCode:tempDictionary[@"ArriveCity"] startDate:tempDictionary[@"StartDate"] endDate:tempDictionary[@"EndDate"]];
+            Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
             
             
             
@@ -183,7 +184,7 @@
         //NSMutableArray *temp=[bookOrderList objectAtIndex:indexPath.section];
         //NSString *time=[NSString stringWithFormat:@"num: %i", [[temp objectAtIndex: indexPath.row] intValue]];
         
-        [cell initOrderInfoWithFlight:@"东方航空MU5137" Plane:@"320中 经济舱" Time:@"2014-03-11  07:00-09:20" Place:@"虹桥－首都" FlightImage:@"EA_Logo"];
+        [cell initOrderInfoWithFlight:@"东方航空MU5137" Plane:@"320中 经济舱" Time:@"2014-03-11  07:00-09:20" Place:@"虹桥－首都" FlightImage:[UIImage imageNamed:@"MU"]];
         
     }
     
@@ -192,14 +193,14 @@
     //
     //
     
-    if(indexPath.section>1)
-    {
-        cell.priceTrednImage.image = [UIImage imageNamed:@"PriceDown"];
-    }
-    else
-    {
-        cell.priceTrednImage.image = [UIImage imageNamed:@"PriceUp"];
-    }
+//    if(indexPath.section>1)
+//    {
+//        cell.priceTrednImage.image = [UIImage imageNamed:@"PriceDown"];
+//    }
+//    else
+//    {
+//        cell.priceTrednImage.image = [UIImage imageNamed:@"PriceUp"];
+//    }
 
     
     return cell;

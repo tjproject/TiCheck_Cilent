@@ -138,17 +138,22 @@
     //判断是从个人中心跳转进来还是从机票支付页面进来
     //self.isComeFromTicketPay=NO;
     
+    //从个人中心跳转
     if(!self.isComeFromTicketPay)
     {
         PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
         peVC.navigationItem.title=@"修改联系人";
-        [self.navigationController pushViewController:peVC animated:YES];
         
         //根据所选择联系人，传递联系人数据
         //
         peVC.passengerInfo=[Passenger passengerWithPassengerName:@"黄泽彪" birthDay: nil passportType:ID passportNo:@"440508199109223314"];
         peVC.navigationBarDoneItemString=@"确认修改";
+        
+        peVC.isDirectlyBackToTicketInfo = NO;
+        
+        [self.navigationController pushViewController:peVC animated:YES];
     }
+    //从机票支付页面跳转
     else
     {
         //根据所选择联系人返回 联系人信息 到 机票支付页面
@@ -192,13 +197,15 @@
     
     peVC.navigationItem.title=@"添加联系人";
     peVC.navigationBarDoneItemString=@"添加";
+    
+    //if (self.isComeFromTicketPay) {
+    //设置专门的标识，使得下个页面在返回时直接跳转回机票页面
+    peVC.isDirectlyBackToTicketInfo = self.isComeFromTicketPay;
+    //}
     //
     [self.navigationController pushViewController:peVC animated:YES];
     
-    if (self.isComeFromTicketPay) {
-        //设置专门的标识，使得下个页面在返回时直接跳转回机票页面
-        
-    }
+    
 }
 
 

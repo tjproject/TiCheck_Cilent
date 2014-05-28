@@ -11,7 +11,7 @@
 #import "PassengerInfoPickerCell.h"
 #import "PassengerInfoTextFieldCell.h"
 #import "EnumCollection.h"
-
+#import "TickectInfoViewController.h"
 
 #define INFO_ITEM_COUNT 6;
 
@@ -23,6 +23,8 @@
     
     TickectInfoPicker *genderPicker;
     TickectInfoPicker *passportTypePicker;
+    
+    BOOL isAddingNewItem;
 }
 @end
 
@@ -43,8 +45,6 @@
     // Do any additional setup after loading the view.
     
     [self initPassenger];
-    
-    
     [self.passengerInfoTableView setScrollEnabled:NO];
     [self setExtraCellLineHidden:self.passengerInfoTableView];
     
@@ -71,13 +71,28 @@
 {
     if(self.passengerInfo==nil)
     {
-        self.passengerInfo=[[Passenger alloc] init];
-        self.passengerInfo.passengerName=nil;
-        self.passengerInfo.gender=0;
-        self.passengerInfo.birthDay=nil;
-        self.passengerInfo.passportType=0;
-        self.passengerInfo.passportNumber=nil;
-        self.passengerInfo.contactTelephone=nil;
+        self.passengerInfo = [[Passenger alloc] init];
+        self.passengerInfo.passengerName = nil;
+        self.passengerInfo.gender = 0;
+        self.passengerInfo.birthDay = nil;
+        self.passengerInfo.passportType = 0;
+        self.passengerInfo.passportNumber = nil;
+        self.passengerInfo.contactTelephone = nil;
+        
+        isAddingNewItem = YES;
+    }
+    else
+    {
+        //保存被修改乘客的原有信息
+        self.oldPassengerInfo = [[Passenger alloc] init];
+        self.oldPassengerInfo.passengerName = [NSString stringWithString:self.passengerInfo.passengerName];
+        self.oldPassengerInfo.gender = self.passengerInfo.gender;
+        self.oldPassengerInfo.birthDay = self.passengerInfo.birthDay;
+        self.oldPassengerInfo.passportType = self.passengerInfo.passportType;
+        self.oldPassengerInfo.passportNumber = [NSString stringWithString:self.passengerInfo.passportNumber];
+        self.oldPassengerInfo.contactTelephone = [NSString stringWithString:self.passengerInfo.contactTelephone];
+        
+        isAddingNewItem = NO;
     }
 }
 - (void)initDarkUILayer
@@ -479,9 +494,7 @@
     //get the last view controller, reload table view data
     PassengerListViewController *plVC= (PassengerListViewController *)[self.navigationController visibleViewController];
     [plVC.passengerListTableView reloadData];
-    
-    //test
-    //plVC.isComeFromTicketPay=YES;
+
 }
 
 - (void) doneButtonFunction:(id) sender
@@ -489,19 +502,32 @@
     [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
     if ([self checkInfo:self.passengerInfo])
     {
-        //修改
-        //更新对应的 passenger 或者添加 新的 passenger
-        //
-        //
-        //
-        //
-        
-        //alert 修改成功
-        //返回
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        
-            }
+        //update
+        if(isAddingNewItem)
+        {
+            //添加本机数据以及数据库数据
+            //
+            //
+           
+            //
+            //alert 添加成功
+            //返回
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"添加成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else
+        {
+            //修改本机数据以及数据库数据
+            //
+            //
+            
+            //
+            //alert 修改成功
+            //返回
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }
     else
     {
         //
@@ -512,16 +538,16 @@
 {
     //set passengerInfo
     NSIndexPath* path=[NSIndexPath indexPathForRow: 0 inSection:0];
-    PassengerInfoTextFieldCell *cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
-    passengerInfo.passengerName= cell.inputInfoTextField.text;
+    PassengerInfoTextFieldCell *cell = (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    passengerInfo.passengerName = cell.inputInfoTextField.text;
     
     path=[NSIndexPath indexPathForRow: 4 inSection:0];
     cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
-    passengerInfo.passportNumber= cell.inputInfoTextField.text;
+    passengerInfo.passportNumber = cell.inputInfoTextField.text;
     
     path=[NSIndexPath indexPathForRow: 5 inSection:0];
     cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
-    passengerInfo.contactTelephone= cell.inputInfoTextField.text;
+    passengerInfo.contactTelephone = cell.inputInfoTextField.text;
     
 }
 
@@ -537,7 +563,7 @@
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
-        return NO;
+        //return NO;
     }
     //birthday
     if (self.passengerInfo.birthDay==nil) {
@@ -621,8 +647,23 @@
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     //NSLog(@"test");
-    [self cancelButtonFunction:self];
-
+    if (self.isDirectlyBackToTicketInfo) {
+        //直接返回到机票支付页面
+        [self.navigationController popViewControllerAnimated:YES];
+        //get the last view controller, reload table view data
+        TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
+        
+        [tiVC.passengerList addObject:self.passengerInfo];
+        [tiVC.cellTitleArray insertObject:[NSString stringWithFormat:@"  %@",self.passengerInfo.passengerName] atIndex:1];
+        tiVC.infoVessel.scrollEnabled = YES;
+        [tiVC.infoVessel reloadData];
+    }
+    else
+    {
+        //返回乘客人列表
+        [self cancelButtonFunction:self];
+    }
+    
 }
 
 #pragma mark - utility functions

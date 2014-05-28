@@ -10,8 +10,20 @@
 #import "PersonalOrderTableViewCell.h"
 #import "OrderInfoViewController.h"
 #import "ServerCommunicator.h"
-@interface PersonalOrderViewController ()
 
+#import "APIResourceHelper.h"
+#import "Order.h"
+#import "Flight.h"
+#import "CraftType.h"
+
+#import "NSDate-Utilities.h"
+#import "NSString+DateFormat.h"
+#import "NSString+EnumTransform.h"
+
+@interface PersonalOrderViewController ()
+{
+    NSMutableArray *orderList;
+}
 @end
 
 @implementation PersonalOrderViewController
@@ -39,9 +51,10 @@
     NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getOrderInfo:nil];
     NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
     
+    orderList = [[NSMutableArray alloc] init];
     if(returnCode == USER_LOGIN_SUCCESS)
     {
-        NSArray *orderList = [Order orderWithDiscitionary:returnDic];
+        orderList = [Order orderWithDiscitionary:returnDic];
     }
 }
 
@@ -63,7 +76,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return orderList.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,7 +86,8 @@
     if (cell == nil)
     {
         cell = [[PersonalOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-        [cell initOrderInfoWithFlight:@"东方航空MU5137" Plane:@"320中 经济舱" Time:@"2014-03-11  07:00-09:20" Place:@"虹桥－首都" FlightImage:@"EA_Logo"];
+        CraftType *tempCT = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] craftType]];
+        [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] flightNumber]] Plane:[NSString stringWithFormat:@"%@ %@",[tempCT craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]] Time:[[NSString stringWithFormat:@"%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] takeOffTime]] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] Place:[NSString stringWithFormat:@"%@-%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] departPortShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] arrivePortShortName]] FlightImage:[UIImage imageNamed:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineDibitCode]]];
     }
     return cell;
 }
@@ -87,6 +101,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderInfoViewController"];
+    tiVC.OIVC_Order = [orderList objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:tiVC animated:YES];
     
 }

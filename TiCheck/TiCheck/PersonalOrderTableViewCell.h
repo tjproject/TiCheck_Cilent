@@ -14,7 +14,7 @@
     NSString *planeInfo;
     NSString *timeInfo;
     NSString *placeInfo;
-    NSString *flightImageName;
+    UIImage *flightImageName;
 }
 @property (strong, nonatomic) UILabel *flightLabel;
 @property (strong, nonatomic) UILabel *planeLabel;
@@ -26,6 +26,6 @@
 @property (strong, nonatomic) UIImageView *priceTrednImage;
 
 
-- (void)initOrderInfoWithFlight:(NSString*)fInfo Plane:(NSString*)pInfo Time:(NSString*)tInfo Place:(NSString*)p2Info FlightImage:(NSString*)fIName;
+- (void)initOrderInfoWithFlight:(NSString*)fInfo Plane:(NSString*)pInfo Time:(NSString*)tInfo Place:(NSString*)p2Info FlightImage:(UIImage*)fIName;
 
 @end
