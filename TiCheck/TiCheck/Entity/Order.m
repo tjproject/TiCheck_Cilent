@@ -96,16 +96,26 @@
 {
     NSMutableArray *resultArray = [[NSMutableArray alloc] init];
     
-    for (NSDictionary *dataDictionary in dictionary[@"Data"])
+    id stringResult = dictionary[@"Data"];
+    if([stringResult isKindOfClass:[NSString class]])
     {
-        //把 string 提取出来， 再重新执行一次 json 转化， 即得到 dictionary
-        NSData *dData = [dataDictionary[@"OrderDetail"] dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *entityDictionary = [NSJSONSerialization JSONObjectWithData:dData options:NSJSONReadingMutableContainers error:nil];
         //
-        Order *tempOrder = [self createOrderWithDictionary:entityDictionary];
-        [resultArray addObject:tempOrder];
+        return  nil;
     }
-    return resultArray;
+    else
+    {
+        for (NSDictionary *dataDictionary in dictionary[@"Data"])
+        {
+            //把 string 提取出来， 再重新执行一次 json 转化， 即得到 dictionary
+            NSData *dData = [dataDictionary[@"OrderDetail"] dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *entityDictionary = [NSJSONSerialization JSONObjectWithData:dData options:NSJSONReadingMutableContainers error:nil];
+            //
+            Order *tempOrder = [self createOrderWithDictionary:entityDictionary];
+            [resultArray addObject:tempOrder];
+        }
+        return resultArray;
+    }
+    
 }
 
 

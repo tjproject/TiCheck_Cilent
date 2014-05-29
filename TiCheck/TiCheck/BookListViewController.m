@@ -34,6 +34,7 @@
 #import "Subscription.h"
 #import "ServerRequest.h"
 
+#import "OTAFlightSearchResponse.h"
 
 #define SECTION_BUTTON_TAG_START_INDEX 1000;
 #define EXPAND_BUTTON_TAG_START_INDEX 2000;
@@ -94,10 +95,16 @@
         self.subscriptionArray = [[NSMutableArray alloc] init];
         
         //get data
-        NSString *stringArray = returnDic[@"Data"];
+        id stringArray = returnDic[@"Data"];
         NSArray *dataArray;
-        if(![stringArray isEqualToString:@"null"])
+        if([stringArray isKindOfClass:[NSString class]])
         {
+            //
+        }
+        else
+        {
+//        if(![stringArray isEqualToString:@"null"])
+//        {
             dataArray = returnDic[@"Data"];
             for(int i = 0; i < dataArray.count; i++)
             {
@@ -118,9 +125,18 @@
                 //      add edit function for subscription
                 Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
                 
-                //OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:[request responseString]];
+                
+//                
+//                NSString *filghtXML = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><RequestResponse xmlns=\"http://ctrip.com/\"><RequestResult>";
+//                [filghtXML stringByAppendingString: [[dataArray objectAtIndex:0][@"FlightXML"] objectAtIndex:0][@"FlightXML"]];
+//             
+//                
+//                
+//                //filghtXML =
+//                OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:filghtXML];
                 
                 [self.subscriptionArray addObject:tempSubscription];
+                
             }
         }
     }
