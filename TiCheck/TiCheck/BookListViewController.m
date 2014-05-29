@@ -94,29 +94,34 @@
         self.subscriptionArray = [[NSMutableArray alloc] init];
         
         //get data
-        NSArray *dataArray = returnDic[@"Data"];
-        for(int i = 0; i < dataArray.count; i++)
+        NSString *stringArray = returnDic[@"Data"];
+        NSArray *dataArray;
+        if(![stringArray isEqualToString:@"null"])
         {
-            NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
-            NSDictionary *tempSubscriptionDictionary = tempDictionary[@"Subscription"];
-//            ‘DepartCity' : ’SHA',
-//            ‘ArriveCity' :’DYG',
-//            'StartDate' : '2014-7-25',
-//            ‘EndDate' : '2014-7-25',
-//            ‘EarliestDepartTime’ : ‘08:00:00’,
-//            ‘LatestDepartTime’  : ‘12:00:00’,
-//            ‘AirlineDibitCode’ : ‘CA’,
-//            ’ArriveAirport’ : ’PVG’,
-//            ‘DepartAirport’ : ‘SHA’,
-            //
-            //TODO: change dictionary data to subscription entity stored in subscriptionArray.
-            //      research flight by using subscription info and display them in table view
-            //      add edit function for subscription
-            Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
-            
-            
-            
-            [self.subscriptionArray addObject:tempSubscription];
+            dataArray = returnDic[@"Data"];
+            for(int i = 0; i < dataArray.count; i++)
+            {
+                NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
+                NSDictionary *tempSubscriptionDictionary = tempDictionary[@"Subscription"];
+                //            ‘DepartCity' : ’SHA',
+                //            ‘ArriveCity' :’DYG',
+                //            'StartDate' : '2014-7-25',
+                //            ‘EndDate' : '2014-7-25',
+                //            ‘EarliestDepartTime’ : ‘08:00:00’,
+                //            ‘LatestDepartTime’  : ‘12:00:00’,
+                //            ‘AirlineDibitCode’ : ‘CA’,
+                //            ’ArriveAirport’ : ’PVG’,
+                //            ‘DepartAirport’ : ‘SHA’,
+                //
+                //TODO: change dictionary data to subscription entity stored in subscriptionArray.
+                //      research flight by using subscription info and display them in table view
+                //      add edit function for subscription
+                Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
+                
+                //OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:[request responseString]];
+                
+                [self.subscriptionArray addObject:tempSubscription];
+            }
         }
     }
 }
@@ -152,7 +157,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger sectionCount=((NSMutableArray*)[bookOrderList objectAtIndex:section]).count;
-    return [[isCellExpanded objectAtIndex:section] intValue]==1? sectionCount :3;//(sectionCount<=3?sectionCount:3);
+    return 0;//[[isCellExpanded objectAtIndex:section] intValue]==1? sectionCount :3;//(sectionCount<=3?sectionCount:3);
 }
 
 //- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
