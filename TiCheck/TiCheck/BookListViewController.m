@@ -36,9 +36,10 @@
 
 #import "OTAFlightSearchResponse.h"
 
-#define SECTION_BUTTON_TAG_START_INDEX 1000;
-#define EXPAND_BUTTON_TAG_START_INDEX 2000;
-#define DEFAULT_CELL_NUM 3;
+#import "APIResourceHelper.h"
+#define SECTION_BUTTON_TAG_START_INDEX 1000
+#define EXPAND_BUTTON_TAG_START_INDEX 2000
+#define DEFAULT_CELL_NUM 3
 
 
 @interface BookListViewController ()
@@ -60,6 +61,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        //[self initSubscriptionInfoData];
     }
     return self;
 }
@@ -71,8 +73,8 @@
     //
     self.navigationItem.title=@"我的订阅";
     
-    [self initSubscriptionInfoData];
-    [self initBookOrderList];
+    [self initSubscriptionInfoData:self.returnDic];
+    //[self initBookOrderList];
     
     
 }
@@ -83,17 +85,43 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initSubscriptionInfoData
+-(void) initDataCount
 {
     //get subscription data for server
     
-    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
+    self.returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
+    NSInteger returnCode = [self.returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+    self.dataCount = 0;
+    if (returnCode == USER_LOGIN_SUCCESS)
+    {
+        self.subscriptionArray = [[NSMutableArray alloc] init];
+        self.flightListArray = [[NSMutableArray alloc] init];
+        //get data
+        id stringArray = self.returnDic[@"Data"];
+        NSArray *dataArray;
+        if([stringArray isKindOfClass:[NSString class]])
+        {
+            //
+        }
+        else
+        {
+            dataArray = self.returnDic[@"Data"];
+            self.dataCount = dataArray.count;
+        }
+    }
+}
+
+- (void)initSubscriptionInfoData:(NSDictionary*)returnDic
+{
+    //get subscription data for server
+    
+    //returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
     NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
     
     if (returnCode == USER_LOGIN_SUCCESS)
     {
         self.subscriptionArray = [[NSMutableArray alloc] init];
-        
+        self.flightListArray = [[NSMutableArray alloc] init];
         //get data
         id stringArray = returnDic[@"Data"];
         NSArray *dataArray;
@@ -103,40 +131,46 @@
         }
         else
         {
-//        if(![stringArray isEqualToString:@"null"])
-//        {
             dataArray = returnDic[@"Data"];
             for(int i = 0; i < dataArray.count; i++)
             {
                 NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
                 NSDictionary *tempSubscriptionDictionary = tempDictionary[@"Subscription"];
-                //            ‘DepartCity' : ’SHA',
-                //            ‘ArriveCity' :’DYG',
-                //            'StartDate' : '2014-7-25',
-                //            ‘EndDate' : '2014-7-25',
-                //            ‘EarliestDepartTime’ : ‘08:00:00’,
-                //            ‘LatestDepartTime’  : ‘12:00:00’,
-                //            ‘AirlineDibitCode’ : ‘CA’,
-                //            ’ArriveAirport’ : ’PVG’,
-                //            ‘DepartAirport’ : ‘SHA’,
-                //
+                
                 //TODO: change dictionary data to subscription entity stored in subscriptionArray.
                 //      research flight by using subscription info and display them in table view
                 //      add edit function for subscription
                 Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
                 
+                NSMutableArray *allFlightListOfOneSubscirption = [[NSMutableArray alloc] init];
                 
-//                
-//                NSString *filghtXML = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><RequestResponse xmlns=\"http://ctrip.com/\"><RequestResult>";
-//                [filghtXML stringByAppendingString: [[dataArray objectAtIndex:0][@"FlightXML"] objectAtIndex:0][@"FlightXML"]];
-//             
-//                
-//                
-//                //filghtXML =
-//                OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:filghtXML];
+                NSString *header = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><RequestResponse xmlns=\"http://ctrip.com/\"><RequestResult>";
+                NSString *footer = @"</RequestResult></RequestResponse></soap:Body></soap:Envelope>";
+                //NSString *filghtXML = [[dataArray objectAtIndex:0][@"FlightXML"] objectAtIndex:0][@"FlightXML"];
                 
-                [self.subscriptionArray addObject:tempSubscription];
-                
+                if([tempDictionary[@"FlightXML"] isKindOfClass:[NSNull class]])
+                {
+                    continue;
+                }
+                else
+                {
+                    NSArray *tempFlightXMLDictionaryList = tempDictionary[@"FlightXML"];
+                    for (NSDictionary *d in tempFlightXMLDictionaryList) {
+                        NSString *body = d[@"FlightXML"];
+                        NSString *resultXML = [header stringByAppendingString: body ];
+                        resultXML = [resultXML stringByAppendingString:footer];
+                        OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:resultXML];
+                        [allFlightListOfOneSubscirption addObjectsFromArray:response.flightsList];
+                    }
+                    [self.subscriptionArray addObject:tempSubscription];
+                    [self.flightListArray addObject:allFlightListOfOneSubscirption];
+                }
+            }
+            
+            isCellExpanded=[[NSMutableArray alloc]init];
+            
+            for (int i=0; i<self.subscriptionArray.count; i++) {
+                [isCellExpanded addObject:[NSNumber numberWithInt:0]];
             }
         }
     }
@@ -172,28 +206,24 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger sectionCount=((NSMutableArray*)[bookOrderList objectAtIndex:section]).count;
-    return 0;//[[isCellExpanded objectAtIndex:section] intValue]==1? sectionCount :3;//(sectionCount<=3?sectionCount:3);
+    NSInteger sectionCount=((NSMutableArray*)[self.flightListArray objectAtIndex:section]).count;
+    
+    if(sectionCount <= DEFAULT_CELL_NUM)
+    {
+        return sectionCount;
+    }
+    else if([[isCellExpanded objectAtIndex:section] intValue]==1)
+    {
+        return sectionCount;
+    }
+    else
+    {
+        return DEFAULT_CELL_NUM;
+    }
+    
+    //return [[isCellExpanded objectAtIndex:section] intValue]==1? sectionCount :3;//(sectionCount<=3?sectionCount:3);
 }
 
-//- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    UITableViewHeaderFooterView* sectionView =  [tableView headerViewForSection:section];
-//    sectionView.backgroundColor=[UIColor colorWithRed:225/255.0 green:22/255.0 blue:255/255.0 alpha:1.0];
-//    
-//    
-//    return @"test";
-//}
-//- (UITableViewHeaderFooterView *)headerViewForSection:(NSInteger)section NS_AVAILABLE_IOS(6_0)
-//{
-//    UITableViewHeaderFooterView *view=[[UITableViewHeaderFooterView alloc]init];
-//    
-//    //
-//    view.tintColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-//    view.textLabel.text=@"test2";
-//    
-//    return view;
-//}
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -205,8 +235,23 @@
         //NSMutableArray *temp=[bookOrderList objectAtIndex:indexPath.section];
         //NSString *time=[NSString stringWithFormat:@"num: %i", [[temp objectAtIndex: indexPath.row] intValue]];
         
-        [cell initOrderInfoWithFlight:@"东方航空MU5137" Plane:@"320中 经济舱" Time:@"2014-03-11  07:00-09:20" Place:@"虹桥－首都" FlightImage:[UIImage imageNamed:@"MU"]];
+        NSMutableArray *tempFlightList = [self.flightListArray objectAtIndex:indexPath.section];
+        Flight *tempFlight = [tempFlightList objectAtIndex:indexPath.row];
+        CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:tempFlight.craftType];
+        NSString *flightModel;
+        if (ct == nil) {
+            flightModel = @"未知";
+        } else {
+            flightModel = [ct craftKindShowingOnResult];
+        }
         
+        [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",tempFlight.airlineShortName,tempFlight.flightNumber]
+                                Plane:[NSString stringWithFormat:@"%@ %@",flightModel,[NSString classGradeToChinese:tempFlight.classGrade]]
+                                 Time:[NSString stringWithFormat:@"%@  %@",
+                                       [NSString stringFormatWithDate: tempFlight.takeOffTime],
+                                       [NSString showingStringFormatWithString: tempFlight.takeOffTime]]
+                                Place:[NSString stringWithFormat:@"%@ - %@", tempFlight.departCityName, tempFlight.arriveCityName]
+                          FlightImage:[UIImage imageNamed:tempFlight.airlineDibitCode]];
     }
     
     
@@ -236,6 +281,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
+    
+    tiVC.selectFlight = [[self.flightListArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
     [self.navigationController pushViewController:tiVC animated:YES];
     
 }
@@ -279,7 +327,7 @@
         
         [temp addSubview:sectionButton];
         
-        if ( ((NSMutableArray*)[bookOrderList objectAtIndex:section]).count>3) {
+        if ( ((NSMutableArray*)[self.flightListArray objectAtIndex:section]).count>3) {
             
             //add expand button for expanding all ticket
             UIButton* expandButton=[UIButton buttonWithType:UIButtonTypeCustom];//initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 39)];
@@ -338,7 +386,7 @@
     //bug:在收起cell时， 删除了不该删除的cell
     //animation
     NSMutableArray *changedCellIndexArray = [NSMutableArray array];
-    for (NSInteger i = 0; i < (((NSMutableArray*)[bookOrderList objectAtIndex:buttonIndex]).count-3 ); i++)
+    for (NSInteger i = 0; i < (((NSMutableArray*)[self.flightListArray objectAtIndex:buttonIndex]).count-3 ); i++)
     {
         NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 3+i inSection:buttonIndex];
         [changedCellIndexArray addObject:toChangedCell];
