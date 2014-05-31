@@ -6,9 +6,9 @@ TiCheck_Client
 TODO
 ---------------
 1. 搜索机票
- - [ ] 往返（询问携程）10 @Dachang
- - [ ] 航空公司排序：可否主流航空公司在前？ 11 @Dachang
- - [ ] 舱位选择（询问携程） 12 @Dachang
+ - [ ] 往返 10 @Dachang
+ - [ ] 航空公司排序 重新找航空公司列表？ 11 @Dachang
+ - [ ] 舱位选择 自己写代码筛选 12 @Dachang
  - [x] Picker配色调整
 2. 机票结果
  - [x] ~~价格走势网络问题~~
@@ -31,7 +31,7 @@ TODO
 4. 订单模块
  - [x] webview 支付
  - [x] 伪成功跳转(navigation 跳转到订单详情) 1 @Bill
- - [ ] 添加到Passbook（后台可能需要写pkpass文件的生成逻辑）5 @QiuFeng
+ - [ ] 添加到Passbook（后台可能需要写pkpass文件的生成逻辑）5  @Dachang
  - [x] 伪订单，与服务器交互 2 @Bill
 5. 订阅模块
  - [x] 与后台数据连接（无接口，界面ok）
