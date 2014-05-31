@@ -10,6 +10,13 @@
 
 @interface BookListViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
+-(void) initDataCount;
+
 @property (strong, nonatomic) IBOutlet UITableView* bookListTableView;
 @property (strong, nonatomic) NSMutableArray *subscriptionArray;
+@property (strong, nonatomic) NSMutableArray *flightListArray;
+@property (nonatomic) int dataCount;
+
+@property (strong, nonatomic) NSDictionary *returnDic;
+
 @end

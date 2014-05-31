@@ -10,6 +10,7 @@
 #import "AccountEditViewController.h"
 #import "PersonalOrderViewController.h"
 #import "PassengerListViewController.h"
+#import "BookListViewController.h"
 //#import "PassengerEditViewController.h"
 #import "TickectInfoViewController.h"
 #import "UserData.h"
@@ -18,6 +19,9 @@
     UISwitch *ntfTrigger;
     UIImageView *bookNtfBg;
     UILabel *bookNumLabel;
+    
+    //预先加载，用于显示更新个数。
+    BookListViewController *blVC;
 }
 @end
 
@@ -99,7 +103,11 @@
     if (indexPath.section == 0) cell.textLabel.text = [s1CellTitleArray objectAtIndex:indexPath.row];
     else cell.textLabel.text = [s2CellTitleArray objectAtIndex:indexPath.row];
     if (indexPath.section == 0 && indexPath.row == 0) cell.detailTextLabel.text = [UserData sharedUserData].userName;
-    else if(indexPath.section == 0 && indexPath.row == 3) [self initBookNotificationBackgroundOnView:cell];
+    else if(indexPath.section == 0 && indexPath.row == 3)
+    {
+        //预先加载订阅数据，影响加载速度。
+        [self initBookNotificationBackgroundOnView:cell];
+    }
     else if(indexPath.section == 1 && indexPath.row == 1) [self initNotificationTriggerOnView:cell];
     
     cell.textLabel.textColor = [UIColor colorWithRed:0.47 green:0.47 blue:0.47 alpha:1.0];
@@ -148,7 +156,7 @@
     }
     else if(indexPath.section == 0 && indexPath.row == 3)
     {
-        PersonalOrderViewController *blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
+        //BookListViewController *blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
         [self.navigationController pushViewController:blVC animated:YES];
     }
     else if(indexPath.section == 1 && indexPath.row == 0)
@@ -185,8 +193,23 @@
         [view addSubview:bookNtfBg];
         [view addSubview:bookNumLabel];
         [view bringSubviewToFront:bookNumLabel];
+        
+        //影响效率，个人中心弹出过慢
+        blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
+        
     }
-    bookNumLabel.text = @"3";
+    [blVC initDataCount];
+    bookNumLabel.text = [NSString stringWithFormat:@"%d",blVC.dataCount];
+    if(blVC.dataCount == 0)
+    {
+        bookNtfBg.hidden = YES;
+        bookNumLabel.hidden = YES;
+    }
+    else
+    {
+        bookNtfBg.hidden = NO;
+        bookNumLabel.hidden = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
