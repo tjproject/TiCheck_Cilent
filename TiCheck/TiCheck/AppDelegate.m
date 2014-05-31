@@ -10,6 +10,7 @@
 #import "Reachability.h"
 #import "APIResourceHelper.h"
 #import "ServerCommunicator.h"
+#import "BookListViewController.h"
 
 @interface AppDelegate () <UIAlertViewDelegate>
 
@@ -24,10 +25,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
+    UIViewController *rootVC = self.window.rootViewController;
+    BookListViewController *bookVC = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
+    [rootVC presentViewController:bookVC animated:YES completion:nil];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushNotification" object:nil userInfo:launchOptions];
     //[APIResourceHelper sharedResourceHelper];
+    if (launchOptions != nil) {
+        NSLog(@"%@", launchOptions);
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pushNotification" object:nil userInfo:launchOptions];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"hello" message:[NSString stringWithFormat:@"%@", launchOptions] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        
+        [alert show];
+    }
+    
     
     Reachability *reachability = [Reachability reachabilityWithHostname:@"tac.sbhhbs.com"];
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
