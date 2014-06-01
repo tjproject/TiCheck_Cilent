@@ -63,6 +63,8 @@
     [UserData sharedUserData].email=@"";
     [UserData sharedUserData].password=@"";
     [UserData sharedUserData].userName=@"";
+    [UserData sharedUserData].uniqueID = @"";
+    [UserData sharedUserData].pushable = @"";
     
     [(UINavigationController *)self.presentingViewController popToRootViewControllerAnimated:NO];
     [self dismissViewControllerAnimated:YES completion:nil];

@@ -204,10 +204,10 @@
     for (Passenger *passenger in _passengerList) {
         NSString *name             = [NSString stringWithFormat:@"&lt;PassengerName&gt;%@&lt;/PassengerName&gt;", passenger.passengerName];
         NSString *birthDay         = [NSString stringWithFormat:@"&lt;BirthDay&gt;%@&lt;/BirthDay&gt;", [NSString stringFormatWithDate:passenger.birthDay]];
-        NSString *passportTypeID   = [NSString stringWithFormat:@"&lt;PassportTypeID&gt;%lu&lt;/PassportTypeID&gt;", passenger.passportType];
+        NSString *passportTypeID   = [NSString stringWithFormat:@"&lt;PassportTypeID&gt;%lu&lt;/PassportTypeID&gt;", [passenger.passportType longValue]];
         NSString *passportNo       = [NSString stringWithFormat:@"&lt;PassportNo&gt;%@&lt;/PassportNo&gt;", passenger.passportNumber];
         NSString *contactTel       = [NSString stringWithFormat:@"&lt;ContactTelephone&gt;%@&lt;/ContactTelephone&gt;", passenger.contactTelephone];
-        NSString *gender           = [NSString stringWithFormat:@"&lt;Gender&gt;%@&lt;/Gender&gt;", [NSString genderToString:passenger.gender]];
+        NSString *gender           = [NSString stringWithFormat:@"&lt;Gender&gt;%@&lt;/Gender&gt;", [NSString genderToString:[passenger.gender intValue]]];
         NSString *nationalityCode  = [NSString stringWithFormat:@"&lt;NationalityCode&gt;%@&lt;/NationalityCode&gt;", passenger.nationalityCode];
 
         NSString *passengerRequest = [NSString stringWithFormat:

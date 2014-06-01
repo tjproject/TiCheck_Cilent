@@ -29,7 +29,7 @@
 
 - (void)parseHeader:(NSString *)xml
 {
-    NSLog(@"%@", xml);
+    //NSLog(@"%@", xml);
     GDataXMLElement *root = [self getRootElement:xml];
     
     _namespacesDic = [NSDictionary dictionaryWithObject:[root.namespaces[0] stringValue] forKey:@"ctrip"];

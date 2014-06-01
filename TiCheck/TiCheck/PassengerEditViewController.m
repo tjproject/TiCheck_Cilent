@@ -688,13 +688,20 @@
     if (self.isDirectlyBackToTicketInfo) {
         //直接返回到机票支付页面
         [self.navigationController popViewControllerAnimated:YES];
-        //get the last view controller, reload table view data
-        TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
-        
-        [tiVC.passengerList addObject:self.passengerInfo];
-        [tiVC.cellTitleArray insertObject:[NSString stringWithFormat:@"  %@",self.passengerInfo.passengerName] atIndex:1];
-        tiVC.infoVessel.scrollEnabled = YES;
-        [tiVC.infoVessel reloadData];
+        PassengerListViewController *plVC = (PassengerListViewController*)[self.navigationController visibleViewController];
+        [plVC initPassengerListData];
+        [plVC.passengerListTableView reloadData];
+        plVC.isComeFromTicketPay = YES;
+        //[plVC popDirectlyToTicketInfo];
+//        
+//        [self.navigationController popViewControllerAnimated:YES];
+//        //get the last view controller, reload table view data
+//        TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
+//        
+//        [tiVC.passengerList addObject:self.passengerInfo];
+//        [tiVC.cellTitleArray insertObject:[NSString stringWithFormat:@"  %@",self.passengerInfo.passengerName] atIndex:1];
+//        tiVC.infoVessel.scrollEnabled = YES;
+//        [tiVC.infoVessel reloadData];
     }
     else
     {

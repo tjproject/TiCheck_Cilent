@@ -54,6 +54,12 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+-(void) setPushable:(NSString *)pushable
+{
+    [[NSUserDefaults standardUserDefaults] setObject:pushable forKey:@"pushable"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 -(NSString*) email
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
@@ -74,6 +80,12 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"uniqueID"];
 }
 
+- (NSString *) pushable
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"pushable"];
+}
+
+
 -(BOOL) loginWithAccout:(NSString *)email andPassword:(NSString *)password inViewController:(UIViewController *)viewController
 {
     BOOL result = NO;
@@ -88,6 +100,10 @@
         NSDictionary *dic=[[ServerCommunicator sharedCommunicator] userInfoFetch];
         NSDictionary *userDic=dic[SERVER_USER_DATA];
         self.userName= userDic[@"Account"];
+        
+        self.uniqueID = userDic[@"UID"];
+        
+        self.pushable = userDic[@"Pushable"];
         
         UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];

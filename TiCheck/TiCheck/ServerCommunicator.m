@@ -39,9 +39,9 @@
 #pragma mark -
 #pragma mark User
 
-- (NSDictionary *)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account
+- (NSDictionary *)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account uniqueID:(NSString*) uid
 {
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:account, @"Account", password, @"Password", email, @"Email", nil];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:account, @"Account", password, @"Password", email, @"Email", @"1",@"Pushable",uid,@"UID", nil];
     NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
     NSString *requestString = [NSString stringWithFormat:@"User=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
     NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
@@ -51,9 +51,9 @@
     return [self responseDataToJSONDictionary:responseData];
 }
 
-- (NSDictionary *)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount
+- (NSDictionary *)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount pushable:(NSString*) newPushable
 {
-    NSDictionary *newUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:newAccount, @"Account", newPassword, @"Password", newEmail, @"Email", nil];
+    NSDictionary *newUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:newAccount, @"Account", newPassword, @"Password", newEmail, @"Email",newPushable,@"Pushable", [UserData sharedUserData].uniqueID ,@"UID",nil];
     NSDictionary *oldUserInfo = [self currentUserJsonDataDictionaryWithAccount:YES];
     
     NSData *newUserInfoJsonData = [NSJSONSerialization dataWithJSONObject:newUserInfo options:NSJSONWritingPrettyPrinted error:nil];
@@ -195,7 +195,8 @@
 
 - (NSDictionary *)currentUserJsonDataDictionaryWithAccount:(BOOL)withAccount
 {
-    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UserData sharedUserData].email, @"Email", [UserData sharedUserData].password, @"Password", nil];
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UserData sharedUserData].email, @"Email", [UserData sharedUserData].password, @"Password", [UserData sharedUserData].pushable ,@"Pushable", [UserData sharedUserData].uniqueID, @"UID",nil];
+    
     if (withAccount) [result setObject:[UserData sharedUserData].userName forKey:@"Account"];
     
     return result;

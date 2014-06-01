@@ -60,7 +60,7 @@
             NSArray *dataArray = returnDic[@"Data"];
             for (NSDictionary *tempDic in dataArray)
             {
-                Passenger *tempPassenger = [Passenger createPassengerByServerData:tempDic];
+                Passenger *tempPassenger = [Passenger createPassengerByServerData:tempDic isTemporary:YES];
                 [self.passengerList addObject:tempPassenger];
             }
         }
@@ -234,6 +234,12 @@
     
 }
 
+- (void) popDirectlyToTicketInfo
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    //get the last view controller, reload table view data
+    TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
+}
 
 #pragma mark - Navigation
 

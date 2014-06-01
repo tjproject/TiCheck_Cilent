@@ -35,9 +35,14 @@
 
 
 /**
- *  携程id test
+ *  携程id
  */
 @property (nonatomic,strong) NSString* uniqueID;
+
+/**
+ *  推送设置
+ */
+@property (nonatomic) NSString* pushable;
 
 
 /**

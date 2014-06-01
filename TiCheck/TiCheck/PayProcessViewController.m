@@ -90,26 +90,26 @@
     //NSArray *flightList = [NSArray arrayWithObjects:self.selectFlight, nil];
     
     //预先设置 乘客
-    NSDateComponents *comp = [[NSDateComponents alloc]init];
-    [comp setMonth:9];
-    [comp setDay:22];
-    [comp setYear:1991];
-    NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate *bDate = [myCal dateFromComponents:comp];
-    
-    Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthday:bDate  passportType:ID passportNo:@"440508199109223314"];
-    tempPassenger.gender = [NSNumber numberWithInteger:Male];
-    tempPassenger.nationalityCode = @"1";
-    tempPassenger.contactTelephone = @"18817598462";
-    
-    NSArray *pList = [NSArray arrayWithObjects:tempPassenger, nil];
-
-//    //联系人
-    Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
+//    NSDateComponents *comp = [[NSDateComponents alloc]init];
+//    [comp setMonth:9];
+//    [comp setDay:22];
+//    [comp setYear:1991];
+//    NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+//    NSDate *bDate = [myCal dateFromComponents:comp];
 //    
+//    Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthday:bDate  passportType:ID passportNo:@"440508199109223314" isTemporary:YES];
+//    tempPassenger.gender = [NSNumber numberWithInteger:Male];
+//    tempPassenger.nationalityCode = @"1";
+//    tempPassenger.contactTelephone = @"18817598462";
+//    
+//    NSArray *pList = [NSArray arrayWithObjects:tempPassenger, nil];
+//
+////    //联系人
+//    Contact *contact = [Contact contactWithContactName:@"黄泽彪" confirmOption:EML mobilePhone:tempPassenger.contactTelephone contactEmail: [UserData sharedUserData].email];
+//
     
     //self.flightOrder.passengerList = pList;
-    //self.flightOrder.contact = contact;
+    self.flightOrder.contact = ((Passenger *)[self.flightOrder.passengerList objectAtIndex:0]).contact;
     flightOrderRequest = self.flightOrder;
     
     self.selectFlight = [flightOrderRequest.flightInfoList objectAtIndex:0];
@@ -176,7 +176,7 @@
     //
     // ...
     //
-    return (self.selectFlight.price + self.selectFlight.adultOilFee + self.selectFlight.adultTax);//flightOrderRequest.amount;//
+    return (self.selectFlight.price + self.selectFlight.adultOilFee + self.selectFlight.adultTax)*self.passengerList.count;//flightOrderRequest.amount;//
 }
 
 
@@ -261,7 +261,7 @@
 
 - (void)sendUniqueIDRequest
 {
-    OTAUserUniqueID *idRequest = [[OTAUserUniqueID alloc] initWithUserName:[UserData sharedUserData].userName telNumber:@"18817598462"];
+    OTAUserUniqueID *idRequest = [[OTAUserUniqueID alloc] initWithUserName:[UserData sharedUserData].email telNumber:@""];
     NSString *requsetXML = [idRequest generateOTAUserUniqueIDXMLRequest];
     asiUniqueIDRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
                                                flightRequestType:UserUniqueID
@@ -273,6 +273,7 @@
     [asiUniqueIDRequest setUserInfo:mainUserInfo];
     [asiUniqueIDRequest setDelegate:self];
     [asiUniqueIDRequest startAsynchronous];
+    //[asiUniqueIDRequest star]
 }
 
 #pragma mark - SearchFlight Helper

@@ -10,6 +10,11 @@
 #import "ServerCommunicator.h"
 #import "ConfigurationHelper.h"
 #import "UserData.h"
+#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
+#import "OTAUserUniqueID.h"
+#import "OTAUserUniqueIDResponse.h"
+#import "SoapRequest.h"
 
 @interface RegisterViewController ()
 
@@ -74,22 +79,37 @@
     
     passwordStr = [[ConfigurationHelper sharedConfigurationHelper] md5:passwordStr];
     
-    NSDictionary *responseDic = [[ServerCommunicator sharedCommunicator] createUserWithEmail:emailStr password:passwordStr account:userNameStr];
-    NSInteger returnCode = [responseDic[SERVER_RETURN_CODE_KEY] integerValue];
+    //先获取UniqueID
     
-    if (returnCode == USER_CREATE_SUCCESS)
+    NSString *uniqueID = [self sendUniqueIDRequest:emailStr];
+    
+    if (uniqueID != nil)
     {
-        [UserData sharedUserData].email=emailStr;
-        [UserData sharedUserData].password=passwordStr;
-        [UserData sharedUserData].userName=userNameStr;
+        NSDictionary *responseDic = [[ServerCommunicator sharedCommunicator] createUserWithEmail:emailStr password:passwordStr account:userNameStr uniqueID:uniqueID];
         
-        if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
+        NSInteger returnCode = [responseDic[SERVER_RETURN_CODE_KEY] integerValue];
+        
+        if (returnCode == USER_CREATE_SUCCESS)
         {
+            [UserData sharedUserData].email = emailStr;
+            [UserData sharedUserData].password = passwordStr;
+            [UserData sharedUserData].userName = userNameStr;
+            [UserData sharedUserData].uniqueID = uniqueID;
+            if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
+            {
+                
+            }
             
         }
-
-    } else if (returnCode == USER_CREATE_DUPLICATE_EMAIL) {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"该账号已被注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        else if (returnCode == USER_CREATE_DUPLICATE_EMAIL)
+        {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"该账号已被注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }
+    else
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
     }
 }
@@ -104,6 +124,33 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (NSString *)sendUniqueIDRequest:(NSString*)email
+{
+    OTAUserUniqueID *idRequest = [[OTAUserUniqueID alloc] initWithUserName:email telNumber:@""];
+    NSString *requsetXML = [idRequest generateOTAUserUniqueIDXMLRequest];
+    ASIHTTPRequest *asiUniqueIDRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
+                                               flightRequestType:UserUniqueID
+                                                    xmlNameSpace:XML_NAME_SPACE
+                                                  webServiceName:WEB_SERVICE_NAME
+                                                  xmlRequestBody:requsetXML];
+    NSDictionary *mainUserInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"0", @"asiRequestType", nil];
+    
+    [asiUniqueIDRequest setUserInfo:mainUserInfo];
+    [asiUniqueIDRequest setDelegate:self];
+    [asiUniqueIDRequest startSynchronous];
+    //获取user id
+    OTAUserUniqueIDResponse *response = [[OTAUserUniqueIDResponse alloc] initWithOTAUserUniqueIDResponse:[asiUniqueIDRequest responseString]];
+    if (response.retCode == 0)
+    {
+        NSLog(@"Unique ID = %@",response.uniqueUID);
+        //[UserData sharedUserData].uniqueID = response.uniqueUID;
+        return response.uniqueUID;
+    }
+    return nil;
+    //[asiUniqueIDRequest star]
+}
+
 
 - (BOOL)isValidEmail:(NSString *)email
 {

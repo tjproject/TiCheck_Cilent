@@ -58,7 +58,7 @@
     NSMutableArray *passengersList = [[NSMutableArray alloc] init];
     NSArray *passengersData = dictionary[@"passengersList"];
     for (NSDictionary * passengerDictionary in passengersData) {
-        Passenger *tempPassenger = [Passenger createPassengerWithDictionary:passengerDictionary];
+        Passenger *tempPassenger = [Passenger createPassengerWithDictionary:passengerDictionary isTemporary:YES];
         [passengersList addObject:tempPassenger];
     }
     order.passengersList = passengersList;

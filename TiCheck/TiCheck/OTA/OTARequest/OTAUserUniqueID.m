@@ -47,8 +47,8 @@
                                 "%@\n"
                                 "%@\n"
                                 "%@\n"
-                                "%@\n"
-                                "&lt;/UserRequest&gt;\n", allianceID, stationID, uidKey, telphoneNumber];
+                                //"%@\n"
+                                "&lt;/UserRequest&gt;\n", allianceID, stationID, uidKey];//, telphoneNumber];
     
     return userRequest;
 }

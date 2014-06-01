@@ -51,19 +51,18 @@
  *
  *  @return 返回消息的Dictionary
  */
-- (NSDictionary *)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account;
-
+- (NSDictionary *)createUserWithEmail:(NSString *)email password:(NSString *)password account:(NSString *)account uniqueID:(NSString*) uid;
 /**
  *  修改用户，如果只修改某几项，其他项用UserData获取填原来的数值
  *
  *  @param newEmail    用户新邮箱
  *  @param newPassword 用户新密码
  *  @param newAccount  用户新账户名
+ *  @param newAccount  新的推送设置
  *
  *  @return 返回消息的Dictionary
  */
-- (NSDictionary *)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount;
-
+- (NSDictionary *)modifyUserWithEmail:(NSString *)newEmail password:(NSString *)newPassword account:(NSString *)newAccount pushable:(NSString*) newPushable;
 /**
  *  验证登录
  *

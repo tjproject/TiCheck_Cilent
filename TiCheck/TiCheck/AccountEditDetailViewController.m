@@ -110,7 +110,7 @@
             {
                 
                 //update server
-                 NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:[UserData sharedUserData].password account:firstS];
+                 NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:[UserData sharedUserData].password account:firstS pushable:[UserData sharedUserData].pushable];
                 NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
                 if (returnCode == USER_LOGIN_SUCCESS)
                 {
@@ -139,7 +139,7 @@
                     {
                         NSString *theNewOne=[[ConfigurationHelper sharedConfigurationHelper] md5:secondS];
                         
-                        NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:theNewOne account:[UserData sharedUserData].userName];
+                        NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:theNewOne account:[UserData sharedUserData].userName pushable:[UserData sharedUserData].pushable];
                         
                         NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
                         if (returnCode == USER_LOGIN_SUCCESS)
