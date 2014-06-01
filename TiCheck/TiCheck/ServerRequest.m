@@ -44,6 +44,18 @@ const NSArray *___OrderRequestType;
 #define cOrderRequestTypeEnum(string) ([cOrderRequestTypeGet indexOfObject:string])
 
 
+const NSArray *___ContactRequestType;
+
+#define cContactRequestTypeGet (___ContactRequestType == nil ? ___ContactRequestType = [[NSArray alloc] initWithObjects:\
+@"add",\
+@"delete",\
+@"modify",\
+@"info", nil] : ___ContactRequestType)
+
+#define cContactRequestTypeString(type) ([cContactRequestTypeGet objectAtIndex:type])
+#define cContactRequestTypeEnum(string) ([cContactRequestTypeGet indexOfObject:string])
+
+
 @implementation ServerRequest
 
 + (NSData *)getServerUserResponseWithServerURL:(NSString *)serverUrl
@@ -98,5 +110,25 @@ const NSArray *___OrderRequestType;
     NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
     return result;
 }
+
++ (NSData *)getServerContactResponseWithServerURL:(NSString *)serverUrl
+                                      requestType:(ServerContactRequestType)contactRequestType
+                                         jsonData:(NSData *)jsonData
+{
+    NSString *urlStr = [serverUrl stringByAppendingFormat:@"?r=Contact/%@", cContactRequestTypeString(contactRequestType)];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setCachePolicy:NSURLCacheStorageAllowedInMemoryOnly];
+    
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:jsonData];
+    
+    NSURLResponse *response = nil;
+    NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
+    return result;
+}
+
+
 
 @end

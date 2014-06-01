@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Order.h"
+#import "Passenger.h"
 #define SERVER_RETURN_CODE_KEY @"Code"
 #define SERVER_RETURN_MESSAGE_KEY @"Message"
 #define SERVER_USER_DATA @"Data"
@@ -159,7 +160,7 @@
  *
  *  @return 返回消息
  */
-- (NSDictionary *)addContacts:(NSArray *)contacts;
+- (NSDictionary *)addContacts:(Passenger *)contact;
 
 /**
  *  删除联系人
@@ -168,7 +169,7 @@
  *
  *  @return 返回消息
  */
-- (NSDictionary *)deleteContacts:(NSArray *)contacts;
+- (NSDictionary *)deleteContacts:(Passenger *)contact;
 
 /**
  *  修改联系人信息
@@ -178,7 +179,7 @@
  *
  *  @return 返回消息
  */
-- (NSDictionary *)modifyContact:(NSDictionary *)oldContact toNewContact:(NSDictionary *)newContact;
+- (NSDictionary *)modifyContact:(Passenger *)oldContact toNewContact:(Passenger *)newContact;
 
 /**
  *  获取联系人信息
