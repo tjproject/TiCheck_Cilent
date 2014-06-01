@@ -10,7 +10,7 @@
 #import "PassengerEditViewController.h"
 #import "TickectInfoViewController.h"
 #import "Passenger.h"
-
+#import "ServerCommunicator.h"
 #define PASSENGER_COUNT 2;
 @interface PassengerListViewController ()
 {
@@ -38,9 +38,35 @@
     
     [self setExtraCellLineHidden:self.passengerListTableView];
     
+    [self initPassengerListData];
     
     [self initAddButton];
 }
+
+- (void)initPassengerListData
+{
+    self.passengerList = [[NSMutableArray alloc] init];
+    
+    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getContacts:nil];
+    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+    
+    
+    if(returnCode == USER_LOGIN_SUCCESS)
+    {
+        //生成passenger
+        if (![returnDic[@"Data"] isKindOfClass:[NSNull class]])
+        {
+            //非空
+            NSArray *dataArray = returnDic[@"Data"];
+            for (NSDictionary *tempDic in dataArray)
+            {
+                Passenger *tempPassenger = [Passenger createPassengerByServerData:tempDic];
+                [self.passengerList addObject:tempPassenger];
+            }
+        }
+    }
+}
+
 
 - (void)initAddButton
 {
@@ -85,14 +111,14 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return PASSENGER_COUNT;
+    return self.passengerList.count +1;
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"PassengerListCell";
     static NSString *addButtoncellIdentifier = @"PassengerAddButtonCell";
     UITableViewCell *cell;
-    int count=PASSENGER_COUNT;
+    int count = self.passengerList.count + 1;
     if(indexPath.row== count-1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:addButtoncellIdentifier];
@@ -120,7 +146,7 @@
         //
         //get name data from passengers
         //
-        cell.textLabel.text=@"黄泽彪";
+        cell.textLabel.text = ((Passenger *)[self.passengerList objectAtIndex:indexPath.row]).passengerName;
         
     }
     
@@ -146,7 +172,7 @@
         
         //根据所选择联系人，传递联系人数据
         //
-        peVC.passengerInfo=[Passenger passengerWithPassengerName:@"黄泽彪" birthDay: nil passportType:ID passportNo:@"440508199109223314"];
+        peVC.passengerInfo = [self.passengerList objectAtIndex:indexPath.row]; //[Passenger passengerWithPassengerName:@"黄泽彪" birthDay: nil passportType:ID passportNo:@"440508199109223314"];
         peVC.navigationBarDoneItemString=@"确认修改";
         
         peVC.isDirectlyBackToTicketInfo = NO;
@@ -161,22 +187,22 @@
         //get the last view controller, reload table view data
         TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
         
-        //预先设置 乘客
-        NSDateComponents *comp = [[NSDateComponents alloc]init];
-        [comp setMonth:9];
-        [comp setDay:22];
-        [comp setYear:1991];
-        NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDate *bDate = [myCal dateFromComponents:comp];
+//        //预先设置 乘客
+//        NSDateComponents *comp = [[NSDateComponents alloc]init];
+//        [comp setMonth:9];
+//        [comp setDay:22];
+//        [comp setYear:1991];
+//        NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSDate *bDate = [myCal dateFromComponents:comp];
+//        
+//        Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthDay:bDate  passportType:ID passportNo:@"440508199109223314"];
+//        tempPassenger.gender = Male;
+//        tempPassenger.nationalityCode = @"1";
+//        tempPassenger.contactTelephone = @"18817598462";
+//        
         
-        Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthDay:bDate  passportType:ID passportNo:@"440508199109223314"];
-        tempPassenger.gender = Male;
-        tempPassenger.nationalityCode = @"1";
-        tempPassenger.contactTelephone = @"18817598462";
-        
-        
-        [tiVC.passengerList addObject:tempPassenger];
-        [tiVC.cellTitleArray insertObject:[NSString stringWithFormat:@"  %@",tempPassenger.passengerName] atIndex:1];
+        [tiVC.passengerList addObject:[self.passengerList objectAtIndex:indexPath.row]];
+        [tiVC.cellTitleArray insertObject:[NSString stringWithFormat:@"  %@",((Passenger *)[self.passengerList objectAtIndex:indexPath.row]).passengerName] atIndex:1];
         tiVC.infoVessel.scrollEnabled = YES;
         [tiVC.infoVessel reloadData];
     }

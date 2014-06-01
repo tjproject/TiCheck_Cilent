@@ -12,7 +12,7 @@
 #import "PassengerInfoTextFieldCell.h"
 #import "EnumCollection.h"
 #import "TickectInfoViewController.h"
-
+#import "ServerCommunicator.h"
 #define INFO_ITEM_COUNT 6;
 
 @interface PassengerEditViewController ()
@@ -508,24 +508,40 @@
             //添加本机数据以及数据库数据
             //
             //
-           
-            //
-            //alert 添加成功
-            //返回
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"添加成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] addContacts:self.passengerInfo];
+            NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+            
+            
+            if(returnCode == USER_LOGIN_SUCCESS)
+            {
+                //
+                //alert 添加成功
+                //返回
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"添加成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
         }
         else
         {
             //修改本机数据以及数据库数据
             //
             //
+            NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator]
+                                       modifyContact:self.oldPassengerInfo
+                                       toNewContact:self.passengerInfo];
             
-            //
-            //alert 修改成功
-            //返回
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+            
+            
+            if(returnCode == USER_LOGIN_SUCCESS)
+            {
+                //
+                //alert 修改成功
+                //返回
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
         }
     }
     else

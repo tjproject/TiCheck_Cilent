@@ -60,6 +60,27 @@
     return result;
 }
 
++ (Passenger *)createPassengerByServerData:(NSDictionary *)dictionary
+{
+    Passenger *result = [[Passenger alloc] init];
+    result.passengerName = dictionary[SERVER_NAME_KEY];
+    @try
+    {
+        result.birthDay = [NSString timeFormatWithString:dictionary[SERVER_BIRTHDAY_KEY]];
+    }
+    @catch(NSException * exception)
+    {
+        //
+    }
+    result.passportType = [dictionary[SERVER_PASSPORTTYPE_KEY] integerValue];
+    result.passportNumber = dictionary[SERVER_PASSPORTNUMBER_KEY];
+    result.contactTelephone = dictionary[SERVER_TELPHONE_KEY];
+    result.gender = [dictionary[SERVER_GENDER_KEY] integerValue];
+    result.nationalityCode = @"1";
+    return result;
+}
+
+
 - (NSDictionary *)dictionaryWithPassengerOption
 {
     NSMutableDictionary *contactDictionary = [NSMutableDictionary dictionary];

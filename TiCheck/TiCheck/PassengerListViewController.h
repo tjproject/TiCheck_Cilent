@@ -11,5 +11,6 @@
 @interface PassengerListViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *passengerListTableView;
+@property (strong, nonatomic) NSMutableArray *passengerList;
 @property BOOL isComeFromTicketPay;
 @end

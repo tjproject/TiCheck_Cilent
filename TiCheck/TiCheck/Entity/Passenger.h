@@ -10,13 +10,12 @@
 #import "EnumCollection.h"
 #import "Contact.h"
 
-#define SERVER_NAME_KEY @"name"
-#define SERVER_BIRTHDAY_KEY @"birthday"
-#define SERVER_PASSPORTTYPE_KEY @"possportType"
-#define SERVER_PASSPORTNUMBER_KEY @"possportNumber"
-#define SERVER_TELPHONE_KEY @"telphone"
-#define SERVER_GENDER_KEY @"gender"
-
+#define SERVER_NAME_KEY @"PassengerName"
+#define SERVER_BIRTHDAY_KEY @"Birthday"
+#define SERVER_PASSPORTTYPE_KEY @"PassType"
+#define SERVER_PASSPORTNUMBER_KEY @"PassportNumber"
+#define SERVER_TELPHONE_KEY @"ContactTelephone"
+#define SERVER_GENDER_KEY @"Gender"
 
 @interface Passenger : NSObject
 
@@ -148,6 +147,16 @@
  *  @return 实例
  */
 + (Passenger *)createPassengerWithDictionary:(NSDictionary *)dictionary;
+
+/**
+ *  通过服务器返回数据字典创建实例
+ *
+ *  @param dictionary 字典
+ *
+ *  @return 实例
+ */
++ (Passenger *)createPassengerByServerData:(NSDictionary *)dictionary;
+
 
 /**
  *  将实例转化为 dictionary

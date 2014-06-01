@@ -13,7 +13,10 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *passengerInfoTableView;
 
+//保存原有信息
 @property (strong, nonatomic) Passenger *oldPassengerInfo;
+
+//the new one
 @property (strong, nonatomic) Passenger *passengerInfo;
 
 @property (strong, nonatomic) NSString *navigationBarDoneItemString;
