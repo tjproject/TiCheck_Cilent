@@ -263,24 +263,24 @@
             // 舱位选项
             generalCell.generalIcon.image = [UIImage imageNamed:@"Seat"];
             generalCell.generalLabel.text = @"舱位";
-            generalCell.generalValue.titleLabel.text = mSeatText;
+            [generalCell.generalValue setTitle:mSeatText forState:UIControlStateNormal];
             self.seatCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 2) {
             // 机场选择
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
             generalCell.generalLabel.text = @"出发机场";
-            generalCell.generalValue.titleLabel.text = mFromText;
+            [generalCell.generalValue setTitle:mFromText forState:UIControlStateNormal];
             self.departAirportCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 3) {
             generalCell.generalIcon.image = [UIImage imageNamed:@"Airport"];
             generalCell.generalLabel.text = @"到达机场";
-            generalCell.generalValue.titleLabel.text = mToText;
+            [generalCell.generalValue setTitle:mToText forState:UIControlStateNormal];
             self.arriveAirportCell = generalCell;
         } else if (indexPath.row == moreOptionIndexRow + 4) {
             // 起飞时间段
             generalCell.generalIcon.image = [UIImage imageNamed:@"TakeOffTime"];
             generalCell.generalLabel.text = @"起飞时间";
-            generalCell.generalValue.titleLabel.text = mTakeOffText;
+            [generalCell.generalValue setTitle:mTakeOffText forState:UIControlStateNormal];
             self.takeOffTimeCell = generalCell;
         }
         

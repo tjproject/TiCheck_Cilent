@@ -1376,12 +1376,9 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="正在为您查找中..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGK-dr-agZ" userLabel="searchResultTitle">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="正在为您查找中..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGK-dr-agZ" userLabel="searchResultTitle">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="3dy-0W-Dp4"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <color key="textColor" red="0.062745098039215685" green="0.63529411764705879" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1389,7 +1386,8 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.96862751245498657" green="0.96862751245498657" blue="0.96862751245498657" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
-                                    <constraint firstItem="mGK-dr-agZ" firstAttribute="top" secondItem="Cn8-gd-HP1" secondAttribute="top" id="rlu-nd-nnF"/>
+                                    <constraint firstAttribute="width" constant="320" id="00L-eD-vTx"/>
+                                    <constraint firstAttribute="height" constant="55" id="335-IM-ruV"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuS-aa-1Q7" userLabel="Line Chart ParentView">
@@ -1601,7 +1599,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="4DH-l8-tzc" secondAttribute="bottom" id="2wa-MG-6HW"/>
+                            <constraint firstItem="Cn8-gd-HP1" firstAttribute="leading" secondItem="8kA-dt-Ocd" secondAttribute="leading" id="BvN-Et-SAg"/>
                             <constraint firstItem="fbl-Vg-ZDH" firstAttribute="top" secondItem="ThK-Ax-j5m" secondAttribute="bottom" id="LYF-lA-0Ay"/>
+                            <constraint firstAttribute="trailing" secondItem="Cn8-gd-HP1" secondAttribute="trailing" id="N1w-9V-GX3"/>
                             <constraint firstItem="ThK-Ax-j5m" firstAttribute="top" secondItem="RQH-KJ-zBq" secondAttribute="bottom" constant="7" id="WZ0-kU-fP8"/>
                             <constraint firstItem="RQH-KJ-zBq" firstAttribute="top" secondItem="Cn8-gd-HP1" secondAttribute="bottom" constant="5" id="adk-RA-mcX"/>
                             <constraint firstAttribute="bottom" secondItem="Cx2-TP-SbU" secondAttribute="bottom" id="auh-lL-wSp"/>
