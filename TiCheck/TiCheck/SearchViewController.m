@@ -17,6 +17,8 @@
 #import "CommonData.h"
 #import "ServerCommunicator.h"
 
+extern NSDictionary *notificationOption;
+
 extern NSString *mDeviceToken;
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
@@ -78,6 +80,26 @@ extern NSString *mDeviceToken;
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (notificationOption != nil) {
+        [self closeButtonPressed:nil];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self synchronizeSaveSearchOption];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)initDarkUILayer
 {
     darkUILayer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
@@ -106,23 +128,7 @@ extern NSString *mDeviceToken;
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self synchronizeSaveSearchOption];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (NSArray *)pickerData
 {

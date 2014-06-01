@@ -12,4 +12,5 @@
 
 @property (strong, nonatomic) UITableView *PCVCVessel;
 
+- (void)receivePushNotification:(NSDictionary *)notification;
 @end

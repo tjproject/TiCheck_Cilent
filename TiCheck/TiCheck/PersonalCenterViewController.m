@@ -14,6 +14,10 @@
 //#import "PassengerEditViewController.h"
 #import "TickectInfoViewController.h"
 #import "UserData.h"
+#import "AppDelegate.h"
+
+extern NSDictionary *notificationOption;
+
 @interface PersonalCenterViewController ()
 {
     UISwitch *ntfTrigger;
@@ -27,6 +31,8 @@
 
 @implementation PersonalCenterViewController
 
+#pragma mark - View controller lifecycle
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,20 +42,28 @@
     return self;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self initVessel];
+    [self initNavBar];
+    blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
+    [blVC initDataCount];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     // table view 自刷新
     // 但导致 ntfTrigger bookNtfBg 生成两次
     // 通过记录变量 通过nil判断来避免生成两次
     [self.PCVCVessel reloadData];
+    if (notificationOption != nil) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+        [self tableView:self.PCVCVessel didSelectRowAtIndexPath:indexPath];
+    }
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self initVessel];
-    [self initNavBar];
-}
+#pragma mark - Preparation helpers
 
 - (void)initVessel
 {
@@ -75,6 +89,14 @@
 - (void)closeButtonPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Notification selector
+- (void)receivePushNotification:(NSDictionary *)notification
+{
+    NSLog(@"here we got a notification: %@", notification);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+    [self tableView:self.PCVCVessel didSelectRowAtIndexPath:indexPath];
 }
 
 #pragma mark - UITableView datasource
@@ -195,10 +217,8 @@
         [view bringSubviewToFront:bookNumLabel];
         
         //影响效率，个人中心弹出过慢
-        blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
-        
+
     }
-    [blVC initDataCount];
     bookNumLabel.text = [NSString stringWithFormat:@"%d",blVC.dataCount];
     if(blVC.dataCount == 0)
     {

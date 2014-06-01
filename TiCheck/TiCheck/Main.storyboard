@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKs-xr-Mgu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1921" y="648"/>
+            <point key="canvasLocation" x="-2081" y="648"/>
         </scene>
         <!--Search View Controller - TiCheck-->
         <scene sceneID="i0F-nq-z4w">
@@ -457,7 +457,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ygg-xT-yzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-501" y="645"/>
+            <point key="canvasLocation" x="-405" y="653"/>
         </scene>
         <!--Register View Controller - 注册-->
         <scene sceneID="n7p-xj-wXe">
@@ -553,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="toM-ZT-VPe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521" y="648"/>
+            <point key="canvasLocation" x="1057" y="712"/>
         </scene>
         <!--Account Edit View Controller - 账号-->
         <scene sceneID="bOd-v6-d3A">
@@ -625,7 +625,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxH-Gs-dIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="-822"/>
+            <point key="canvasLocation" x="1580" y="-758"/>
         </scene>
         <!--Account Edit Detail View Controller-->
         <scene sceneID="Jme-s1-KFy">
@@ -693,7 +693,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RPM-YE-5YU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="645"/>
+            <point key="canvasLocation" x="1580" y="709"/>
         </scene>
         <!--Login View Controller - 登录-->
         <scene sceneID="f1x-9O-oHv">
@@ -1657,7 +1657,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOw-qc-XL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1898" y="2268"/>
+            <point key="canvasLocation" x="2064" y="2268"/>
         </scene>
         <!--Tickect Info View Controller - 订单详情-->
         <scene sceneID="rzk-lT-pFE">
@@ -1695,7 +1695,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bix-9N-NiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2330" y="2268"/>
+            <point key="canvasLocation" x="2552" y="2268"/>
         </scene>
         <!--Pay Process View Controller - 支付-->
         <scene sceneID="ve5-v7-63s">
@@ -1820,7 +1820,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80K-yP-pPn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1414" y="2268"/>
+            <point key="canvasLocation" x="1580" y="2268"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7C-6F-bzg">
@@ -1844,7 +1844,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tfq-1g-Fph" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2332" y="648"/>
+            <point key="canvasLocation" x="-2548" y="648"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0y7-vT-DOR">
@@ -1881,7 +1881,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eng-YE-gpu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="-118"/>
+            <point key="canvasLocation" x="1580" y="-54"/>
         </scene>
         <!--Book List View Controller-->
         <scene sceneID="oY3-b2-Qvv">
@@ -1929,7 +1929,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mP-vf-ShW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1052" y="-2328"/>
+            <point key="canvasLocation" x="1588" y="-2264"/>
         </scene>
         <!--Simple Calendar View Controller-->
         <scene sceneID="Rh8-jo-Bt4">
@@ -2044,7 +2044,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EQL-jc-OoG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528" y="-1588"/>
+            <point key="canvasLocation" x="2064" y="-1524"/>
         </scene>
         <!--Passenger List View Controller-->
         <scene sceneID="oBq-6Z-hMq">
@@ -2095,7 +2095,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4TC-xt-Pqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1052" y="-1588"/>
+            <point key="canvasLocation" x="1588" y="-1524"/>
         </scene>
         <!--View Controller - 关于Ticheck-->
         <scene sceneID="62N-Gx-umY">
@@ -2114,7 +2114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heV-wm-MwV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="-3020"/>
+            <point key="canvasLocation" x="1580" y="-2956"/>
         </scene>
         <!--Screening View Controller - 筛选机票-->
         <scene sceneID="E7d-AH-wiX">
@@ -2338,6 +2338,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Uq6-Xt-5UA"/>
+        <segue reference="yC6-p3-Zs7"/>
     </inferredMetricsTieBreakers>
 </document>
