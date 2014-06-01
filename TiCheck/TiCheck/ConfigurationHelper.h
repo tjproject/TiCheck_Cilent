@@ -96,4 +96,9 @@ const NSArray *___FlightRequestType;
  */
 - (NSString *)MD5ExtWithUpperCase:(NSString *)string;
 
+/**
+ *  重置数据，设置
+ */
+- (void)resetAll;
+
 @end

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13D65" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Passenger" representedClassName="Passenger" syncable="YES">
+        <attribute name="birthDay" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="cardTypeName" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="cardValid" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="contactTelephone" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="corpEid" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="nationalityCode" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="nationalityName" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="passengerName" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="passengerNamePY" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="passportNumber" optional="YES" attributeType="String" defaultValueString="&quot;&quot;" syncable="YES"/>
+        <attribute name="passportType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Passenger" positionX="-63" positionY="-18" width="128" height="225"/>
+    </elements>
+</model>

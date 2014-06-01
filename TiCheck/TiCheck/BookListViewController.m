@@ -37,6 +37,11 @@
 #import "OTAFlightSearchResponse.h"
 
 #import "APIResourceHelper.h"
+
+#import "AppDelegate.h"
+
+extern NSDictionary *notificationOption;
+
 #define SECTION_BUTTON_TAG_START_INDEX 1000
 #define EXPAND_BUTTON_TAG_START_INDEX 2000
 #define DEFAULT_CELL_NUM 3
@@ -75,8 +80,14 @@
     
     [self initSubscriptionInfoData:self.returnDic];
     //[self initBookOrderList];
-    
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (notificationOption != nil) {
+        NSLog(@"book list view controller do something here to deal with notification");
+        notificationOption = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning

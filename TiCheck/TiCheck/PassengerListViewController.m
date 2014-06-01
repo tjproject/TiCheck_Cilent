@@ -187,6 +187,7 @@
         //get the last view controller, reload table view data
         TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
         
+
 //        //预先设置 乘客
 //        NSDateComponents *comp = [[NSDateComponents alloc]init];
 //        [comp setMonth:9];
@@ -199,8 +200,7 @@
 //        tempPassenger.gender = Male;
 //        tempPassenger.nationalityCode = @"1";
 //        tempPassenger.contactTelephone = @"18817598462";
-//        
-        
+//
         [tiVC.passengerList addObject:[self.passengerList objectAtIndex:indexPath.row]];
         [tiVC.cellTitleArray insertObject:[NSString stringWithFormat:@"  %@",((Passenger *)[self.passengerList objectAtIndex:indexPath.row]).passengerName] atIndex:1];
         tiVC.infoVessel.scrollEnabled = YES;

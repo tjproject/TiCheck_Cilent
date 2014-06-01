@@ -8,6 +8,9 @@
 
 #import "LoginRegisterViewController.h"
 #import "UserData.h"
+#import "AppDelegate.h"
+#import "BookListViewController.h"
+extern NSDictionary *notificationOption;
 
 @interface LoginRegisterViewController ()<UINavigationControllerDelegate>
 
@@ -40,6 +43,7 @@
 {
     [super viewDidLoad];
     self.navigationController.delegate=self;
+
 
     if ([UserData sharedUserData].email.length!=0) {
         [[UserData sharedUserData] autoLoginInViewController:self];

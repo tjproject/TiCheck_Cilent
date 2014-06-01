@@ -11,6 +11,13 @@
 #import "APIResourceHelper.h"
 #import "ServerCommunicator.h"
 #import "BookListViewController.h"
+#import "PersonalCenterViewController.h"
+#import "AccountEditDetailViewController.h"
+#import "AccountEditViewController.h"
+#import "PersonalOrderViewController.h"
+#import "PassengerEditViewController.h"
+#import "PassengerListViewController.h"
+#import "CoreData+MagicalRecord.h"
 
 @interface AppDelegate () <UIAlertViewDelegate>
 
@@ -24,21 +31,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    UIViewController *rootVC = self.window.rootViewController;
-    BookListViewController *bookVC = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
-    [rootVC presentViewController:bookVC animated:YES completion:nil];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushNotification" object:nil userInfo:launchOptions];
     //[APIResourceHelper sharedResourceHelper];
-    if (launchOptions != nil) {
-        NSLog(@"%@", launchOptions);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"pushNotification" object:nil userInfo:launchOptions];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"hello" message:[NSString stringWithFormat:@"%@", launchOptions] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-        
-        [alert show];
-    }
     
+    /*!
+     通知字典不为空之后，接下来所有的view controller中的view will appear 函数都会检查通知字典，不为空则自动导向订阅列表。
+     这样的实现可以保证按照storyboard路径寻找，用户可以正常返回个人中心，搜索界面。
+     */
+    if (launchOptions != nil) {
+        notificationOption = launchOptions;
+    }
     
     Reachability *reachability = [Reachability reachabilityWithHostname:@"tac.sbhhbs.com"];
     NetworkStatus netStatus = [reachability currentReachabilityStatus];
@@ -49,7 +51,70 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"TiCheck.sqlite"];
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"receive push notification during running");
+    
+    /*!
+     检查当前view controller是否为个人中心，如果是，直接push到订阅列表
+     */
+    UIViewController *visibleViewController = nil;
+    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
+        NSLog(@"root view controller is a navigation controller");
+        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        visibleViewController = navigationController.visibleViewController;
+        NSLog(@"%@", visibleViewController);
+    }
+    else {
+        NSLog(@"now %@ is presented", self.window.rootViewController.class);
+    }
+    
+    if (visibleViewController != nil) {
+        if ([visibleViewController isKindOfClass:[PersonalCenterViewController class]]) {
+            NSLog(@"now is personal center view controller presented");
+            PersonalCenterViewController *personalViewController = (PersonalCenterViewController*)visibleViewController;
+            [personalViewController receivePushNotification:userInfo];
+            return;
+        }
+        else if ([visibleViewController isKindOfClass:[BookListViewController class]])
+        {
+            NSLog(@"now is book list view controller presented");
+            return;
+        }
+        else if ([visibleViewController isKindOfClass:[AccountEditDetailViewController class]] ||
+                 [visibleViewController isKindOfClass:[AccountEditViewController class]] ||
+                 [visibleViewController isKindOfClass:[PersonalOrderViewController class]] ||
+                 [visibleViewController isKindOfClass:[PassengerEditViewController class]] ||
+                 [visibleViewController isKindOfClass:[PassengerListViewController class]])
+        {
+            [visibleViewController.navigationController popToRootViewControllerAnimated:NO];
+            
+            /**
+             *  此处确定当前现实的root controller为Personal Center
+             */
+            PersonalCenterViewController * personalViewController = (PersonalCenterViewController*)visibleViewController.navigationController.visibleViewController;
+            [personalViewController receivePushNotification:userInfo];
+            return;
+        }
+    }
+    
+    
+    /**
+     *  如果不是个人中心，则modal一个新的个人中心，并发送notification
+     */
+    UIStoryboard *storyboard = self.window.rootViewController.storyboard;
+    PersonalCenterViewController *personalViewController = [storyboard instantiateViewControllerWithIdentifier:@"PersonalCenterViewController"];
+    UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:personalViewController];
+    viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
+    viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self.window.rootViewController presentViewController:viewController animated:YES completion:^(void){
+        [personalViewController receivePushNotification:userInfo];
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -77,7 +142,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
-    [self saveContext];
+    [MagicalRecord cleanUp];
 }
 
 - (void)saveContext

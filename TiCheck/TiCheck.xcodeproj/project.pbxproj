@@ -61,11 +61,14 @@
 		A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48518F278E900151513 /* FlightOrderListTest.m */; };
 		A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48718F286D600151513 /* FlightViewOrderTest.m */; };
 		A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */; };
+		A00DA436193B2891004E0EC3 /* PassengerHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A00DA435193B2891004E0EC3 /* PassengerHelperTest.m */; };
 		A00EAB77190E8B64006239D5 /* ServerCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A00EAB76190E8B64006239D5 /* ServerCommunicator.m */; };
 		A01CDA9D190D1E4700E9F6FB /* Airlines.xml in Resources */ = {isa = PBXBuildFile; fileRef = A01CDA9C190D1E4700E9F6FB /* Airlines.xml */; };
 		A01CDAA0190D1E6700E9F6FB /* Airline.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CDA9F190D1E6700E9F6FB /* Airline.m */; };
 		A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */; };
 		A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */; };
+		A03A7159193AFDAC00AA2796 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A03A7157193AFDAC00AA2796 /* Model.xcdatamodeld */; };
+		A03A715F193B031200AA2796 /* Passenger.m in Sources */ = {isa = PBXBuildFile; fileRef = A03A715E193B031200AA2796 /* Passenger.m */; };
 		A0452E2D18FE4A5200DED4EE /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = A0452E2C18FE4A5200DED4EE /* Airport.m */; };
 		A0452E2F18FE4A8400DED4EE /* Airports.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0452E2E18FE4A8400DED4EE /* Airports.xml */; };
 		A0452E3318FE605C00DED4EE /* CraftTypes.xml in Resources */ = {isa = PBXBuildFile; fileRef = A0452E3218FE605C00DED4EE /* CraftTypes.xml */; };
@@ -91,7 +94,6 @@
 		A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B5918D72743003A7A55 /* DeliverInfo.m */; };
 		A0620B6318D72743003A7A55 /* Flight.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B5B18D72743003A7A55 /* Flight.m */; };
 		A0620B6418D72743003A7A55 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B5D18D72743003A7A55 /* Order.m */; };
-		A0620B6518D72743003A7A55 /* Passenger.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B5F18D72743003A7A55 /* Passenger.m */; };
 		A0620B6B18D72772003A7A55 /* NSString+DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B6818D72772003A7A55 /* NSString+DateFormat.m */; };
 		A0620B6C18D72772003A7A55 /* NSString+EnumTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B6A18D72772003A7A55 /* NSString+EnumTransform.m */; };
 		A0620B8F18D727B6003A7A55 /* OTAFlightCancelOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B7118D727B6003A7A55 /* OTAFlightCancelOrder.m */; };
@@ -216,6 +218,7 @@
 		A00CE48518F278E900151513 /* FlightOrderListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightOrderListTest.m; sourceTree = "<group>"; };
 		A00CE48718F286D600151513 /* FlightViewOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightViewOrderTest.m; sourceTree = "<group>"; };
 		A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStatusChangedOrdersTest.m; sourceTree = "<group>"; };
+		A00DA435193B2891004E0EC3 /* PassengerHelperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerHelperTest.m; sourceTree = "<group>"; };
 		A00EAB75190E8B64006239D5 /* ServerCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCommunicator.h; sourceTree = "<group>"; };
 		A00EAB76190E8B64006239D5 /* ServerCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCommunicator.m; sourceTree = "<group>"; };
 		A01CDA9C190D1E4700E9F6FB /* Airlines.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Airlines.xml; path = Resources/APIRelated/Airlines.xml; sourceTree = "<group>"; };
@@ -224,6 +227,9 @@
 		A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserUniqueIDTest.m; sourceTree = "<group>"; };
 		A0245059190B427400CAD37F /* CommonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonData.h; sourceTree = "<group>"; };
 		A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlightSaveOrderTest.m; sourceTree = "<group>"; };
+		A03A7158193AFDAC00AA2796 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		A03A715D193B031200AA2796 /* Passenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Passenger.h; sourceTree = "<group>"; };
+		A03A715E193B031200AA2796 /* Passenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Passenger.m; sourceTree = "<group>"; };
 		A0452E2B18FE4A5200DED4EE /* Airport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
 		A0452E2C18FE4A5200DED4EE /* Airport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airport.m; sourceTree = "<group>"; };
 		A0452E2E18FE4A8400DED4EE /* Airports.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Airports.xml; path = Resources/APIRelated/Airports.xml; sourceTree = "<group>"; };
@@ -261,8 +267,6 @@
 		A0620B5B18D72743003A7A55 /* Flight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flight.m; sourceTree = "<group>"; };
 		A0620B5C18D72743003A7A55 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		A0620B5D18D72743003A7A55 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		A0620B5E18D72743003A7A55 /* Passenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Passenger.h; sourceTree = "<group>"; };
-		A0620B5F18D72743003A7A55 /* Passenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Passenger.m; sourceTree = "<group>"; };
 		A0620B6718D72772003A7A55 /* NSString+DateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DateFormat.h"; sourceTree = "<group>"; };
 		A0620B6818D72772003A7A55 /* NSString+DateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DateFormat.m"; sourceTree = "<group>"; };
 		A0620B6918D72772003A7A55 /* NSString+EnumTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EnumTransform.h"; sourceTree = "<group>"; };
@@ -600,6 +604,7 @@
 				A01DEF2718E8F73F00E95F32 /* UserUniqueIDTest.m */,
 				A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */,
 				A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */,
+				A00DA435193B2891004E0EC3 /* PassengerHelperTest.m */,
 			);
 			path = TiCheckTests;
 			sourceTree = "<group>";
@@ -626,8 +631,6 @@
 				A0620B5B18D72743003A7A55 /* Flight.m */,
 				A0620B5C18D72743003A7A55 /* Order.h */,
 				A0620B5D18D72743003A7A55 /* Order.m */,
-				A0620B5E18D72743003A7A55 /* Passenger.h */,
-				A0620B5F18D72743003A7A55 /* Passenger.m */,
 				A0B6780718FAC35A00A4DC76 /* DomesticCity.h */,
 				A0B6780818FAC35A00A4DC76 /* DomesticCity.m */,
 				A0452E2B18FE4A5200DED4EE /* Airport.h */,
@@ -638,6 +641,9 @@
 				A01CDA9F190D1E6700E9F6FB /* Airline.m */,
 				A0569965190FD40700EA47E4 /* Subscription.h */,
 				A0569966190FD40700EA47E4 /* Subscription.m */,
+				A03A715D193B031200AA2796 /* Passenger.h */,
+				A03A715E193B031200AA2796 /* Passenger.m */,
+				A03A7157193AFDAC00AA2796 /* Model.xcdatamodeld */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1019,6 +1025,7 @@
 				A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */,
 				A0620B6318D72743003A7A55 /* Flight.m in Sources */,
 				2491398518ED290700061780 /* SearchResultCell.m in Sources */,
+				A03A715F193B031200AA2796 /* Passenger.m in Sources */,
 				A0620B9318D727B6003A7A55 /* OTAFlightViewOrder.m in Sources */,
 				13BF8D9718FB820C00B8E0E1 /* OrderInfoViewController.m in Sources */,
 				24FC2B8618EC5C1400F6A2A9 /* RegisterViewController.m in Sources */,
@@ -1026,6 +1033,7 @@
 				A081BE051928B93100209D46 /* UIImage+ImageResize.m in Sources */,
 				132E37B0191F792400DC76D1 /* ScreeningViewController.m in Sources */,
 				A060AA021904ADFB0001219A /* DateSelectViewController.m in Sources */,
+				A03A7159193AFDAC00AA2796 /* Model.xcdatamodeld in Sources */,
 				A0B4E74F1908F30E00765F1A /* SubscriptionViewController.m in Sources */,
 				24FC2B7118EC41A600F6A2A9 /* LoginRegisterViewController.m in Sources */,
 				A0B4E7531908FD7800765F1A /* DateIntervalTableViewCell.m in Sources */,
@@ -1066,7 +1074,6 @@
 				A0620B9B18D727B6003A7A55 /* OTAGetStatusChangedOrdersResponse.m in Sources */,
 				A0D92B101903F43100AC67F2 /* pinyin.c in Sources */,
 				24FC2B8A18EC5EE200F6A2A9 /* UserData.m in Sources */,
-				A0620B6518D72743003A7A55 /* Passenger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1074,6 +1081,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00DA436193B2891004E0EC3 /* PassengerHelperTest.m in Sources */,
 				A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */,
 				A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */,
 				A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */,
@@ -1325,6 +1333,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A03A7157193AFDAC00AA2796 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A03A7158193AFDAC00AA2796 /* Model.xcdatamodel */,
+			);
+			currentVersion = A03A7158193AFDAC00AA2796 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A0620AEE18D7242C003A7A55 /* Project object */;
 }

@@ -8,6 +8,8 @@
 
 #import <CommonCrypto/CommonCrypto.h>
 #import "ConfigurationHelper.h"
+#import "Passenger.h"
+#import "CoreData+MagicalRecord.h"
 
 @implementation ConfigurationHelper
 
@@ -83,6 +85,17 @@
     }
 
     return ret;
+}
+
+- (void)resetAll
+{
+    {
+        NSArray *arr = [Passenger MR_findAll];
+        for (NSManagedObject *obj in arr) {
+            [obj MR_deleteEntity];
+        }
+    }
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 @end

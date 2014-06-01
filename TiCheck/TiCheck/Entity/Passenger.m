@@ -1,68 +1,82 @@
 //
 //  Passenger.m
-//  Test
+//  TiCheck
 //
-//  Created by Boyi on 3/11/14.
-//  Copyright (c) 2014 boyi. All rights reserved.
+//  Created by Boyi on 6/1/14.
+//  Copyright (c) 2014 tac. All rights reserved.
 //
 
 #import "Passenger.h"
-#import "NSDate-Utilities.h"
-#import "NSString+DateFormat.h"
+#import "Contact.h"
 #import "UserData.h"
+#import "EnumCollection.h"
+#import "NSString+DateFormat.h"
+#import <CoreData+MagicalRecord.h>
+
 @implementation Passenger
 
 @synthesize contact = _contact;
 
-- (id)init
-{
-    if (self = [super init]) {
-        _passengerName = _passengerNamePY = _cardTypeName = _passportNumber = _contactTelephone = _nationalityCode = _nationalityName = _corpEid = @"";
-    }
-    
-    return  self;
-}
+@dynamic passengerName;
+@dynamic passengerNamePY;
+@dynamic birthDay;
+@dynamic passportType;
+@dynamic cardTypeName;
+@dynamic passportNumber;
+@dynamic contactTelephone;
+@dynamic gender;
+@dynamic nationalityCode;
+@dynamic nationalityName;
+@dynamic cardValid;
+@dynamic corpEid;
 
 + (Passenger *)passengerWithPassengerName:(NSString *)name
-                                 birthDay:(NSDate *)birthday
+                                 birthday:(NSDate *)birthday
                              passportType:(PassportType)passportType
                                passportNo:(NSString *)passportNumber
 {
-    Passenger *passenger = [[Passenger alloc] init];
+    Passenger *passenger = [Passenger MR_createEntity];
     
     passenger.passengerName = name;
     passenger.birthDay = birthday;
-    passenger.passportType = passportType;
+    passenger.passportType = [NSNumber numberWithInt:passportType];
     passenger.passportNumber = passportNumber;
     
-    //默认国籍：中国
+    // 默认国籍：中国
     passenger.nationalityCode = @"1";
-    return passenger;
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    
+    return  passenger;
 }
 
 + (Passenger *)createPassengerWithDictionary:(NSDictionary *)dictionary
 {
-    Passenger *result = [[Passenger alloc] init];
-    result.passengerName = dictionary[@"passengerName"];
+    Passenger *passenger = [Passenger MR_createEntity];
+    
+    passenger.passengerName = dictionary[@"passengerName"];
     @try
     {
-        result.birthDay = [NSString timeFormatWithString:dictionary[@"birthDay"]];
+        passenger.birthDay = [NSString timeFormatWithString:dictionary[@"birthDay"]];
     }
     @catch(NSException * exception)
     {
         //
     }
-    result.passportType = [dictionary[@"passportType"] integerValue];
-    result.passportNumber = dictionary[@"passportNumber"];
-    result.contactTelephone = dictionary[@"contactTelephone"];
-    result.gender = [dictionary[@"gender"] integerValue];
-    result.nationalityCode = @"1";
-    return result;
+    passenger.passportType = [NSNumber numberWithInteger:[dictionary[@"passportType"] integerValue]];
+    passenger.passportNumber = dictionary[@"passportNumber"];
+    passenger.contactTelephone = dictionary[@"contactTelephone"];
+    passenger.gender = [NSNumber numberWithInteger:[dictionary[@"gender"] integerValue]];
+    passenger.nationalityCode = @"1";
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    
+    return passenger;
 }
 
 + (Passenger *)createPassengerByServerData:(NSDictionary *)dictionary
 {
-    Passenger *result = [[Passenger alloc] init];
+    Passenger *result = [Passenger MR_createEntity];
     result.passengerName = dictionary[SERVER_NAME_KEY];
     @try
     {
@@ -72,10 +86,11 @@
     {
         //
     }
-    result.passportType = [dictionary[SERVER_PASSPORTTYPE_KEY] integerValue];
+    
+    result.passportType = [NSNumber numberWithInt:[dictionary[SERVER_PASSPORTTYPE_KEY] integerValue]];
     result.passportNumber = dictionary[SERVER_PASSPORTNUMBER_KEY];
     result.contactTelephone = dictionary[SERVER_TELPHONE_KEY];
-    result.gender = [dictionary[SERVER_GENDER_KEY] integerValue];
+    result.gender = [NSNumber numberWithInt:[dictionary[SERVER_GENDER_KEY] integerValue]];
     result.nationalityCode = @"1";
     return result;
 }
@@ -91,10 +106,36 @@
     [contactDictionary setObject:self.contactTelephone forKey:SERVER_TELPHONE_KEY];
     
     
-    [contactDictionary setObject:[NSString stringWithFormat:@"%d", self.passportType] forKey:SERVER_PASSPORTTYPE_KEY];
-    [contactDictionary setObject:[NSString stringWithFormat:@"%d", self.gender] forKey:SERVER_GENDER_KEY];
+    [contactDictionary setObject:[NSString stringWithFormat:@"%@", self.passportType] forKey:SERVER_PASSPORTTYPE_KEY];
+    [contactDictionary setObject:[NSString stringWithFormat:@"%@", self.gender] forKey:SERVER_GENDER_KEY];
     
     return contactDictionary;
+}
+
++ (Passenger *)findPassengerWithPassengerName:(NSString *)name
+{
+    return [Passenger MR_findFirstByAttribute:@"passengerName" withValue:name];
+}
+
++ (NSArray *)findAllPassengers
+{
+    return [Passenger MR_findAllSortedBy:@"passengerName" ascending:YES];
+}
+
++ (void)deleteAllPassengers
+{
+    [Passenger MR_truncateAll];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+- (void)savePassenger
+{
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+- (void)deletePassenger
+{
+    [self MR_deleteEntity];
 }
 
 - (Contact *)contact
@@ -104,12 +145,9 @@
         _contact.contactName = self.passengerName;
         _contact.confirmOption = EML;
         _contact.mobilePhone = self.contactTelephone;
-        //_contact.contactTel = self.contactTelephone;
-        //_contact.foreignMobile = self.foreignMobile;
-        //_contact.mobileCountryFix = self.mobileCountryFix;
         _contact.contactEmail = [UserData sharedUserData].email;
-        //_contact.contactFax = self.contactFax;
     }
+    
     return _contact;
 }
 

@@ -62,7 +62,7 @@
     
     Flight *flightSample = [flightSearchResponse.flightsList firstObject];
     Passenger *passengerSample = [Passenger passengerWithPassengerName:@"邱峰"
-                                                              birthDay:[NSString dateFormatWithString:@"1111-11-11"]
+                                                              birthday:[NSString dateFormatWithString:@"1111-11-11"]
                                                           passportType:ID
                                                             passportNo:@"342921198707062115"];
     Contact *contactSample = [Contact contactWithContactName:@"邱峰"
