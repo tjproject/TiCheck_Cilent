@@ -10,6 +10,8 @@
 #import "Passenger.h"
 @interface PassengerListViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
+- (void)initPassengerListData;
+
 @property (strong, nonatomic) IBOutlet UITableView *passengerListTableView;
 @property (strong, nonatomic) NSMutableArray *passengerList;
 @property BOOL isComeFromTicketPay;

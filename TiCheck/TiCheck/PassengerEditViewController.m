@@ -92,10 +92,11 @@
         self.oldPassengerInfo.passengerName = [NSString stringWithString:self.passengerInfo.passengerName];
         self.oldPassengerInfo.gender = [NSNumber numberWithInt: [self.passengerInfo.gender integerValue]];
         self.oldPassengerInfo.birthDay = self.passengerInfo.birthDay;
-        self.oldPassengerInfo.passportType = [NSNumber numberWithInt: [self.passengerInfo.passportType integerValue]];        self.oldPassengerInfo.passportNumber = [NSString stringWithString:self.passengerInfo.passportNumber];
+        self.oldPassengerInfo.passportType = [NSNumber numberWithInt: [self.passengerInfo.passportType integerValue]];
+        self.oldPassengerInfo.passportNumber = [NSString stringWithString:self.passengerInfo.passportNumber];
         self.oldPassengerInfo.contactTelephone = [NSString stringWithString:self.passengerInfo.contactTelephone];
         
-        [self.oldPassengerInfo savePassenger];
+        //[self.oldPassengerInfo savePassenger];
         
         isAddingNewItem = NO;
     }
@@ -498,8 +499,8 @@
     [self.navigationController popViewControllerAnimated:YES];
     //get the last view controller, reload table view data
     PassengerListViewController *plVC= (PassengerListViewController *)[self.navigationController visibleViewController];
+    [plVC initPassengerListData];
     [plVC.passengerListTableView reloadData];
-
 }
 
 - (void) doneButtonFunction:(id) sender
@@ -525,9 +526,14 @@
                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"添加成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alert show];
             }
+            else
+            {
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"添加失败，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
             
             [self.passengerInfo savePassenger];
-            NSArray *test = [Passenger findAllPassengers];
+//            NSArray *test = [Passenger findAllPassengers];
         }
         else
         {
@@ -549,11 +555,15 @@
                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alert show];
             }
-            
+            else
+            {
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改失败，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
             [self.passengerInfo savePassenger];
-            NSArray *test = [Passenger findAllPassengers];
-            
-            Passenger *temp = [test objectAtIndex:30];
+//            NSArray *test = [Passenger findAllPassengers];
+//            
+//            Passenger *temp = [test objectAtIndex:30];
         }
     }
     else
