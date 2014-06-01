@@ -146,7 +146,7 @@
         
         //根据所选择联系人，传递联系人数据
         //
-        peVC.passengerInfo=[Passenger passengerWithPassengerName:@"黄泽彪" birthDay: nil passportType:ID passportNo:@"440508199109223314"];
+        peVC.passengerInfo=[Passenger passengerWithPassengerName:@"黄泽彪" birthday: nil passportType:ID passportNo:@"440508199109223314"];
         peVC.navigationBarDoneItemString=@"确认修改";
         
         peVC.isDirectlyBackToTicketInfo = NO;
@@ -169,8 +169,8 @@
         NSCalendar *myCal = [[NSCalendar alloc]initWithCalendarIdentifier:NSGregorianCalendar];
         NSDate *bDate = [myCal dateFromComponents:comp];
         
-        Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthDay:bDate  passportType:ID passportNo:@"440508199109223314"];
-        tempPassenger.gender = Male;
+        Passenger *tempPassenger = [Passenger passengerWithPassengerName:@"黄泽彪" birthday:bDate  passportType:ID passportNo:@"440508199109223314"];
+        tempPassenger.gender = [NSNumber numberWithInteger:Male];
         tempPassenger.nationalityCode = @"1";
         tempPassenger.contactTelephone = @"18817598462";
         

@@ -1,14 +1,14 @@
 //
 //  Passenger.h
-//  Test
+//  TiCheck
 //
-//  Created by Boyi on 3/11/14.
-//  Copyright (c) 2014 boyi. All rights reserved.
+//  Created by Boyi on 6/1/14.
+//  Copyright (c) 2014 tac. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "EnumCollection.h"
-#import "Contact.h"
 
 #define SERVER_NAME_KEY @"name"
 #define SERVER_BIRTHDAY_KEY @"birthday"
@@ -17,126 +17,37 @@
 #define SERVER_TELPHONE_KEY @"telphone"
 #define SERVER_GENDER_KEY @"gender"
 
+@class Contact;
 
-@interface Passenger : NSObject
+@interface Passenger : NSManagedObject
 
-/**
- *  联系人
- */
 @property (nonatomic, strong) Contact *contact;
 
-///**
-// *  联系人姓名：string类型；必填
-// */
-//@property (nonatomic, strong) NSString *contactName;
-//
-///**
-// *  联系人确认方式：string类型；必填；电话确认TEL，邮件确认EML
-// */
-//@property (nonatomic) ConfirmOption confirmOption;
-//
-///**
-// *  联系手机号码(国内) ：string类型；必填
-// */
-//@property (nonatomic, strong) NSString *mobilePhone;
-//
-///**
-// *  联系电话：string类型；必填
-// */
-//@property (nonatomic, strong) NSString *contactTel;
-//
-///**
-// *  境外手机号码：string类型；可空
-// */
-//@property (nonatomic, strong) NSString *foreignMobile;
-//
-///**
-// *  境外手机前缀：string类型；可空
-// */
-//@property (nonatomic, strong) NSString *mobileCountryFix;
-//
-///**
-// *  联系邮件地址：string类型；必填
-// */
-//@property (nonatomic, strong) NSString *contactEmail;
-//
-///**
-// *  联系传真号码：string类型；可空
-// */
-//@property (nonatomic, strong) NSString *contactFax;
+@property (nonatomic, retain) NSString * passengerName;
+@property (nonatomic, retain) NSString * passengerNamePY;
+@property (nonatomic, retain) NSDate * birthDay;
+@property (nonatomic, retain) NSNumber * passportType;
+@property (nonatomic, retain) NSString * cardTypeName;
+@property (nonatomic, retain) NSString * passportNumber;
+@property (nonatomic, retain) NSString * contactTelephone;
+@property (nonatomic, retain) NSNumber * gender;
+@property (nonatomic, retain) NSString * nationalityCode;
+@property (nonatomic, retain) NSString * nationalityName;
+@property (nonatomic, retain) NSDate * cardValid;
+@property (nonatomic, retain) NSString * corpEid;
 
 /**
- *  乘机人姓名：string类型；必填
- */
-@property (nonatomic, strong) NSString *passengerName;
-
-/**
- *  乘机人姓名拼音
- */
-@property (nonatomic, strong) NSString *passengerNamePY;
-
-/**
- *  乘机人出生日期：DateTime类型；必填；yyyy-MM-dd
- */
-@property (nonatomic, strong) NSDate *birthDay;
-
-/**
- *  证件类型ID：Int类型；必填：1身份证，2护照，4军人证，7回乡证，8台胞证，10港澳通行证，11国际海员证，20外国人永久居留证，25户口簿，27出生证明，99其它
- */
-@property (nonatomic) PassportType passportType;
-
-/**
- *  证件名称，如‘护照’
- */
-@property (nonatomic, strong) NSString *cardTypeName;
-
-/**
- *  证件号码：string类型；必填
- */
-@property (nonatomic, strong) NSString *passportNumber;
-
-/**
- *  乘机人联系电话：string类型；必填
- */
-@property (nonatomic, strong) NSString *contactTelephone;
-
-/**
- *  乘机人性别
- */
-@property (nonatomic) Gender gender;
-
-/**
- *  国家代码：string类型；必填
- */
-@property (nonatomic, strong) NSString *nationalityCode;
-
-/**
- *  国家名称
- */
-@property (nonatomic, strong) NSString *nationalityName;
-
-/**
- *  证件有效期
- */
-@property (nonatomic, strong) NSDate *cardValid;
-
-/**
- *  携程员工填写
- */
-@property (nonatomic, strong) NSString *corpEid;
-
-/**
- *  创建并返回一个初始化的Passenger实例
+ *  创建并返回一个初始化的PassengerHelper实例
  *
  *  @param name           乘机人姓名
  *  @param birthday       乘机人出生日期
  *  @param passportType   证件类型
  *  @param passportNumber 证件号
  *
- *  @return Passenger实例
+ *  @return PassengerEntity实例
  */
 + (Passenger *)passengerWithPassengerName:(NSString *)name
-                                 birthDay:(NSDate *)birthday
+                                 birthday:(NSDate *)birthday
                              passportType:(PassportType)passportType
                                passportNo:(NSString *)passportNumber;
 
@@ -155,5 +66,35 @@
  *  @return 字典
  */
 - (NSDictionary *)dictionaryWithPassengerOption;
+
+/*  通过姓名查找，失败为nil
+ *
+ *  @param name 查找姓名
+ *
+ *  @return Passenger
+ */
++ (Passenger *)findPassengerWithPassengerName:(NSString *)name;
+
+/**
+ *  查找所有Passenger
+ *
+ *  @return 所有Passenger
+ */
++ (NSArray *)findAllPassengers;
+
+/**
+ *  删除所有Passenger
+ */
++ (void)deleteAllPassengers;
+
+/**
+ *  保存此Passenger
+ */
+- (void)savePassenger;
+
+/**
+ *  删除此Passenger
+ */
+- (void)deletePassenger;
 
 @end

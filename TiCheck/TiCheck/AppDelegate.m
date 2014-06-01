@@ -17,6 +17,7 @@
 #import "PersonalOrderViewController.h"
 #import "PassengerEditViewController.h"
 #import "PassengerListViewController.h"
+#import "CoreData+MagicalRecord.h"
 
 @interface AppDelegate () <UIAlertViewDelegate>
 
@@ -49,6 +50,8 @@
     }
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"TiCheck.sqlite"];
     
     return YES;
 }
@@ -139,7 +142,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
-    [self saveContext];
+    [MagicalRecord cleanUp];
 }
 
 - (void)saveContext

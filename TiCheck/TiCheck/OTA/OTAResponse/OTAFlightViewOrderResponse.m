@@ -14,6 +14,7 @@
 #import "DeliverInfo.h"
 #import "NSString+DateFormat.h"
 #import "NSString+EnumTransform.h"
+#import "CoreData+MagicalRecord.h"
 
 #define NO_CORRESPONDING_ORDERS_RESULT_NO @"1205002"
 
@@ -215,11 +216,11 @@
 
 - (Passenger *)createPassengerViaXMLElement:(GDataXMLElement *)passengerElement
 {
-    Passenger *passenger = [[Passenger alloc] init];
+    Passenger *passenger = [Passenger MR_createEntity];
     
     passenger.passengerName   = ObjectElementToString(passengerElement, @"PassengerName");
     passenger.birthDay        = [NSString timeFormatWithString:ObjectElementToString(passengerElement, @"Birthday")];
-    passenger.gender          = [NSString genderFromString:ObjectElementToString(passengerElement, @"Gender")];
+    passenger.gender          = [NSNumber numberWithInteger:[NSString genderFromString:ObjectElementToString(passengerElement, @"Gender")]];
     passenger.nationalityCode = ObjectElementToString(passengerElement, @"NationalityCode");
     passenger.nationalityName = ObjectElementToString(passengerElement, @"NationalityName");
     passenger.cardTypeName    = ObjectElementToString(passengerElement, @"CardTypeName");

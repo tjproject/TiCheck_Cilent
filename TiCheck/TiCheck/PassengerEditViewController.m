@@ -12,6 +12,7 @@
 #import "PassengerInfoTextFieldCell.h"
 #import "EnumCollection.h"
 #import "TickectInfoViewController.h"
+#import "CoreData+MagicalRecord.h"
 
 #define INFO_ITEM_COUNT 6;
 
@@ -71,7 +72,7 @@
 {
     if(self.passengerInfo==nil)
     {
-        self.passengerInfo = [[Passenger alloc] init];
+        self.passengerInfo = [Passenger MR_createEntity];
         self.passengerInfo.passengerName = nil;
         self.passengerInfo.gender = 0;
         self.passengerInfo.birthDay = nil;
@@ -79,18 +80,22 @@
         self.passengerInfo.passportNumber = nil;
         self.passengerInfo.contactTelephone = nil;
         
+        [self.passengerInfo savePassenger];
+        
         isAddingNewItem = YES;
     }
     else
     {
         //保存被修改乘客的原有信息
-        self.oldPassengerInfo = [[Passenger alloc] init];
+        self.oldPassengerInfo = [Passenger MR_createEntity];
         self.oldPassengerInfo.passengerName = [NSString stringWithString:self.passengerInfo.passengerName];
         self.oldPassengerInfo.gender = self.passengerInfo.gender;
         self.oldPassengerInfo.birthDay = self.passengerInfo.birthDay;
         self.oldPassengerInfo.passportType = self.passengerInfo.passportType;
         self.oldPassengerInfo.passportNumber = [NSString stringWithString:self.passengerInfo.passportNumber];
         self.oldPassengerInfo.contactTelephone = [NSString stringWithString:self.passengerInfo.contactTelephone];
+        
+        [self.oldPassengerInfo savePassenger];
         
         isAddingNewItem = NO;
     }
@@ -214,7 +219,7 @@
         if(self.passengerInfo.passportType!= 0)
         {
             //根据类型切换
-            switch (self.passengerInfo.passportType) {
+            switch ([self.passengerInfo.passportType integerValue]) {
                 case ID: cell.labelButton.text=@"身份证";
                     break;
                 case Passport: cell.labelButton.text=@"护照";
@@ -435,11 +440,11 @@
     
     if(index==0)
     {
-        self.passengerInfo.gender=Male;
+        self.passengerInfo.gender=[NSNumber numberWithInteger:Male];
     }
     else
     {
-        self.passengerInfo.gender=Female;
+        self.passengerInfo.gender=[NSNumber numberWithInteger:Female];
     }
     
     [self.passengerInfoTableView reloadData];
@@ -455,27 +460,27 @@
     NSInteger index= [passportTypePicker.picker selectedRowInComponent:0];
     
     switch (index) {
-        case 0: self.passengerInfo.passportType=ID;
+        case 0: self.passengerInfo.passportType=[NSNumber numberWithInteger:ID];
             break;
-        case 1: self.passengerInfo.passportType=Passport;
+        case 1: self.passengerInfo.passportType=[NSNumber numberWithInteger:Passport];
             break;
-        case 2: self.passengerInfo.passportType=Military;
+        case 2: self.passengerInfo.passportType=[NSNumber numberWithInteger:Military];
             break;
-        case 3: self.passengerInfo.passportType=HomeReturePermit;
+        case 3: self.passengerInfo.passportType=[NSNumber numberWithInteger:HomeReturePermit];
             break;
-        case 4: self.passengerInfo.passportType=TaiWaner;
+        case 4: self.passengerInfo.passportType=[NSNumber numberWithInteger:TaiWaner];
             break;
-        case 5: self.passengerInfo.passportType=HongKongAndMacaoPermit;
+        case 5: self.passengerInfo.passportType=[NSNumber numberWithInteger:HongKongAndMacaoPermit];
             break;
-        case 6: self.passengerInfo.passportType=InternationalSeaman;
+        case 6: self.passengerInfo.passportType=[NSNumber numberWithInteger:InternationalSeaman];
             break;
-        case 7: self.passengerInfo.passportType=GreenCard;
+        case 7: self.passengerInfo.passportType=[NSNumber numberWithInteger:GreenCard];
             break;
-        case 8: self.passengerInfo.passportType=Booklet;
+        case 8: self.passengerInfo.passportType=[NSNumber numberWithInteger:Booklet];
             break;
-        case 9: self.passengerInfo.passportType=BirthCertificate;
+        case 9: self.passengerInfo.passportType=[NSNumber numberWithInteger:BirthCertificate];
             break;
-        case 10: self.passengerInfo.passportType=Other;
+        case 10: self.passengerInfo.passportType=[NSNumber numberWithInteger:Other];
             break;
         default:
             break;
