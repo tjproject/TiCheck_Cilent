@@ -1655,12 +1655,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOw-qc-XL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1983" y="2300"/>
+            <point key="canvasLocation" x="1528" y="2300"/>
         </scene>
         <!--Tickect Info View Controller - 订单详情-->
         <scene sceneID="rzk-lT-pFE">
             <objects>
-                <viewController storyboardIdentifier="TicketInfoViewConyroller" id="PbO-Tz-SA1" customClass="TickectInfoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TickectInfoViewConyroller" id="PbO-Tz-SA1" customClass="TickectInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nXE-iG-8tv"/>
                         <viewControllerLayoutGuide type="bottom" id="raw-rl-isF"/>
@@ -1674,7 +1674,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Cw-az-3hC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="2300"/>
+            <point key="canvasLocation" x="1052" y="-3704"/>
         </scene>
         <!--View Controller - 支付详情-->
         <scene sceneID="Bus-A6-S2X">
@@ -1693,7 +1693,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bix-9N-NiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2415" y="2300"/>
+            <point key="canvasLocation" x="1960" y="2300"/>
         </scene>
         <!--Pay Process View Controller - 支付-->
         <scene sceneID="ve5-v7-63s">
@@ -1818,7 +1818,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80K-yP-pPn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1499" y="2300"/>
+            <point key="canvasLocation" x="1044" y="2300"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7C-6F-bzg">
