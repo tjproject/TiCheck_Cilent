@@ -32,6 +32,12 @@ typedef NS_ENUM(NSInteger, ServerOrderRequestType) {
     Get_Order
 };
 
+typedef NS_ENUM(NSInteger, ServerContactRequestType) {
+    Create_Contact = 0,
+    Cancel_Contact,
+    Modify_Contact,
+    Get_Contact
+};
 
 @interface ServerRequest : NSObject
 
@@ -86,5 +92,22 @@ typedef NS_ENUM(NSInteger, ServerOrderRequestType) {
 //+ (NSData *)getOTAPayResponseWithServerURL:(NSString *)serverUrl
 //                                           requestType:(ServerSubscriptionRequestType)subscriptionRequestType
 //                                              jsonData:(NSData *)jsonData;
+
+
+/**
+ *  同步获取订单相关请求字符串
+ *
+ *  @param serverUrl          请求服务器url
+ *  @param contactRequestType 乘客列表请求类型
+ *  @param jsonData           请求的json数据
+ *
+ *  @return 数据
+ */
++ (NSData *)getServerContactResponseWithServerURL:(NSString *)serverUrl
+                                    requestType:(ServerContactRequestType)contactRequestType
+                                       jsonData:(NSData *)jsonData;
+
+
+
 
 @end

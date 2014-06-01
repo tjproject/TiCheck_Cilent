@@ -274,4 +274,74 @@
     return nil;
 }
 
+
+# pragma mark - contact
+
+- (NSDictionary *)addContacts:(Passenger *)contact
+{
+    NSDictionary *contactInfo = [contact dictionaryWithPassengerOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    NSData *contactInfoJsonData = [NSJSONSerialization dataWithJSONObject:contactInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"User=%@&Contacts=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:contactInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerContactResponseWithServerURL:SERVER_URL requestType:Create_Contact jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
+- (NSDictionary *)getContacts:(NSArray *)contacts
+{
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    //NSData *contactInfoJsonData = [NSJSONSerialization dataWithJSONObject:contactInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"User=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerContactResponseWithServerURL:SERVER_URL requestType:Get_Contact jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
+- (NSDictionary *)modifyContact:(Passenger *)oldContact toNewContact:(Passenger *)newContact;
+{
+    NSDictionary *oldContactInfo = [oldContact dictionaryWithPassengerOption];
+    NSDictionary *newContactInfo = [newContact dictionaryWithPassengerOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    NSData *oldContactInfoJsonData = [NSJSONSerialization dataWithJSONObject:oldContactInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *newContactInfoJsonData = [NSJSONSerialization dataWithJSONObject:newContactInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"User=%@&Contacts=%@&NewContacts=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:oldContactInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:newContactInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerContactResponseWithServerURL:SERVER_URL requestType:Modify_Contact jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+
+}
+
+- (NSDictionary *)deleteContacts:(Passenger *)contact;
+{
+    NSDictionary *contactInfo = [contact dictionaryWithPassengerOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    NSData *contactInfoJsonData = [NSJSONSerialization dataWithJSONObject:contactInfo options:NSJSONWritingPrettyPrinted error:nil];
+    NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"User=%@&Contacts=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:contactInfoJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerContactResponseWithServerURL:SERVER_URL requestType:Cancel_Contact jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
 @end

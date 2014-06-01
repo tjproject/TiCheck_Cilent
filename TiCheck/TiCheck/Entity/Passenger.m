@@ -60,6 +60,21 @@
     return result;
 }
 
+- (NSDictionary *)dictionaryWithPassengerOption
+{
+    NSMutableDictionary *contactDictionary = [NSMutableDictionary dictionary];
+    
+    [contactDictionary setObject:self.passengerName forKey:SERVER_NAME_KEY];
+    [contactDictionary setObject:[NSString stringFormatWithDate:self.birthDay] forKey:SERVER_BIRTHDAY_KEY];
+    [contactDictionary setObject:self.passportNumber forKey:SERVER_PASSPORTNUMBER_KEY];
+    [contactDictionary setObject:self.contactTelephone forKey:SERVER_TELPHONE_KEY];
+    
+    
+    [contactDictionary setObject:[NSString stringWithFormat:@"%d", self.passportType] forKey:SERVER_PASSPORTTYPE_KEY];
+    [contactDictionary setObject:[NSString stringWithFormat:@"%d", self.gender] forKey:SERVER_GENDER_KEY];
+    
+    return contactDictionary;
+}
 
 - (Contact *)contact
 {
