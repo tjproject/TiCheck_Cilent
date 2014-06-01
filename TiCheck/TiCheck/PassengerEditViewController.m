@@ -75,9 +75,9 @@
     {
         self.passengerInfo = [Passenger MR_createEntity];
         self.passengerInfo.passengerName = nil;
-        self.passengerInfo.gender = 0;
+        self.passengerInfo.gender = nil;
         self.passengerInfo.birthDay = nil;
-        self.passengerInfo.passportType = 0;
+        self.passengerInfo.passportType = nil;
         self.passengerInfo.passportNumber = nil;
         self.passengerInfo.contactTelephone = nil;
         
@@ -90,10 +90,9 @@
         //保存被修改乘客的原有信息
         self.oldPassengerInfo = [Passenger MR_createEntity];
         self.oldPassengerInfo.passengerName = [NSString stringWithString:self.passengerInfo.passengerName];
-        self.oldPassengerInfo.gender = self.passengerInfo.gender;
+        self.oldPassengerInfo.gender = [NSNumber numberWithInt: [self.passengerInfo.gender integerValue]];
         self.oldPassengerInfo.birthDay = self.passengerInfo.birthDay;
-        self.oldPassengerInfo.passportType = self.passengerInfo.passportType;
-        self.oldPassengerInfo.passportNumber = [NSString stringWithString:self.passengerInfo.passportNumber];
+        self.oldPassengerInfo.passportType = [NSNumber numberWithInt: [self.passengerInfo.passportType integerValue]];        self.oldPassengerInfo.passportNumber = [NSString stringWithString:self.passengerInfo.passportNumber];
         self.oldPassengerInfo.contactTelephone = [NSString stringWithString:self.passengerInfo.contactTelephone];
         
         [self.oldPassengerInfo savePassenger];
@@ -162,8 +161,7 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        if([self.passengerInfo.gender isEqualToNumber: [NSNumber numberWithInt:2]]
-           || [self.passengerInfo.gender isEqualToNumber: [NSNumber numberWithInt:1]])
+        if( self.passengerInfo.gender != nil) //[self.passengerInfo.gender isEqualToNumber: [NSNumber numberWithInt:2]]|| [self.passengerInfo.gender isEqualToNumber: [NSNumber numberWithInt:1]])
         {
             if ([self.passengerInfo.gender isEqualToNumber: [NSNumber numberWithInt:2]])
             {
@@ -218,7 +216,7 @@
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        if(![self.passengerInfo.passportType isEqualToNumber:[NSNumber numberWithInt:0]])
+        if(self.passengerInfo.passportType != nil) //[self.passengerInfo.passportType isEqualToNumber:[NSNumber numberWithInt:0]])
         {
             //根据类型切换
             switch ([self.passengerInfo.passportType integerValue]) {
@@ -528,6 +526,8 @@
                 [alert show];
             }
             
+            [self.passengerInfo savePassenger];
+            NSArray *test = [Passenger findAllPassengers];
         }
         else
         {
@@ -549,6 +549,11 @@
                 UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alert show];
             }
+            
+            [self.passengerInfo savePassenger];
+            NSArray *test = [Passenger findAllPassengers];
+            
+            Passenger *temp = [test objectAtIndex:30];
         }
     }
     else
@@ -581,7 +586,7 @@
         return NO;
     }
     //gender
-    if (self.passengerInfo.gender==0) {
+    if (self.passengerInfo.gender==nil) {
         NSString* messageS=[@"性别" stringByAppendingString:@"不能为空"];
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
@@ -596,7 +601,7 @@
         return NO;
     }
     //passport type
-    if (self.passengerInfo.passportType==0) {
+    if (self.passengerInfo.passportType==nil) {
         NSString* messageS=[@"证件类型" stringByAppendingString:@"不能为空"];
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"填写错误" message:messageS delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
