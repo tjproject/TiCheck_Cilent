@@ -1660,7 +1660,7 @@
         <!--Tickect Info View Controller - 订单详情-->
         <scene sceneID="rzk-lT-pFE">
             <objects>
-                <viewController storyboardIdentifier="TickectInfoViewConyroller" id="PbO-Tz-SA1" customClass="TickectInfoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TickectInfoViewController" id="PbO-Tz-SA1" customClass="TickectInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nXE-iG-8tv"/>
                         <viewControllerLayoutGuide type="bottom" id="raw-rl-isF"/>
