@@ -30,12 +30,15 @@
 @dynamic cardValid;
 @dynamic corpEid;
 
+static NSEntityDescription *entityDescTemporary;
+
 + (Passenger *)passengerWithPassengerName:(NSString *)name
                                  birthday:(NSDate *)birthday
                              passportType:(PassportType)passportType
                                passportNo:(NSString *)passportNumber
+                              isTemporary:(BOOL)isTemporary
 {
-    Passenger *passenger = [Passenger MR_createEntity];
+    Passenger *passenger = [self passengerIsTemporary:isTemporary];
     
     passenger.passengerName = name;
     passenger.birthDay = birthday;
@@ -51,8 +54,9 @@
 }
 
 + (Passenger *)createPassengerWithDictionary:(NSDictionary *)dictionary
+                                 isTemporary:(BOOL)isTemporary
 {
-    Passenger *passenger = [Passenger MR_createEntity];
+    Passenger *passenger = [self passengerIsTemporary:isTemporary];
     
     passenger.passengerName = dictionary[@"passengerName"];
     @try
@@ -75,8 +79,10 @@
 }
 
 + (Passenger *)createPassengerByServerData:(NSDictionary *)dictionary
+                               isTemporary:(BOOL)isTemporary
 {
-    Passenger *result = [Passenger MR_createEntity];
+    Passenger *result = [self passengerIsTemporary:isTemporary];
+    
     result.passengerName = dictionary[SERVER_NAME_KEY];
     @try
     {
@@ -149,6 +155,23 @@
     }
     
     return _contact;
+}
+
++ (Passenger *)passengerIsTemporary:(BOOL)isTemporary
+{
+    Passenger *result = nil;
+    
+    if (entityDescTemporary == nil) {
+        entityDescTemporary = [NSEntityDescription entityForName:@"Passenger" inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
+    }
+    
+    if (isTemporary) {
+        result = [[Passenger alloc] initWithEntity:entityDescTemporary insertIntoManagedObjectContext:nil];
+    } else {
+        result = [Passenger MR_createEntity];
+    }
+    
+    return result;
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "ConfigurationHelper.h"
 #import "Passenger.h"
 #import "EnumCollection.h"
+#import <CoreData+MagicalRecord.h>
 
 @interface PassengerHelperTest : XCTestCase
 
@@ -67,6 +68,22 @@
     [Passenger deleteAllPassengers];
     all = [Passenger findAllPassengers];
     XCTAssertEqual(all.count, 0, @"empty");
+    
+
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Passenger" inManagedObjectContext:[NSManagedObjectContext MR_defaultContext]];
+    Passenger *pa = [[Passenger alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    pa.passengerName = @"dsads";
+    all = [Passenger findAllPassengers];
+    XCTAssertEqual(all.count, 0, @"empty");
+    
+    Passenger *pa3 = [[Passenger alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    pa.passportNumber = @"dsads";
+    all = [Passenger findAllPassengers];
+    XCTAssertEqual(all.count, 0, @"empty");
+    
+    Passenger *pa2 = [Passenger MR_createEntity];
+    all = [Passenger findAllPassengers];
+    XCTAssertEqual(all.count, 1, @"empty");
 }
 
 @end

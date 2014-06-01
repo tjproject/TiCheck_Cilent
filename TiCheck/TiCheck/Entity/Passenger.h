@@ -50,7 +50,8 @@
 + (Passenger *)passengerWithPassengerName:(NSString *)name
                                  birthday:(NSDate *)birthday
                              passportType:(PassportType)passportType
-                               passportNo:(NSString *)passportNumber;
+                               passportNo:(NSString *)passportNumber
+                              isTemporary:(BOOL)isTemporary;
 
 /**
  *  通过字典创建实例
@@ -59,7 +60,8 @@
  *
  *  @return 实例
  */
-+ (Passenger *)createPassengerWithDictionary:(NSDictionary *)dictionary;
++ (Passenger *)createPassengerWithDictionary:(NSDictionary *)dictionary
+                                 isTemporary:(BOOL)isTemporary;
 
 /**
  *  通过服务器返回数据字典创建实例
@@ -68,7 +70,8 @@
  *
  *  @return 实例
  */
-+ (Passenger *)createPassengerByServerData:(NSDictionary *)dictionary;
++ (Passenger *)createPassengerByServerData:(NSDictionary *)dictionary
+                                isTemporary:(BOOL)isTemporary;
 
 
 /**
