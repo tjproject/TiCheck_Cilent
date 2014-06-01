@@ -464,7 +464,7 @@ static float scrollViewHeight=169;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TickectInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TicketInfoViewConyroller"];
+    TickectInfoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
     vc.selectFlight = [self.data objectAtIndex:indexPath.row];
     vc.departureDate = [NSString dateFormatWithString:self.searchOptionDic[TAKE_OFF_TIME_KEY]];
     vc.isShowMore = _isShowMore;

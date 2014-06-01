@@ -1478,8 +1478,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥1520" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dnr-nP-8cE" userLabel="price">
-                                                    <rect key="frame" x="259" y="17" width="56" height="21"/>
+                                                    <rect key="frame" x="259" y="17" width="61" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="61" id="vXn-1P-YNU"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.59607843137254901" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1524,31 +1527,30 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="yYz-n6-Twf" firstAttribute="leading" secondItem="l6p-NS-HfY" secondAttribute="trailing" constant="2" id="0sn-bO-qJC"/>
-                                                <constraint firstItem="Dnr-nP-8cE" firstAttribute="bottom" secondItem="l6p-NS-HfY" secondAttribute="bottom" id="44C-Kb-mzf"/>
                                                 <constraint firstItem="xod-eG-mIE" firstAttribute="top" secondItem="33U-8B-dOt" secondAttribute="bottom" constant="3" id="46K-Gh-vIL"/>
                                                 <constraint firstAttribute="bottom" secondItem="usl-wF-AUs" secondAttribute="bottom" constant="7" id="4Pa-9v-Rmy"/>
-                                                <constraint firstItem="shF-8O-Itj" firstAttribute="centerX" secondItem="Dnr-nP-8cE" secondAttribute="centerX" id="Biz-Li-EOw"/>
                                                 <constraint firstItem="NUg-lQ-eCg" firstAttribute="top" secondItem="IPE-kz-LcF" secondAttribute="top" constant="8" id="Egp-00-qzG"/>
+                                                <constraint firstAttribute="trailing" secondItem="Dnr-nP-8cE" secondAttribute="trailing" id="KQv-pl-Orw"/>
                                                 <constraint firstAttribute="trailing" secondItem="shF-8O-Itj" secondAttribute="trailing" constant="13" id="L6P-pa-kZi"/>
+                                                <constraint firstItem="Dnr-nP-8cE" firstAttribute="top" secondItem="l6p-NS-HfY" secondAttribute="top" id="LLr-Ab-6Ea"/>
                                                 <constraint firstItem="3bb-Rp-gvr" firstAttribute="baseline" secondItem="shF-8O-Itj" secondAttribute="baseline" id="Mxz-B5-TRk"/>
+                                                <constraint firstItem="Dnr-nP-8cE" firstAttribute="leading" secondItem="yYz-n6-Twf" secondAttribute="trailing" constant="1" id="RdH-9B-hpg"/>
                                                 <constraint firstItem="xod-eG-mIE" firstAttribute="top" secondItem="l6p-NS-HfY" secondAttribute="bottom" constant="7" id="YKv-oX-EaR"/>
                                                 <constraint firstItem="usl-wF-AUs" firstAttribute="leading" secondItem="3bb-Rp-gvr" secondAttribute="trailing" constant="16" id="Ynf-gm-dnA"/>
                                                 <constraint firstItem="3bb-Rp-gvr" firstAttribute="top" secondItem="l6p-NS-HfY" secondAttribute="bottom" constant="11" id="ZyG-c2-s1d"/>
                                                 <constraint firstItem="l6p-NS-HfY" firstAttribute="leading" secondItem="33U-8B-dOt" secondAttribute="trailing" id="bKl-45-ZnD"/>
+                                                <constraint firstItem="Dnr-nP-8cE" firstAttribute="bottom" secondItem="l6p-NS-HfY" secondAttribute="bottom" id="dD9-fy-EPE"/>
                                                 <constraint firstItem="xod-eG-mIE" firstAttribute="centerY" secondItem="3bb-Rp-gvr" secondAttribute="centerY" id="dfx-Vy-kJl"/>
-                                                <constraint firstItem="Dnr-nP-8cE" firstAttribute="leading" secondItem="yYz-n6-Twf" secondAttribute="trailing" constant="1" id="eCA-hj-5xV"/>
                                                 <constraint firstItem="33U-8B-dOt" firstAttribute="leading" secondItem="xod-eG-mIE" secondAttribute="leading" id="eRd-1y-E7d"/>
                                                 <constraint firstItem="usl-wF-AUs" firstAttribute="top" secondItem="l6p-NS-HfY" secondAttribute="bottom" constant="8" symbolic="YES" id="fhd-bT-7Dz"/>
                                                 <constraint firstItem="NUg-lQ-eCg" firstAttribute="leading" secondItem="IPE-kz-LcF" secondAttribute="leading" constant="9" id="hbl-71-ucL"/>
                                                 <constraint firstItem="xod-eG-mIE" firstAttribute="leading" secondItem="IPE-kz-LcF" secondAttribute="leading" constant="52" id="huL-9g-hqW"/>
                                                 <constraint firstItem="33U-8B-dOt" firstAttribute="top" secondItem="IPE-kz-LcF" secondAttribute="top" constant="4" id="kt0-C3-oUW"/>
                                                 <constraint firstAttribute="bottom" secondItem="NUg-lQ-eCg" secondAttribute="bottom" constant="31" id="l6L-OC-z9z"/>
-                                                <constraint firstItem="l6p-NS-HfY" firstAttribute="top" secondItem="Dnr-nP-8cE" secondAttribute="top" id="lXw-s3-m4F"/>
                                                 <constraint firstItem="usl-wF-AUs" firstAttribute="top" secondItem="yYz-n6-Twf" secondAttribute="bottom" constant="12" id="mQC-z3-q9V"/>
                                                 <constraint firstItem="shF-8O-Itj" firstAttribute="leading" secondItem="usl-wF-AUs" secondAttribute="trailing" constant="23" id="mkx-fB-rpc"/>
                                                 <constraint firstItem="l6p-NS-HfY" firstAttribute="top" secondItem="IPE-kz-LcF" secondAttribute="top" constant="17" id="sRK-Ut-vXL"/>
                                                 <constraint firstItem="33U-8B-dOt" firstAttribute="leading" secondItem="NUg-lQ-eCg" secondAttribute="trailing" constant="8" symbolic="YES" id="thJ-Nd-efd"/>
-                                                <constraint firstAttribute="trailing" secondItem="Dnr-nP-8cE" secondAttribute="trailing" constant="5" id="wFp-Kh-AYa"/>
                                                 <constraint firstItem="usl-wF-AUs" firstAttribute="leading" secondItem="xod-eG-mIE" secondAttribute="trailing" constant="51" id="wcl-lH-pSg"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1655,7 +1657,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BOw-qc-XL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528" y="2300"/>
+            <point key="canvasLocation" x="1898" y="2268"/>
         </scene>
         <!--Tickect Info View Controller - 订单详情-->
         <scene sceneID="rzk-lT-pFE">
@@ -1674,7 +1676,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Cw-az-3hC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1052" y="-3704"/>
+            <point key="canvasLocation" x="1052" y="2268"/>
         </scene>
         <!--View Controller - 支付详情-->
         <scene sceneID="Bus-A6-S2X">
@@ -1693,7 +1695,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bix-9N-NiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1960" y="2300"/>
+            <point key="canvasLocation" x="2330" y="2268"/>
         </scene>
         <!--Pay Process View Controller - 支付-->
         <scene sceneID="ve5-v7-63s">
@@ -1818,7 +1820,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80K-yP-pPn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044" y="2300"/>
+            <point key="canvasLocation" x="1414" y="2268"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="r7C-6F-bzg">
