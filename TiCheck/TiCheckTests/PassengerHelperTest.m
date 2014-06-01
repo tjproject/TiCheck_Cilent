@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import "ConfigurationHelper.h"
 #import "Passenger.h"
-#import "PassengerEntity.h"
 #import "EnumCollection.h"
 
 @interface PassengerHelperTest : XCTestCase
