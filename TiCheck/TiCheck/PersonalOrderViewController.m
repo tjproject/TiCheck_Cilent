@@ -85,6 +85,12 @@
     PersonalOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil)
     {
+        
+        /**
+         *
+         *  这里好乱，看不懂，不过时间显示应该是错了，买一张机票，然后对照时间发现显示有误。
+         *
+         */
         cell = [[PersonalOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         CraftType *tempCT = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] craftType]];
         [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] flightNumber]] Plane:[NSString stringWithFormat:@"%@ %@",[tempCT craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]] Time:[[NSString stringWithFormat:@"%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] takeOffTime]] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] Place:[NSString stringWithFormat:@"%@-%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] departPortShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] arrivePortShortName]] FlightImage:[UIImage imageNamed:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineDibitCode]]];

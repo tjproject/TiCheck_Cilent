@@ -25,7 +25,7 @@
     flight.arriveCityCode          = dictionary[@"arriveCityCode"];
     @try {
         flight.takeOffTime             = [NSString timeFormatWithString:dictionary[@"takeOffTime"]];
-        flight.arrivalTime             = [NSString timeFormatWithString:dictionary[@"arriveTime"]];
+        flight.arrivalTime             = [NSString timeFormatWithString:dictionary[@"arrivalTime"]];
     }
     @catch (NSException *exception) {
         //

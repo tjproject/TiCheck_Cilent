@@ -152,6 +152,7 @@ extern NSDictionary *notificationOption;
                 //      research flight by using subscription info and display them in table view
                 //      add edit function for subscription
                 Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
+                [self.subscriptionArray addObject:tempSubscription];
                 
                 NSMutableArray *allFlightListOfOneSubscirption = [[NSMutableArray alloc] init];
                 
@@ -173,11 +174,10 @@ extern NSDictionary *notificationOption;
                         OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:resultXML];
                         [allFlightListOfOneSubscirption addObjectsFromArray:response.flightsList];
                     }
-                    [self.subscriptionArray addObject:tempSubscription];
+                    
                     [self.flightListArray addObject:allFlightListOfOneSubscirption];
                 }
             }
-            
             isCellExpanded=[[NSMutableArray alloc]init];
             
             for (int i=0; i<self.subscriptionArray.count; i++) {
