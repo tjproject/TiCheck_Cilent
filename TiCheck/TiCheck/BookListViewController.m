@@ -90,9 +90,9 @@ extern NSDictionary *notificationOption;
     {
         NSLog(@"book list view controller do something here to deal with notification");
         notificationOption = nil;
-    
-        //NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:3];
-        //[self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        NSInteger sectionID = [notificationOption[@"ID"] integerValue];
+        NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionID];
+        [self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 }
 
