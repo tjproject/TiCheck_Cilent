@@ -333,13 +333,22 @@
     else if([request.userInfo[@"asiRequestType"] isEqualToString:@"1"])
     {
         OTAFlightSaveOrderResponse *response = [[OTAFlightSaveOrderResponse alloc] initWithOTASaveOrderResponse:[request responseString]];
-        orderID = response.tempOrderID;
         
-        NSLog(@"订单结果 = %@",response.resultMsg);
-        NSLog(@"订单ID = %@",response.tempOrderID);
+        if(response.result)
+        {
+            orderID = response.tempOrderID;
+        
+            NSLog(@"订单结果 = %@",response.resultMsg);
+            NSLog(@"订单ID = %@",response.tempOrderID);
 
-        //pay － 获取临时订单号后跳转支付页面
-        [self sendFlightPayPost:response.tempOrderID];
+            //pay － 获取临时订单号后跳转支付页面
+            [self sendFlightPayPost:response.tempOrderID];
+        }
+        else
+        {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"支付失败" message:@"请重新支付" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     }
     //订单列表查询请求 － 查找携程数据库
     else if([request.userInfo[@"asiRequestType"] isEqualToString:@"2"])

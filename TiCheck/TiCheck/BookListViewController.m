@@ -80,15 +80,29 @@ extern NSDictionary *notificationOption;
     
     [self initSubscriptionInfoData:self.returnDic];
     //[self initBookOrderList];
+
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (notificationOption != nil)
+    {
+        NSLog(@"book list view controller do something here to deal with notification");
+        notificationOption = nil;
+        NSInteger sectionID = [notificationOption[@"ID"] integerValue];
+        NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionID];
+        [self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (notificationOption != nil) {
-        NSLog(@"book list view controller do something here to deal with notification");
-        notificationOption = nil;
-    }
+    
+    
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -152,6 +166,7 @@ extern NSDictionary *notificationOption;
                 //      research flight by using subscription info and display them in table view
                 //      add edit function for subscription
                 Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
+                [self.subscriptionArray addObject:tempSubscription];
                 
                 NSMutableArray *allFlightListOfOneSubscirption = [[NSMutableArray alloc] init];
                 
@@ -161,7 +176,8 @@ extern NSDictionary *notificationOption;
                 
                 if([tempDictionary[@"FlightXML"] isKindOfClass:[NSNull class]])
                 {
-                    continue;
+                    [self.flightListArray addObject:allFlightListOfOneSubscirption];
+                    //continue;
                 }
                 else
                 {
@@ -173,11 +189,10 @@ extern NSDictionary *notificationOption;
                         OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:resultXML];
                         [allFlightListOfOneSubscirption addObjectsFromArray:response.flightsList];
                     }
-                    [self.subscriptionArray addObject:tempSubscription];
+                    
                     [self.flightListArray addObject:allFlightListOfOneSubscirption];
                 }
             }
-            
             isCellExpanded=[[NSMutableArray alloc]init];
             
             for (int i=0; i<self.subscriptionArray.count; i++) {

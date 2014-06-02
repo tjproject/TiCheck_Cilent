@@ -42,6 +42,9 @@
 
 #define AIRLINE_CELL_IMAGE_SIZE CGSizeMake(30.0f, 30.0f)
 
+#define CONFIRM_BUTTON_CELL_HEIGHT IS_IPHONE_5 ? 320.0f : 320.0f - 88.0f
+
+
 typedef NS_ENUM(NSInteger, SelectingOption) {
     SelectingAirline,
     SelectingSeat,

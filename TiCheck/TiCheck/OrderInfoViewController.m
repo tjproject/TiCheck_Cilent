@@ -84,12 +84,17 @@
 
 - (void)initOrderInfos
 {
+    _OIVC_departureDate = ((Flight*)[self.OIVC_Order.flightsList objectAtIndex:0]).takeOffTime;
+    
+    
+    
+    
     timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, 105, 200, 30)];
     if (_OIVC_departureDate)
     {
         NSDateFormatter *weekday = [[NSDateFormatter alloc] init];
         [weekday setDateFormat: @"EEEE"];
-        timeLabel.text = [NSString stringWithFormat:@"%ld年%ld月%ld日 %@",_OIVC_departureDate.year,_OIVC_departureDate.month,_OIVC_departureDate.day,[weekday stringFromDate:_OIVC_departureDate]];
+        timeLabel.text = [NSString stringWithFormat:@"%d年%d月%d日 %@", _OIVC_departureDate.year, _OIVC_departureDate.month,_OIVC_departureDate.day, [weekday stringFromDate:_OIVC_departureDate]];
     }
     else timeLabel.text = @"2014-04-14 周一";
     [contentVessel addSubview:timeLabel];
@@ -113,7 +118,9 @@
     arriveTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 215, 100, 50)];
     if (_OIVC_Order)
     {
-        departTimeLabel.text = [NSString showingStringFormatWithString:[[_OIVC_Order.flightsList objectAtIndex:0] takeOffTime]];
+        Flight *tempFlight = [self.OIVC_Order.flightsList objectAtIndex:0];
+        NSDate *departTime = ((Flight*)[self.OIVC_Order.flightsList objectAtIndex:0]).takeOffTime;
+        departTimeLabel.text = [NSString showingStringFormatWithString:departTime];
         arriveTimeLabel.text = [NSString showingStringFormatWithString:[[_OIVC_Order.flightsList objectAtIndex:0] arrivalTime]];
     }
     else
