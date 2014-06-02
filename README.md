@@ -21,7 +21,7 @@ TODO
  - [x] 订单确认时的联系人逻辑
 2. 个人中心
  - [x] 登录后发送设备token到服务端 6 @Dachang
- - [ ] UDID  8 @Bill
+ - [x] UDID  8 @Bill
  - [x] 联系人 7 @Bill
  - [x] 用户数据
  - [ ] 关于Ticheck 13 @Dachang
