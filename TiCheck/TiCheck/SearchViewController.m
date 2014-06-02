@@ -403,7 +403,7 @@ extern NSString *mDeviceToken;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger rowNum = 4;
-    CGFloat confirmButtonCellHeight = 328.0f;
+    CGFloat confirmButtonCellHeight = CONFIRM_BUTTON_CELL_HEIGHT;
     
     if (isReturn) {
         rowNum++;
