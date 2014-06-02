@@ -80,15 +80,29 @@ extern NSDictionary *notificationOption;
     
     [self initSubscriptionInfoData:self.returnDic];
     //[self initBookOrderList];
+
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (notificationOption != nil)
+    {
+        NSLog(@"book list view controller do something here to deal with notification");
+        notificationOption = nil;
+    
+        //NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:3];
+        //[self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (notificationOption != nil) {
-        NSLog(@"book list view controller do something here to deal with notification");
-        notificationOption = nil;
-    }
+    
+    
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -162,7 +176,8 @@ extern NSDictionary *notificationOption;
                 
                 if([tempDictionary[@"FlightXML"] isKindOfClass:[NSNull class]])
                 {
-                    continue;
+                    [self.flightListArray addObject:allFlightListOfOneSubscirption];
+                    //continue;
                 }
                 else
                 {
