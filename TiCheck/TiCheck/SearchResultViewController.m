@@ -31,6 +31,7 @@
 #import "CraftType.h"
 #import "Airline.h"
 #import "Airport.h"
+#import "CommonData.h"
 
 #define IS_RELOADING_FLAG @"IsReloading"
 #define IS_SEARCH_DATE_USER_INFO_KEY @"IsSearchDate"
@@ -131,6 +132,13 @@ static float scrollViewHeight=169;
         // 发送价格趋势的请求
         [self sendLowPriceTraceRequest];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    tableViewHeight = self.resultTableView.frame.size.height;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -375,7 +383,6 @@ static float scrollViewHeight=169;
     if (_resultTableView==nil)
     {
         _resultTableView=resultTableView;
-        tableViewHeight=_resultTableView.frame.size.height;
     }
 }
 
