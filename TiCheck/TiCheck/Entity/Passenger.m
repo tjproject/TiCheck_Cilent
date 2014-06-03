@@ -86,7 +86,7 @@ static NSEntityDescription *entityDescTemporary;
     result.passengerName = dictionary[SERVER_NAME_KEY];
     @try
     {
-        result.birthDay = [NSString timeFormatWithString:dictionary[SERVER_BIRTHDAY_KEY]];
+        result.birthDay = [NSString dateFormatWithString:dictionary[SERVER_BIRTHDAY_KEY]];
     }
     @catch(NSException * exception)
     {
