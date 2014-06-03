@@ -59,6 +59,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSLog(@"receive push notification during running");
+    notificationOption = userInfo;
     
     /*!
      检查当前view controller是否为个人中心，如果是，直接push到订阅列表
@@ -81,16 +82,12 @@
             [personalViewController receivePushNotification:userInfo];
             return;
         }
-        else if ([visibleViewController isKindOfClass:[BookListViewController class]])
-        {
-            NSLog(@"now is book list view controller presented");
-            return;
-        }
         else if ([visibleViewController isKindOfClass:[AccountEditDetailViewController class]] ||
                  [visibleViewController isKindOfClass:[AccountEditViewController class]] ||
                  [visibleViewController isKindOfClass:[PersonalOrderViewController class]] ||
                  [visibleViewController isKindOfClass:[PassengerEditViewController class]] ||
-                 [visibleViewController isKindOfClass:[PassengerListViewController class]])
+                 [visibleViewController isKindOfClass:[PassengerListViewController class]] ||
+                 [visibleViewController isKindOfClass:[BookListViewController class]])
         {
             [visibleViewController.navigationController popToRootViewControllerAnimated:NO];
             
