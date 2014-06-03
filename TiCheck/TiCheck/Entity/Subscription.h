@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#define SERVER_ID_KEY @"ID"
 #define SERVER_DEPART_CITY_KEY @"DepartCity"
 #define SERVER_ARRIVE_CITY_KEY @"ArriveCity"
 #define SERVER_START_DATE_KEY @"StartDate"
@@ -23,6 +24,11 @@
 @class Airport;
 
 @interface Subscription : NSObject
+
+/**
+ *  后台数据库中ID
+ */
+@property (nonatomic, strong, readonly) NSNumber *ID;
 
 /**
  *  出发城市，必填
@@ -97,7 +103,8 @@
 - (id)initWithDepartCityCode:(NSString *)departCityCode
               arriveCityCode:(NSString *)arriveCityCode
                    startDate:(NSString *)startDateStr
-                     endDate:(NSString *)endDateStr;
+                     endDate:(NSString *)endDateStr
+                    idNumber:(NSNumber *)number_id;
 
 
 

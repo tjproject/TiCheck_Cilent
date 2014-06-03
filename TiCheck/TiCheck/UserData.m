@@ -105,7 +105,6 @@
          *  虽然正常情况下UID不会为空，但是我没法打开应用了，所以...
          *  另外，服务器传来数据为空的最好处理应该这样。有时间我们一起全改了。
          */
-        NSLog(@"%@", userDic[@"UID"]);
         if (![userDic[@"UID"] isKindOfClass:[NSNull class]]) {
             self.uniqueID = userDic[@"UID"];
         }

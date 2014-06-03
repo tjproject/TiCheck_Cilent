@@ -17,6 +17,7 @@
 
 @interface Subscription ()
 
+@property (nonatomic, strong, readwrite) NSNumber *ID;
 @property (nonatomic, strong, readwrite) DomesticCity *departCity;
 @property (nonatomic, strong, readwrite) DomesticCity *arriveCity;
 @property (nonatomic, strong, readwrite) NSDate *startDate;
@@ -54,10 +55,12 @@
 
 - (id)initWithDepartCityCode:(NSString *)departCityCode
               arriveCityCode:(NSString *)arriveCityCode
-               startDate:(NSString *)startDateStr
-                 endDate:(NSString *)endDateStr
+                   startDate:(NSString *)startDateStr
+                     endDate:(NSString *)endDateStr
+                    idNumber:(NSNumber *)nsnumber_id
 {
     if (self = [super init]) {
+        self.ID                 = nsnumber_id;
         self.departCity         = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:departCityCode];
         self.arriveCity         = [[APIResourceHelper sharedResourceHelper] findDomesticCityViaCode:arriveCityCode];
         self.startDate          = [NSString dateFormatWithString:startDateStr];
@@ -91,6 +94,7 @@
 {
     NSMutableDictionary *subscriptionDictionary = [NSMutableDictionary dictionary];
     
+    [subscriptionDictionary setObject:self.ID forKey:SERVER_ID_KEY];
     [subscriptionDictionary setObject:self.departCity.cityCode forKey:SERVER_DEPART_CITY_KEY];
     [subscriptionDictionary setObject:self.arriveCity.cityCode forKey:SERVER_ARRIVE_CITY_KEY];
     [subscriptionDictionary setObject:[NSString stringFormatWithDate:self.startDate] forKey:SERVER_START_DATE_KEY];

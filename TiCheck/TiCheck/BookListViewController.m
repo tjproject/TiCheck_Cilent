@@ -54,8 +54,6 @@ extern NSDictionary *notificationOption;
     NSMutableArray* isCellExpanded;
     
     NSMutableArray* sectionViewList;
-    
-    
 }
 @end
 
@@ -88,11 +86,31 @@ extern NSDictionary *notificationOption;
 {
     if (notificationOption != nil)
     {
-        NSLog(@"book list view controller do something here to deal with notification");
-        notificationOption = nil;
-        NSInteger sectionID = [notificationOption[@"ID"] integerValue];
-        NSIndexPath *toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionID];
-        [self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        NSLog(@"book list view controller do something here to deal with notification");
+//        
+//        NSInteger subsId = [notificationOption[@"ID"] integerValue];
+//        NSUInteger sectionId;
+//        notificationOption = nil;
+//        NSLog(@"%ld", subsId);
+//        
+//        for (Subscription *subs in self.subscriptionArray) {
+//            if ([subs.ID integerValue] == subsId) {
+//                NSLog(@"find the subscription");
+//                sectionId = [self.subscriptionArray indexOfObject:subs];
+//                NSLog(@"%ld", sectionId);
+//                NSIndexPath *toChangedCell;
+//                if ([[self.flightListArray objectAtIndex:sectionId] count] == 0)
+//                {
+//                    toChangedCell = [NSIndexPath indexPathForRow:NSNotFound inSection:sectionId];
+//                }
+//                else {
+//                    toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionId];
+//                }
+//                toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionId];
+//                [self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//                break;
+//            }
+//        }
     }
 }
 
@@ -165,7 +183,16 @@ extern NSDictionary *notificationOption;
                 //TODO: change dictionary data to subscription entity stored in subscriptionArray.
                 //      research flight by using subscription info and display them in table view
                 //      add edit function for subscription
-                Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"] arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"] startDate:tempSubscriptionDictionary[@"StartDate"] endDate:tempSubscriptionDictionary[@"EndDate"]];
+                
+                NSString *id_string = [tempSubscriptionDictionary objectForKey:@"ID"];
+                NSLog(@"ID string: %@", id_string);
+                NSNumber *id_number = [[NSNumber alloc] initWithInteger:[id_string integerValue]];
+                Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"]
+                                                                               arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"]
+                                                                                    startDate:tempSubscriptionDictionary[@"StartDate"]
+                                                                                      endDate:tempSubscriptionDictionary[@"EndDate"]
+                                                                                     idNumber:id_number];
+                
                 [self.subscriptionArray addObject:tempSubscription];
                 
                 NSMutableArray *allFlightListOfOneSubscirption = [[NSMutableArray alloc] init];
