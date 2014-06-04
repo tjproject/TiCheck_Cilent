@@ -6,7 +6,7 @@ TiCheck_Client
 TODO
 ---------------
 1. 搜索机票
- - [ ] 往返 **填入返回的flightroute，数据返回则有两份flightlist**  10 @Dachang 
+ - [x] ~~往返 **填入返回的flightroute，数据返回则有两份flightlist**  10 @Dachang~~
  - [ ] 航空公司排序 **航空公司排序从数据库拉取，每次搜索告知后台，指标增加1，如此排序航空公司** 11 @Dachang
  - [ ] 舱位选择 **自己写代码根据Class筛选** 12 @Dachang
  - [x] Picker配色调整
@@ -35,10 +35,10 @@ TODO
  - [x] 伪订单，与服务器交互 2 @Bill
 5. 订阅模块
  - [x] 与后台数据连接（无接口，界面ok）
- - [ ] 推送通知的处理 3 @Bill @Boyi
+ - [x] 推送通知的处理 3 @Bill @Boyi
  - [x] 订阅列表查询
  - [x] 订阅对应机票的获取 4 @Bill
 6. 测试报告
  - [x] 看XCode测试工具怎么用 0 @Boyi
 7. 部署
- - [ ] 3.5 英寸适配
+ - [x] 3.5 英寸适配

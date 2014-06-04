@@ -86,41 +86,32 @@ extern NSDictionary *notificationOption;
 {
     if (notificationOption != nil)
     {
-//        NSLog(@"book list view controller do something here to deal with notification");
-//        
-//        NSInteger subsId = [notificationOption[@"ID"] integerValue];
-//        NSUInteger sectionId;
-//        notificationOption = nil;
-//        NSLog(@"%ld", subsId);
-//        
-//        for (Subscription *subs in self.subscriptionArray) {
-//            if ([subs.ID integerValue] == subsId) {
-//                NSLog(@"find the subscription");
-//                sectionId = [self.subscriptionArray indexOfObject:subs];
-//                NSLog(@"%ld", sectionId);
-//                NSIndexPath *toChangedCell;
-//                if ([[self.flightListArray objectAtIndex:sectionId] count] == 0)
-//                {
-//                    toChangedCell = [NSIndexPath indexPathForRow:NSNotFound inSection:sectionId];
-//                }
-//                else {
-//                    toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionId];
-//                }
-//                toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionId];
-//                [self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
-//                break;
-//            }
-//        }
+        NSLog(@"book list view controller do something here to deal with notification");
+        
+        NSInteger subsId = [notificationOption[@"ID"] integerValue];
+        NSUInteger sectionId;
+        notificationOption = nil;
+        NSLog(@"%ld", subsId);
+        
+        for (Subscription *subs in self.subscriptionArray) {
+            if ([subs.ID integerValue] == subsId) {
+                NSLog(@"find the subscription");
+                sectionId = [self.subscriptionArray indexOfObject:subs];
+                NSLog(@"%ld", sectionId);
+                NSIndexPath *toChangedCell;
+                if ([[self.flightListArray objectAtIndex:sectionId] count] == 0)
+                {
+                    toChangedCell = [NSIndexPath indexPathForRow:NSNotFound inSection:sectionId];
+                }
+                else {
+                    toChangedCell = [NSIndexPath indexPathForRow: 0 inSection:sectionId];
+                }
+                [self.bookListTableView scrollToRowAtIndexPath:toChangedCell  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                break;
+            }
+        }
     }
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    
-    
-}
-
-
 
 - (void)didReceiveMemoryWarning
 {

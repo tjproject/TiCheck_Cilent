@@ -23,6 +23,7 @@ extern NSDictionary *notificationOption;
     UISwitch *ntfTrigger;
     UIImageView *bookNtfBg;
     UILabel *bookNumLabel;
+    BOOL isDealt;
     
     //预先加载，用于显示更新个数。
     BookListViewController *blVC;
@@ -45,6 +46,7 @@ extern NSDictionary *notificationOption;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    isDealt = false;
     [self initVessel];
     [self initNavBar];
     blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
@@ -57,10 +59,27 @@ extern NSDictionary *notificationOption;
     // 但导致 ntfTrigger bookNtfBg 生成两次
     // 通过记录变量 通过nil判断来避免生成两次
     [self.PCVCVessel reloadData];
-    if (notificationOption != nil) {
+//    if (!isDealt && notificationOption != nil) {
+//        NSLog(@"view will appear: %@", isDealt?@"true":@"false");
+//        isDealt = true;
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+//        [self tableView:self.PCVCVessel didSelectRowAtIndexPath:indexPath];
+//    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (!isDealt && notificationOption != nil) {
+        NSLog(@"view will appear: %@", isDealt?@"true":@"false");
+        isDealt = true;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
         [self tableView:self.PCVCVessel didSelectRowAtIndexPath:indexPath];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    isDealt = false;
 }
 
 #pragma mark - Preparation helpers
@@ -94,6 +113,11 @@ extern NSDictionary *notificationOption;
 #pragma mark - Notification selector
 - (void)receivePushNotification:(NSDictionary *)notification
 {
+    if (isDealt) {
+        return;
+    }
+    NSLog(@"receive push notification %@", isDealt?@"true":@"false");
+    isDealt = true;
     NSLog(@"here we got a notification: %@", notification);
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
     [self tableView:self.PCVCVessel didSelectRowAtIndexPath:indexPath];
