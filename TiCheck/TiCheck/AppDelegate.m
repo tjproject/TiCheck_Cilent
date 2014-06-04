@@ -58,11 +58,11 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSLog(@"receive push notification during running");
+//    NSLog(@"receive push notification during running");
     notificationOption = userInfo;
     
     /*!
-     检查当前view controller是否为个人中心，如果是，直接push到订阅列表
+     * 检查当前view controller是否为个人中心，如果是，直接push到订阅列表
      */
     UIViewController *visibleViewController = nil;
     if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {

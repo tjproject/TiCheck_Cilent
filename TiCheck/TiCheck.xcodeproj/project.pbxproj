@@ -479,7 +479,6 @@
 			children = (
 				68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */,
 				68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */,
-				68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */,
 				135F6B92190003E50061F51F /* PersonalCenterViewController.h */,
 				135F6B93190003E50061F51F /* PersonalCenterViewController.m */,
 				135F6B95190014C10061F51F /* PersonalOrderViewController.h */,
@@ -494,6 +493,7 @@
 				68C1F8B9190B96CE00EEB55B /* PassengerListViewController.h */,
 				68C1F8BA190B96CE00EEB55B /* PassengerListViewController.m */,
 				68FDEE8218F7C9C5006C4A99 /* AccountEditDetailViewController.h */,
+				68FDEE8318F7C9C5006C4A99 /* AccountEditDetailViewController.m */,
 				684B6EC8190CC4240046343D /* PassengerInfoTextFieldCell.h */,
 				684B6EC9190CC4240046343D /* PassengerInfoTextFieldCell.m */,
 				684B6ECB190CC43F0046343D /* PassengerInfoPickerCell.h */,
