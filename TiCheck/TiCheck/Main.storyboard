@@ -377,21 +377,6 @@
                                     <outlet property="delegate" destination="ANX-1z-3lr" id="lw7-F6-Kky"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x90-nU-F27">
-                                <rect key="frame" x="0.0" y="560" width="320" height="328"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoM-zE-DOp">
-                                        <rect key="frame" x="145" y="149" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="订阅">
-                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zZ-jG-ZIU">
                                 <rect key="frame" x="0.0" y="568" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -426,10 +411,8 @@
                         <constraints>
                             <constraint firstItem="W14-vf-JeO" firstAttribute="top" secondItem="Mwc-v6-WcY" secondAttribute="top" id="0Uw-a9-o4G"/>
                             <constraint firstItem="W14-vf-JeO" firstAttribute="leading" secondItem="c6a-1h-orY" secondAttribute="leading" id="5Fi-Cl-kZF"/>
-                            <constraint firstItem="W14-vf-JeO" firstAttribute="trailing" secondItem="x90-nU-F27" secondAttribute="trailing" id="8D7-kB-8ES"/>
                             <constraint firstItem="W14-vf-JeO" firstAttribute="trailing" secondItem="4zZ-jG-ZIU" secondAttribute="trailing" id="Frg-Hp-XRw"/>
                             <constraint firstItem="W14-vf-JeO" firstAttribute="bottom" secondItem="4zZ-jG-ZIU" secondAttribute="top" id="Ln2-bU-Qhc"/>
-                            <constraint firstItem="W14-vf-JeO" firstAttribute="leading" secondItem="x90-nU-F27" secondAttribute="leading" id="LpK-Y0-JfO"/>
                             <constraint firstAttribute="trailing" secondItem="W14-vf-JeO" secondAttribute="trailing" id="Yg6-ig-6CN"/>
                             <constraint firstItem="W14-vf-JeO" firstAttribute="leading" secondItem="Mwc-v6-WcY" secondAttribute="leading" id="esh-E1-sy7"/>
                             <constraint firstItem="W14-vf-JeO" firstAttribute="leading" secondItem="4zZ-jG-ZIU" secondAttribute="leading" id="gnA-x8-fbi"/>
@@ -449,7 +432,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
-                        <outlet property="buttonsView" destination="x90-nU-F27" id="ZyK-iJ-2iB"/>
                         <outlet property="optionSelectPickerView" destination="c6a-1h-orY" id="WgV-cE-iBm"/>
                         <outlet property="optionSelectToolBar" destination="4zZ-jG-ZIU" id="TFb-MH-KPz"/>
                         <outlet property="searchOptionTableView" destination="W14-vf-JeO" id="6wG-oe-wJa"/>
@@ -874,7 +856,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="M82-El-QJe">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="M82-El-QJe">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1075,29 +1057,32 @@
                                             <outlet property="generalValue" destination="Clj-iM-Z5Y" id="zAC-GG-AH6"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConfirmButtonCell" rowHeight="284" id="Fmp-fv-X3x">
+                                        <rect key="frame" x="0.0" y="306" width="320" height="284"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fmp-fv-X3x" id="C0Z-4a-POJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="283"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocE-aN-5MS">
+                                                    <rect key="frame" x="23" y="10" width="275" height="47"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="ConfirmSubscription">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="confirmSubscription:" destination="UZ7-ZQ-98e" eventType="touchUpInside" id="0Ah-ez-6wf"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="UZ7-ZQ-98e" id="bR6-IF-UKg"/>
                                     <outlet property="delegate" destination="UZ7-ZQ-98e" id="BTt-YV-Lab"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ffp-cj-ggI">
-                                <rect key="frame" x="0.0" y="240" width="320" height="328"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocE-aN-5MS">
-                                        <rect key="frame" x="20" y="10" width="275" height="47"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="ConfirmSubscription">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="confirmSubscription:" destination="UZ7-ZQ-98e" eventType="touchUpInside" id="0Ah-ez-6wf"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VCG-ir-GAs">
                                 <rect key="frame" x="0.0" y="568" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -1135,7 +1120,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="机票订阅" id="9NX-wh-vHy"/>
                     <connections>
-                        <outlet property="buttonView" destination="Ffp-cj-ggI" id="MEO-Be-L8T"/>
                         <outlet property="optionSelectPickerView" destination="uUe-Qv-Eu8" id="aV8-Xg-gYV"/>
                         <outlet property="optionSelectToolBar" destination="VCG-ir-GAs" id="s7P-xw-soE"/>
                         <outlet property="subscribeOptionTableView" destination="M82-El-QJe" id="whx-dg-FsC"/>
@@ -2378,6 +2362,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Uq6-Xt-5UA"/>
+        <segue reference="yC6-p3-Zs7"/>
     </inferredMetricsTieBreakers>
 </document>

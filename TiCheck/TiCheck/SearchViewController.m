@@ -237,6 +237,7 @@ extern NSString *mDeviceToken;
     static NSString *isReturnCellIdentifier = @"IsReturnCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
+    static NSString *confirmCellIdentifier = @"ConfirmButtonCell";
     
     if (indexPath.row == 0) {
         // FromTo选项
@@ -354,7 +355,7 @@ extern NSString *mDeviceToken;
         return generalCell;
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConfirmButtonCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:confirmCellIdentifier forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
