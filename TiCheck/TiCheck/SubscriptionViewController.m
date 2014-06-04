@@ -25,8 +25,6 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 @property (weak, nonatomic) IBOutlet UIToolbar *optionSelectToolBar;
 @property (weak, nonatomic) IBOutlet UIPickerView *optionSelectPickerView;
 
-@property (weak, nonatomic) IBOutlet UIView *buttonView;
-
 @property (weak, nonatomic) FromToTableViewCell *fromToCell;
 @property (weak, nonatomic) DateIntervalTableViewCell *takeOffDateIntervalCell;
 @property (weak, nonatomic) DateIntervalTableViewCell *returnDateIntervalCell;
@@ -120,18 +118,6 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     [self.subscribeOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
     [self.subscribeOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];
     [self.subscribeOptionTableView endUpdates];
-    
-    if (isReturn) {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-            [self.buttonView layoutIfNeeded];
-        }];
-    } else {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-            [self.buttonView layoutIfNeeded];
-        }];
-    }
 }
 
 - (IBAction)returnOptionChanged:(id)sender
@@ -145,32 +131,8 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     NSIndexPath *returnIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
     if (isReturn) {
         [self.subscribeOptionTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-                [self.buttonView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * 2);
-                [self.buttonView layoutIfNeeded];
-            }];
-        }
     } else {
         [self.subscribeOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-                [self.buttonView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, 0);
-                [self.buttonView layoutIfNeeded];
-            }];
-        }
     }
 }
 

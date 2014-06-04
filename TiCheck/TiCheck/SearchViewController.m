@@ -27,7 +27,6 @@ extern NSString *mDeviceToken;
 }
 @property (weak, nonatomic) IBOutlet UITableView *searchOptionTableView;
 
-@property (weak, nonatomic) IBOutlet UIView *buttonsView;
 @property (weak, nonatomic) IBOutlet UIToolbar *optionSelectToolBar;
 @property (weak, nonatomic) IBOutlet UIPickerView *optionSelectPickerView;
 
@@ -235,6 +234,7 @@ extern NSString *mDeviceToken;
     static NSString *fromToCellIdentifier = @"FromToCell";
     static NSString *dateCellIdentifier = @"DateCell";
     static NSString *isReturnCellIdentifier = @"IsReturnCell";
+    static NSString *exchangeCityCellIdentifier = @"ExchangeCityCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
     static NSString *confirmCellIdentifier = @"ConfirmButtonCell";
@@ -271,7 +271,7 @@ extern NSString *mDeviceToken;
         takeOffDateCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return takeOffDateCell;
     } else {
-        NSInteger isReturnIndexRow = 2;
+        NSInteger isReturnIndexRow = 2; // 现在用于交换城市IndexRow
         // 若为返程则第二行为返程时间
         if (isReturn) {
             isReturnIndexRow++;
@@ -296,7 +296,7 @@ extern NSString *mDeviceToken;
         }
         // 是否返程Option
         if (indexPath.row == isReturnIndexRow) {
-            UITableViewCell *isReturnCell = [tableView dequeueReusableCellWithIdentifier:isReturnCellIdentifier
+            UITableViewCell *isReturnCell = [tableView dequeueReusableCellWithIdentifier:exchangeCityCellIdentifier
                                                                             forIndexPath:indexPath];
             isReturnCell.selectionStyle = UITableViewCellSelectionStyleNone;
             return isReturnCell;
@@ -467,18 +467,6 @@ extern NSString *mDeviceToken;
     [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
     [self.searchOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];
     [self.searchOptionTableView endUpdates];
-    
-    if (isReturn) {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-            [self.buttonsView layoutIfNeeded];
-        }];
-    } else {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-            [self.buttonsView layoutIfNeeded];
-        }];
-    }
 }
 
 - (IBAction)returnOptionChanged:(id)sender
@@ -492,33 +480,29 @@ extern NSString *mDeviceToken;
     NSIndexPath *returnIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
     if (isReturn) {
         [self.searchOptionTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * 2);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        }
     } else {
         [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-          
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonsView.transform = CGAffineTransformMakeTranslation(0, 0);
-                [self.buttonsView layoutIfNeeded];
-            }];
-        }
     }
+}
+
+- (IBAction)exchangeCityClicked:(id)sender
+{
+    CGRect fromCityFrame = self.fromToCell.fromCityLabel.frame;
+    CGRect toCityFrame = self.fromToCell.toCityLabel.frame;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        self.fromToCell.fromCityLabel.frame = toCityFrame;
+        self.fromToCell.toCityLabel.frame = fromCityFrame;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.fromToCell.fromCityLabel.frame = fromCityFrame;
+            self.fromToCell.toCityLabel.frame = toCityFrame;
+            
+            NSString *fromCityName = self.fromToCell.fromCityLabel.text;
+            self.fromToCell.fromCityLabel.text = self.fromToCell.toCityLabel.text;
+            self.fromToCell.toCityLabel.text = fromCityName;
+        }
+    }];
 }
 
 - (IBAction)closePicker:(id)sender
