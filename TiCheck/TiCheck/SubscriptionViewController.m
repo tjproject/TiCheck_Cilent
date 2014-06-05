@@ -25,8 +25,6 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 @property (weak, nonatomic) IBOutlet UIToolbar *optionSelectToolBar;
 @property (weak, nonatomic) IBOutlet UIPickerView *optionSelectPickerView;
 
-@property (weak, nonatomic) IBOutlet UIView *buttonView;
-
 @property (weak, nonatomic) FromToTableViewCell *fromToCell;
 @property (weak, nonatomic) DateIntervalTableViewCell *takeOffDateIntervalCell;
 @property (weak, nonatomic) DateIntervalTableViewCell *returnDateIntervalCell;
@@ -120,18 +118,6 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     [self.subscribeOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
     [self.subscribeOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];
     [self.subscribeOptionTableView endUpdates];
-    
-    if (isReturn) {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-            [self.buttonView layoutIfNeeded];
-        }];
-    } else {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-            [self.buttonView layoutIfNeeded];
-        }];
-    }
 }
 
 - (IBAction)returnOptionChanged:(id)sender
@@ -145,32 +131,8 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     NSIndexPath *returnIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
     if (isReturn) {
         [self.subscribeOptionTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * MORE_OPTION_COUNT * 2);
-                [self.buttonView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * 2);
-                [self.buttonView layoutIfNeeded];
-            }];
-        }
     } else {
         [self.subscribeOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:returnIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        if (isShowMore) {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, TABLE_VIEW_DEFAULT_HEIGHT * (MORE_OPTION_COUNT - 1) * 2);
-                [self.buttonView layoutIfNeeded];
-            }];
-        } else {
-            [UIView animateWithDuration:0.3f animations:^{
-                self.buttonView.transform = CGAffineTransformMakeTranslation(0, 0);
-                [self.buttonView layoutIfNeeded];
-            }];
-        }
     }
 }
 
@@ -334,7 +296,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger result = 4;
+    NSInteger result = 5;
     
     if (isReturn) result++;
     if (isShowMore) result += MORE_OPTION_COUNT - 1;
@@ -349,6 +311,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     static NSString *isReturnCellIdentifier = @"IsReturnCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
+    static NSString *confirmCellIdentifier = @"ConfirmButtonCell";
     
     if (indexPath.row == 0) {
         // FromTo选项
@@ -364,9 +327,8 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         self.fromToCell.toCityLabel.text = _toCity;
         [self.fromToCell.fromCityLabel addGestureRecognizer:fromSelectGesture];
         [self.fromToCell.toCityLabel addGestureRecognizer:toSelectGesture];
-//        self.fromToCell.fromCityLabel.text = [SearchOption sharedSearchOption].departCityName;
-//        self.fromToCell.toCityLabel.text = [SearchOption sharedSearchOption].arriveCityName;
         
+        fromToCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return fromToCell;
     } else if (indexPath.row == 1) {
         // TakeOffDate选项
@@ -382,8 +344,8 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         UITapGestureRecognizer *takeOffEndDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
         [self.takeOffDateIntervalCell.beginDate addGestureRecognizer:takeOffBeginDateSelectGesture];
         [self.takeOffDateIntervalCell.endDate addGestureRecognizer:takeOffEndDateSelectGesture];
-//        self.takeOffDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].takeOffDate];
         
+        takeOffDateIntervalCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return takeOffDateIntervalCell;
     } else {
         NSInteger isReturnIndexRow = 2;
@@ -401,13 +363,13 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
                 UITapGestureRecognizer *returnEndDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
                 [self.returnDateIntervalCell.beginDate addGestureRecognizer:returnBeginDateSelectGesture];
                 [self.returnDateIntervalCell.endDate addGestureRecognizer:returnEndDateSelectGesture];
-//                self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
                 
                 // 显示返程时间时，若早于出发时间，调整至出发时间
                 if ([[NSString dateFormatWithString:self.returnDateIntervalCell.beginDate.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateIntervalCell.endDate.text]]) {
                     self.returnDateIntervalCell.beginDate.text = self.returnDateIntervalCell.endDate.text = self.takeOffDateIntervalCell.endDate.text;
                 }
                 
+                returnDateCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return returnDateCell;
             }
         }
@@ -432,6 +394,7 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
         if (indexPath.row == moreOptionIndexRow) {
             UITableViewCell *showMoreCell = [tableView dequeueReusableCellWithIdentifier:showMoreCellIdentifier
                                                                             forIndexPath:indexPath];
+            showMoreCell.selectionStyle = UITableViewCellSelectionStyleNone;
             return showMoreCell;
         }
     } else {
@@ -465,9 +428,14 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
             generalCell.generalValue.titleLabel.text = @"不限";
             self.takeOffTimeCell = generalCell;
         }
-        //        generalCell.generalValue.titleLabel.text = @"不限";
+        generalCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return generalCell;
     }
-    return generalCell;
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:confirmCellIdentifier forIndexPath:indexPath];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -508,6 +476,27 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger rowNum = 4;
+    CGFloat confirmButtonCellHeight = CONFIRM_BUTTON_CELL_HEIGHT;
+    
+    if (isReturn) {
+        rowNum++;
+        confirmButtonCellHeight = 284.0f;
+    }
+    if (isShowMore) {
+        rowNum = rowNum + MORE_OPTION_COUNT - 1;
+        confirmButtonCellHeight = 152.0f;
+    }
+    if (isReturn && isShowMore){
+        confirmButtonCellHeight = IS_IPHONE_5 ? 108.0f : 150.0f;;
+    }
+    
+    if (indexPath.row == rowNum) return confirmButtonCellHeight;
+    return 44.0f;
 }
 
 #pragma mark Picker View Delegate

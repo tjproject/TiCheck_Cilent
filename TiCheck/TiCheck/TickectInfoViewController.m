@@ -31,6 +31,8 @@
 #define CELL_BUTTON_RECT CGRectMake(285, 13, 23, 22)
 #define PASSENGER_CELL_START_COUNT 6000
 
+#define IS_IPHONE_LOWERINCHE [[UIScreen mainScreen] bounds].size.height == 480
+
 @interface TickectInfoViewController ()
 {
     //NSMutableArray *cellTitleArr;
@@ -173,7 +175,12 @@
     _TIVC_bookButton = [[UIButton alloc] initWithFrame:CGRectMake(110, 130, 100, 42)];
     [_TIVC_bookButton setImage:[UIImage imageNamed:@"bookButton"] forState:UIControlStateNormal];
     [_TIVC_bookButton addTarget:self action:@selector(bookButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _TIVC_confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 568-44, 320, 45)];
+    _TIVC_confirmButton = [[UIButton alloc] init];
+    if (IS_IPHONE_LOWERINCHE)
+    {
+        _TIVC_confirmButton.frame = CGRectMake(0, 480-44, 320, 45);
+    }
+    else _TIVC_confirmButton.frame = CGRectMake(0, 568-44, 320, 45);
     [_TIVC_confirmButton setImage:[UIImage imageNamed:@"confirmButton"] forState:UIControlStateNormal];
     [_TIVC_confirmButton addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_TIVC_bookButton];
@@ -207,6 +214,11 @@
     _infoVessel.showsVerticalScrollIndicator = NO;
     _infoVessel.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
     [self.view addSubview:_infoVessel];
+    if (IS_IPHONE_LOWERINCHE)
+    {
+        _infoVessel.frame = CGRectMake(0, 282, 320, 536-282-15);
+         [self.view bringSubviewToFront:_TIVC_confirmButton];
+    }
     _cellTitleArray = [NSMutableArray arrayWithObjects:@"登机人",@"航空意外险",@"报销凭证", nil];
     assranceInfo = @"¥30x1份";
     submitInfo = @"不需要报销凭证";
@@ -480,13 +492,19 @@
     [UIView animateWithDuration:0.25 animations:^{
         if (hidden)
         {
-            view.frame = CGRectMake(0, 568, 320, 215);
+            if (IS_IPHONE_LOWERINCHE) {
+                view.frame = CGRectMake(0, 480, 320, 215);
+            }
+            else view.frame = CGRectMake(0, 568, 320, 215);
             darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         }
         else
         {
             [view setHidden:hidden];
-            view.frame = CGRectMake(0, 568 - 215, 320, 215);
+            if (IS_IPHONE_LOWERINCHE) {
+                view.frame = CGRectMake(0, 480 - 215, 320, 215);
+            }
+            else view.frame = CGRectMake(0, 568 - 215, 320, 215);
             darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }
     } completion:^(BOOL finished){
