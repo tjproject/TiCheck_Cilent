@@ -35,7 +35,7 @@
 {
     for (int i = 0; i < 10; ++i) {
         // 插10个
-    Passenger *pe = [Passenger passengerWithPassengerName:[NSString stringWithFormat:@"Passenger + %d", i]  birthday:[NSDate date] passportType:Passport passportNo:[NSString stringWithFormat:@"%d%d%d%d%d", i, i, i, i, i]];
+    Passenger *pe = [Passenger passengerWithPassengerName:[NSString stringWithFormat:@"Passenger + %d", i]  birthday:[NSDate date] passportType:Passport passportNo:[NSString stringWithFormat:@"%d%d%d%d%d", i, i, i, i, i] isTemporary:false];
         [pe savePassenger];
     }
     

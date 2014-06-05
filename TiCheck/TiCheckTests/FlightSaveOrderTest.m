@@ -61,10 +61,7 @@
     if (flightSearchResponse.recordCount == 0) return ;
     
     Flight *flightSample = [flightSearchResponse.flightsList firstObject];
-    Passenger *passengerSample = [Passenger passengerWithPassengerName:@"邱峰"
-                                                              birthday:[NSString dateFormatWithString:@"1111-11-11"]
-                                                          passportType:ID
-                                                            passportNo:@"342921198707062115"];
+    Passenger *passengerSample = [Passenger passengerWithPassengerName:@"邱峰" birthday:[NSString dateFormatWithString:@"1111-11-11"] passportType:ID passportNo:@"42921198707062115" isTemporary:false];
     Contact *contactSample = [Contact contactWithContactName:@"邱峰"
                                                confirmOption:TEL
                                                  mobilePhone:@"13800138000"
