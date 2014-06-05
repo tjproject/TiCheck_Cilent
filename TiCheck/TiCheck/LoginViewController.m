@@ -50,11 +50,12 @@ extern NSString *mDeviceToken;
     NSString* account=self.userName.text;
     NSString* password=[[ConfigurationHelper sharedConfigurationHelper] md5:self.password.text];
     
-    
-    NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
-    NSLog(@"%@",tempD);
-    
     [[UserData sharedUserData] loginWithAccout:account andPassword:password inViewController:self];
+    
+    if (mDeviceToken != nil) {
+        NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
+        NSLog(@"%@",tempD);
+    }
 }
 
 /*

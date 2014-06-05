@@ -94,7 +94,7 @@
 {
     NSMutableDictionary *subscriptionDictionary = [NSMutableDictionary dictionary];
     
-    [subscriptionDictionary setObject:self.ID forKey:SERVER_ID_KEY];
+//    [subscriptionDictionary setObject:self.ID forKey:SERVER_ID_KEY];
     [subscriptionDictionary setObject:self.departCity.cityCode forKey:SERVER_DEPART_CITY_KEY];
     [subscriptionDictionary setObject:self.arriveCity.cityCode forKey:SERVER_ARRIVE_CITY_KEY];
     [subscriptionDictionary setObject:[NSString stringFormatWithDate:self.startDate] forKey:SERVER_START_DATE_KEY];
