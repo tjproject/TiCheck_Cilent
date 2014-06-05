@@ -14,6 +14,7 @@
 #import "TickectInfoViewController.h"
 #import "ServerCommunicator.h"
 #import "CoreData+MagicalRecord.h"
+#import "CommonData.h"
 
 #define INFO_ITEM_COUNT 6;
 
@@ -717,13 +718,13 @@
     [UIView animateWithDuration:0.25 animations:^{
         if (hidden)
         {
-            view.frame = CGRectMake(0, 568, 320, 215);
+            view.frame = CGRectMake(0, DEVICE_HEIGHT, 320, 215);
             darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         }
         else
         {
             [view setHidden:hidden];
-            view.frame = CGRectMake(0, 568 - 215, 320, 215);
+            view.frame = CGRectMake(0, DEVICE_HEIGHT - 215, 320, 215);
             darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         }
     } completion:^(BOOL finished){

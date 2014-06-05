@@ -97,6 +97,9 @@
 - (NSDictionary *)addTokenForCurrentUser:(NSString *)token
 {
     NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    if (userInfo == nil) {
+        return nil;
+    }
     NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
     
     NSString *requestString = [NSString stringWithFormat:@"User=%@&DeviceToken=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], token];
@@ -195,6 +198,15 @@
 
 - (NSDictionary *)currentUserJsonDataDictionaryWithAccount:(BOOL)withAccount
 {
+    /**
+     *  判断是否有用户
+     */
+    NSString *email = [UserData sharedUserData].email;
+    if (email == nil) {
+        return nil;
+    }
+    
+    
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UserData sharedUserData].email, @"Email", [UserData sharedUserData].password, @"Password", [UserData sharedUserData].pushable ,@"Pushable", [UserData sharedUserData].uniqueID, @"UID",nil];
     
     if (withAccount) [result setObject:[UserData sharedUserData].userName forKey:@"Account"];

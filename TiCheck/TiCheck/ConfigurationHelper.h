@@ -15,7 +15,8 @@
 #define API_URL @"http://openapi.ctrip.com/"
 #define XML_NAME_SPACE @"http://ctrip.com/"
 #define WEB_SERVICE_NAME @"Request"
-#define SERVER_URL @"http://www.ticheck.com/server/index.php"
+//#define SERVER_URL @"http://www.ticheck.com/server/index.php"
+#define SERVER_URL @"http://10.60.41.52/server/index.php"
 #define BUSINESS_TYPE @"Flight"
 
 // 用于测试

@@ -450,8 +450,9 @@ extern NSString *mDeviceToken;
 
 - (IBAction)moreOptionClicked:(id)sender
 {
+    NSLog(@"%f", self.searchOptionTableView.frame.size.height);
     isShowMore = YES;
-    
+    NSLog(@"%f", self.searchOptionTableView.frame.size.height);
     NSInteger moreOptionsBeginCounter = 3;
     if (isReturn) moreOptionsBeginCounter++;
     
@@ -556,13 +557,8 @@ extern NSString *mDeviceToken;
 {
     if (animate) {
         [UIView beginAnimations:nil context:nil];
-        if (IS_IPHONE_5) {
-            [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
-            [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
-        } else {
-            [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME_SMALL];
-            [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME_SMALL];
-        }
+        [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
+        [self.optionSelectPickerView setFrame:SHOW_PICKER_VIEW_FRAME];
         darkUILayer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
         [UIView commitAnimations];
     } else {

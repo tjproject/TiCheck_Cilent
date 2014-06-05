@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 tac. All rights reserved.
 //
 
+#import "CommonData.h"
 #import "PersonalOrderViewController.h"
 #import "PersonalOrderTableViewCell.h"
 #import "OrderInfoViewController.h"
@@ -60,7 +61,7 @@
 
 - (void)initVessel
 {
-    _POVCVessel = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, 568)];
+    _POVCVessel = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, 320, DEVICE_HEIGHT-64)];
     [_POVCVessel setSeparatorInset:UIEdgeInsetsZero];
     _POVCVessel.dataSource = self;
     _POVCVessel.delegate = self;

@@ -69,8 +69,14 @@ const NSArray *___ContactRequestType;
     [req setHTTPMethod:@"POST"];
     [req setHTTPBody:jsonData];
     
+    
     NSURLResponse *response = nil;
-    NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
+    
+    NSError* error = nil;
+    
+    NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error];
+    
+    
     
     return result;
 }
