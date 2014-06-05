@@ -47,6 +47,7 @@
     [self initOrderInfos];
     [self initPassengerInfoViews];
     [self initButton];
+    self.navigationItem.title = @"订单详情";
     if (_segueFromOnlinePayTag == SEGUE_TAG)
     {
         [self initNavBar];
@@ -60,6 +61,8 @@
     [tempBtn addTarget:self action:@selector(confirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithCustomView:tempBtn];
     self.navigationItem.hidesBackButton = YES;
+    self.navigationController.title = @"订单详情";
+    
     self.navigationItem.rightBarButtonItem = closeButton;
 }
 
@@ -67,7 +70,7 @@
 {
     contentSize = [UIScreen mainScreen].bounds.size.height;
     contentVessel = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    contentVessel.contentSize = CGSizeMake(320, contentSize);
+    contentVessel.contentSize = CGSizeMake(320, 568);
     contentVessel.showsVerticalScrollIndicator = NO;
     [self.view addSubview:contentVessel];
 }
