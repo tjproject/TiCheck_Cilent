@@ -49,9 +49,11 @@
         CGRect frame = self.mainTableView.frame;
         frame.origin.y -= self.cellIndex * 30;
         self.mainTableView.frame = frame;
+        
+        self.mainTableView.userInteractionEnabled = NO;
     }
     
-    self.mainTableView.userInteractionEnabled = NO;
+    
     return YES;
     //[UIView commitAnimations];
 }
@@ -65,9 +67,12 @@
         CGRect frame = self.mainTableView.frame;
         frame.origin.y += self.cellIndex * 30;
         self.mainTableView.frame = frame;
+        
+        self.mainTableView.userInteractionEnabled = YES;
     }
+    
     [textField resignFirstResponder];
-    self.mainTableView.userInteractionEnabled = YES;
+    
     return YES;
 }
 
