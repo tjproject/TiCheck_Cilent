@@ -135,6 +135,7 @@
 		A0D92B091903D37000AC67F2 /* CitySelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D92B081903D37000AC67F2 /* CitySelectViewController.m */; };
 		A0D92B101903F43100AC67F2 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = A0D92B0E1903F43100AC67F2 /* pinyin.c */; };
 		A0F8D741190E7936009EEEAA /* ServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F8D740190E7936009EEEAA /* ServerRequest.m */; };
+		BBA999141941E14A0029FBB3 /* JSonObjectConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA999131941E14A0029FBB3 /* JSonObjectConverterTest.m */; };
 		C69E840808974A8CAEDB832F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C29AE6E97F440E8ABC5203 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -350,6 +351,7 @@
 		A0F8D73F190E7936009EEEAA /* ServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRequest.h; sourceTree = "<group>"; };
 		A0F8D740190E7936009EEEAA /* ServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRequest.m; sourceTree = "<group>"; };
 		BB1648D3192C53A000CD4E5D /* TiCheck copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TiCheck copy-Info.plist"; path = "/Users/markyoung/Projects/TiCheck/TiCheck_Cilent/TiCheck/TiCheck copy-Info.plist"; sourceTree = "<absolute>"; };
+		BBA999131941E14A0029FBB3 /* JSonObjectConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSonObjectConverterTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -505,6 +507,7 @@
 		A033D49118F2410000C3E9FD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				13AEFCDF191646710057ACB0 /* TiCheck.entitlements */,
 				A0B677F518FABF1200A4DC76 /* APIRelated */,
 				131C6F8C18F7CB6C00654D6E /* fonts */,
 			);
@@ -566,15 +569,13 @@
 		A0620B0118D7242C003A7A55 /* TiCheck */ = {
 			isa = PBXGroup;
 			children = (
-				13AEFCDF191646710057ACB0 /* TiCheck.entitlements */,
 				A0620B0A18D7242C003A7A55 /* AppDelegate.h */,
 				A0620B0B18D7242C003A7A55 /* AppDelegate.m */,
 				A0620B6618D72772003A7A55 /* Category */,
-				A0620B1018D7242C003A7A55 /* Images.xcassets */,
 				A0B677FA18FABF7000A4DC76 /* LogicLayer */,
-				A0040BC318E92768008E6485 /* Main.storyboard */,
 				A0B677FD18FABFD200A4DC76 /* PresentationLayer */,
 				A033D49118F2410000C3E9FD /* Resources */,
+				A0620B1018D7242C003A7A55 /* Images.xcassets */,
 				A0620B0218D7242C003A7A55 /* Supporting Files */,
 				A0040BC518E92783008E6485 /* ViewController.h */,
 				A0040BC618E92783008E6485 /* ViewController.m */,
@@ -605,6 +606,7 @@
 				A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */,
 				A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */,
 				A00DA435193B2891004E0EC3 /* PassengerHelperTest.m */,
+				BBA999131941E14A0029FBB3 /* JSonObjectConverterTest.m */,
 			);
 			path = TiCheckTests;
 			sourceTree = "<group>";
@@ -781,12 +783,13 @@
 		A0B677FD18FABFD200A4DC76 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				A0040BC318E92768008E6485 /* Main.storyboard */,
 				24FC2B6B18EC3AD000F6A2A9 /* Login */,
 				A0A8A66C19036620006070B8 /* SearchAndSubscription */,
-				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
 				68436EF618FEBB260043B10E /* Pay */,
-				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 				1370841718F7BB6A00FD4949 /* TicketInfo */,
+				13BF8D9418FB81D000B8E0E1 /* OrderInfo */,
+				68EDF8BE18F5A030008E19B4 /* PersonalCenter */,
 			);
 			name = PresentationLayer;
 			sourceTree = "<group>";
@@ -1082,6 +1085,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A00DA436193B2891004E0EC3 /* PassengerHelperTest.m in Sources */,
+				BBA999141941E14A0029FBB3 /* JSonObjectConverterTest.m in Sources */,
 				A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */,
 				A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */,
 				A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */,

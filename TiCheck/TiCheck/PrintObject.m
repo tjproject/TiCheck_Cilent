@@ -92,8 +92,8 @@
 
 + (id)getObject:(id)object WithData:(NSDictionary *)dictionary
 {
-    NSEnumerator *enumerator = [dictionary keyEnumerator];
-    id key;
+//    NSEnumerator *enumerator = [dictionary keyEnumerator];
+//    id key;
     NSArray* propertiesNameList = [self getPropertiesNameList:object];
     
     
@@ -101,7 +101,8 @@
     //objc_property_t *properties = class_copyPropertyList([object class], &outCount);
     for (int i = 0; i<propertiesNameList.count; i++)
     {
-        id propertyValue = [object valueForKey:(NSString *)[propertiesNameList objectAtIndex:i]];
+//        id propertyValue = [object valueForKey:(NSString *)[propertiesNameList objectAtIndex:i]];
+        [object valueForKey:(NSString *)[propertiesNameList objectAtIndex:i]];
         
     }
     
