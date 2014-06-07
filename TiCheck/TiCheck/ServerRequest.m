@@ -71,13 +71,8 @@ const NSArray *___ContactRequestType;
     
     
     NSURLResponse *response = nil;
-    
     NSError* error = nil;
-    
     NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error];
-    
-    
-    
     return result;
 }
 

@@ -24,17 +24,64 @@
 
 @property (nonatomic, strong) Contact *contact;
 
+/**
+ *  乘机人姓名：string类型；必填
+ */
 @property (nonatomic, retain) NSString * passengerName;
+
+/**
+ *  乘机人姓名拼音
+ */
 @property (nonatomic, retain) NSString * passengerNamePY;
+
+/**
+ *  乘机人出生日期：DateTime类型；必填；yyyy-MM-dd
+ */
 @property (nonatomic, retain) NSDate * birthDay;
+
+/**
+ *  证件类型ID：Int类型；必填：1身份证，2护照，4军人证，7回乡证，8台胞证，10港澳通行证，11国际海员证，20外国人永久居留证，25户口簿，27出生证明，99其它
+ */
 @property (nonatomic, retain) NSNumber * passportType;
+
+/**
+ *  证件名称，如‘护照’
+ */
 @property (nonatomic, retain) NSString * cardTypeName;
+
+/**
+ *  证件号码：string类型；必填
+ */
 @property (nonatomic, retain) NSString * passportNumber;
+
+/**
+ *  乘机人联系电话：string类型；必填
+ */
 @property (nonatomic, retain) NSString * contactTelephone;
+
+/**
+ *  乘机人性别
+ */
 @property (nonatomic, retain) NSNumber * gender;
+
+/**
+ *  国家代码：string类型；必填
+ */
 @property (nonatomic, retain) NSString * nationalityCode;
+
+/**
+ *  国家名称
+ */
 @property (nonatomic, retain) NSString * nationalityName;
+
+/**
+ *  证件有效期
+ */
 @property (nonatomic, retain) NSDate * cardValid;
+
+/**
+ *  携程员工填写
+ */
 @property (nonatomic, retain) NSString * corpEid;
 
 /**

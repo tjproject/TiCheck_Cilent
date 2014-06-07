@@ -44,11 +44,11 @@
                                                              webServiceName:WEB_SERVICE_NAME
                                                              xmlRequestBody:requestXML];
 //    NSLog(@"request XML = %@\nresponse XML = %@", requestXML, responseXML);
-    XCTAssertNotNil(responseXML, "response not nil");
+    XCTAssertNotNil(responseXML, "response is nil");
     
     OTAFlightOrderListResponse *flightOrderListResponse = [[OTAFlightOrderListResponse alloc] initWithOTAFlightOrderListResponse:responseXML];
 //    NSLog(@"record count = %lu", (unsigned long)flightOrderListResponse.recordsCount);
-    XCTAssertEqual([flightOrderListResponse.orderList count], flightOrderListResponse.recordsCount, "result equal");
+    XCTAssertEqual([flightOrderListResponse.orderList count], flightOrderListResponse.recordsCount, "result not equal");
 }
 
 @end

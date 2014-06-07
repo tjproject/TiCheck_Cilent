@@ -88,7 +88,6 @@
 		A0620B1A18D7242C003A7A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFD18D7242C003A7A55 /* UIKit.framework */; };
 		A0620B1B18D7242C003A7A55 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0620AFF18D7242C003A7A55 /* CoreData.framework */; };
 		A0620B2318D7242C003A7A55 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0620B2118D7242C003A7A55 /* InfoPlist.strings */; };
-		A0620B2518D7242C003A7A55 /* TiCheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B2418D7242C003A7A55 /* TiCheckTests.m */; };
 		A0620B6018D72743003A7A55 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B5518D72743003A7A55 /* Contact.m */; };
 		A0620B6118D72743003A7A55 /* CreditCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B5718D72743003A7A55 /* CreditCardInfo.m */; };
 		A0620B6218D72743003A7A55 /* DeliverInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0620B5918D72743003A7A55 /* DeliverInfo.m */; };
@@ -135,7 +134,8 @@
 		A0D92B091903D37000AC67F2 /* CitySelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D92B081903D37000AC67F2 /* CitySelectViewController.m */; };
 		A0D92B101903F43100AC67F2 /* pinyin.c in Sources */ = {isa = PBXBuildFile; fileRef = A0D92B0E1903F43100AC67F2 /* pinyin.c */; };
 		A0F8D741190E7936009EEEAA /* ServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F8D740190E7936009EEEAA /* ServerRequest.m */; };
-		BBA999141941E14A0029FBB3 /* JSonObjectConverterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA999131941E14A0029FBB3 /* JSonObjectConverterTest.m */; };
+		BBA999161941FAA00029FBB3 /* PrintObjectTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA999151941FAA00029FBB3 /* PrintObjectTest.m */; };
+		BBA999181942AC980029FBB3 /* ServerCommunicatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA999171942AC980029FBB3 /* ServerCommunicatorTest.m */; };
 		C69E840808974A8CAEDB832F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C29AE6E97F440E8ABC5203 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -257,7 +257,6 @@
 		A0620B1718D7242C003A7A55 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A0620B2018D7242C003A7A55 /* TiCheckTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TiCheckTests-Info.plist"; sourceTree = "<group>"; };
 		A0620B2218D7242C003A7A55 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A0620B2418D7242C003A7A55 /* TiCheckTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TiCheckTests.m; sourceTree = "<group>"; };
 		A0620B5418D72743003A7A55 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		A0620B5518D72743003A7A55 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		A0620B5618D72743003A7A55 /* CreditCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditCardInfo.h; sourceTree = "<group>"; };
@@ -351,7 +350,8 @@
 		A0F8D73F190E7936009EEEAA /* ServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRequest.h; sourceTree = "<group>"; };
 		A0F8D740190E7936009EEEAA /* ServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRequest.m; sourceTree = "<group>"; };
 		BB1648D3192C53A000CD4E5D /* TiCheck copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TiCheck copy-Info.plist"; path = "/Users/markyoung/Projects/TiCheck/TiCheck_Cilent/TiCheck/TiCheck copy-Info.plist"; sourceTree = "<absolute>"; };
-		BBA999131941E14A0029FBB3 /* JSonObjectConverterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSonObjectConverterTest.m; sourceTree = "<group>"; };
+		BBA999151941FAA00029FBB3 /* PrintObjectTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintObjectTest.m; path = ../TiCheck/PrintObjectTest.m; sourceTree = "<group>"; };
+		BBA999171942AC980029FBB3 /* ServerCommunicatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCommunicatorTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -598,7 +598,6 @@
 			isa = PBXGroup;
 			children = (
 				A0620B1F18D7242C003A7A55 /* Supporting Files */,
-				A0620B2418D7242C003A7A55 /* TiCheckTests.m */,
 				A00CE48518F278E900151513 /* FlightOrderListTest.m */,
 				A00CE48918F28C5400151513 /* GetStatusChangedOrdersTest.m */,
 				A00CE48718F286D600151513 /* FlightViewOrderTest.m */,
@@ -606,7 +605,8 @@
 				A0CFE2A418EA69F400AEAEF2 /* FlightSearchTest.m */,
 				A033D48F18F1454D00C3E9FD /* FlightSaveOrderTest.m */,
 				A00DA435193B2891004E0EC3 /* PassengerHelperTest.m */,
-				BBA999131941E14A0029FBB3 /* JSonObjectConverterTest.m */,
+				BBA999151941FAA00029FBB3 /* PrintObjectTest.m */,
+				BBA999171942AC980029FBB3 /* ServerCommunicatorTest.m */,
 			);
 			path = TiCheckTests;
 			sourceTree = "<group>";
@@ -761,21 +761,16 @@
 			children = (
 				68F8115E192C9BB800E01AC3 /* PrintObject.h */,
 				68F8115F192C9BB800E01AC3 /* PrintObject.m */,
-				13AEFCDA191646450057ACB0 /* PassKit */,
 				A0B6780418FAC2E900A4DC76 /* APIResourceHelper.h */,
 				A0B6780518FAC2E900A4DC76 /* APIResourceHelper.m */,
-				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
-				A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */,
+				A0620BA018D727D6003A7A55 /* SoapRequest.h */,
+				A0620BA118D727D6003A7A55 /* SoapRequest.m */,
+				BBA999191942AF380029FBB3 /* ServerCommunication */,
 				A0620B5318D72743003A7A55 /* Entity */,
 				A0620B6D18D727B6003A7A55 /* OTA */,
 				A0D92B111903F54600AC67F2 /* Pinyin */,
 				24FC2B8718EC5ECC00F6A2A9 /* SavedData */,
-				A00EAB75190E8B64006239D5 /* ServerCommunicator.h */,
-				A00EAB76190E8B64006239D5 /* ServerCommunicator.m */,
-				A0F8D73F190E7936009EEEAA /* ServerRequest.h */,
-				A0F8D740190E7936009EEEAA /* ServerRequest.m */,
-				A0620BA018D727D6003A7A55 /* SoapRequest.h */,
-				A0620BA118D727D6003A7A55 /* SoapRequest.m */,
+				13AEFCDA191646450057ACB0 /* PassKit */,
 			);
 			name = LogicLayer;
 			sourceTree = "<group>";
@@ -827,6 +822,19 @@
 				A0D92B0F1903F43100AC67F2 /* pinyin.h */,
 			);
 			name = Pinyin;
+			sourceTree = "<group>";
+		};
+		BBA999191942AF380029FBB3 /* ServerCommunication */ = {
+			isa = PBXGroup;
+			children = (
+				A0620B9E18D727D6003A7A55 /* ConfigurationHelper.h */,
+				A0620B9F18D727D6003A7A55 /* ConfigurationHelper.m */,
+				A00EAB75190E8B64006239D5 /* ServerCommunicator.h */,
+				A00EAB76190E8B64006239D5 /* ServerCommunicator.m */,
+				A0F8D73F190E7936009EEEAA /* ServerRequest.h */,
+				A0F8D740190E7936009EEEAA /* ServerRequest.m */,
+			);
+			name = ServerCommunication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -989,7 +997,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Start constants\ncompany=\"Tongji Apple Club\";\ncompanyID=\"com.TAC\";\ncompanyURL=\"www.ticheck.com\";\ntarget=\"iphoneos\";\noutputPath=\"~/help\";\n# outputPath=\"~/Sites/xcode_workspace/help/${PROJECT_NAME}\";\n# End constants\n\n/usr/local/bin/appledoc \\\n--exit-threshold 2 \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/docs/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/docs/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/docs\" \\\n--docset-platform-family \"${target}\" \\\n--include \"${PROJECT_DIR}/Pods/Headers/LocalLibrary-lib\" \\\n--index-desc \"${PROJECT_DIR}/Documentation/appledoc/Top_level.markdown\" \\\n--keep-intermediate-files \\\n--keep-undocumented-objects \\\n--keep-undocumented-members \\\n--logformat xcode \\\n--merge-categories \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--no-warn-undocumented-object \\\n--no-warn-undocumented-member \\\n--no-warn-empty-description \\\n--output \"${outputPath}\" \\\n--install-docset \\\n--print-information-block-titles \\\n--use-code-order \\\n--verbose 4 \\\n--ignore \"*.m\" \\\n--ignore \"*.pch\" \\\n--ignore \"*.config\" \\\n--ignore \"*.xcconfig\" \\\n--ignore \"*.docset\" \\\n--ignore \"*.xcodeproj\" \\\n--ignore \"*.xcworkspace\" \\\n--ignore \"*.lock\" \\\n--ignore \"*.plist\" \\\n--ignore \"*.strings\" \\\n--ignore \"*.txt\" \\\n--ignore \"*.app\" \\\n--ignore \"*.podspec\" \\\n--ignore \"*.jnlp\" \\\n--ignore \"*.jar\" \\\n--ignore \"*.png\" \\\n--ignore \"*.jpg\" \\\n--ignore \"*.html\" \\\n--ignore \"*.xml\" \\\n--ignore \"*.sh\" \\\n--ignore \"*.gitignore\" \\\n--ignore \"Podfile\" \\\n--ignore \"ci_build\" \\\n--ignore \"LoadableCategory.h\" \\\n--ignore \".idea\" \\\n--ignore \"build\" \\\n--ignore \"Documentation\" \\\n--ignore \"XXXXXX_Unit_Tests\" \\\n--ignore \"Jenkins\" \\\n--ignore \"Resources\" \\\n--ignore \"BuildHeaders\" \\\n--ignore \"Igor\" \\\n--ignore \"Kiwi\" \\\n--ignore \"Local Podspecs\" \\\n--ignore \"PublicAutomation\" \\\n--ignore \"SDWebImage\" \\\n--ignore \"SVProgressHUD\" \\\n--ignore \"SVPullToRefresh\" \\\n--ignore \"CocoaLumberjack\" \\\n--ignore \"Toast\" \\\n--ignore \"PonyDebugger\" \\\n--ignore \"PonyDebuggerLogger\" \\\n--ignore \"SocketRocket\" \\\n\"${PROJECT_DIR}\"";
+			shellScript = "# Start constants\ncompany=\"Tongji Apple Club\";\ncompanyID=\"com.TAC\";\ncompanyURL=\"www.ticheck.com\";\ntarget=\"iphoneos\";\noutputPath=\"~/help\";\n# outputPath=\"~/Sites/xcode_workspace/help/${PROJECT_NAME}\";\n# End constantspa\n\n/usr/local/bin/appledoc \\\n--exit-threshold 2 \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/docs/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/docs/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/docs\" \\\n--docset-platform-family \"${target}\" \\\n--include \"${PROJECT_DIR}/Pods/Headers/LocalLibrary-lib\" \\\n--index-desc \"${PROJECT_DIR}/Documentation/appledoc/Top_level.markdown\" \\\n--keep-intermediate-files \\\n--keep-undocumented-objects \\\n--keep-undocumented-members \\\n--logformat xcode \\\n--merge-categories \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--no-warn-undocumented-object \\\n--no-warn-undocumented-member \\\n--no-warn-empty-description \\\n--output \"${outputPath}\" \\\n--install-docset \\\n--print-information-block-titles \\\n--use-code-order \\\n--verbose 4 \\\n--ignore \"*.m\" \\\n--ignore \"*.pch\" \\\n--ignore \"*.config\" \\\n--ignore \"*.xcconfig\" \\\n--ignore \"*.docset\" \\\n--ignore \"*.xcodeproj\" \\\n--ignore \"*.xcworkspace\" \\\n--ignore \"*.lock\" \\\n--ignore \"*.plist\" \\\n--ignore \"*.strings\" \\\n--ignore \"*.txt\" \\\n--ignore \"*.app\" \\\n--ignore \"*.podspec\" \\\n--ignore \"*.jnlp\" \\\n--ignore \"*.jar\" \\\n--ignore \"*.png\" \\\n--ignore \"*.jpg\" \\\n--ignore \"*.html\" \\\n--ignore \"*.xml\" \\\n--ignore \"*.sh\" \\\n--ignore \"*.gitignore\" \\\n--ignore \"Podfile\" \\\n--ignore \"ci_build\" \\\n--ignore \"LoadableCategory.h\" \\\n--ignore \".idea\" \\\n--ignore \"build\" \\\n--ignore \"Documentation\" \\\n--ignore \"XXXXXX_Unit_Tests\" \\\n--ignore \"Jenkins\" \\\n--ignore \"Resources\" \\\n--ignore \"BuildHeaders\" \\\n--ignore \"Igor\" \\\n--ignore \"Kiwi\" \\\n--ignore \"Local Podspecs\" \\\n--ignore \"PublicAutomation\" \\\n--ignore \"SDWebImage\" \\\n--ignore \"SVProgressHUD\" \\\n--ignore \"SVPullToRefresh\" \\\n--ignore \"CocoaLumberjack\" \\\n--ignore \"Toast\" \\\n--ignore \"PonyDebugger\" \\\n--ignore \"PonyDebuggerLogger\" \\\n--ignore \"SocketRocket\" \\\n\"${PROJECT_DIR}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1085,13 +1093,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A00DA436193B2891004E0EC3 /* PassengerHelperTest.m in Sources */,
-				BBA999141941E14A0029FBB3 /* JSonObjectConverterTest.m in Sources */,
 				A0CFE2A518EA69F400AEAEF2 /* FlightSearchTest.m in Sources */,
+				BBA999181942AC980029FBB3 /* ServerCommunicatorTest.m in Sources */,
 				A00CE48818F286D600151513 /* FlightViewOrderTest.m in Sources */,
 				A033D49018F1454D00C3E9FD /* FlightSaveOrderTest.m in Sources */,
 				A00CE48618F278E900151513 /* FlightOrderListTest.m in Sources */,
+				BBA999161941FAA00029FBB3 /* PrintObjectTest.m in Sources */,
 				A01DEF2818E8F73F00E95F32 /* UserUniqueIDTest.m in Sources */,
-				A0620B2518D7242C003A7A55 /* TiCheckTests.m in Sources */,
 				A00CE48A18F28C5400151513 /* GetStatusChangedOrdersTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

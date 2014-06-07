@@ -32,8 +32,8 @@
 
 - (void)testFlightViewOrderSync
 {
-    OTAFlightViewOrder *flightViewOrder = [[OTAFlightViewOrder alloc] initWithUserUniqueUID:TEMPORARY_UNIQUE_UID
-                                                                                 orderLists:[NSArray arrayWithObjects:@"1016648971", nil]];
+    OTAFlightViewOrder *flightViewOrder = [[OTAFlightViewOrder alloc] initWithUserUniqueUID:nil
+                                                                                 orderLists:[NSArray arrayWithObjects:@"1022898966", nil]];
     NSString *requestXML = [flightViewOrder generateOTAFlightViewOrderXMLRequest];
     NSString *responseXML = [SoapRequest getSoap12WebServiceResponseWithURL:API_URL
                                                           flightRequestType:FlightViewOrderRequest
