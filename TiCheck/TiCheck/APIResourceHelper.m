@@ -216,6 +216,17 @@
     return allAirlineName;
 }
 
+- (NSArray *)findAllAirlineShortNamesViaAirlineDibitCode:(NSArray *)airlineDibitCodes
+{
+    NSMutableArray *allAirlineName = [NSMutableArray array];
+    
+    for (NSString *dibitCode in airlineDibitCodes) {
+        [allAirlineName addObject:[self findAirlineViaAirlineDibitCode:dibitCode].shortName];
+    }
+    
+    return allAirlineName;
+}
+
 - (Airline *)findAirlineViaAirlineDibitCode:(NSString *)airlineDibitCode
 {
     Airline *result = nil;

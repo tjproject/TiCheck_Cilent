@@ -445,7 +445,9 @@ extern NSString *mDeviceToken;
 
 - (IBAction)searchTicket:(id)sender
 {
-    
+    NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
+    Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
+    [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
 }
 
 - (IBAction)moreOptionClicked:(id)sender
@@ -585,13 +587,26 @@ extern NSString *mDeviceToken;
 {
     selectingOption = SelectingAirline;
     
-    NSMutableArray *airlineData = [NSMutableArray arrayWithObject:@"不限"];
-    [airlineData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNames] mutableCopy]];
+    [self getAllAirlineWithShortName];
     
-    self.pickerData = airlineData;
+    self.pickerData = [self getAllAirlineWithShortName];
     [self.optionSelectPickerView reloadAllComponents];
     [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airlineCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
     [self showToolBarAndPickerWithAnimation:YES];
+}
+
+- (NSArray *)getAllAirlineWithShortName
+{
+    NSDictionary *getAllAirlineResponseDic = [[ServerCommunicator sharedCommunicator] getAllAirlineCompany];
+    NSInteger returnCode = [getAllAirlineResponseDic[SERVER_RETURN_CODE_KEY] integerValue];
+    NSMutableArray *airlineShortNames = [NSMutableArray arrayWithObject:@"不限"];
+    
+    if (returnCode == 1) {
+        [airlineShortNames addObjectsFromArray:[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNamesViaAirlineDibitCode:getAllAirlineResponseDic[SERVER_USER_DATA]]];
+        return  airlineShortNames;
+    } else {
+        return nil;
+    }
 }
 
 - (void)showPickerForSeatSelect

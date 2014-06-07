@@ -58,7 +58,8 @@ const NSArray *___ContactRequestType;
 const NSArray *___AirlineRequestType;
 
 #define cAirlineRequestTypeGet (___AirlineRequestType == nil ? ___AirlineRequestType = [[NSArray alloc] initWithObjects:\
-@"info", nil] : ___AirlineRequestType)
+@"info",\
+@"add", nil] : ___AirlineRequestType)
 
 #define cAirlineRequestTypeString(type) ([cAirlineRequestTypeGet objectAtIndex:type])
 #define cAirlineRequestTypeEnum(string) ([cAirlineRequestTypeGet indexOfObject:string])

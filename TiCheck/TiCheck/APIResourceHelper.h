@@ -117,6 +117,15 @@
 - (NSArray *)findAllAirlineShortNames;
 
 /**
+ *  根据航空公司二字码数组获得所欲航空公司名
+ *
+ *  @param airlineDibitCodes 航空公司二字码数组
+ *
+ *  @return 航空公司名数组
+ */
+- (NSArray *)findAllAirlineShortNamesViaAirlineDibitCode:(NSArray *)airlineDibitCodes;
+
+/**
  *  通过航空公司二字码搜索航空公司
  *
  *  @param airlineCode 航空公司二字码
