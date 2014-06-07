@@ -33,6 +33,7 @@
 
 @class Subscription;
 @class Order;
+@class Airline;
 @interface ServerCommunicator : NSObject
 
 /**
@@ -188,5 +189,21 @@
  *  @return 返回带联系人数据字典
  */
 - (NSDictionary *)getContacts:(NSArray *)contacts;
+
+/**
+ *  获得所有航空公司二字码
+ *
+ *  @return 含所有联系人的返回消息
+ */
+- (NSDictionary *)getAllAirlineCompany;
+
+/**
+ *  增加航空公司搜索计数
+ *
+ *  @param airline 航空公司
+ *
+ *  @return 返回消息
+ */
+- (NSDictionary *)addAirlineCount:(Airline *)airline;
 
 @end

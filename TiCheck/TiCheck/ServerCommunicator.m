@@ -358,4 +358,26 @@
     return [self responseDataToJSONDictionary:responseData];
 }
 
+#pragma mark - Airline
+
+- (NSDictionary *)getAllAirlineCompany
+{
+    NSData *responseData = [ServerRequest getServerAirlineResponseWithServerURL:SERVER_URL requestType:Get_AirlineCompany jsonData:[[NSData alloc] init]];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
+- (NSDictionary *)addAirlineCount:(Airline *)airline
+{
+    NSDictionary *airlineAdd = [NSDictionary dictionaryWithObjectsAndKeys:airline.airline, "AirlineCompany", nil];
+    NSData *airlineAddJsonData = [NSJSONSerialization dataWithJSONObject:airlineAdd options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *requestString = [NSString stringWithFormat:@"AirlineCompany=%@", [[NSString alloc] initWithData:airlineAddJsonData encoding:NSUTF8StringEncoding]];
+    NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *responseData = [ServerRequest getServerAirlineResponseWithServerURL:SERVER_URL requestType:Add_AirlineCount jsonData:jsonBody];
+    
+    return [self responseDataToJSONDictionary:responseData];
+}
+
 @end

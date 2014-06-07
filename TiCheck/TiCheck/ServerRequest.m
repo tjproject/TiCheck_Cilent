@@ -55,6 +55,14 @@ const NSArray *___ContactRequestType;
 #define cContactRequestTypeString(type) ([cContactRequestTypeGet objectAtIndex:type])
 #define cContactRequestTypeEnum(string) ([cContactRequestTypeGet indexOfObject:string])
 
+const NSArray *___AirlineRequestType;
+
+#define cAirlineRequestTypeGet (___AirlineRequestType == nil ? ___AirlineRequestType = [[NSArray alloc] initWithObjects:\
+@"info", nil] : ___AirlineRequestType)
+
+#define cAirlineRequestTypeString(type) ([cAirlineRequestTypeGet objectAtIndex:type])
+#define cAirlineRequestTypeEnum(string) ([cAirlineRequestTypeGet indexOfObject:string])
+
 
 @implementation ServerRequest
 
@@ -130,6 +138,22 @@ const NSArray *___ContactRequestType;
     return result;
 }
 
-
++ (NSData *)getServerAirlineResponseWithServerURL:(NSString *)serverUrl
+                                      requestType:(ServerAirlineRequestType)airlineRequestType
+                                         jsonData:(NSData *)jsonData
+{
+    NSString *urlString = [serverUrl stringByAppendingFormat:@"?r=AirlineCompany/%@", cAirlineRequestTypeString(airlineRequestType)];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+    [req setCachePolicy:NSURLCacheStorageAllowedInMemoryOnly];
+    
+    [req setHTTPMethod:@"POST"];
+    [req setHTTPBody:jsonData];
+    
+    NSURLResponse *response = nil;
+    NSData *result = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
+    return result;
+}
 
 @end

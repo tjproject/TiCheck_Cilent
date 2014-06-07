@@ -39,6 +39,11 @@ typedef NS_ENUM(NSInteger, ServerContactRequestType) {
     Get_Contact
 };
 
+typedef NS_ENUM(NSInteger, ServerAirlineRequestType) {
+    Get_AirlineCompany = 0,
+    Add_AirlineCount
+};
+
 @interface ServerRequest : NSObject
 
 /**
@@ -107,7 +112,18 @@ typedef NS_ENUM(NSInteger, ServerContactRequestType) {
                                     requestType:(ServerContactRequestType)contactRequestType
                                        jsonData:(NSData *)jsonData;
 
-
+/**
+ *  同步获取航空公司请求
+ *
+ *  @param serverUrl          请求服务器url
+ *  @param airlineRequestType 航空公司请求类型
+ *  @param jsonData           请求的json数据
+ *
+ *  @return 返回数据
+ */
++ (NSData *)getServerAirlineResponseWithServerURL:(NSString *)serverUrl
+                                      requestType:(ServerAirlineRequestType)airlineRequestType
+                                         jsonData:(NSData *)jsonData;
 
 
 @end
