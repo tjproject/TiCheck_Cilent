@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface PassengerInfoTextFieldCell : UITableViewCell
+#import "PassengerEditViewController.h"
+@interface PassengerInfoTextFieldCell : UITableViewCell<UITextFieldDelegate>
 
 @property (weak,nonatomic) IBOutlet UITextField* inputInfoTextField;
-
-
+@property UITableView *mainTableView;
+@property int cellIndex;
 @end
