@@ -437,7 +437,7 @@
                     <navigationItem key="navigationItem" title="TiCheck" id="tDd-62-wWP">
                         <barButtonItem key="rightBarButtonItem" image="profile" id="P5Y-Qk-dUA">
                             <connections>
-                                <segue destination="wfT-WK-vVw" kind="push" id="yC6-p3-Zs7"/>
+                                <segue destination="wfT-WK-vVw" kind="push" identifier="PersonCenterSegue" id="yC6-p3-Zs7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1634,7 +1634,7 @@
                     <navigationItem key="navigationItem" title="查找结果" id="6kT-uX-Mix">
                         <barButtonItem key="rightBarButtonItem" image="profile" id="ZeC-Hd-QOY">
                             <connections>
-                                <segue destination="wfT-WK-vVw" kind="push" id="Uq6-Xt-5UA"/>
+                                <segue destination="wfT-WK-vVw" kind="push" identifier="PersonCenterSegue" id="Uq6-Xt-5UA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2375,6 +2375,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yC6-p3-Zs7"/>
+        <segue reference="Uq6-Xt-5UA"/>
     </inferredMetricsTieBreakers>
 </document>

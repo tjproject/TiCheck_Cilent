@@ -88,8 +88,6 @@ static float scrollViewHeight=169;
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.internetReachability startNotifier];
     
     [self setExtraCellLineHidden:self.resultTableView];
     currentIndex = 0;
@@ -123,7 +121,7 @@ static float scrollViewHeight=169;
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
     viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
     viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [self presentModalViewController:viewController animated:YES];
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -149,6 +147,8 @@ static float scrollViewHeight=169;
     [super viewDidAppear:animated];
     
     tableViewHeight = self.resultTableView.frame.size.height;
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.internetReachability startNotifier];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -160,6 +160,8 @@ static float scrollViewHeight=169;
     if ([self.footIndexAndLowPrice count] != LONGEST_HISTORY_DAYS) {
         self.footIndexAndLowPrice = nil;
     }
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.internetReachability stopNotifier];
 }
 
 - (void)didReceiveMemoryWarning

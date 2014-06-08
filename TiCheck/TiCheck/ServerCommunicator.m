@@ -217,7 +217,8 @@
 - (NSDictionary *)responseDataToJSONDictionary:(NSData *)response
 {
 //    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-//    if (response == nil) return [NSDictionary dictionary];
+    // TODO: 临时结局crash的问题
+    if (response == nil) return [NSDictionary dictionary];
     NSDictionary *result = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
 
     return result;
@@ -226,6 +227,8 @@
 - (NSDictionary *)responseDataToJSONDictionaryTest:(NSData *)response
 {
     //    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    // TODO: 临时结局crash的问题
+    if (response == nil) return [NSDictionary dictionary];
     NSDictionary *result = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
     
     return result;

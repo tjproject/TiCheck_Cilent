@@ -15,6 +15,7 @@
 #import "TickectInfoViewController.h"
 #import "UserData.h"
 #import "AppDelegate.h"
+#import "MBProgressHUD.h"
 
 extern NSDictionary *notificationOption;
 
@@ -27,6 +28,8 @@ extern NSDictionary *notificationOption;
     
     //预先加载，用于显示更新个数。
     BookListViewController *blVC;
+    
+    MBProgressHUD *hud;
 }
 @end
 
@@ -46,6 +49,7 @@ extern NSDictionary *notificationOption;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+        
     isDealt = false;
     [self initVessel];
     [self initNavBar];
