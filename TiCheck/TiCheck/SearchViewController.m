@@ -129,15 +129,6 @@ extern NSString *mDeviceToken;
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
-- (NSArray *)airlineCompanyCache
-{
-    if (_airlineCompanyCache == nil) {
-        _airlineCompanyCache = [self getAllAirlineWithShortName];
-    }
-    
-    return _airlineCompanyCache;
-}
-
 - (NSArray *)getAllAirlineWithShortName
 {
     NSDictionary *getAllAirlineResponseDic = [[ServerCommunicator sharedCommunicator] getAllAirlineCompany];
@@ -610,7 +601,22 @@ extern NSString *mDeviceToken;
 {
     selectingOption = SelectingAirline;
     
-    self.pickerData = self.airlineCompanyCache;
+    if (self.airlineCompanyCache == nil) {
+        self.pickerData = @[@"不限", @"载入中..."];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            self.airlineCompanyCache = [self getAllAirlineWithShortName];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (selectingOption == SelectingAirline) {
+                    self.pickerData = self.airlineCompanyCache;
+                    [self.optionSelectPickerView reloadAllComponents];
+                }
+            });
+        });
+    }
+    else {
+        self.pickerData = self.airlineCompanyCache;
+    }
+    
     [self.optionSelectPickerView reloadAllComponents];
     [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airlineCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
     [self showToolBarAndPickerWithAnimation:YES];
