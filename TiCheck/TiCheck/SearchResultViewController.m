@@ -21,6 +21,7 @@
 #import "PersonalCenterViewController.h"
 #import "ScreeningViewController.h"
 #import "SubscriptionViewController.h"
+#import "AppDelegate.h"
 
 #import "NSDate-Utilities.h"
 #import "NSString+DateFormat.h"
@@ -85,6 +86,11 @@ static float scrollViewHeight=169;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNetworkChange:) name:kReachabilityChangedNotification object:nil];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.internetReachability startNotifier];
+    
     [self setExtraCellLineHidden:self.resultTableView];
     currentIndex = 0;
     
@@ -122,15 +128,19 @@ static float scrollViewHeight=169;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([self.data count] == 0) {
-        [self sendFlightSearchRequestWithReloading:NO];
-        self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:-1];
-    }
-    
-    if ([self.footIndexAndLowPrice count] != LONGEST_HISTORY_DAYS) {
-        [self.showPriceButton setUserInteractionEnabled:NO];
-        // 发送价格趋势的请求
-        [self sendLowPriceTraceRequest];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if ([appDelegate.internetReachability currentReachabilityStatus] == NotReachable) {
+        self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:-2];
+    } else {
+        if ([self.data count] == 0) {
+            [self sendFlightSearchRequestWithReloading:NO];
+            self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:-1];
+        }
+        if ([self.footIndexAndLowPrice count] != LONGEST_HISTORY_DAYS) {
+            [self.showPriceButton setUserInteractionEnabled:NO];
+            // 发送价格趋势的请求
+            [self sendLowPriceTraceRequest];
+        }
     }
 }
 
@@ -529,7 +539,11 @@ static float scrollViewHeight=169;
                                                   };
     
     // 传入resultCount为-1时表示正在搜索中
-    if (resultCount == -1) {
+    if (resultCount == -2) {
+        NSString *netError = [NSString stringWithFormat:@"网络错误，请检查网络连接"];
+        result = [[NSMutableAttributedString alloc] initWithString:netError
+                                                        attributes:attributesForOriginalString];
+    } else if (resultCount == -1) {
         NSString *searching = [NSString stringWithFormat:@"正在为您搜索机票中..."];
         result = [[NSMutableAttributedString alloc] initWithString:searching
                                                         attributes:attributesForOriginalString];
@@ -547,8 +561,9 @@ static float scrollViewHeight=169;
         
         [result setAttributes:attributesForOriginalString
                         range:[wholeResult rangeOfString:beforeResult]];
+        NSRange resultCountRange = NSMakeRange([wholeResult rangeOfString:beforeResult].length, [wholeResult rangeOfString:afterResult].location - [wholeResult rangeOfString:beforeResult].length);
         [result setAttributes:attributesForNumberString
-                        range:[wholeResult rangeOfString:number]];
+                        range:resultCountRange];
         [result setAttributes:attributesForOriginalString
                         range:[wholeResult rangeOfString:afterResult]];
     }
@@ -731,6 +746,34 @@ static float scrollViewHeight=169;
         [self sendFlightSearchRequestWithReloading:YES];
     }
     NSLog(@"ScreeningViewControllerDelegate");
+}
+
+#pragma mark - Notification Handlers
+
+- (void)handleNetworkChange:(NSNotification *)notification
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NetworkStatus internetStatus = [appDelegate.internetReachability currentReachabilityStatus];
+    
+    if (internetStatus == NotReachable) {
+        NSLog(@"not reachable");
+        [asiSearchRequest cancel];
+        [asiSearchQueue cancelAllOperations];
+        if ([self.data count] == 0) {
+            self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:-2];
+        }
+    } else {
+        NSLog(@"reachable");
+        if ([self.data count] == 0) {
+            [self sendFlightSearchRequestWithReloading:NO];
+            self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:-1];
+        }
+        if ([self.footIndexAndLowPrice count] != LONGEST_HISTORY_DAYS) {
+            [self.showPriceButton setUserInteractionEnabled:NO];
+            // 发送价格趋势的请求
+            [self sendLowPriceTraceRequest];
+        }
+    }
 }
 
 @end

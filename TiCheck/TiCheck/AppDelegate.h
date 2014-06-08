@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
+
+@class Reachability;
 
 NSString *mDeviceToken;
 NSDictionary *notificationOption;
@@ -14,6 +17,9 @@ NSDictionary *notificationOption;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) Reachability *internetReachability;
+@property (strong, nonatomic) Reachability *hostReachability;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

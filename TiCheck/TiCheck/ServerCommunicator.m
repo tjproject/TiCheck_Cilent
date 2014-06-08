@@ -217,6 +217,7 @@
 - (NSDictionary *)responseDataToJSONDictionary:(NSData *)response
 {
 //    NSString *string = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+//    if (response == nil) return [NSDictionary dictionary];
     NSDictionary *result = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableContainers error:nil];
 
     return result;

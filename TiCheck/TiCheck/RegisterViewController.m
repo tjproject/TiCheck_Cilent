@@ -15,6 +15,7 @@
 #import "OTAUserUniqueID.h"
 #import "OTAUserUniqueIDResponse.h"
 #import "SoapRequest.h"
+#import "MBProgressHUD.h"
 
 @interface RegisterViewController ()
 
@@ -69,7 +70,6 @@
         return ;
     }
     
-    
     if (passwordStr.length==0)
     {
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"密码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -77,46 +77,62 @@
         return ;
     }
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"注册中";
+    
     passwordStr = [[ConfigurationHelper sharedConfigurationHelper] md5:passwordStr];
     
     //先获取UniqueID
     
     NSString *uniqueID = [self sendUniqueIDRequest:emailStr];
     
-    if (uniqueID != nil)
-    {
-        NSDictionary *responseDic = [[ServerCommunicator sharedCommunicator] createUserWithEmail:emailStr password:passwordStr account:userNameStr uniqueID:uniqueID];
-        
-        NSInteger returnCode = [responseDic[SERVER_RETURN_CODE_KEY] integerValue];
-        
-        if (returnCode == USER_CREATE_SUCCESS)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        if (uniqueID != nil)
         {
-            [UserData sharedUserData].email = emailStr;
-            [UserData sharedUserData].password = passwordStr;
-            [UserData sharedUserData].userName = userNameStr;
-            [UserData sharedUserData].uniqueID = uniqueID;
-            if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
-            {
-                
-            }
+            NSDictionary *responseDic = [[ServerCommunicator sharedCommunicator] createUserWithEmail:emailStr password:passwordStr account:userNameStr uniqueID:uniqueID];
             
+            NSInteger returnCode = [responseDic[SERVER_RETURN_CODE_KEY] integerValue];
+            
+            if (returnCode == USER_CREATE_SUCCESS) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark"]];
+                    hud.mode = MBProgressHUDModeCustomView;
+                    hud.labelText = @"注册成功";
+                    [hud removeFromSuperview];
+                    
+                    [UserData sharedUserData].email = emailStr;
+                    [UserData sharedUserData].password = passwordStr;
+                    [UserData sharedUserData].userName = userNameStr;
+                    [UserData sharedUserData].uniqueID = uniqueID;
+                    
+                    if ([[UserData sharedUserData] loginWithAccout:emailStr andPassword:passwordStr inViewController:self])
+                    {
+                    }
+                });
+            }
+            else if (returnCode == USER_CREATE_DUPLICATE_EMAIL)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"该账号已被注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
+            }
+            else if (returnCode == USER_CREATE_FORMAT_ERROR)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"邮箱/密码/账号格式错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
+            }
         }
-        else if (returnCode == USER_CREATE_DUPLICATE_EMAIL)
+        else
         {
-            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"该账号已被注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            });
         }
-        else if (returnCode == USER_CREATE_FORMAT_ERROR)
-        {
-            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"邮箱/密码/账号格式错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-    }
-    else
-    {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"请重试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-    }
+    });    
 }
 
 /*

@@ -9,6 +9,8 @@
 #import "UserData.h"
 #import "ConfigurationHelper.h"
 #import "ServerCommunicator.h"
+#import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 @implementation UserData
 
@@ -88,40 +90,57 @@
 
 -(BOOL) loginWithAccout:(NSString *)email andPassword:(NSString *)password inViewController:(UIViewController *)viewController
 {
-    BOOL result = NO;
-    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] loginVerifyWithEmail:email password:password];
-    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    if (returnCode == USER_LOGIN_SUCCESS) {
-        self.email=email;
-        self.password=password;
-        
-        //get user name
-        NSDictionary *dic=[[ServerCommunicator sharedCommunicator] userInfoFetch];
-        NSDictionary *userDic=dic[SERVER_USER_DATA];
-        self.userName= userDic[@"Account"];
-        
-        /**
-         *  虽然正常情况下UID不会为空，但是我没法打开应用了，所以...
-         *  另外，服务器传来数据为空的最好处理应该这样。有时间我们一起全改了。
-         */
-        if (![userDic[@"UID"] isKindOfClass:[NSNull class]]) {
-            self.uniqueID = userDic[@"UID"];
-        }
-        
-        self.pushable = userDic[@"Pushable"];
-        
-        UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
-        [viewController.navigationController pushViewController:nextController animated:YES];
-        result = YES;
-        
-    } else {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"登录失败" message:@"邮箱或密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    if ([appDelegate.internetReachability currentReachabilityStatus] == NotReachable) {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络重新登录" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
+        [alert show];
+    } else if ([appDelegate.hostReachability currentReachabilityStatus] == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器例行维护中，稍后再试" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
         [alert show];
     }
+    else {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:viewController.navigationController.view animated:YES];
+        hud.labelText = @"登录中";
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] loginVerifyWithEmail:email password:password];
+            NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+            if (returnCode == USER_LOGIN_SUCCESS) {
+                self.email=email;
+                self.password=password;
+                
+                //get user name
+                NSDictionary *dic=[[ServerCommunicator sharedCommunicator] userInfoFetch];
+                NSDictionary *userDic=dic[SERVER_USER_DATA];
+                self.userName= userDic[@"Account"];
+                
+                /**
+                 *  虽然正常情况下UID不会为空，但是我没法打开应用了，所以...
+                 *  另外，服务器传来数据为空的最好处理应该这样。有时间我们一起全改了。
+                 */
+                if (![userDic[@"UID"] isKindOfClass:[NSNull class]]) {
+                    self.uniqueID = userDic[@"UID"];
+                }
+                
+                self.pushable = userDic[@"Pushable"];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [hud removeFromSuperview];
+                    UIStoryboard* storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                    UIViewController* nextController = [storyBoard instantiateViewControllerWithIdentifier:@"TiCheckViewStoryboardID"];
+                    [viewController.navigationController pushViewController:nextController animated:YES];
+                });
+            } else {
+                [hud removeFromSuperview];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"登录失败" message:@"邮箱或密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
+            }
+        });
+    }
     
-    return result;
+    return YES;
 }
 
 -(BOOL) autoLoginInViewController:(UIViewController *)viewController

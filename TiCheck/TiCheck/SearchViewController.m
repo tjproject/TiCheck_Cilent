@@ -459,9 +459,14 @@ extern NSString *mDeviceToken;
 
 - (IBAction)searchTicket:(id)sender
 {
-    NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
-    Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
-    [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if ([appDelegate.hostReachability currentReachabilityStatus] != NotReachable) {
+            NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
+            Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
+            [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
+        }
+    });
 }
 
 - (IBAction)moreOptionClicked:(id)sender
