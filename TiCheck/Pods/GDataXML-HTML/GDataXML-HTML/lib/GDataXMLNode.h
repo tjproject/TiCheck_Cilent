@@ -169,7 +169,7 @@ typedef NSUInteger GDataXMLNodeKind;
 // if you change the underlying tree at all
 - (xmlNodePtr)XMLNode;
 - (void)releaseCachedValues;
-    
+
 @end
 
 

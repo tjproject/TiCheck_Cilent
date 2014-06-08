@@ -36,6 +36,7 @@ PODS:
   - MagicalRecord (2.2):
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
+  - MBProgressHUD (0.8)
   - Reachability (3.1.1)
 
 DEPENDENCIES:
@@ -44,13 +45,15 @@ DEPENDENCIES:
   - EGOTableViewPullRefresh
   - GDataXML-HTML
   - MagicalRecord
+  - MBProgressHUD
 
 SPEC CHECKSUMS:
-  AFNetworking: ae513199cca79e9d7af2708ccabe2ed075550c42
-  ASIHTTPRequest: 0b05282cf3c422c3474eff98c5bb8c1192b91b86
-  EGOTableViewPullRefresh: 7ed130952ccdc745c06835558cb13193fda22d78
-  GDataXML-HTML: 281ea772a286241f860fa152cff5c7a7cd817336
-  MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
+  AFNetworking: 47947303319594706f48a55185ea95a95159ab94
+  ASIHTTPRequest: 2c8335b49410c0e2ad42829c438e74d454b77590
+  EGOTableViewPullRefresh: 04bb7d115f660c91a036ebade5e6678c7ef26c59
+  GDataXML-HTML: 3f6537789b55edbc4d83283566f9779abd9680bc
+  MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1

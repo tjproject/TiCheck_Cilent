@@ -41,6 +41,8 @@ extern NSString *mDeviceToken;
 
 @property (nonatomic, strong) NSArray *pickerData;
 
+@property (nonatomic, strong) NSArray *airlineCompanyCache;
+
 @end
 
 @implementation SearchViewController
@@ -127,7 +129,28 @@ extern NSString *mDeviceToken;
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
+- (NSArray *)airlineCompanyCache
+{
+    if (_airlineCompanyCache == nil) {
+        _airlineCompanyCache = [self getAllAirlineWithShortName];
+    }
+    
+    return _airlineCompanyCache;
+}
 
+- (NSArray *)getAllAirlineWithShortName
+{
+    NSDictionary *getAllAirlineResponseDic = [[ServerCommunicator sharedCommunicator] getAllAirlineCompany];
+    NSInteger returnCode = [getAllAirlineResponseDic[SERVER_RETURN_CODE_KEY] integerValue];
+    NSMutableArray *airlineShortNames = [NSMutableArray arrayWithObject:@"不限"];
+    
+    if (returnCode == 1) {
+        [airlineShortNames addObjectsFromArray:[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNamesViaAirlineDibitCode:getAllAirlineResponseDic[SERVER_USER_DATA]]];
+        return  airlineShortNames;
+    } else {
+        return nil;
+    }
+}
 
 - (NSArray *)pickerData
 {
@@ -233,7 +256,7 @@ extern NSString *mDeviceToken;
 {
     static NSString *fromToCellIdentifier = @"FromToCell";
     static NSString *dateCellIdentifier = @"DateCell";
-    static NSString *isReturnCellIdentifier = @"IsReturnCell";
+//    static NSString *isReturnCellIdentifier = @"IsReturnCell";
     static NSString *exchangeCityCellIdentifier = @"ExchangeCityCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
@@ -445,7 +468,9 @@ extern NSString *mDeviceToken;
 
 - (IBAction)searchTicket:(id)sender
 {
-    
+    NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
+    Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
+    [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
 }
 
 - (IBAction)moreOptionClicked:(id)sender
@@ -585,10 +610,7 @@ extern NSString *mDeviceToken;
 {
     selectingOption = SelectingAirline;
     
-    NSMutableArray *airlineData = [NSMutableArray arrayWithObject:@"不限"];
-    [airlineData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNames] mutableCopy]];
-    
-    self.pickerData = airlineData;
+    self.pickerData = self.airlineCompanyCache;
     [self.optionSelectPickerView reloadAllComponents];
     [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airlineCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
     [self showToolBarAndPickerWithAnimation:YES];
