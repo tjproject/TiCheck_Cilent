@@ -188,13 +188,16 @@ static float scrollViewHeight=169;
         Airport *selectedArriveAirport = [[APIResourceHelper sharedResourceHelper] findAirportViaName:self.searchOptionDic[ARRIVE_AIRPORT_KEY]];
         NSArray *selectedTakeOffTimeInterval = [self.searchOptionDic[TAKE_OFF_TIME_INTERVAL_KEY] componentsSeparatedByString:@" "];
         if (selectedAirline != nil) searchRequets.airline = selectedAirline.airline;
-        searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
         if (selectedDepartAirport != nil) searchRequets.departPort = selectedDepartAirport.airportCode;
         if (selectedArriveAirport != nil) searchRequets.arrivePort = selectedArriveAirport.airportCode;
         if ([selectedTakeOffTimeInterval count] == 3) {
             searchRequets.earliestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[0]]];
             searchRequets.latestDepartTime = [NSString timeFormatWithString:[NSString stringWithFormat:@"%@T%@:00", self.searchOptionDic[TAKE_OFF_TIME_KEY], selectedTakeOffTimeInterval[2]]];
         }
+        if (![self.searchOptionDic[SEAT_TYPE_KEY] isEqualToString:@"不限"]) {
+            searchRequets.isLowestPrice = NO;
+        }
+        searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
     }
     NSString *requestXML = [searchRequets generateOTAFlightSearchXMLRequest];
     
@@ -227,7 +230,6 @@ static float scrollViewHeight=169;
             if ([toSearchDate isEqualToDateIgnoringTime:departDate]) {
                 currentIndex = i;
             }
-            //            NSLog(@"%@", toSearchDateArray[i]);
         }
     } else if ([departDate daysBeforeDate:lastDate] < 5) {
         for (NSInteger i = 0; i < 7; ++i) {
@@ -236,14 +238,12 @@ static float scrollViewHeight=169;
             if ([toSearchDate isEqualToDateIgnoringTime:departDate]) {
                 currentIndex = LONGEST_HISTORY_DAYS - i - 1;
             }
-            //            NSLog(@"%@", toSearchDateArray[i]);
         }
         toSearchDateArray = [NSMutableArray arrayWithArray:[[toSearchDateArray reverseObjectEnumerator] allObjects]];
     } else {
         NSDate *beginDate = [departDate dateBySubtractingDays:2];
         for (NSInteger i = 0; i < 7; ++i) {
             [toSearchDateArray addObject:[beginDate dateByAddingDays:i]];
-            //            NSLog(@"%@", toSearchDateArray[i]);
         }
         currentIndex = 2;
     }
@@ -287,6 +287,41 @@ static float scrollViewHeight=169;
         } else {
             self.data = response.flightsList;
         }
+        
+        // 有ShowMore的选项，并且选择了舱位
+        if ([self.searchOptionDic[HAS_MORE_OPTION_KEY] boolValue] && ![self.searchOptionDic[SEAT_TYPE_KEY] isEqualToString:@"不限"]) {
+            ClassGrade filterClassGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
+            NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:response.flightsList copyItems:YES];
+            
+            // 不符合条件的航班
+            NSMutableArray *toRemoveFlights = [NSMutableArray array];
+            for (Flight *flight in tempArray) {
+                if (flight.classGrade != filterClassGrade) {
+                    [toRemoveFlights addObject:flight];
+                }
+            }
+            [tempArray removeObjectsInArray:toRemoveFlights];
+            
+            // 从一系列航班中删选最低价
+            NSMutableArray *tempFlights = [NSMutableArray array];
+            for (Flight *newFlight in tempArray) {
+                if ([tempFlights count] != 0) {
+                    Flight *lastFlight = [tempFlights lastObject];
+                    if (![newFlight.flightNumber isEqualToString:lastFlight.flightNumber]) {
+                        [tempFlights addObject:newFlight];
+                    }
+                }
+                else {
+                    [tempFlights addObject:newFlight];
+                }
+            }
+            
+            // 按打折后的价格排序
+            NSSortDescriptor *priceSortDescription = [NSSortDescriptor sortDescriptorWithKey:@"_price" ascending:YES];
+            NSSortDescriptor *dateSortDescription = [NSSortDescriptor sortDescriptorWithKey:@"_takeOffTime" ascending:YES];
+            response.flightsList = [tempFlights sortedArrayUsingDescriptors:[NSArray arrayWithObjects:priceSortDescription ,dateSortDescription, nil]];
+        }
+        self.data = response.flightsList;
         
         // 更新搜索结果Title，价格走势可用
         self.searchResultTitle.attributedText = [self resultTitleAttributedStringWithResultCount:[response.flightsList count]];
