@@ -106,6 +106,11 @@
             UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"该账号已被注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
         }
+        else if (returnCode == USER_CREATE_FORMAT_ERROR)
+        {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"注册失败" message:@"邮箱/密码/账号格式错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     }
     else
     {

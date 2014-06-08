@@ -47,7 +47,7 @@
 - (void)testComplexObject2Dictionary
 {
     NSDictionary *dicSubscription = [PrintObject getObjectData:_subscription];
-    XCTAssertEqual(dicSubscription[@"arriveCity"][@"cityCode"], @"SHA", @"double layer complex objext convert failed");
+    XCTAssertEqualObjects(dicSubscription[@"arriveCity"][@"cityCode"], @"SHA", @"convert double layer complex object to dictionary failed");
 }
 
 - (void)testComplexDictionary2Object

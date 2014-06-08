@@ -28,11 +28,68 @@
     [super tearDown];
 }
 
-- (void)testCreateUserFormat
+- (void)testCreateUser
 {
-    NSDictionary *result = [_server createUserWithEmail:@"aaa" password:@"asdfghjkl" account:nil uniqueID:nil];
+    NSDictionary *result = [_server createUserWithEmail:@"hello@test.com" password:@"asdfghjkl" account:@"okaaa" uniqueID:@"sdfghjtyui"];
+    NSLog(@"returned dictionary: %@", result);
+    XCTAssertEqual([result[@"Code"] integerValue], 1, @"meesage returned wrongly");
+}
+
+- (void)testCreateUserEmailFormat1
+{
+    NSDictionary *result = [_server createUserWithEmail:@"aaa" password:@"asdfghjkl" account:@"" uniqueID:@""];
+    NSLog(@"returned dictionary: %@", result);
+    XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+    result = [_server createUserWithEmail:@"aaa@a" password:@"asdfghjkl" account:@"" uniqueID:@""];
     NSLog(@"returned dictionary: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
 }
+
+- (void)testCreateUserEmailFormat2
+{
+    NSDictionary *result = [_server createUserWithEmail:@"aaa@a" password:@"asdfghjkl" account:@"" uniqueID:@""];
+    NSLog(@"returned dictionary: %@", result);
+    XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+}
+
+- (void)testCreateUserEmailFormat3
+{
+    NSDictionary *result = [_server createUserWithEmail:@"aaa.a" password:@"asdfghjkl" account:@"" uniqueID:@""];
+    NSLog(@"returned dictionary: %@", result);
+    XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+}
+
+- (void)testCreateUserPasswordFormatOneChar
+{
+    NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:@"a" account:@"" uniqueID:@""];
+    NSLog(@"returned dictionary: %@", result);
+    XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+}
+
+- (void)testCreateUserPasswordFormatEmpty
+{
+    NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:@"" account:nil uniqueID:nil];
+    NSLog(@"returned dictionary: %@", result);
+    XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+}
+
+- (void)testCreateUserPasswordFormatLengthMax
+{
+    NSString *passwd = @"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    XCTAssertEqual(passwd.length, 65, @"passwd length not equals 65");
+    NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:passwd account:@"" uniqueID:@""];
+    XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+}
+
+- (void)testCreateUserPasswordFormatLengthMin
+{
+    NSString *passwd = @"aaaaa";
+    XCTAssertEqual(passwd.length, 5, @"passwd length not equals 5");
+    NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:passwd account:@"" uniqueID:@""];
+    XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+}
+
+
+
 
 @end
