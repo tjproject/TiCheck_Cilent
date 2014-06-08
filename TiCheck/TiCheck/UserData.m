@@ -10,7 +10,6 @@
 #import "ConfigurationHelper.h"
 #import "ServerCommunicator.h"
 #import "MBProgressHUD.h"
-#import "AppDelegate.h"
 
 @implementation UserData
 
@@ -90,12 +89,10 @@
 
 -(BOOL) loginWithAccout:(NSString *)email andPassword:(NSString *)password inViewController:(UIViewController *)viewController
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    if ([appDelegate.internetReachability currentReachabilityStatus] == NotReachable) {
+    if (![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection]) {
         UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络重新登录" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
         [alert show];
-    } else if ([appDelegate.hostReachability currentReachabilityStatus] == NotReachable) {
+    } else if (![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器例行维护中，稍后再试" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
         [alert show];
     }
