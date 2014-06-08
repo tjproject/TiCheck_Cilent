@@ -82,11 +82,10 @@
     
     passwordStr = [[ConfigurationHelper sharedConfigurationHelper] md5:passwordStr];
     
-    //先获取UniqueID
-    
-    NSString *uniqueID = [self sendUniqueIDRequest:emailStr];
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //先获取UniqueID
+        
+        NSString *uniqueID = [self sendUniqueIDRequest:emailStr];
         if (uniqueID != nil)
         {
             NSDictionary *responseDic = [[ServerCommunicator sharedCommunicator] createUserWithEmail:emailStr password:passwordStr account:userNameStr uniqueID:uniqueID];
