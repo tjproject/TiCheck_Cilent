@@ -369,10 +369,10 @@
 
 - (NSDictionary *)addAirlineCount:(Airline *)airline
 {
-    NSDictionary *airlineAdd = [NSDictionary dictionaryWithObjectsAndKeys:airline.airline, @"AirlineCompany", nil];
-    NSData *airlineAddJsonData = [NSJSONSerialization dataWithJSONObject:airlineAdd options:NSJSONWritingPrettyPrinted error:nil];
+//    NSDictionary *airlineAdd = [NSDictionary dictionaryWithObjectsAndKeys:airline.airline, @"AirlineCompany", nil];
+//    NSData *airlineAddJsonData = [NSJSONSerialization dataWithJSONObject:airlineAdd options:NSJSONWritingPrettyPrinted error:nil];
     
-    NSString *requestString = [NSString stringWithFormat:@"AirlineCompany=%@", [[NSString alloc] initWithData:airlineAddJsonData encoding:NSUTF8StringEncoding]];
+    NSString *requestString = [NSString stringWithFormat:@"AirlineCompany=%@", airline.airline];
     NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSData *responseData = [ServerRequest getServerAirlineResponseWithServerURL:SERVER_URL requestType:Add_AirlineCount jsonData:jsonBody];

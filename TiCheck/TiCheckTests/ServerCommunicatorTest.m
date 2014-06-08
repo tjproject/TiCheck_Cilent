@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ServerCommunicator.h"
+#import "Airline.h"
 
 @interface ServerCommunicatorTest : XCTestCase
 @property (nonatomic, weak) ServerCommunicator *server;
@@ -89,7 +90,20 @@
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
 }
 
+#pragma mark - Airline Company
+- (void)testGetAirline
+{
+    NSDictionary *result = [_server getAllAirlineCompany];
+    NSArray *airlines = result[@"Data"];
+    XCTAssertEqual(airlines.count, 195, @"Airlines returned not enough");
+}
 
-
+- (void)testAddAirlineCount
+{
+    Airline *airline = [[Airline alloc] init];
+    airline.airline = @"3U";
+    NSDictionary *result = [_server addAirlineCount:airline];
+    XCTAssertEqual([result[@"Code"] intValue], 1, @"add airline company count failed");
+}
 
 @end
