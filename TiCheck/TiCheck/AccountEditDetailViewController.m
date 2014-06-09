@@ -86,88 +86,96 @@
 {
     //
     //NSLog(@"yes");
-    
-    NSString* firstS=self.firstField.text;
-    NSString* secondS=self.secondField.text;
-    
-    
-    
-    switch (_SetEditDetailType) {
-        case 0:
-            //update email
-            if ([self checkString:firstS WithName:@"邮箱"])
-            {
-                if ([self isValidEmail:firstS]) {
-                    [UserData sharedUserData].email=firstS;
-                    [self.navigationController popViewControllerAnimated:YES];
+    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else
+    {
+        
+        NSString* firstS=self.firstField.text;
+        NSString* secondS=self.secondField.text;
+        
+        
+        
+        switch (_SetEditDetailType) {
+            case 0:
+                //update email
+                if ([self checkString:firstS WithName:@"邮箱"])
+                {
+                    if ([self isValidEmail:firstS]) {
+                        [UserData sharedUserData].email=firstS;
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
                 }
-            }
-            
-            break;
-        case 1:
-            //update username
-            if ([self checkString:firstS WithName:@"用户名"])
-            {
                 
-                //update server
-                 NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:[UserData sharedUserData].password account:firstS pushable:[UserData sharedUserData].pushable];
-                NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
-                if (returnCode == USER_LOGIN_SUCCESS)
+                break;
+            case 1:
+                //update username
+                if ([self checkString:firstS WithName:@"用户名"])
                 {
-                    [UserData sharedUserData].userName=firstS;
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                    [alert show];
-                    alert.tag=1;
-                }
-                else
-                {
-                    UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"该用户名已被注册" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-                //[self.navigationController popViewControllerAnimated:YES];
-            }
-            break;
-        case 2:
-            //update password after confirm the old one
-            if([self checkString:firstS  WithName:@"旧密码"])
-            {
-                if([self checkString:secondS  WithName:@"新密码"])//firstS== [UserData sharedUserData].password)
-                {
-                    NSString *theRealOldPassword= [UserData sharedUserData].password;
-                    NSString *textedByUser=[[ConfigurationHelper sharedConfigurationHelper] md5:firstS];
-                    if( [theRealOldPassword isEqualToString:textedByUser] )
+                    
+                    //update server
+                    NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:[UserData sharedUserData].password account:firstS pushable:[UserData sharedUserData].pushable];
+                    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+                    if (returnCode == USER_LOGIN_SUCCESS)
                     {
-                        NSString *theNewOne=[[ConfigurationHelper sharedConfigurationHelper] md5:secondS];
-                        
-                        NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:theNewOne account:[UserData sharedUserData].userName pushable:[UserData sharedUserData].pushable];
-                        
-                        NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
-                        if (returnCode == USER_LOGIN_SUCCESS)
-                        {
-                            [UserData sharedUserData].password=theNewOne;
-                            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                            [alert show];
-                            alert.tag=1;
-                        }
-                        else
-                        {
-                            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"密码错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                            [alert show];
-                        }
-
-                        //[self.navigationController popViewControllerAnimated:YES];
+                        [UserData sharedUserData].userName=firstS;
+                        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [alert show];
+                        alert.tag=1;
                     }
                     else
                     {
-                        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"旧密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"该用户名已被注册" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                         [alert show];
                     }
-                    
+                    //[self.navigationController popViewControllerAnimated:YES];
                 }
-            }
-            break;
+                break;
+            case 2:
+                //update password after confirm the old one
+                if([self checkString:firstS  WithName:@"旧密码"])
+                {
+                    if([self checkString:secondS  WithName:@"新密码"])//firstS== [UserData sharedUserData].password)
+                    {
+                        NSString *theRealOldPassword= [UserData sharedUserData].password;
+                        NSString *textedByUser=[[ConfigurationHelper sharedConfigurationHelper] md5:firstS];
+                        if( [theRealOldPassword isEqualToString:textedByUser] )
+                        {
+                            NSString *theNewOne=[[ConfigurationHelper sharedConfigurationHelper] md5:secondS];
+                            
+                            NSDictionary *returnDic=[[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[UserData sharedUserData].email password:theNewOne account:[UserData sharedUserData].userName pushable:[UserData sharedUserData].pushable];
+                            
+                            NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+                            if (returnCode == USER_LOGIN_SUCCESS)
+                            {
+                                [UserData sharedUserData].password=theNewOne;
+                                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"修改成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                [alert show];
+                                alert.tag=1;
+                            }
+                            else
+                            {
+                                UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"密码错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                                [alert show];
+                            }
+                            
+                            //[self.navigationController popViewControllerAnimated:YES];
+                        }
+                        else
+                        {
+                            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"修改失败" message:@"旧密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                            [alert show];
+                        }
+                        
+                    }
+                }
+                break;
+        }
     }
-    
     //更新服务器数据
     
 }

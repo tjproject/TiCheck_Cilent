@@ -16,6 +16,7 @@
 #import "UserData.h"
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
+#import "ConfigurationHelper.h"
 
 extern NSDictionary *notificationOption;
 
@@ -54,7 +55,7 @@ extern NSDictionary *notificationOption;
     [self initVessel];
     [self initNavBar];
     blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
-    [blVC initDataCount];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -247,16 +248,29 @@ extern NSDictionary *notificationOption;
         //影响效率，个人中心弹出过慢
 
     }
-    bookNumLabel.text = [NSString stringWithFormat:@"%d",blVC.dataCount];
-    if(blVC.dataCount == 0)
+    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
     {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        
         bookNtfBg.hidden = YES;
         bookNumLabel.hidden = YES;
     }
     else
     {
-        bookNtfBg.hidden = NO;
-        bookNumLabel.hidden = NO;
+        [blVC initDataCount];
+        
+        bookNumLabel.text = [NSString stringWithFormat:@"%d",blVC.dataCount];
+        if(blVC.dataCount == 0)
+        {
+            bookNtfBg.hidden = YES;
+            bookNumLabel.hidden = YES;
+        }
+        else
+        {
+            bookNtfBg.hidden = NO;
+            bookNumLabel.hidden = NO;
+        }
     }
 }
 
