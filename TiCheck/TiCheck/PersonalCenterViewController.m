@@ -28,7 +28,7 @@ extern NSDictionary *notificationOption;
     BOOL isDealt;
     
     //预先加载，用于显示更新个数。
-    BookListViewController *blVC;
+    //BookListViewController *blVC;
     
     MBProgressHUD *hud;
 }
@@ -54,7 +54,7 @@ extern NSDictionary *notificationOption;
     isDealt = false;
     [self initVessel];
     [self initNavBar];
-    blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
+    //blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
     
 }
 
@@ -157,7 +157,7 @@ extern NSDictionary *notificationOption;
     else if(indexPath.section == 0 && indexPath.row == 3)
     {
         //预先加载订阅数据，影响加载速度。
-        [self initBookNotificationBackgroundOnView:cell];
+        //[self initBookNotificationBackgroundOnView:cell];
     }
     else if(indexPath.section == 1 && indexPath.row == 1) [self initNotificationTriggerOnView:cell];
     
@@ -207,8 +207,9 @@ extern NSDictionary *notificationOption;
     }
     else if(indexPath.section == 0 && indexPath.row == 3)
     {
-        //BookListViewController *blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
+        BookListViewController *blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
         [self.navigationController pushViewController:blVC animated:YES];
+        //[self.navigationController pushViewController:blVC animated:YES];
     }
     else if(indexPath.section == 1 && indexPath.row == 0)
     {
@@ -233,46 +234,46 @@ extern NSDictionary *notificationOption;
     [view bringSubviewToFront:ntfTrigger];
 }
 
-- (void)initBookNotificationBackgroundOnView:(UIView*)view
-{
-    if (bookNtfBg == nil) {
-        bookNtfBg = [[UIImageView alloc] initWithFrame:CGRectMake(285, 10, 24, 24)];
-        bookNtfBg.image = [UIImage imageNamed:@"PersonalBookNtfBG"];
-        bookNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(293, 10, 24, 24)];
-        bookNumLabel.textColor = [UIColor whiteColor];
-        bookNumLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:13.f];
-        [view addSubview:bookNtfBg];
-        [view addSubview:bookNumLabel];
-        [view bringSubviewToFront:bookNumLabel];
-        
-        //影响效率，个人中心弹出过慢
-
-    }
-    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
-    {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        
-        bookNtfBg.hidden = YES;
-        bookNumLabel.hidden = YES;
-    }
-    else
-    {
-        [blVC initDataCount];
-        
-        bookNumLabel.text = [NSString stringWithFormat:@"%d",blVC.dataCount];
-        if(blVC.dataCount == 0)
-        {
-            bookNtfBg.hidden = YES;
-            bookNumLabel.hidden = YES;
-        }
-        else
-        {
-            bookNtfBg.hidden = NO;
-            bookNumLabel.hidden = NO;
-        }
-    }
-}
+//- (void)initBookNotificationBackgroundOnView:(UIView*)view
+//{
+//    if (bookNtfBg == nil) {
+//        bookNtfBg = [[UIImageView alloc] initWithFrame:CGRectMake(285, 10, 24, 24)];
+//        bookNtfBg.image = [UIImage imageNamed:@"PersonalBookNtfBG"];
+//        bookNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(293, 10, 24, 24)];
+//        bookNumLabel.textColor = [UIColor whiteColor];
+//        bookNumLabel.font = [UIFont fontWithName:@"Roboto-Condensed" size:13.f];
+//        [view addSubview:bookNtfBg];
+//        [view addSubview:bookNumLabel];
+//        [view bringSubviewToFront:bookNumLabel];
+//        
+//        //影响效率，个人中心弹出过慢
+//
+//    }
+//    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
+//    {
+//        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [alert show];
+//        
+//        bookNtfBg.hidden = YES;
+//        bookNumLabel.hidden = YES;
+//    }
+//    else
+//    {
+//        [blVC initDataCount];
+//        
+//        bookNumLabel.text = [NSString stringWithFormat:@"%d",blVC.dataCount];
+//        if(blVC.dataCount == 0)
+//        {
+//            bookNtfBg.hidden = YES;
+//            bookNumLabel.hidden = YES;
+//        }
+//        else
+//        {
+//            bookNtfBg.hidden = NO;
+//            bookNumLabel.hidden = NO;
+//        }
+//    }
+//}
 
 - (void)didReceiveMemoryWarning
 {

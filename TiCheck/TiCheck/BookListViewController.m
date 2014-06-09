@@ -76,6 +76,7 @@ extern NSDictionary *notificationOption;
     //
     self.navigationItem.title=@"我的订阅";
     
+    [self initDataCount];
     [self initSubscriptionInfoData:self.returnDic];
     //[self initBookOrderList];
 
