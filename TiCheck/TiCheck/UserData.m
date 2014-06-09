@@ -128,8 +128,8 @@
                     [viewController.navigationController pushViewController:nextController animated:YES];
                 });
             } else {
-                [hud removeFromSuperview];
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [hud removeFromSuperview];
                     UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"登录失败" message:@"邮箱或密码错误" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                     [alert show];
                 });
