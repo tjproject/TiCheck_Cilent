@@ -93,9 +93,16 @@
          *
          */
         cell = [[PersonalOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-        CraftType *tempCT = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] craftType]];
-        [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] flightNumber]] Plane:[NSString stringWithFormat:@"%@ %@",[tempCT craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]] Time:[[NSString stringWithFormat:@"%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] takeOffTime]] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] Place:[NSString stringWithFormat:@"%@-%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] departPortShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] arrivePortShortName]] FlightImage:[UIImage imageNamed:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineDibitCode]]];
+        
     }
+    CraftType *tempCT = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] craftType]];
+    
+    Flight *flight = [[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0];
+    [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] flightNumber]]
+                            Plane:[NSString stringWithFormat:@"%@ %@",[tempCT craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]]
+                             Time:[NSString stringFormatWithDate: flight.takeOffTime]
+                            Place:[NSString stringWithFormat:@"%@-%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] departPortShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] arrivePortShortName]]
+                      FlightImage:[UIImage imageNamed:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineDibitCode]]];
     return cell;
 }
 
