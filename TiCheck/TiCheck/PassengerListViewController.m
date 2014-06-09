@@ -11,6 +11,8 @@
 #import "TickectInfoViewController.h"
 #import "Passenger.h"
 #import "ServerCommunicator.h"
+#import "ConfigurationHelper.h"
+
 #define PASSENGER_COUNT 2;
 @interface PassengerListViewController ()
 {
@@ -47,21 +49,30 @@
 {
     self.passengerList = [[NSMutableArray alloc] init];
     
-    NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getContacts:nil];
-    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
-    
-    
-    if(returnCode == USER_LOGIN_SUCCESS)
+    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
     {
-        //生成passenger
-        if (![returnDic[@"Data"] isKindOfClass:[NSNull class]])
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        
+    }
+    else
+    {
+        NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getContacts:nil];
+        NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+        
+        
+        if(returnCode == USER_LOGIN_SUCCESS)
         {
-            //非空
-            NSArray *dataArray = returnDic[@"Data"];
-            for (NSDictionary *tempDic in dataArray)
+            //生成passenger
+            if (![returnDic[@"Data"] isKindOfClass:[NSNull class]])
             {
-                Passenger *tempPassenger = [Passenger createPassengerByServerData:tempDic isTemporary:YES];
-                [self.passengerList addObject:tempPassenger];
+                //非空
+                NSArray *dataArray = returnDic[@"Data"];
+                for (NSDictionary *tempDic in dataArray)
+                {
+                    Passenger *tempPassenger = [Passenger createPassengerByServerData:tempDic isTemporary:YES];
+                    [self.passengerList addObject:tempPassenger];
+                }
             }
         }
     }

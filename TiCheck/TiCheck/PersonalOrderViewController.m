@@ -12,6 +12,8 @@
 #import "OrderInfoViewController.h"
 #import "ServerCommunicator.h"
 
+#import "ConfigurationHelper.h"
+
 #import "APIResourceHelper.h"
 #import "Order.h"
 #import "Flight.h"
@@ -42,8 +44,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initOrderData];
-    [self initVessel];
+    
+    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        [self initOrderData];
+        [self initVessel];
+    }
+}
+
+#pragma mark - alert delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
 }
 
 - (void)initOrderData
