@@ -576,6 +576,8 @@ extern NSString *mDeviceToken;
 
 - (void)showToolBarAndPickerWithAnimation:(BOOL)animate
 {
+    [self navigationController].navigationBar.userInteractionEnabled = NO;
+    [self.searchOptionTableView setUserInteractionEnabled:NO];
     if (animate) {
         [UIView beginAnimations:nil context:nil];
         [self.optionSelectToolBar setFrame:SHOW_TOOL_BAR_VIEW_FRAME];
@@ -590,6 +592,8 @@ extern NSString *mDeviceToken;
 
 - (void)hideToolBarAndPickerWithAnimation:(BOOL)animate
 {
+    [self navigationController].navigationBar.userInteractionEnabled = YES;
+    [self.searchOptionTableView setUserInteractionEnabled:YES];
     if (animate) {
         [UIView beginAnimations:nil context:nil];
         [self.optionSelectToolBar setFrame:HIDE_TOOL_BAR_VIEW_FRAME];
