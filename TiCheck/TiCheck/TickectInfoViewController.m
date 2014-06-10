@@ -91,7 +91,11 @@
     _TIVC_flightLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 100, 280, 30)];
     CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:_selectFlight.craftType];
     if(_selectFlight.airlineName == nil) _selectFlight.airlineName = @"东方航空";
-    _TIVC_flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",_selectFlight.airlineShortName,_selectFlight.flightNumber,[ct craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:_selectFlight.classGrade]];
+    NSString *planeType = [ct craftKindShowingOnResultInTicketInfo];
+    if (planeType == nil) {
+        planeType = @"未知机型";
+    }
+    _TIVC_flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",_selectFlight.airlineShortName,_selectFlight.flightNumber,planeType,[NSString classGradeToChinese:_selectFlight.classGrade]];
     
     _TIVC_flightTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(13.5, 170, 100, 50)];
     _TIVC_flightTimeLabel.text = [NSString showingStringFormatWithString:_selectFlight.takeOffTime];
