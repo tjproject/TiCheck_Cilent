@@ -13,4 +13,9 @@
 @property (weak,nonatomic) IBOutlet UITextField* inputInfoTextField;
 @property UITableView *mainTableView;
 @property int cellIndex;
+
+@property PassengerEditViewController *passengerViewControl;
+
+- (void) setSelfDelegate;
+
 @end
