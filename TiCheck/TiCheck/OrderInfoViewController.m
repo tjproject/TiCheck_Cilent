@@ -218,6 +218,10 @@
     NSDictionary *resultDictionary = [[ServerCommunicator sharedCommunicator] deleteOrder:_OIVC_Order];
     NSLog(@"%@",resultDictionary);
     [self.navigationController popViewControllerAnimated:YES];
+    if ([self.delegate respondsToSelector:@selector(reloadOrderList)])
+    {
+        [_delegate reloadOrderList];
+    }
 }
 
 - (void)confirmButtonPressed:(id)sender

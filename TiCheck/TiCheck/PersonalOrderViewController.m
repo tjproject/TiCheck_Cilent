@@ -9,7 +9,7 @@
 #import "CommonData.h"
 #import "PersonalOrderViewController.h"
 #import "PersonalOrderTableViewCell.h"
-#import "OrderInfoViewController.h"
+
 #import "ServerCommunicator.h"
 
 #import "ConfigurationHelper.h"
@@ -132,9 +132,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"OrderInfoViewController"];
+    tiVC.delegate = self;
     tiVC.OIVC_Order = [orderList objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:tiVC animated:YES];
     
+}
+
+#pragma mark - OrderListDelegate
+- (void)reloadOrderList
+{
+    if (_POVCVessel) {
+        [self initOrderData];
+        [_POVCVessel reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderInfoViewController.h"
 
-@interface PersonalOrderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+@interface PersonalOrderViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,OrderInfoViewDelegate>
 
 @property (strong, nonatomic) UITableView *POVCVessel;
 
