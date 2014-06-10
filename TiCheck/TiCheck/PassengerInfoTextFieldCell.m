@@ -24,6 +24,11 @@
 
 
 
+- (void) setSelfDelegate
+{
+    self.inputInfoTextField.delegate = self.passengerViewControl;
+}
+
 
 
 - (void)awakeFromNib

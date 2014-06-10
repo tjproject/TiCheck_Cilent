@@ -156,6 +156,10 @@
         cell.inputInfoTextField.returnKeyType = UIReturnKeyDone;
         cell.mainTableView = tableView;
         cell.cellIndex = 0;
+        cell.passengerViewControl = self;
+        [cell setSelfDelegate];
+        
+
         //cell.inputInfoTextField.delegate = self;
         return cell;
     }
@@ -284,6 +288,10 @@
         cell.inputInfoTextField.returnKeyType = UIReturnKeyDone;
         cell.mainTableView = tableView;
         cell.cellIndex = 4;
+        cell.passengerViewControl = self;
+        [cell setSelfDelegate];
+        
+
         return cell;
     }
     else if(indexPath.row==5)
@@ -307,6 +315,10 @@
         cell.inputInfoTextField.returnKeyType = UIReturnKeyDone;
         cell.mainTableView = tableView;
         cell.cellIndex = 5;
+        cell.passengerViewControl = self;
+        [cell setSelfDelegate];
+        
+
         return cell;
     }
     
@@ -326,14 +338,14 @@
         //去除 focus
         NSIndexPath *tempPath =  [NSIndexPath indexPathForRow:0 inSection:0];
         PassengerInfoTextFieldCell *cell = (PassengerInfoTextFieldCell*)[self.passengerInfoTableView cellForRowAtIndexPath:tempPath];
-        [cell.inputInfoTextField setSelected:NO];
-        
+        [cell.inputInfoTextField resignFirstResponder];
+    
         tempPath =  [NSIndexPath indexPathForRow:4 inSection:0];
         cell = (PassengerInfoTextFieldCell*)[self.passengerInfoTableView cellForRowAtIndexPath:tempPath];
-        [cell.inputInfoTextField setSelected:NO];
+        [cell.inputInfoTextField resignFirstResponder];
         tempPath =  [NSIndexPath indexPathForRow:5 inSection:0];
         cell = (PassengerInfoTextFieldCell*)[self.passengerInfoTableView cellForRowAtIndexPath:tempPath];
-        [cell.inputInfoTextField setSelected:NO];
+        [cell.inputInfoTextField resignFirstResponder];
         
         
         //当用户按下ruturn，把焦点从textField移开那么键盘就会消失了
@@ -349,7 +361,8 @@
             
             
         }
-        
+        [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
+
         [self pickerCellTapped:indexPath.row];
     }
 }
@@ -823,6 +836,44 @@
         [textView resignFirstResponder];
         return NO;
     }
+    return YES;
+}
+
+
+#pragma mark - textField delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    //当点触textField内部，开始编辑都会调用这个方法。textField将成为first responder
+    //NSTimeInterval animationDuration = 0.30f;
+    if(IS_IPHONE_LOWERINCHE)
+    {
+        CGRect frame = self.passengerInfoTableView.frame;
+        frame.size.height = 260;
+        self.passengerInfoTableView.frame = frame;
+        self.passengerInfoTableView.scrollEnabled = YES;
+        //self.inputInfoTextField
+        //self.mainTableView.userInteractionEnabled = NO;
+        
+    }
+    return YES;
+    //[UIView commitAnimations];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    //当用户按下ruturn，把焦点从textField移开那么键盘就会消失了
+    if(IS_IPHONE_LOWERINCHE)
+    {
+        CGRect frame = self.passengerInfoTableView.frame;
+        frame.size.height = 480;
+        self.passengerInfoTableView.frame = frame;
+        self.passengerInfoTableView.scrollEnabled = NO;
+        //self.mainTableView.userInteractionEnabled = YES;
+    }
+    
+    [textField resignFirstResponder];
+    [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
+
     return YES;
 }
 
