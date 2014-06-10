@@ -52,7 +52,7 @@ Passenger *_contact;
     _passwd = @"asdfghjkl";
     _deviceToken = @"asdfghjkl";
     
-    _subs = [[Subscription alloc] initWithDepartCity:@"北京" arriveCity:@"上海" startDate:@"2015-11-11" endDate:@"2015-12-11"];
+    _subs = [[Subscription alloc] initWithDepartCity:@"北京" arriveCity:@"上海" startDate:@"2014-11-11" endDate:@"2014-11-11"];
     
     _order = [[Order alloc] init];
     
