@@ -323,6 +323,33 @@
 {
     if(indexPath.row>=1&&indexPath.row<=3)
     {
+        //去除 focus
+        NSIndexPath *tempPath =  [NSIndexPath indexPathForRow:0 inSection:0];
+        PassengerInfoTextFieldCell *cell = (PassengerInfoTextFieldCell*)[self.passengerInfoTableView cellForRowAtIndexPath:tempPath];
+        [cell.inputInfoTextField setSelected:NO];
+        
+        tempPath =  [NSIndexPath indexPathForRow:4 inSection:0];
+        cell = (PassengerInfoTextFieldCell*)[self.passengerInfoTableView cellForRowAtIndexPath:tempPath];
+        [cell.inputInfoTextField setSelected:NO];
+        tempPath =  [NSIndexPath indexPathForRow:5 inSection:0];
+        cell = (PassengerInfoTextFieldCell*)[self.passengerInfoTableView cellForRowAtIndexPath:tempPath];
+        [cell.inputInfoTextField setSelected:NO];
+        
+        
+        //当用户按下ruturn，把焦点从textField移开那么键盘就会消失了
+        if(IS_IPHONE_LOWERINCHE)
+        {
+            CGRect frame = self.passengerInfoTableView.frame;
+            
+            frame.size.height = 480;
+            self.passengerInfoTableView.frame = frame;
+            
+            self.passengerInfoTableView.scrollEnabled = NO;
+            //self.mainTableView.userInteractionEnabled = YES;
+            
+            
+        }
+        
         [self pickerCellTapped:indexPath.row];
     }
 }

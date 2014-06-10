@@ -44,15 +44,23 @@
 {
     //当点触textField内部，开始编辑都会调用这个方法。textField将成为first responder
     //NSTimeInterval animationDuration = 0.30f;
+    
     if(IS_IPHONE_LOWERINCHE)
     {
+        if(self.cellIndex<1||self.cellIndex>3)
+        {
+            
         CGRect frame = self.mainTableView.frame;
         
         frame.size.height = 260;
         self.mainTableView.frame = frame;
         
         self.mainTableView.scrollEnabled = YES;
+            
+            
+        //self.inputInfoTextField
         //self.mainTableView.userInteractionEnabled = NO;
+        }
     }
     
     

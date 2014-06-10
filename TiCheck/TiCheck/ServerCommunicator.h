@@ -158,6 +158,15 @@
 
 #pragma mark - Contact
 /**
+ *  删除订单
+ *
+ *  @param order 订单实例
+ *
+ *  @return 返回消息的Dictionary
+ */
+- (NSDictionary*)deleteOrder:(Order*)order;
+
+/**
  *  添加联系人
  *
  *  @param contacts NSArray 联系人信息

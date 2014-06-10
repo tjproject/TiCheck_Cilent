@@ -79,9 +79,18 @@ extern NSDictionary *notificationOption;
     [self initDataCount];
     [self initSubscriptionInfoData:self.returnDic];
     //[self initBookOrderList];
+    
+    [self setExtraCellLineHidden:self.bookListTableView];
 
 }
 
+//delete useless lines
+-(void)setExtraCellLineHidden: (UITableView *)tableView
+{
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -334,7 +343,7 @@ extern NSDictionary *notificationOption;
     TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
     
     tiVC.selectFlight = [[self.flightListArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
+    tiVC.departureDate = ((Flight*)[[self.flightListArray objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]).takeOffTime;
     [self.navigationController pushViewController:tiVC animated:YES];
     
 }

@@ -193,7 +193,7 @@
     //TODO: when clicked, jump to a web page to continue the pay process
     
     //get userid
-    [self sendUniqueIDRequest];
+    //[self sendUniqueIDRequest];
     
     //create temp flight order
     [self sendFlightSaveOrderRequest];
