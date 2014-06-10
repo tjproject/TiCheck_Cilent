@@ -94,7 +94,94 @@
     return flight;
 }
 
-
+- (id)copyWithZone:(NSZone *)zone
+{
+    Flight *flightCopy = [[Flight alloc] init];
+    
+    flightCopy.departCityID                  = self.departCityID;
+    flightCopy.arriveCityID                  = self.arriveCityID;
+    flightCopy.takeOffTime                   = self.takeOffTime;
+    flightCopy.arrivalTime                   = self.arrivalTime;
+    flightCopy.flightNumber                  = self.flightNumber;
+    flightCopy.craftType                     = self.craftType;
+    flightCopy.airlineDibitCode              = self.airlineDibitCode;
+    flightCopy.classGrade                    = self.classGrade;
+    flightCopy.classGradeName                = self.classGradeName;
+    flightCopy.subClass                      = self.subClass;
+    flightCopy.displaySubClass               = self.displaySubClass;
+    flightCopy.ageType                       = self.ageType;
+    flightCopy.rate                          = self.rate;
+    flightCopy.price                         = self.price;
+    flightCopy.standardPrice                 = self.standardPrice;
+    flightCopy.childStandardPrice            = self.childStandardPrice;
+    flightCopy.babyStandardPrice             = self.babyStandardPrice;
+    flightCopy.mealType                      = self.mealType;
+    flightCopy.adultTax                      = self.adultTax;
+    flightCopy.babyTax                       = self.babyTax;
+    flightCopy.childTax                      = self.childTax;
+    flightCopy.adultOilFee                   = self.adultOilFee;
+    flightCopy.babyOilFee                    = self.babyOilFee;
+    flightCopy.childOilFee                   = self.childOilFee;
+    flightCopy.amount                        = self.amount;
+    flightCopy.departPortName                = self.departPortName;
+    flightCopy.arrivePortName                = self.arrivePortName;
+    flightCopy.departPortShortName           = self.departPortShortName;
+    flightCopy.arrivePortShortName           = self.arrivePortShortName;
+    flightCopy.departPortCode                = self.departPortCode;
+    flightCopy.arrivePortCode                = self.arrivePortCode;
+    flightCopy.departPortBuildingID          = self.departPortBuildingID;
+    flightCopy.arrivePortBuildingID          = self.arrivePortBuildingID;
+    flightCopy.departPortBuildingName        = self.departPortBuildingName;
+    flightCopy.arrivePortBuildingName        = self.arrivePortBuildingName;
+    flightCopy.departPortBuildingShortName   = self.departPortBuildingShortName;
+    flightCopy.arrivePortBuildingShortName   = self.arrivePortBuildingShortName;
+    flightCopy.arrivePortAddress             = self.arrivePortAddress;
+    flightCopy.arrivePortSMSName             = self.arrivePortSMSName;
+    flightCopy.stopTimes                     = self.stopTimes;
+    flightCopy.nonRef                        = self.nonRef;
+    flightCopy.nonEnd                        = self.nonEnd;
+    flightCopy.nonRef                        = self.nonRef;
+    flightCopy.rerNote                       = self.rerNote;
+    flightCopy.endNote                       = self.endNote;
+    flightCopy.refNote                       = self.refNote;
+    flightCopy.remarks                       = self.remarks;
+    flightCopy.ticketType                    = self.ticketType;
+    flightCopy.beforeFlyDate                 = self.beforeFlyDate;
+    flightCopy.quantity                      = self.quantity;
+    flightCopy.priceType                     = self.priceType;
+    flightCopy.productType                   = self.productType;
+    flightCopy.productSource                 = self.productSource;
+    flightCopy.inventoryType                 = self.inventoryType;
+    flightCopy.routeIndex                    = self.routeIndex;
+    flightCopy.needApplyString               = self.needApplyString;
+    flightCopy.recommend                     = self.recommend;
+    flightCopy.refundFeeFormulaID            = self.refundFeeFormulaID;
+    flightCopy.canUpGrade                    = self.canUpGrade;
+    flightCopy.canSeparateSale               = self.canSeparateSale;
+    flightCopy.canNoDefer                    = self.canNoDefer;
+    flightCopy.isFlyMan                      = self.isFlyMan;
+    flightCopy.onlyOwnCity                   = self.onlyOwnCity;
+    flightCopy.isLowestPrice                 = self.isLowestPrice;
+    flightCopy.isLowestCZSpecialPrice        = self.isLowestCZSpecialPrice;
+    flightCopy.punctualityRate               = self.punctualityRate;
+    flightCopy.policyID                      = self.policyID;
+    flightCopy.allowCPType                   = self.allowCPType;
+    flightCopy.outOfPostTime                 = self.outOfPostTime;
+    flightCopy.outOfSendGetTime              = self.outOfSendGetTime;
+    flightCopy.outOfAirlineCounterTime       = self.outOfAirlineCounterTime;
+    flightCopy.canPost                       = self.canPost;
+    flightCopy.canAirlineCounter             = self.canAirlineCounter;
+    flightCopy.canSendGet                    = self.canSendGet;
+    flightCopy.isRebate                      = self.isRebate;
+    flightCopy.rebateAmount                  = self.rebateAmount;
+    flightCopy.rebateCPCity                  = self.rebateCPCity;
+    flightCopy.hasAirportBuildingInformation = self.hasAirportBuildingInformation;
+    flightCopy.isSurface                     = self.isSurface;
+    flightCopy.checkInTime                   = self.checkInTime;
+    flightCopy.serverFee                     = self.serverFee;
+    
+    return flightCopy;
+}
 
 #pragma mark - Setter
 

@@ -10,6 +10,13 @@
 #import "ConfigurationHelper.h"
 #import "Passenger.h"
 #import "CoreData+MagicalRecord.h"
+#import "AppDelegate.h"
+
+@interface ConfigurationHelper ()
+
+@property (weak, nonatomic) AppDelegate *appDelegate;
+
+@end
 
 @implementation ConfigurationHelper
 
@@ -30,6 +37,18 @@
     }
     
     return self;
+}
+
+- (BOOL)isInternetConnection
+{
+    if ([self.appDelegate.internetReachability currentReachabilityStatus] == NotReachable) return false;
+    else return true;
+}
+
+- (BOOL)isServerHostConnection
+{
+    if ([self.appDelegate.hostReachability currentReachabilityStatus] == NotReachable) return false;
+    else return true;
 }
 
 - (NSString *)getHeaderStringWithRequestType:(FlightRequestType)requestType {
@@ -96,6 +115,17 @@
         }
     }
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+#pragma mark - Helper
+
+- (AppDelegate *)appDelegate
+{
+    if (_appDelegate == nil) {
+        _appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    
+    return _appDelegate;
 }
 
 @end

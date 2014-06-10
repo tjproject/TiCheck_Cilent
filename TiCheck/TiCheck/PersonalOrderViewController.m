@@ -12,6 +12,8 @@
 #import "OrderInfoViewController.h"
 #import "ServerCommunicator.h"
 
+#import "ConfigurationHelper.h"
+
 #import "APIResourceHelper.h"
 #import "Order.h"
 #import "Flight.h"
@@ -42,8 +44,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initOrderData];
-    [self initVessel];
+    
+    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        [self initOrderData];
+        [self initVessel];
+    }
+}
+
+#pragma mark - alert delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
 }
 
 - (void)initOrderData
@@ -93,9 +110,16 @@
          *
          */
         cell = [[PersonalOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-        CraftType *tempCT = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] craftType]];
-        [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] flightNumber]] Plane:[NSString stringWithFormat:@"%@ %@",[tempCT craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]] Time:[[NSString stringWithFormat:@"%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] takeOffTime]] stringByReplacingOccurrencesOfString:@"+0000" withString:@""] Place:[NSString stringWithFormat:@"%@-%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] departPortShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] arrivePortShortName]] FlightImage:[UIImage imageNamed:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineDibitCode]]];
+        
     }
+    CraftType *tempCT = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] craftType]];
+    
+    Flight *flight = [[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0];
+    [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] flightNumber]]
+                            Plane:[NSString stringWithFormat:@"%@ %@",[tempCT craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]]
+                             Time:[NSString stringFormatWithDate: flight.takeOffTime]
+                            Place:[NSString stringWithFormat:@"%@-%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] departPortShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] arrivePortShortName]]
+                      FlightImage:[UIImage imageNamed:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineDibitCode]]];
     return cell;
 }
 

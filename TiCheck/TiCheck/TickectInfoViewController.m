@@ -68,6 +68,9 @@
 
 - (void)initNavBar
 {
+    
+    self.navigationItem.title = @"机票详情";
+    
     UIButton *tempBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 23, 22)];
     [tempBtn setImage:[UIImage imageNamed:@"profile"] forState:UIControlStateNormal];
     [tempBtn addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];

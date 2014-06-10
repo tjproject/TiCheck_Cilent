@@ -41,8 +41,6 @@ extern NSString *mDeviceToken;
 
 @property (nonatomic, strong) NSArray *pickerData;
 
-@property (nonatomic, strong) NSArray *airlineCompanyCache;
-
 @end
 
 @implementation SearchViewController
@@ -129,15 +127,6 @@ extern NSString *mDeviceToken;
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
-- (NSArray *)airlineCompanyCache
-{
-    if (_airlineCompanyCache == nil) {
-        _airlineCompanyCache = [self getAllAirlineWithShortName];
-    }
-    
-    return _airlineCompanyCache;
-}
-
 - (NSArray *)getAllAirlineWithShortName
 {
     NSDictionary *getAllAirlineResponseDic = [[ServerCommunicator sharedCommunicator] getAllAirlineCompany];
@@ -146,10 +135,10 @@ extern NSString *mDeviceToken;
     
     if (returnCode == 1) {
         [airlineShortNames addObjectsFromArray:[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNamesViaAirlineDibitCode:getAllAirlineResponseDic[SERVER_USER_DATA]]];
-        return  airlineShortNames;
     } else {
-        return nil;
+        airlineShortNames = [NSMutableArray arrayWithObject:@"载入失败"];
     }
+    return  airlineShortNames;
 }
 
 - (NSArray *)pickerData
@@ -468,9 +457,14 @@ extern NSString *mDeviceToken;
 
 - (IBAction)searchTicket:(id)sender
 {
-    NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
-    Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
-    [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if ([appDelegate.hostReachability currentReachabilityStatus] != NotReachable) {
+            NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
+            Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
+            [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
+        }
+    });
 }
 
 - (IBAction)moreOptionClicked:(id)sender
@@ -610,7 +604,22 @@ extern NSString *mDeviceToken;
 {
     selectingOption = SelectingAirline;
     
-    self.pickerData = self.airlineCompanyCache;
+    if ([APIResourceHelper sharedResourceHelper].airlineShortNameFromServer == nil) {
+        self.pickerData = @[@"不限", @"载入中..."];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [APIResourceHelper sharedResourceHelper].airlineShortNameFromServer = [self getAllAirlineWithShortName];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (selectingOption == SelectingAirline) {
+                    self.pickerData = [APIResourceHelper sharedResourceHelper].airlineShortNameFromServer;
+                    [self.optionSelectPickerView reloadAllComponents];
+                }
+            });
+        });
+    }
+    else {
+        self.pickerData = [APIResourceHelper sharedResourceHelper].airlineShortNameFromServer;
+    }
+    
     [self.optionSelectPickerView reloadAllComponents];
     [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airlineCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
     [self showToolBarAndPickerWithAnimation:YES];

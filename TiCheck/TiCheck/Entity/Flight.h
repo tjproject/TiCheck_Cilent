@@ -453,4 +453,13 @@
  */
 + (Flight *)createFilghtWithDictionary:(NSDictionary *)dictionary;
 
+/**
+ *  用于深拷贝函数
+ *
+ *  @param zone zone
+ *
+ *  @return 副本
+ */
+- (id)copyWithZone:(NSZone *)zone;
+
 @end

@@ -64,6 +64,20 @@ const NSArray *___FlightRequestType;
 + (id)sharedConfigurationHelper;
 
 /**
+ *  是否连接网络
+ *
+ *  @return 是否连接网络
+ */
+- (BOOL)isInternetConnection;
+
+/**
+ *  服务器连接是否正常
+ *
+ *  @return 是否正常
+ */
+- (BOOL)isServerHostConnection;
+
+/**
 *  获取界面输入的联盟信息对应的字符串
 *
 *  @param requestType 请求的类型

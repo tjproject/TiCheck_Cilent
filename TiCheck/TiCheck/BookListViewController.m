@@ -76,6 +76,7 @@ extern NSDictionary *notificationOption;
     //
     self.navigationItem.title=@"我的订阅";
     
+    [self initDataCount];
     [self initSubscriptionInfoData:self.returnDic];
     //[self initBookOrderList];
 
@@ -121,11 +122,17 @@ extern NSDictionary *notificationOption;
 
 -(void) initDataCount
 {
+    self.dataCount = 0;
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    if ([appDelegate.internetReachability currentReachabilityStatus] == NotReachable) {
+        return ;
+    }
+    if ([appDelegate.hostReachability currentReachabilityStatus] == NotReachable) {
+        return ;
+    }
     //get subscription data for server
-    
     self.returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
     NSInteger returnCode = [self.returnDic[SERVER_RETURN_CODE_KEY] integerValue];
-    self.dataCount = 0;
     if (returnCode == USER_LOGIN_SUCCESS)
     {
         self.subscriptionArray = [[NSMutableArray alloc] init];

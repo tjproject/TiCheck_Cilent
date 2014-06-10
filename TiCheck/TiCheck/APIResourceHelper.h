@@ -16,6 +16,11 @@
 @interface APIResourceHelper : NSObject
 
 /**
+ *  从服务器获取的航空公司列表
+ */
+@property (nonatomic, strong) NSArray *airlineShortNameFromServer;
+
+/**
  *  单例
  *
  *  @return 单例

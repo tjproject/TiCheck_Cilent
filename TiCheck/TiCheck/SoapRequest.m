@@ -114,6 +114,7 @@ const NSArray *___FlightRequestFileName;
     [request addRequestHeader:@"Content-Type" value:@"application/soap+xml; charset=utf-8"];
     [request addRequestHeader:@"Content-Length" value:msgLength];
     [request setRequestMethod:@"POST"];
+    [request setTimeOutSeconds:30];
     [request appendPostData:[soapMsg dataUsingEncoding:NSUTF8StringEncoding]];
     [request setDefaultResponseEncoding:NSUTF8StringEncoding];
 
@@ -180,6 +181,7 @@ const NSArray *___FlightRequestFileName;
     [request addRequestHeader:@"Content-Length" value:msgLength];
     [request addRequestHeader:@"SOAPAction" value:[NSString stringWithFormat:@"%@%@", nameSpace, serviceName]];
     [request setRequestMethod:@"POST"];
+    [request setTimeOutSeconds:30];
     [request appendPostData:[soapMsg dataUsingEncoding:NSUTF8StringEncoding]];
     [request setDefaultResponseEncoding:NSUTF8StringEncoding];
     

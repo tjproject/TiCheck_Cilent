@@ -13,6 +13,8 @@
 #import "UIImage+ImageResize.h"
 #import "APIResourceHelper.h"
 #import "Airline.h"
+#import "MBProgressHUD.h"
+#import "AppDelegate.h"
 
 typedef NS_ENUM(NSUInteger, SelectedDateType) {
     BeginDate,
@@ -82,21 +84,39 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 
 - (IBAction)confirmSubscription:(id)sender
 {
-    Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
-    if (isShowMore) {
-        NSArray *departTime;
-        if ([self.takeOffTimeCell.generalValue.titleLabel.text isEqualToString:@"不限"])
-            departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
-        else
-            departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
-        [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.arriveAirportCell.generalValue.titleLabel.text departAirportName:self.departAirportCell.generalValue.titleLabel.text];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if ([appDelegate.internetReachability currentReachabilityStatus] == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络连接" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
+        [alert show];
+        return ;
     }
-    NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:takeOffSubscription];
-    NSLog(@"%@",tempD);
+    if ([appDelegate.hostReachability currentReachabilityStatus] == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器维护中，请稍后再试" delegate:nil cancelButtonTitle:@"关闭" otherButtonTitles:nil, nil];
+        [alert show];
+        return ;
+    }
     
-    UIAlertView *tempAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"订阅成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    tempAlert.delegate = self;
-    [tempAlert show];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
+        if (isShowMore) {
+            NSArray *departTime;
+            if ([self.takeOffTimeCell.generalValue.titleLabel.text isEqualToString:@"不限"])
+                departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
+            else
+                departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
+            [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.arriveAirportCell.generalValue.titleLabel.text departAirportName:self.departAirportCell.generalValue.titleLabel.text];
+        }
+        NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:takeOffSubscription];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [hud removeFromSuperview];
+            UIAlertView *tempAlert = [[UIAlertView alloc] initWithTitle:@"" message:@"订阅成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            tempAlert.delegate = self;
+            [tempAlert show];
+        });
+    });
 }
 
 - (IBAction)moreOptionClicked:(id)sender
@@ -547,13 +567,38 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
 {
     selectingOption = SelectingAirline;
     
-    NSMutableArray *airlineData = [NSMutableArray arrayWithObject:@"不限"];
-    [airlineData addObjectsFromArray:[[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNames] mutableCopy]];
+    if ([APIResourceHelper sharedResourceHelper].airlineShortNameFromServer == nil) {
+        self.pickerData = @[@"不限", @"载入中..."];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [APIResourceHelper sharedResourceHelper].airlineShortNameFromServer = [self getAllAirlineWithShortName];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (selectingOption == SelectingAirline) {
+                    self.pickerData = [APIResourceHelper sharedResourceHelper].airlineShortNameFromServer;
+                    [self.optionSelectPickerView reloadAllComponents];
+                }
+            });
+        });
+    } else {
+        self.pickerData = [APIResourceHelper sharedResourceHelper].airlineShortNameFromServer;
+    }
     
-    self.pickerData = airlineData;
     [self.optionSelectPickerView reloadAllComponents];
     [self.optionSelectPickerView selectRow:[self.pickerData indexOfObject:self.airlineCell.generalValue.titleLabel.text] inComponent:0 animated:NO];
     [self showToolBarAndPickerWithAnimation:YES];
+}
+
+- (NSArray *)getAllAirlineWithShortName
+{
+    NSDictionary *getAllAirlineResponseDic = [[ServerCommunicator sharedCommunicator] getAllAirlineCompany];
+    NSInteger returnCode = [getAllAirlineResponseDic[SERVER_RETURN_CODE_KEY] integerValue];
+    NSMutableArray *airlineShortNames = [NSMutableArray arrayWithObject:@"不限"];
+    
+    if (returnCode == 1) {
+        [airlineShortNames addObjectsFromArray:[[APIResourceHelper sharedResourceHelper] findAllAirlineShortNamesViaAirlineDibitCode:getAllAirlineResponseDic[SERVER_USER_DATA]]];
+    } else {
+        airlineShortNames = [NSMutableArray arrayWithObject:@"载入失败"];
+    }
+    return  airlineShortNames;
 }
 
 - (void)showPickerForSeatSelect
