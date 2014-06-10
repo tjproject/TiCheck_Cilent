@@ -52,6 +52,13 @@
 
 - (IBAction)enter:(id)sender
 {
+
+    [self.email resignFirstResponder];
+    [self.password resignFirstResponder];
+    [self.userName resignFirstResponder];
+
+    
+    
     NSString* emailStr=self.email.text;
     NSString* passwordStr=self.password.text;
     NSString* userNameStr=self.userName.text;
