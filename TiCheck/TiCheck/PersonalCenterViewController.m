@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
 #import "ConfigurationHelper.h"
+#import "ServerCommunicator.h"
 
 extern NSDictionary *notificationOption;
 
@@ -81,11 +82,21 @@ extern NSDictionary *notificationOption;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
         [self tableView:self.PCVCVessel didSelectRowAtIndexPath:indexPath];
     }
+    [self judgeSwitchState];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     isDealt = false;
+}
+
+- (void)judgeSwitchState
+{
+    if ([[[UserData sharedUserData] pushable] isEqualToString:@"1"])
+    {
+        ntfTrigger.on = YES;
+    }
+    else ntfTrigger.on = NO;
 }
 
 #pragma mark - Preparation helpers
@@ -230,9 +241,24 @@ extern NSDictionary *notificationOption;
 {
     if (ntfTrigger == nil) {
         ntfTrigger = [[UISwitch alloc] initWithFrame:CGRectMake(260, 10, 60, 30)];
+        [ntfTrigger addTarget:self action:@selector(switchTriggered:) forControlEvents:UIControlEventValueChanged];
         [view addSubview:ntfTrigger];
     }
+//    [ntfTrigger setOn:YES];
     [view bringSubviewToFront:ntfTrigger];
+}
+
+
+#pragma mark - switch target
+- (void)switchTriggered:(UISwitch*)sender
+{
+    NSDictionary *resultDic = [[NSDictionary alloc] init];
+    if (sender.on)
+    {
+        resultDic = [[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[[UserData sharedUserData] email] password:[[UserData sharedUserData] password] account:[[UserData sharedUserData] userName] pushable:@"1"];
+    }
+    else resultDic = [[ServerCommunicator sharedCommunicator] modifyUserWithEmail:[[UserData sharedUserData] email] password:[[UserData sharedUserData] password] account:[[UserData sharedUserData] userName] pushable:@"0"];
+    NSLog(@"%@",resultDic);
 }
 
 //- (void)initBookNotificationBackgroundOnView:(UIView*)view
