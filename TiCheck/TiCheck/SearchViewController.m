@@ -73,9 +73,9 @@ extern NSString *mDeviceToken;
     
     [self initNavBar];
     [self initDarkUILayer];
-
+    
     if (mDeviceToken != NULL) {
-       [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
+        [[ServerCommunicator sharedCommunicator] addTokenForCurrentUser:mDeviceToken];
     }
 }
 
@@ -245,7 +245,7 @@ extern NSString *mDeviceToken;
 {
     static NSString *fromToCellIdentifier = @"FromToCell";
     static NSString *dateCellIdentifier = @"DateCell";
-//    static NSString *isReturnCellIdentifier = @"IsReturnCell";
+    //    static NSString *isReturnCellIdentifier = @"IsReturnCell";
     static NSString *exchangeCityCellIdentifier = @"ExchangeCityCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
@@ -457,14 +457,16 @@ extern NSString *mDeviceToken;
 
 - (IBAction)searchTicket:(id)sender
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        if ([appDelegate.hostReachability currentReachabilityStatus] != NotReachable) {
-            NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
-            Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
-            [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
-        }
-    });
+    if (![self.airlineCell.generalValue.titleLabel.text isEqualToString:@"不限"]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            if ([appDelegate.hostReachability currentReachabilityStatus] != NotReachable) {
+                NSString *airlineShortName = self.airlineCell.generalValue.titleLabel.text;
+                Airline *airline = [[APIResourceHelper sharedResourceHelper] findAirlineViaAirlineShortName:airlineShortName];
+                [[ServerCommunicator sharedCommunicator] addAirlineCount:airline];
+            }
+        });
+    }
 }
 
 - (IBAction)moreOptionClicked:(id)sender
@@ -482,7 +484,7 @@ extern NSString *mDeviceToken;
     }
     
     NSIndexPath *moreButton = [NSIndexPath indexPathForRow:moreOptionsBeginCounter inSection:0];
-
+    
     [self.searchOptionTableView beginUpdates];
     [self.searchOptionTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:moreButton] withRowAnimation:UITableViewRowAnimationTop];
     [self.searchOptionTableView insertRowsAtIndexPaths:moreOptionIndexArray withRowAnimation:UITableViewRowAnimationTop];

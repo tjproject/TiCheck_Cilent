@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		130D555C1946EB3700D0621A /* AboutTicheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D555B1946EB3600D0621A /* AboutTicheckViewController.m */; };
 		131C6F9218F7CD1200654D6E /* TiCheck-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0620B0318D7242C003A7A55 /* TiCheck-Info.plist */; };
 		131C6F9318F7CD7200654D6E /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8D18F7CBE500654D6E /* Roboto-Bold.ttf */; };
 		131C6F9418F7CD7200654D6E /* Roboto-BoldCondensed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 131C6F8E18F7CBE500654D6E /* Roboto-BoldCondensed.ttf */; };
@@ -150,6 +151,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		130D555A1946EB3600D0621A /* AboutTicheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTicheckViewController.h; sourceTree = "<group>"; };
+		130D555B1946EB3600D0621A /* AboutTicheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTicheckViewController.m; sourceTree = "<group>"; };
 		131C6F8D18F7CBE500654D6E /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		131C6F8E18F7CBE500654D6E /* Roboto-BoldCondensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldCondensed.ttf"; sourceTree = "<group>"; };
 		131C6F8F18F7CBE500654D6E /* Roboto-Condensed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Condensed.ttf"; sourceTree = "<group>"; };
@@ -500,6 +503,8 @@
 				684B6EC9190CC4240046343D /* PassengerInfoTextFieldCell.m */,
 				684B6ECB190CC43F0046343D /* PassengerInfoPickerCell.h */,
 				684B6ECC190CC43F0046343D /* PassengerInfoPickerCell.m */,
+				130D555A1946EB3600D0621A /* AboutTicheckViewController.h */,
+				130D555B1946EB3600D0621A /* AboutTicheckViewController.m */,
 			);
 			name = PersonalCenter;
 			sourceTree = "<group>";
@@ -887,7 +892,7 @@
 				ORGANIZATIONNAME = tac;
 				TargetAttributes = {
 					A0620AF518D7242C003A7A55 = {
-						DevelopmentTeam = GS9T9X284M;
+						DevelopmentTeam = 6992736KPW;
 						SystemCapabilities = {
 							com.apple.Passbook = {
 								enabled = 1;
@@ -1066,6 +1071,7 @@
 				A0620B9918D727B6003A7A55 /* OTAFlightSearchResponse.m in Sources */,
 				13FA570918FB8D2300FD1C1F /* OIVCPassengerInfoView.m in Sources */,
 				684B6ECD190CC43F0046343D /* PassengerInfoPickerCell.m in Sources */,
+				130D555C1946EB3700D0621A /* AboutTicheckViewController.m in Sources */,
 				A0620B6C18D72772003A7A55 /* NSString+EnumTransform.m in Sources */,
 				A0452E2D18FE4A5200DED4EE /* Airport.m in Sources */,
 				A0620B9418D727B6003A7A55 /* OTAGetStatusChangedOrders.m in Sources */,
