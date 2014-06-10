@@ -102,7 +102,6 @@
     NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] addOrder:self.flightOrder];
     NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
     
-    
     if(returnCode == USER_LOGIN_SUCCESS)
     {
 
