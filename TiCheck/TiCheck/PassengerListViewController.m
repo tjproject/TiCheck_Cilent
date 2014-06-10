@@ -165,6 +165,26 @@
 }
 
 #pragma mark - UITableView delegate
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *result = [[ServerCommunicator sharedCommunicator] deleteContacts:[self.passengerList objectAtIndex:indexPath.row]];
+    if ([result[@"Code"] intValue] == 1) {
+        [self.passengerList removeObjectAtIndex:indexPath.row];
+    }
+    [tableView reloadData];
+    
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   return @"删除";
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 48;
