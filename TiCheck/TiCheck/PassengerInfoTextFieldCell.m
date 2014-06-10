@@ -47,10 +47,12 @@
     if(IS_IPHONE_LOWERINCHE)
     {
         CGRect frame = self.mainTableView.frame;
-        frame.origin.y -= self.cellIndex * 30;
+        
+        frame.size.height = 260;
         self.mainTableView.frame = frame;
         
-        self.mainTableView.userInteractionEnabled = NO;
+        self.mainTableView.scrollEnabled = YES;
+        //self.mainTableView.userInteractionEnabled = NO;
     }
     
     
@@ -65,10 +67,12 @@
     if(IS_IPHONE_LOWERINCHE)
     {
         CGRect frame = self.mainTableView.frame;
-        frame.origin.y += self.cellIndex * 30;
+        
+        frame.size.height = 480;
         self.mainTableView.frame = frame;
         
-        self.mainTableView.userInteractionEnabled = YES;
+        self.mainTableView.scrollEnabled = NO;
+        //self.mainTableView.userInteractionEnabled = YES;
     }
     
     [textField resignFirstResponder];

@@ -892,7 +892,7 @@
 				ORGANIZATIONNAME = tac;
 				TargetAttributes = {
 					A0620AF518D7242C003A7A55 = {
-						DevelopmentTeam = 6992736KPW;
+						DevelopmentTeam = NHPLK2W8XD;
 						SystemCapabilities = {
 							com.apple.Passbook = {
 								enabled = 1;
