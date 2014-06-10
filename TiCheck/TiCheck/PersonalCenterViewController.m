@@ -13,6 +13,7 @@
 #import "BookListViewController.h"
 //#import "PassengerEditViewController.h"
 #import "TickectInfoViewController.h"
+#import "AboutTicheckViewController.h"
 #import "UserData.h"
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
@@ -219,8 +220,8 @@ extern NSDictionary *notificationOption;
     }
     else if(indexPath.section == 1 && indexPath.row == 2)
     {
-        TickectInfoViewController *tiVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TickectInfoViewController"];
-        [self.navigationController pushViewController:tiVC animated:YES];
+        AboutTicheckViewController *atVC = [[AboutTicheckViewController alloc] init];
+        [self.navigationController pushViewController:atVC animated:YES];
     }
 }
 
