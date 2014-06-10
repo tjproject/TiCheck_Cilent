@@ -137,6 +137,7 @@
  */
 - (NSDictionary *)getSubscriptionInfo;//:(Subscription *)subscription;
 
+#pragma mark - Order
 /**
  *  添加订单
  *
@@ -155,6 +156,7 @@
  */
 - (NSDictionary *)getOrderInfo:(NSString *)tempOrderID;
 
+#pragma mark - Contact
 /**
  *  添加联系人
  *

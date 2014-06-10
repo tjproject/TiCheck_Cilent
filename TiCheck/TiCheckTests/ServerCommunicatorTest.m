@@ -11,6 +11,8 @@
 #import "Airline.h"
 #import "Subscription.h"
 #import "UserData.h"
+#import "Order.h"
+#import "Passenger.h"
 
 //#define DEBUG_MODE 1
 
@@ -24,11 +26,15 @@ bool isUserCreated;
 bool isUserLoggedIn;
 bool isDeviceAdded;
 bool isSubscriptionAdded;
+bool isContactAdded;
+
 ServerCommunicator *_server;
 NSString *_mail;
 NSString *_passwd;
 NSString *_deviceToken;
 Subscription *_subs;
+Order *_order;
+Passenger *_contact;
 
 + (void)setUp
 {
@@ -36,6 +42,7 @@ Subscription *_subs;
     isUserLoggedIn = false;
     isDeviceAdded = false;
     isSubscriptionAdded = false;
+    isContactAdded = false;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyyMMddHHmmSS"];
     NSString *date = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
@@ -46,6 +53,15 @@ Subscription *_subs;
     _deviceToken = @"asdfghjkl";
     
     _subs = [[Subscription alloc] initWithDepartCity:@"北京" arriveCity:@"上海" startDate:@"2015-11-11" endDate:@"2015-12-11"];
+    
+    _order = [[Order alloc] init];
+    
+    int i = 1;
+    _contact = [Passenger passengerWithPassengerName:[NSString stringWithFormat:@"Passenger + %d", i]
+                                            birthday:[NSDate date]
+                                        passportType:Passport
+                                          passportNo:[NSString stringWithFormat:@"%d%d%d%d%d", i, i, i, i, i]
+                                         isTemporary:false];
     
     [UserData sharedUserData].email=@"";
     [UserData sharedUserData].password=@"";
@@ -203,18 +219,102 @@ Subscription *_subs;
     }
 }
 
-- (void)testModifySubscription
+- (void)testGetSubscriptionInfo
 {
     [self testLogin];
     [self testCreateSubscription];
-    Subscription *newSubs = [[Subscription alloc] initWithDepartCity:@"上海" arriveCity:@"北京" startDate:@"2014-6-14" endDate:@"2014-6-15"];
-    NSDictionary *result = [_server modifySubscriptionWithOldSubscription:_subs asNewSubscription:newSubs];
-#if DEBUG_MODE
-    NSLog(@"modify result: %@", result);
-#endif
+    NSDictionary *result = [_server getSubscriptionInfo];
     int code = [result[@"Code"] intValue];
-    XCTAssertEqual(code, 1, @"modify subscription failed");
+    XCTAssertEqual(code, 1, @"get subscription info failed");
 }
+
+#pragma mark - Order
+
+- (void)testAddOrder
+{
+    
+}
+
+- (void)testGetOrderInfo
+{
+    [self testLogin];
+    NSDictionary *result = [_server getOrderInfo:nil];
+    int code = [result[@"Code"] intValue];
+    XCTAssertEqual(code, 1, @"get order info failed");
+}
+
+#pragma mark - Contact
+- (void)testAddContact
+{
+    if (isContactAdded) {
+        return;
+    }
+    [self testLogin];
+    NSDictionary *result = [_server addContacts:_contact];
+    int code = [result[@"Code"] intValue];
+    XCTAssertEqual(code, 1, @"add contact failed");
+    if (code == 1) {
+        isContactAdded = true;
+    }
+}
+
+- (void)testDeleteContact
+{
+    [self testLogin];
+    [self testAddContact];
+    
+    NSDictionary *result = [_server deleteContacts:_contact];
+    int code = [result[@"Code"] intValue];
+#if DEBUG_MODE
+    NSLog(@"delete contact result: %@", result);
+#endif
+    XCTAssertEqual(code, 1, @"delete contact failed");
+    if (code == 1) {
+        isContactAdded = false;
+    }
+}
+
+- (void)testModifyContact
+{
+    [self testAddContact];
+    
+    [self testLogin];
+    
+    int i=2;
+    Passenger *newContact = [Passenger passengerWithPassengerName:[NSString stringWithFormat:@"Passenger + %d", i]
+                                                         birthday:[NSDate date]
+                                                     passportType:Passport
+                                                       passportNo:[NSString stringWithFormat:@"%d%d%d%d%d", i, i, i, i, i]
+                                                      isTemporary:false];
+    
+    NSDictionary *result = [_server modifyContact:_contact toNewContact:newContact];
+    int code = [result[@"Code"] intValue];
+    XCTAssertEqual(code, 1, @"modify contact failed");
+    if (code == 1) {
+        isContactAdded = false;
+    }
+}
+
+- (void)testGetContact
+{
+    [self testLogin];
+    NSDictionary *result = [_server getContacts:nil];
+    int code = [result[@"Code"] intValue];
+    XCTAssertEqual(code, 1, @"get contact info failed");
+}
+
+//- (void)testModifySubscription
+//{
+//    [self testLogin];
+//    [self testCreateSubscription];
+//    Subscription *newSubs = [[Subscription alloc] initWithDepartCity:@"上海" arriveCity:@"北京" startDate:@"2014-6-14" endDate:@"2014-6-15"];
+//    NSDictionary *result = [_server modifySubscriptionWithOldSubscription:_subs asNewSubscription:newSubs];
+//#if DEBUG_MODE
+//    NSLog(@"modify result: %@", result);
+//#endif
+//    int code = [result[@"Code"] intValue];
+//    XCTAssertEqual(code, 1, @"modify subscription failed");
+//}
 
 #pragma mark - Airline Company
 - (void)testGetAirline
