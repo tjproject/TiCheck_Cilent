@@ -21,6 +21,7 @@
 #import "NSString+EnumTransform.h"
 
 #import "SearchViewController.h"
+#import "ServerCommunicator.h"
 
 #define SEGUE_TAG 4000
 
@@ -214,6 +215,9 @@
 
 - (void)cancelPressed
 {
+    NSDictionary *resultDictionary = [[ServerCommunicator sharedCommunicator] deleteOrder:_OIVC_Order];
+    NSLog(@"%@",resultDictionary);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)confirmButtonPressed:(id)sender

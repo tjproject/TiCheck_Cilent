@@ -292,6 +292,34 @@
     return nil;
 }
 
+- (NSDictionary*)deleteOrder:(Order*)order
+{
+    NSDictionary *orderInfo = [order dictionaryWithOrderOption];
+    NSDictionary *userInfo = [self currentUserJsonDataDictionaryWithAccount:NO];
+    
+    if([NSJSONSerialization isValidJSONObject:orderInfo])
+    {
+        NSData *orderDetailJsonData = [NSJSONSerialization dataWithJSONObject:orderInfo options:NSJSONWritingPrettyPrinted error:nil];
+        //NSLog(@"%@", error);
+        NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSDictionary *OrderIDDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:order.OrderID,@"OrderID", nil];
+        
+        NSData *orderIdInfoJsonData = [NSJSONSerialization dataWithJSONObject:OrderIDDictionary options:NSJSONWritingPrettyPrinted error:nil];
+        //
+        NSString *requestString = [NSString stringWithFormat:@"User=%@&TempOrder=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding], [[NSString alloc] initWithData:orderIdInfoJsonData encoding:NSUTF8StringEncoding]];
+        NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"%@",requestString);
+        //
+        NSData *responseData = [ServerRequest getServerOrderResponseWithServerURL:SERVER_URL requestType:Cancel_Order jsonData:jsonBody];
+        
+        return [self responseDataToJSONDictionary:responseData];
+    }
+    else{
+    }
+    return nil;
+}
+
 
 # pragma mark - contact
 
