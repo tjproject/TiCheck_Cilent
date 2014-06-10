@@ -30,7 +30,7 @@
 //+ (NSString *)orderStatusToString:(OrderStatus)orderStatus;
 
 + (NSString *)genderToString:(Gender)gender;
-+ (NSString *)flightOrderClassToString:(FlightOrderClass)flightOrderClass;
+//+ (NSString *)flightOrderClassToString:(FlightOrderClass)flightOrderClass;
 
 + (NSString *)classGradeToChinese:(ClassGrade)classGrade;
 
@@ -46,8 +46,8 @@
 + (OrderDirection)orderDirectionFromString:(NSString *)orderDirection;
 
 + (AgeType)ageTypeFromString:(NSString *)ageType;
-+ (ConfirmOption)confirmOptionFromString:(NSString *)confirmOption;
-+ (DeliveryType)deliveryTypeFromString:(NSString *)deliveryType;
+//+ (ConfirmOption)confirmOptionFromString:(NSString *)confirmOption;
+//+ (DeliveryType)deliveryTypeFromString:(NSString *)deliveryType;
 + (InventoryType)inventoryTypeFromString:(NSString *)inventoryType;
 
 + (OrderStatus)orderStatusFromString:(NSString *)orderStatus;

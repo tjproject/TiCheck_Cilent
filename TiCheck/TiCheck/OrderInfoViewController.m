@@ -121,7 +121,7 @@
     arriveTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 215, 100, 50)];
     if (_OIVC_Order)
     {
-        Flight *tempFlight = [self.OIVC_Order.flightsList objectAtIndex:0];
+//        Flight *tempFlight = [self.OIVC_Order.flightsList objectAtIndex:0];
         NSDate *departTime = ((Flight*)[self.OIVC_Order.flightsList objectAtIndex:0]).takeOffTime;
         departTimeLabel.text = [NSString showingStringFormatWithString:departTime];
         arriveTimeLabel.text = [NSString showingStringFormatWithString:[[_OIVC_Order.flightsList objectAtIndex:0] arrivalTime]];

@@ -45,7 +45,6 @@
     NSData *userInfoJsonData = [NSJSONSerialization dataWithJSONObject:userInfo options:NSJSONWritingPrettyPrinted error:nil];
     NSString *requestString = [NSString stringWithFormat:@"User=%@", [[NSString alloc] initWithData:userInfoJsonData encoding:NSUTF8StringEncoding]];
     NSData *jsonBody = [requestString dataUsingEncoding:NSUTF8StringEncoding];
-
     NSData *responseData = [ServerRequest getServerUserResponseWithServerURL:SERVER_URL requestType:Create_User jsonData:jsonBody];
 
     return [self responseDataToJSONDictionary:responseData];

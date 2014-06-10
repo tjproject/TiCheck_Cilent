@@ -9,17 +9,54 @@
 #import <XCTest/XCTest.h>
 #import "ServerCommunicator.h"
 #import "Airline.h"
+#import "Subscription.h"
+#import "UserData.h"
+
+//#define DEBUG_MODE 1
 
 @interface ServerCommunicatorTest : XCTestCase
-@property (nonatomic, weak) ServerCommunicator *server;
+
+
 @end
 
 @implementation ServerCommunicatorTest
-@synthesize server = _server;
+bool isUserCreated;
+bool isUserLoggedIn;
+bool isDeviceAdded;
+bool isSubscriptionAdded;
+ServerCommunicator *_server;
+NSString *_mail;
+NSString *_passwd;
+NSString *_deviceToken;
+Subscription *_subs;
+
++ (void)setUp
+{
+    isUserCreated = false;
+    isUserLoggedIn = false;
+    isDeviceAdded = false;
+    isSubscriptionAdded = false;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMddHHmmSS"];
+    NSString *date = [formatter stringFromDate:[NSDate dateWithTimeIntervalSinceNow:0]];
+    //    NSLog(@"date: %@", date);
+    _mail = [NSString stringWithFormat:@"%@@test.com", date];
+    _server = [ServerCommunicator sharedCommunicator];
+    _passwd = @"asdfghjkl";
+    _deviceToken = @"asdfghjkl";
+    
+    _subs = [[Subscription alloc] initWithDepartCity:@"北京" arriveCity:@"上海" startDate:@"2015-11-11" endDate:@"2015-12-11"];
+    
+    [UserData sharedUserData].email=@"";
+    [UserData sharedUserData].password=@"";
+    [UserData sharedUserData].userName=@"";
+    [UserData sharedUserData].uniqueID = @"";
+    [UserData sharedUserData].pushable = @"";
+}
+
 - (void)setUp
 {
     [super setUp];
-    _server = [ServerCommunicator sharedCommunicator];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -29,48 +66,59 @@
     [super tearDown];
 }
 
+#pragma mark - User
+
+#pragma mark create
 - (void)testCreateUser
 {
-    NSDictionary *result = [_server createUserWithEmail:@"hello@test.com" password:@"asdfghjkl" account:@"okaaa" uniqueID:@"sdfghjtyui"];
-    NSLog(@"returned dictionary: %@", result);
-    XCTAssertEqual([result[@"Code"] integerValue], 1, @"meesage returned wrongly");
+    if (isUserCreated) {
+        return;
+    }
+    NSString *mail = [NSString stringWithFormat:_mail, [NSDateFormatter dateFormatFromTemplate:@"ymds" options:0 locale:[NSLocale currentLocale]]];
+    NSLog(@"%@", mail);
+    NSDictionary *result = [_server createUserWithEmail:mail password:@"asdfghjkl" account:@"" uniqueID:@""];
+#if DEBUG_MODE
+    NSLog(@"create user result: %@", result);
+#endif
+    XCTAssertEqual([result[@"Code"] integerValue], 1, @"create user failed");
+    isUserCreated = [result[@"Code"] intValue]==1 ? true : false;
 }
 
-- (void)testCreateUserEmailFormat1
+- (void)testCreateUserEmailFormatNoAt
 {
     NSDictionary *result = [_server createUserWithEmail:@"aaa" password:@"asdfghjkl" account:@"" uniqueID:@""];
-    NSLog(@"returned dictionary: %@", result);
+//    NSLog(@"returned dictionary: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
     result = [_server createUserWithEmail:@"aaa@a" password:@"asdfghjkl" account:@"" uniqueID:@""];
-    NSLog(@"returned dictionary: %@", result);
+//    NSLog(@"returned dictionary: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
 }
 
-- (void)testCreateUserEmailFormat2
+- (void)testCreateUserEmailFormatNoDomain
 {
     NSDictionary *result = [_server createUserWithEmail:@"aaa@a" password:@"asdfghjkl" account:@"" uniqueID:@""];
-    NSLog(@"returned dictionary: %@", result);
+//    NSLog(@"returned dictionary: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
 }
 
-- (void)testCreateUserEmailFormat3
+- (void)testCreateUserEmailFormatNoAtButHasDot
 {
     NSDictionary *result = [_server createUserWithEmail:@"aaa.a" password:@"asdfghjkl" account:@"" uniqueID:@""];
-    NSLog(@"returned dictionary: %@", result);
+//    NSLog(@"returned dictionary: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
 }
 
 - (void)testCreateUserPasswordFormatOneChar
 {
     NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:@"a" account:@"" uniqueID:@""];
-    NSLog(@"returned dictionary: %@", result);
+//    NSLog(@"returned dictionary: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
 }
 
 - (void)testCreateUserPasswordFormatEmpty
 {
-    NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:@"" account:nil uniqueID:nil];
-    NSLog(@"returned dictionary: %@", result);
+    NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:@"" account:@"" uniqueID:@""];
+//    NSLog(@"returned dictionary: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
 }
 
@@ -84,10 +132,88 @@
 
 - (void)testCreateUserPasswordFormatLengthMin
 {
-    NSString *passwd = @"aaaaa";
-    XCTAssertEqual(passwd.length, 5, @"passwd length not equals 5");
+    NSString *passwd = @"aaaa";
+    XCTAssertEqual(passwd.length, 4, @"passwd length not equals 5");
     NSDictionary *result = [_server createUserWithEmail:@"aaa@aaa.com" password:passwd account:@"" uniqueID:@""];
+//    NSLog(@"passwd min: %@", result);
     XCTAssertEqual([result[@"Code"] integerValue], 3, @"meesage returned wrongly");
+}
+
+#pragma mark log in
+- (void)testLogin
+{
+    if (!isUserCreated) {
+        [self testCreateUser];
+    }
+    if (isUserLoggedIn) {
+        return;
+    }
+    NSDictionary *result = [_server loginVerifyWithEmail:_mail password:@"asdfghjkl"];
+
+    
+//    NSLog(@"log in result: %@", result);
+    XCTAssertEqual([result[@"Code"] intValue], 1, @"log in failed");
+    if ([result[@"Code"] intValue]==1) {
+        isUserLoggedIn = true;
+        [UserData sharedUserData].email = _mail;
+        [UserData sharedUserData].password = _passwd;
+    }
+}
+
+#pragma mark device token
+- (void)testAddDeviceToken
+{
+    if (isDeviceAdded) {
+        return;
+    }
+    [self testLogin];
+    NSDictionary *result = [_server addTokenForCurrentUser:_deviceToken];
+    XCTAssertEqual([result[@"Code"] intValue], 1, @"add device token failed");
+    if ([result[@"Code"] intValue] == 1) {
+        isDeviceAdded = true;
+    }
+}
+
+- (void)testRemoveDevice
+{
+    [self testAddDeviceToken];
+    NSDictionary *result = [_server removeTokenForCurrentUser:_deviceToken];
+    int code = [result[@"Code"] intValue];
+    XCTAssertEqual(code, 1, @"remove device failed");
+    if (code == 1) {
+        isDeviceAdded = false;
+    }
+}
+
+#pragma mark - Subscription
+- (void)testCreateSubscription
+{
+    if (isSubscriptionAdded) {
+        return;
+    }
+    [self testLogin];
+    NSDictionary *result = [_server createSubscriptionWithSubscription:_subs];
+#if DEBUG_MODE
+    NSLog(@"subscription result: %@", result);
+#endif
+    int code = [result[@"Code"] intValue];
+    XCTAssertEqual(code, 1, @"create subscription failed");
+    if (code == 1) {
+        isSubscriptionAdded = true;
+    }
+}
+
+- (void)testModifySubscription
+{
+    [self testLogin];
+    [self testCreateSubscription];
+    Subscription *newSubs = [[Subscription alloc] initWithDepartCity:@"上海" arriveCity:@"北京" startDate:@"2014-6-14" endDate:@"2014-6-15"];
+    NSDictionary *result = [_server modifySubscriptionWithOldSubscription:_subs asNewSubscription:newSubs];
+#if DEBUG_MODE
+    NSLog(@"modify result: %@", result);
+#endif
+    int code = [result[@"Code"] intValue];
+    XCTAssertEqual(code, 1, @"modify subscription failed");
 }
 
 #pragma mark - Airline Company

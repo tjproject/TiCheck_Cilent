@@ -47,8 +47,8 @@
     NSString *effectDate       = [NSString stringWithFormat:@"&lt;EffectDate&gt;%@&lt;/EffectDate&gt;", [NSString stringFormatWithTime:_effectDate]];
     NSString *expiryDate       = [NSString stringWithFormat:@"&lt;ExpiryDate&gt;%@&lt;/ExpiryDate&gt;", [NSString stringFormatWithTime:_expiryDate]];
     NSString *orderID          = [NSString stringWithFormat:@"&lt;OrderID&gt;%@&lt;/OrderID&gt;", _orderID];
-    NSString *orderStatus      = [NSString stringWithFormat:@"&lt;OrderStatus&gt;%lu&lt;/OrderStatus&gt;", _orderStatus];
-    NSString *topCount         = [NSString stringWithFormat:@"&lt;TopCount&gt;%ld&lt;/TopCount&gt;", _topCount];
+    NSString *orderStatus      = [NSString stringWithFormat:@"&lt;OrderStatus&gt;%u&lt;/OrderStatus&gt;", _orderStatus];
+    NSString *topCount         = [NSString stringWithFormat:@"&lt;TopCount&gt;%d&lt;/TopCount&gt;", _topCount];
     NSString *orderType        = [NSString stringWithFormat:@"&lt;OrderType&gt;D&lt;/OrderType&gt;"];
 
     NSString *orderListRequest = [NSString stringWithFormat:

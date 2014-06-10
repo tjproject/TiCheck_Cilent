@@ -57,9 +57,9 @@
     
     
     // 添加 取消／完成按钮
-    UIBarButtonItem *cancel=[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonFunction:)];
+    UIBarButtonItem *cancel=[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonFunction:)];
     
-    UIBarButtonItem *done=[[UIBarButtonItem alloc] initWithTitle:self.navigationBarDoneItemString style:UIBarButtonSystemItemDone target:self action:@selector(doneButtonFunction:)];
+    UIBarButtonItem *done=[[UIBarButtonItem alloc] initWithTitle:self.navigationBarDoneItemString style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonFunction:)];
     
     
     self.navigationItem.leftBarButtonItem=cancel;

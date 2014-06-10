@@ -40,6 +40,7 @@
     NSString *allianceID     = [NSString stringWithFormat:@"&lt;AllianceID&gt;%d&lt;/AllianceID&gt;", ALLIANCE_ID];
     NSString *stationID      = [NSString stringWithFormat:@"&lt;SID&gt;%d&lt;/SID&gt;", STATION_ID];
     NSString *uidKey         = [NSString stringWithFormat:@"&lt;UidKey&gt;%@&lt;/UidKey&gt;", _uidKey];
+#warning 手机号没有加入用户信息xml？
     NSString *telphoneNumber = [NSString stringWithFormat:@"&lt;TelphoneNumber&gt;%@&lt;/TelphoneNumber&gt;", _telphoneNumber];
 
     NSString *userRequest    = [NSString stringWithFormat:

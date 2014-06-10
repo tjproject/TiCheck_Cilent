@@ -73,7 +73,7 @@ const NSArray *___FlightRequestFileName;
                                   webServiceName:(NSString *)serviceName
                                   xmlRequestBody:(NSString *)requestBody
 {
-    NSLog(@"request type = %lu, string = %@", requestType, cFlightRequestFileNameString(requestType));
+    NSLog(@"request type = %u, string = %@", requestType, cFlightRequestFileNameString(requestType));
     return [self getSoap11WebServiceResponse:webURL
                               webServiceFile:cFlightRequestFileNameString(requestType)
                                 xmlNameSpace:nameSpace

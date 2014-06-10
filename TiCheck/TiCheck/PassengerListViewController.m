@@ -238,7 +238,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     //get the last view controller, reload table view data
-    TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
+//    TickectInfoViewController *tiVC= (TickectInfoViewController *)[self.navigationController visibleViewController];
 }
 
 #pragma mark - Navigation

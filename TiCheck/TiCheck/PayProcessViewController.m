@@ -296,9 +296,9 @@
 
 #pragma mark - flight pay Helper
 
-- (void)sendFlightPayPost:(NSString *)orderID
+- (void)sendFlightPayPost:(NSString *)_orderID
 {
-    Order *tempOrder = [Order orderWithOrderId:orderID
+    Order *tempOrder = [Order orderWithOrderId:_orderID
                                    flightsList:flightOrderRequest.flightInfoList
                                 passengersList:flightOrderRequest.passengerList
                                    orderStatus:Deal

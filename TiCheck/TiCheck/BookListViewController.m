@@ -91,13 +91,13 @@ extern NSDictionary *notificationOption;
         NSInteger subsId = [notificationOption[@"ID"] integerValue];
         NSUInteger sectionId;
         notificationOption = nil;
-        NSLog(@"%ld", subsId);
+        NSLog(@"%d", subsId);
         
         for (Subscription *subs in self.subscriptionArray) {
             if ([subs.ID integerValue] == subsId) {
                 NSLog(@"find the subscription");
                 sectionId = [self.subscriptionArray indexOfObject:subs];
-                NSLog(@"%ld", sectionId);
+                NSLog(@"%d", sectionId);
                 NSIndexPath *toChangedCell;
                 if ([[self.flightListArray objectAtIndex:sectionId] count] == 0)
                 {

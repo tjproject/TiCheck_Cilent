@@ -231,9 +231,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *fromToCellIdentifier = @"FromToCell";
-    static NSString *dateCellIdentifier = @"DateCell";
-    static NSString *isReturnCellIdentifier = @"IsReturnCell";
+//    static NSString *fromToCellIdentifier = @"FromToCell";
+//    static NSString *dateCellIdentifier = @"DateCell";
+//    static NSString *isReturnCellIdentifier = @"IsReturnCell";
     static NSString *showMoreCellIdentifier = @"ShowMoreCell";
     static NSString *generalOptionCellIdentifier = @"GeneralOptionCell";
     

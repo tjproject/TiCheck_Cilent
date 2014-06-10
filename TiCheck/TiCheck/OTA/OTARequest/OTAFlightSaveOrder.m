@@ -88,8 +88,8 @@
     NSString *flights = @"&lt;FlightInfoList&gt;\n";
     
     for (Flight *flight in _flightInfoList) {
-        NSString *departCity  = [NSString stringWithFormat:@"&lt;DepartCityID&gt;%ld&lt;/DepartCityID&gt;", flight.departCityID];
-        NSString *arriveCity  = [NSString stringWithFormat:@"&lt;ArriveCityID&gt;%ld&lt;/ArriveCityID&gt;", flight.arriveCityID];
+        NSString *departCity  = [NSString stringWithFormat:@"&lt;DepartCityID&gt;%d&lt;/DepartCityID&gt;", flight.departCityID];
+        NSString *arriveCity  = [NSString stringWithFormat:@"&lt;ArriveCityID&gt;%d&lt;/ArriveCityID&gt;", flight.arriveCityID];
         NSString *departPort  = [NSString stringWithFormat:@"&lt;DPortCode&gt;%@&lt;/DPortCode&gt;", flight.departPortCode];
         NSString *arrivePort  = [NSString stringWithFormat:@"&lt;APortCode&gt;%@&lt;/APortCode&gt;", flight.arrivePortCode];
         NSString *airline     = [NSString stringWithFormat:@"&lt;AirlineCode&gt;%@&lt;/AirlineCode&gt;", flight.airlineDibitCode];
@@ -106,20 +106,20 @@
         // !!! 此处计算amount值
         switch (_ageType) {
             case ADU:
-                price   = [NSString stringWithFormat:@"&lt;Price&gt;%ld&lt;/Price&gt;", flight.standardPrice];
-                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.adultTax];
+                price   = [NSString stringWithFormat:@"&lt;Price&gt;%d&lt;/Price&gt;", flight.standardPrice];
+                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%d&lt;/Tax&gt;", flight.adultTax];
                 oilFee  = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.adultOilFee];
                 _amount = flight.standardPrice + flight.adultTax + flight.adultOilFee;
                 break;
             case CHI:
-                price   = [NSString stringWithFormat:@"&lt;Price&gt;%ld&lt;/Price&gt;", flight.childStandardPrice];
-                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.childTax];
+                price   = [NSString stringWithFormat:@"&lt;Price&gt;%d&lt;/Price&gt;", flight.childStandardPrice];
+                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%d&lt;/Tax&gt;", flight.childTax];
                 oilFee  = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.childOilFee];
                 _amount = flight.childStandardPrice + flight.childTax + flight.childOilFee;
                 break;
             case BAB:
-                price   = [NSString stringWithFormat:@"&lt;Price&gt;%ld&lt;/Price&gt;", flight.babyStandardPrice];
-                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%ld&lt;/Tax&gt;", flight.babyTax];
+                price   = [NSString stringWithFormat:@"&lt;Price&gt;%d&lt;/Price&gt;", flight.babyStandardPrice];
+                tax     = [NSString stringWithFormat:@"&lt;Tax&gt;%d&lt;/Tax&gt;", flight.babyTax];
                 oilFee  = [NSString stringWithFormat:@"&lt;OilFee&gt;%f&lt;/OilFee&gt;", flight.babyOilFee];
                 _amount = flight.babyStandardPrice + flight.babyTax + flight.babyOilFee;
                 break;
@@ -132,21 +132,21 @@
         NSString *endNote            = [NSString stringWithFormat:@"&lt;EndNote&gt;%@&lt;/EndNote&gt;", flight.endNote];
         NSString *remark             = [NSString stringWithFormat:@"&lt;Remark&gt;%@&lt;/Remark&gt;", flight.remarks];
         NSString *needAppl           = [NSString stringWithFormat:@"&lt;NeedAppl&gt;%@&lt;/NeedAppl&gt;", (flight.needApplyString ? @"T" : @"F")];
-        NSString *recommend          = [NSString stringWithFormat:@"&lt;Recommend&gt;%ld&lt;/Recommend&gt;", flight.recommend];
+        NSString *recommend          = [NSString stringWithFormat:@"&lt;Recommend&gt;%d&lt;/Recommend&gt;", flight.recommend];
         NSString *canPost            = [NSString stringWithFormat:@"&lt;Canpost&gt;%@&lt;/Canpost&gt;", (flight.canPost ? @"T": @"F")];
         NSString *craftType          = [NSString stringWithFormat:@"&lt;CraftType&gt;%@&lt;/CraftType&gt;", flight.craftType];
-        NSString *quantity           = [NSString stringWithFormat:@"&lt;Quantity&gt;%ld&lt;/Quantity&gt;", flight.quantity];
-        NSString *refundFeeFormulaID = [NSString stringWithFormat:@"&lt;RefundFeeFormulaID&gt;%ld&lt;/RefundFeeFormulaID&gt;", flight.refundFeeFormulaID];
+        NSString *quantity           = [NSString stringWithFormat:@"&lt;Quantity&gt;%d&lt;/Quantity&gt;", flight.quantity];
+        NSString *refundFeeFormulaID = [NSString stringWithFormat:@"&lt;RefundFeeFormulaID&gt;%d&lt;/RefundFeeFormulaID&gt;", flight.refundFeeFormulaID];
         NSString *upGrade            = [NSString stringWithFormat:@"&lt;UpGrade&gt;%@&lt;/UpGrade&gt;", (flight.canUpGrade ? @"T" : @"F")];
         NSString *ticketType         = [NSString stringWithFormat:@"&lt;TicketType&gt;%@&lt;/TicketType&gt;", flight.ticketType];
         NSString *allowCPType        = [NSString stringWithFormat:@"&lt;AllowCPType&gt;%@&lt;/AllowCPType&gt;", flight.allowCPType];
         NSString *productType        = [NSString stringWithFormat:@"&lt;ProductType&gt;%@&lt;/ProductType&gt;", [NSString productTypeToString:flight.productType]];
-        NSString *productSource      = [NSString stringWithFormat:@"&lt;ProductSource&gt;%ld&lt;/ProductSource&gt;", flight.productSource];
+        NSString *productSource      = [NSString stringWithFormat:@"&lt;ProductSource&gt;%d&lt;/ProductSource&gt;", flight.productSource];
         NSString *inventoryType      = [NSString stringWithFormat:@"&lt;InventoryType&gt;%@&lt;/InventoryType&gt;", [NSString inventoryTypeToString:flight.inventoryType]];
         NSString *priceType          = [NSString stringWithFormat:@"&lt;PriceType&gt;%@&lt;/PriceType&gt;", [NSString priceTypeToString:flight.priceType]];
         NSString *onlyOwnCity        = [NSString stringWithFormat:@"&lt;Onlyowncity&gt;%@&lt;/Onlyowncity&gt;", (flight.onlyOwnCity ? @"true" : @"false")];
         NSString *canSeparateSale    = [NSString stringWithFormat:@"&lt;CanSeparateSale /&gt;"];
-        NSString *routeIndex         = [NSString stringWithFormat:@"&lt;RouteIndex&gt;%ld&lt;/RouteIndex&gt;", flight.routeIndex];
+        NSString *routeIndex         = [NSString stringWithFormat:@"&lt;RouteIndex&gt;%d&lt;/RouteIndex&gt;", flight.routeIndex];
         
         NSString *flightInfoRequest  = [NSString stringWithFormat:
                                         @"&lt;FlightInfoRequest&gt;\n"
@@ -306,7 +306,7 @@
     NSString *isClient         = [NSString stringWithFormat:@"&lt;IsClient&gt;%@&lt;/IsClient&gt;", (_creditCardInfo.isClient ? @"true" : @"false")];
     NSString *cCardPayFee      = [NSString stringWithFormat:@"&lt;CCardPayFee&gt;%f&lt;/CCardPayFee&gt;", _creditCardInfo.cCardPayFee];
     NSString *cCardPayFeeRate  = [NSString stringWithFormat:@"&lt;CCardPayFeeRate&gt;%f&lt;/CCardPayFeeRate&gt;", _creditCardInfo.cCardPayFeeRate];
-    NSString *exponent         = [NSString stringWithFormat:@"&lt;Exponent&gt;%lu&lt;/Exponent&gt;", _creditCardInfo.exponent];
+    NSString *exponent         = [NSString stringWithFormat:@"&lt;Exponent&gt;%u&lt;/Exponent&gt;", _creditCardInfo.exponent];
     NSString *exchangeRate     = [NSString stringWithFormat:@"&lt;ExchangeRate&gt;%@&lt;/ExchangeRate&gt;", _creditCardInfo.exchangeRate];
     NSString *fAmount          = [NSString stringWithFormat:@"&lt;FAmount&gt;%@&lt;/FAmount&gt;", _creditCardInfo.fAmount];
 

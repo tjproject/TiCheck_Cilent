@@ -117,7 +117,7 @@ static float scrollViewHeight=169;
     UINavigationController *viewController = [[UINavigationController alloc] initWithRootViewController:pVC];
     viewController.navigationBar.barTintColor = [UIColor colorWithRed:0.05 green:0.64 blue:0.87 alpha:1.0];
     viewController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [self presentModalViewController:viewController animated:YES];
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -490,7 +490,7 @@ static float scrollViewHeight=169;
     toUpdateCell.endTime.text = [NSString showingStringFormatWithString:flight.arrivalTime];
     toUpdateCell.address.text = [NSString stringWithFormat:@"%@——%@", flight.departPortShortName, flight.arrivePortShortName];
     toUpdateCell.flightNumber.text = flight.flightNumber;
-    toUpdateCell.price.text = [NSString stringWithFormat:@"￥%ld", flight.price];
+    toUpdateCell.price.text = [NSString stringWithFormat:@"￥%d", flight.price];
     if (flight.rate == 1.0f) {
         toUpdateCell.discount.text = @"全价";
     } else {
@@ -534,12 +534,12 @@ static float scrollViewHeight=169;
         result = [[NSMutableAttributedString alloc] initWithString:searching
                                                         attributes:attributesForOriginalString];
     } else if (resultCount == 0) {
-        NSString *noResult = [NSString stringWithFormat:@"%ld月%ld日没有合适的机票", month, day];
+        NSString *noResult = [NSString stringWithFormat:@"%d月%d日没有合适的机票", month, day];
         result = [[NSMutableAttributedString alloc] initWithString:noResult
                                                         attributes:attributesForOriginalString];
     } else {
-        NSString *beforeResult = [NSString stringWithFormat:@"为您在%ld月%ld日找到", month, day];
-        NSString *number = [NSString stringWithFormat:@"%ld", resultCount];
+        NSString *beforeResult = [NSString stringWithFormat:@"为您在%d月%d日找到", month, day];
+        NSString *number = [NSString stringWithFormat:@"%d", resultCount];
         NSString *afterResult = [NSString stringWithFormat:@"张低价票"];
         NSString *wholeResult = [NSString stringWithFormat:@"%@%@%@", beforeResult, number, afterResult];
         

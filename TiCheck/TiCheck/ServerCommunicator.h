@@ -43,6 +43,7 @@
  */
 + (ServerCommunicator *)sharedCommunicator;
 
+#pragma mark - User
 /**
  *  创建用户
  *
@@ -81,6 +82,7 @@
  */
 - (NSDictionary *)userInfoFetch;
 
+#pragma mark User Device Token
 /**
  *  将当前用户的token添加到服务器
  *
@@ -99,6 +101,7 @@
  */
 - (NSDictionary *)removeTokenForCurrentUser:(NSString *)token;
 
+#pragma mark - Subscription
 /**
  *  使用订阅类创建订阅
  *
@@ -126,7 +129,6 @@
  *  @return 返回消息的Dictionary
  */
 - (NSDictionary *)cancelSubscriptionWithSubscription:(Subscription *)subscription;
-
 
 /**
  *  获取订阅
