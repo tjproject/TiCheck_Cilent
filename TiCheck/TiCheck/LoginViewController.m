@@ -50,6 +50,12 @@ extern NSString *mDeviceToken;
     NSString* account=self.userName.text;
     NSString* password=[[ConfigurationHelper sharedConfigurationHelper] md5:self.password.text];
     
+    
+    //去除键盘
+    [self.userName resignFirstResponder];
+    [self.password resignFirstResponder];
+    
+    
     [[UserData sharedUserData] loginWithAccout:account andPassword:password inViewController:self];
     
     if (mDeviceToken != nil) {
