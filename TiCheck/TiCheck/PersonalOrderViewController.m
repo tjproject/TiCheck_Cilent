@@ -45,15 +45,24 @@
 {
     [super viewDidLoad];
     
-    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
+    if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection])
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络，重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
+        return ;
     }
     else
     {
-        [self initOrderData];
-        [self initVessel];
+        if (![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection]) {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器例行维护中，稍后再试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            return ;
+        }
+        else
+        {
+            [self initOrderData];
+            [self initVessel];
+        }
     }
 }
 
@@ -113,10 +122,11 @@
         
     }
     CraftType *tempCT = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] craftType]];
-    
+    NSString *planeType = [tempCT craftKindShowingOnResultInTicketInfo];
+    if (planeType == nil) planeType = @"未知机型";
     Flight *flight = [[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0];
     [cell initOrderInfoWithFlight:[NSString stringWithFormat:@"%@%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] flightNumber]]
-                            Plane:[NSString stringWithFormat:@"%@ %@",[tempCT craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]]
+                            Plane:[NSString stringWithFormat:@"%@ %@",planeType,[NSString classGradeToChinese:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] classGrade]]]
                              Time:[NSString stringFormatWithDate: flight.takeOffTime]
                             Place:[NSString stringWithFormat:@"%@-%@",[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] departPortShortName],[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] arrivePortShortName]]
                       FlightImage:[UIImage imageNamed:[[[[orderList objectAtIndex:indexPath.row] flightsList] objectAtIndex:0] airlineDibitCode]]];

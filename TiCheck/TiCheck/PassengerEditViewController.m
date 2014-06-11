@@ -84,14 +84,19 @@
         self.passengerInfo.passportNumber = nil;
         self.passengerInfo.contactTelephone = nil;
         
-        [self.passengerInfo savePassenger];
+        //[self.passengerInfo savePassenger];
         
         isAddingNewItem = YES;
     }
     else
     {
         //保存被修改乘客的原有信息
-        self.oldPassengerInfo = [Passenger MR_createEntity];
+        self.oldPassengerInfo = [Passenger passengerWithPassengerName:nil
+                                                             birthday:nil
+                                                         passportType:0
+                                                           passportNo:nil
+                                                          isTemporary:YES];
+        
         self.oldPassengerInfo.passengerName = [NSString stringWithString:self.passengerInfo.passengerName];
         self.oldPassengerInfo.gender = [NSNumber numberWithInt: [self.passengerInfo.gender integerValue]];
         self.oldPassengerInfo.birthDay = self.passengerInfo.birthDay;
@@ -547,17 +552,41 @@
 #pragma mark - navigation button event
 -(void) cancelButtonFunction:(id)sender
 {
+    //恢复 本机数据
+    self.passengerInfo.passengerName = self.oldPassengerInfo.passengerName;
+    self.passengerInfo.birthDay = self.oldPassengerInfo.birthDay;
+    self.passengerInfo.gender = self.oldPassengerInfo.gender;
+    self.passengerInfo.passportType = self.oldPassengerInfo.passportType;
+    self.passengerInfo.passportNumber = self.oldPassengerInfo.passportNumber;
+    self.passengerInfo.contactTelephone = self.oldPassengerInfo.contactTelephone;
+
+    [self.passengerInfo savePassenger];
+    
+    
     //[self dismissViewControllerAnimated:YES completion:NULL];
     [self.navigationController popViewControllerAnimated:YES];
     //get the last view controller, reload table view data
     PassengerListViewController *plVC= (PassengerListViewController *)[self.navigationController visibleViewController];
     [plVC initPassengerListData];
     [plVC.passengerListTableView reloadData];
+    
+    
+    NSArray* temp = [Passenger findAllPassengers];
 }
 
 - (void) doneButtonFunction:(id) sender
 {
+    if(IS_IPHONE_LOWERINCHE)
+    {
+        CGRect frame = self.passengerInfoTableView.frame;
+        frame.size.height = 480;
+        self.passengerInfoTableView.frame = frame;
+        self.passengerInfoTableView.scrollEnabled = NO;
+        //self.mainTableView.userInteractionEnabled = YES;
+    }
+
     [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
+    
     if ([self checkInfo:self.passengerInfo])
     {
         //update
@@ -586,6 +615,10 @@
             
             [self.passengerInfo savePassenger];
 //            NSArray *test = [Passenger findAllPassengers];
+//            Passenger* te = (Passenger*)[test objectAtIndex:1];
+//            NSString* t = te.passengerName;
+//            int i =1;
+//            i -= 1;
         }
         else
         {
@@ -627,18 +660,19 @@
 - (void) setPassengerInfo:(Passenger*) passengerInfo ByTableViewData:(UITableView*)tableView
 {
     //set passengerInfo
-    NSIndexPath* path=[NSIndexPath indexPathForRow: 0 inSection:0];
+    NSIndexPath* path = [NSIndexPath indexPathForRow: 0 inSection:0];
     PassengerInfoTextFieldCell *cell = (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
     passengerInfo.passengerName = cell.inputInfoTextField.text;
     
-    path=[NSIndexPath indexPathForRow: 4 inSection:0];
-    cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    path =[NSIndexPath indexPathForRow: 4 inSection:0];
+    cell = (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
     passengerInfo.passportNumber = cell.inputInfoTextField.text;
     
-    path=[NSIndexPath indexPathForRow: 5 inSection:0];
-    cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    path =[NSIndexPath indexPathForRow: 5 inSection:0];
+    cell = (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
     passengerInfo.contactTelephone = cell.inputInfoTextField.text;
     
+    [self.passengerInfoTableView reloadData];
 }
 
 - (Boolean) checkInfo:(Passenger*) passenger
@@ -738,7 +772,7 @@
 {
     //NSLog(@"test");
     if (self.isDirectlyBackToTicketInfo) {
-        //直接返回到机票支付页面
+        
         [self.navigationController popViewControllerAnimated:YES];
         PassengerListViewController *plVC = (PassengerListViewController*)[self.navigationController visibleViewController];
         [plVC initPassengerListData];
@@ -758,7 +792,14 @@
     else
     {
         //返回乘客人列表
-        [self cancelButtonFunction:self];
+        
+        //[self dismissViewControllerAnimated:YES completion:NULL];
+        [self.navigationController popViewControllerAnimated:YES];
+        //get the last view controller, reload table view data
+        PassengerListViewController *plVC= (PassengerListViewController *)[self.navigationController visibleViewController];
+        [plVC initPassengerListData];
+        [plVC.passengerListTableView reloadData];
+
     }
     
 }
@@ -871,9 +912,20 @@
         //self.mainTableView.userInteractionEnabled = YES;
     }
     
+    
+    //[self.passengerInfoTableView reloadData];
+    
     [textField resignFirstResponder];
     [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
 
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    //返回BOOL值，指定是否允许文本字段结束编辑，当编辑结束，文本字段会让出first responder
+    //要想在用户结束编辑时阻止文本字段消失，可以返回NO
+    //这对一些文本字段必须始终保持活跃状态的程序很有用，比如即时消息
+    
     return YES;
 }
 

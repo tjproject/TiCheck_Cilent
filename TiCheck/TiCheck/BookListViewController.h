@@ -17,6 +17,6 @@
 @property (strong, nonatomic) NSMutableArray *flightListArray;
 @property (nonatomic) int dataCount;
 
-@property (strong, nonatomic) NSDictionary *returnDic;
+//@property (strong, nonatomic) NSDictionary *returnDic;
 
 @end

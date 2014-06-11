@@ -37,4 +37,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *flightPriceLabel;
 
+@property BOOL isAssuranceOn;
+
 @end

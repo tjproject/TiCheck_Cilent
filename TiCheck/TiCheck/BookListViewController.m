@@ -76,8 +76,8 @@ extern NSDictionary *notificationOption;
     //
     self.navigationItem.title=@"我的订阅";
     
-    [self initDataCount];
-    [self initSubscriptionInfoData:self.returnDic];
+    //[self initDataCount];
+    [self initSubscriptionInfoData] ;//]:self.returnDic];
     //[self initBookOrderList];
     
     [self setExtraCellLineHidden:self.bookListTableView];
@@ -131,106 +131,128 @@ extern NSDictionary *notificationOption;
 
 -(void) initDataCount
 {
-    self.dataCount = 0;
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    if ([appDelegate.internetReachability currentReachabilityStatus] == NotReachable) {
-        return ;
-    }
-    if ([appDelegate.hostReachability currentReachabilityStatus] == NotReachable) {
-        return ;
-    }
-    //get subscription data for server
-    self.returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
-    NSInteger returnCode = [self.returnDic[SERVER_RETURN_CODE_KEY] integerValue];
-    if (returnCode == USER_LOGIN_SUCCESS)
-    {
-        self.subscriptionArray = [[NSMutableArray alloc] init];
-        self.flightListArray = [[NSMutableArray alloc] init];
-        //get data
-        id stringArray = self.returnDic[@"Data"];
-        NSArray *dataArray;
-        if([stringArray isKindOfClass:[NSString class]])
-        {
-            //
-        }
-        else
-        {
-            dataArray = self.returnDic[@"Data"];
-            self.dataCount = dataArray.count;
-        }
-    }
+//    self.dataCount = 0;
+//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    if ([appDelegate.internetReachability currentReachabilityStatus] == NotReachable) {
+//        return ;
+//    }
+//    if ([appDelegate.hostReachability currentReachabilityStatus] == NotReachable) {
+//        return ;
+//    }
+//    //get subscription data for server
+//    self.returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
+//    NSInteger returnCode = [self.returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+//    if (returnCode == USER_LOGIN_SUCCESS)
+//    {
+//        self.subscriptionArray = [[NSMutableArray alloc] init];
+//        self.flightListArray = [[NSMutableArray alloc] init];
+//        //get data
+//        id stringArray = self.returnDic[@"Data"];
+//        NSArray *dataArray;
+//        if([stringArray isKindOfClass:[NSString class]])
+//        {
+//            //
+//        }
+//        else
+//        {
+//            dataArray = self.returnDic[@"Data"];
+//            self.dataCount = dataArray.count;
+//        }
+//    }
 }
 
-- (void)initSubscriptionInfoData:(NSDictionary*)returnDic
+- (void)initSubscriptionInfoData
 {
+    
+    self.subscriptionArray = [[NSMutableArray alloc] init];
+    self.flightListArray = [[NSMutableArray alloc] init];
+    
     //get subscription data for server
     
-    //returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
-    NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
-    
-    if (returnCode == USER_LOGIN_SUCCESS)
+    if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection])
     {
-        self.subscriptionArray = [[NSMutableArray alloc] init];
-        self.flightListArray = [[NSMutableArray alloc] init];
-        //get data
-        id stringArray = returnDic[@"Data"];
-        NSArray *dataArray;
-        if([stringArray isKindOfClass:[NSString class]])
-        {
-            //
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络，重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return ;
+    }
+    else
+    {
+        if (![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection]) {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器例行维护中，稍后再试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            return ;
         }
         else
         {
-            dataArray = returnDic[@"Data"];
-            for(int i = 0; i < dataArray.count; i++)
+            
+            NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
+            NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
+            
+            if (returnCode == USER_LOGIN_SUCCESS)
             {
-                NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
-                NSDictionary *tempSubscriptionDictionary = tempDictionary[@"Subscription"];
-                
-                //TODO: change dictionary data to subscription entity stored in subscriptionArray.
-                //      research flight by using subscription info and display them in table view
-                //      add edit function for subscription
-                
-                NSString *id_string = [tempSubscriptionDictionary objectForKey:@"ID"];
-                NSLog(@"ID string: %@", id_string);
-                NSNumber *id_number = [[NSNumber alloc] initWithInteger:[id_string integerValue]];
-                Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"]
-                                                                               arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"]
-                                                                                    startDate:tempSubscriptionDictionary[@"StartDate"]
-                                                                                      endDate:tempSubscriptionDictionary[@"EndDate"]
-                                                                                     idNumber:id_number];
-                
-                [self.subscriptionArray addObject:tempSubscription];
-                
-                NSMutableArray *allFlightListOfOneSubscirption = [[NSMutableArray alloc] init];
-                
-                NSString *header = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><RequestResponse xmlns=\"http://ctrip.com/\"><RequestResult>";
-                NSString *footer = @"</RequestResult></RequestResponse></soap:Body></soap:Envelope>";
-                //NSString *filghtXML = [[dataArray objectAtIndex:0][@"FlightXML"] objectAtIndex:0][@"FlightXML"];
-                
-                if([tempDictionary[@"FlightXML"] isKindOfClass:[NSNull class]])
+                self.subscriptionArray = [[NSMutableArray alloc] init];
+                self.flightListArray = [[NSMutableArray alloc] init];
+                //get data
+                id stringArray = returnDic[@"Data"];
+                NSArray *dataArray;
+                if([stringArray isKindOfClass:[NSString class]])
                 {
-                    [self.flightListArray addObject:allFlightListOfOneSubscirption];
-                    //continue;
+                    //
                 }
                 else
                 {
-                    NSArray *tempFlightXMLDictionaryList = tempDictionary[@"FlightXML"];
-                    for (NSDictionary *d in tempFlightXMLDictionaryList) {
-                        NSString *body = d[@"FlightXML"];
-                        NSString *resultXML = [header stringByAppendingString: body ];
-                        resultXML = [resultXML stringByAppendingString:footer];
-                        OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:resultXML];
-                        [allFlightListOfOneSubscirption addObjectsFromArray:response.flightsList];
+                    dataArray = returnDic[@"Data"];
+                    for(int i = 0; i < dataArray.count; i++)
+                    {
+                        NSDictionary *tempDictionary = [dataArray objectAtIndex:i];
+                        NSDictionary *tempSubscriptionDictionary = tempDictionary[@"Subscription"];
+                        
+                        //TODO: change dictionary data to subscription entity stored in subscriptionArray.
+                        //      research flight by using subscription info and display them in table view
+                        //      add edit function for subscription
+                        
+                        NSString *id_string = [tempSubscriptionDictionary objectForKey:@"ID"];
+                        NSLog(@"ID string: %@", id_string);
+                        NSNumber *id_number = [[NSNumber alloc] initWithInteger:[id_string integerValue]];
+                        Subscription *tempSubscription = [[Subscription alloc] initWithDepartCityCode:tempSubscriptionDictionary[@"DepartCity"]
+                                                                                       arriveCityCode:tempSubscriptionDictionary[@"ArriveCity"]
+                                                                                            startDate:tempSubscriptionDictionary[@"StartDate"]
+                                                                                              endDate:tempSubscriptionDictionary[@"EndDate"]
+                                                                                             idNumber:id_number];
+                        
+                        [self.subscriptionArray addObject:tempSubscription];
+                        
+                        NSMutableArray *allFlightListOfOneSubscirption = [[NSMutableArray alloc] init];
+                        
+                        NSString *header = @"<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><RequestResponse xmlns=\"http://ctrip.com/\"><RequestResult>";
+                        NSString *footer = @"</RequestResult></RequestResponse></soap:Body></soap:Envelope>";
+                        //NSString *filghtXML = [[dataArray objectAtIndex:0][@"FlightXML"] objectAtIndex:0][@"FlightXML"];
+                        
+                        if([tempDictionary[@"FlightXML"] isKindOfClass:[NSNull class]])
+                        {
+                            [self.flightListArray addObject:allFlightListOfOneSubscirption];
+                            //continue;
+                        }
+                        else
+                        {
+                            NSArray *tempFlightXMLDictionaryList = tempDictionary[@"FlightXML"];
+                            for (NSDictionary *d in tempFlightXMLDictionaryList) {
+                                NSString *body = d[@"FlightXML"];
+                                NSString *resultXML = [header stringByAppendingString: body ];
+                                resultXML = [resultXML stringByAppendingString:footer];
+                                OTAFlightSearchResponse *response = [[OTAFlightSearchResponse alloc] initWithOTAFlightSearchResponse:resultXML];
+                                [allFlightListOfOneSubscirption addObjectsFromArray:response.flightsList];
+                            }
+                            
+                            [self.flightListArray addObject:allFlightListOfOneSubscirption];
+                        }
                     }
+                    isCellExpanded=[[NSMutableArray alloc]init];
                     
-                    [self.flightListArray addObject:allFlightListOfOneSubscirption];
+                    for (int i=0; i<self.subscriptionArray.count; i++) {
+                        [isCellExpanded addObject:[NSNumber numberWithInt:0]];
+                    }
                 }
-            }
-            isCellExpanded=[[NSMutableArray alloc]init];
-            
-            for (int i=0; i<self.subscriptionArray.count; i++) {
-                [isCellExpanded addObject:[NSNumber numberWithInt:0]];
             }
         }
     }

@@ -37,6 +37,7 @@
 {
     //NSMutableArray *cellTitleArr;
     BOOL isShowingDeliverInfo;
+    BOOL isAssuranceOn;
 }
 @end
 
@@ -47,6 +48,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        isAssuranceOn = YES;
     }
     return self;
 }
@@ -64,6 +66,7 @@
     [self initPassengerList];
 //    [NSTimer scheduledTimerWithTimeInterval:0.033f target:self
 //                                   selector:@selector(mainLoop:) userInfo:nil repeats:YES];
+    isAssuranceOn = YES;
 }
 
 - (void)initNavBar
@@ -405,6 +408,7 @@
     if (_passengerList.count > 0)
     {
         PayProcessViewController *ppVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PayProcessViewController"];
+        ppVC.isAssuranceOn = isAssuranceOn;
         //传递值
         //ppVC.selectFlight = _selectFlight;
         //ppVC.departureDate = _departureDate;
@@ -442,6 +446,8 @@
 {
     [self navigationController].navigationBar.userInteractionEnabled = YES;
     assranceInfo = [_TIVC_assurancePicker.pickerData objectAtIndex:[_TIVC_assurancePicker.picker selectedRowInComponent:0]];
+    if([assranceInfo isEqualToString:@"不购买保险"]) isAssuranceOn = NO;
+    else isAssuranceOn = YES;
     [_infoVessel reloadData];
     [self pushViewAnimationWithView:_TIVC_assurancePicker willHidden:YES];
     self.view.userInteractionEnabled = YES;

@@ -12,6 +12,8 @@
 #import "Passenger.h"
 #import "ServerCommunicator.h"
 #import "ConfigurationHelper.h"
+#import "CoreData+MagicalRecord.h"
+#import "CommonData.h"
 
 #define PASSENGER_COUNT 2;
 @interface PassengerListViewController ()
@@ -49,14 +51,18 @@
 {
     self.passengerList = [[NSMutableArray alloc] init];
     
-    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
+    if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection] || ![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
+        
+        //取本地数据库
+        // 查所有检验
+        self.passengerList = [Passenger findAllPassengers];
         
     }
     else
     {
+     
+        //网络数据
         NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getContacts:nil];
         NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
         
@@ -72,9 +78,36 @@
                 {
                     Passenger *tempPassenger = [Passenger createPassengerByServerData:tempDic isTemporary:YES];
                     [self.passengerList addObject:tempPassenger];
+                    
+                    [self updateCoreDataForPassenger];
+                    
+                    
+                    //
                 }
             }
+            
+            
         }
+    }
+    
+}
+
+- (void) updateCoreDataForPassenger
+{
+    [Passenger deleteAllPassengers];
+    for (int i = 0 ; i < self.passengerList.count;  i++) {
+        //
+        Passenger *new = [self.passengerList objectAtIndex:i];
+        
+        Passenger *temp = [Passenger MR_createEntity];
+        temp.passengerName = new.passengerName;
+        temp.gender = new.gender;
+        temp.birthDay = new.birthDay;
+        temp.passportType = new.passportType;
+        temp.passportNumber = new.passportNumber;
+        temp.contactTelephone = new.contactTelephone;
+        
+        [temp savePassenger];
     }
 }
 
@@ -172,12 +205,34 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *result = [[ServerCommunicator sharedCommunicator] deleteContacts:[self.passengerList objectAtIndex:indexPath.row]];
-    if ([result[@"Code"] intValue] == 1) {
-        [self.passengerList removeObjectAtIndex:indexPath.row];
-    }
-    [tableView reloadData];
     
+    if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection])
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络，重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return ;
+    }
+    else
+    {
+        if (![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection]) {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器例行维护中，稍后再试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            return ;
+        }
+        else
+            
+        {
+            NSDictionary *result = [[ServerCommunicator sharedCommunicator] deleteContacts:[self.passengerList objectAtIndex:indexPath.row]];
+            if ([result[@"Code"] intValue] == 1) {
+                [self.passengerList removeObjectAtIndex:indexPath.row];
+            }
+            Passenger * serverTemp = [self.passengerList objectAtIndex:indexPath.row];
+            Passenger * localTemp = [Passenger findPassengerWithPassengerName:serverTemp.passengerName];
+            [localTemp deletePassenger];
+            
+            [tableView reloadData];
+        }
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -250,19 +305,37 @@
     //若从机票支付页面进来，需要在填写完毕，点击添加后直接选择该联系人 并跳转回机票支付页面
     //若从个人中心进来，则返回即可
     //？或者直接统一返回联系人列表页面
-    PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
-    
-    peVC.navigationItem.title=@"添加联系人";
-    peVC.navigationBarDoneItemString=@"添加";
-    
-    //if (self.isComeFromTicketPay) {
-    //设置专门的标识，使得下个页面在返回时直接跳转回机票页面
-    peVC.isDirectlyBackToTicketInfo = self.isComeFromTicketPay;
-    //}
-    //
-    [self.navigationController pushViewController:peVC animated:YES];
-    
-    
+    if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection])
+    {
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络，重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return ;
+    }
+    else
+    {
+        if (![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection]) {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器例行维护中，稍后再试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            return ;
+        }
+        else
+            
+        {
+            
+            PassengerEditViewController *peVC = [self.storyboard instantiateViewControllerWithIdentifier:@"PassengerEditViewController"];
+            
+            peVC.navigationItem.title=@"添加联系人";
+            peVC.navigationBarDoneItemString=@"添加";
+            
+            //if (self.isComeFromTicketPay) {
+            //设置专门的标识，使得下个页面在返回时直接跳转回机票页面
+            peVC.isDirectlyBackToTicketInfo = self.isComeFromTicketPay;
+            //}
+            //
+            [self.navigationController pushViewController:peVC animated:YES];
+            
+        }
+    }
 }
 
 - (void) popDirectlyToTicketInfo
