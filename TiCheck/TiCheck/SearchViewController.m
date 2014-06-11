@@ -21,6 +21,8 @@ extern NSDictionary *notificationOption;
 
 extern NSString *mDeviceToken;
 
+#define SHOW_MORE_OPTION_BEGIN_COUNTER 2
+
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, CitySelectViewControllerDelegate, DateSelectViewControllerDelegate>
 {
     UIView *darkUILayer;
@@ -233,7 +235,7 @@ extern NSString *mDeviceToken;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger result = 5;
+    NSInteger result = 4;
     
     if (isReturn) result++;
     if (isShowMore) result += MORE_OPTION_COUNT - 1;
@@ -282,40 +284,41 @@ extern NSString *mDeviceToken;
         
         takeOffDateCell.selectionStyle = UITableViewCellSelectionStyleNone;
         return takeOffDateCell;
-    } else {
-        NSInteger isReturnIndexRow = 2; // 现在用于交换城市IndexRow
-        // 若为返程则第二行为返程时间
-        if (isReturn) {
-            isReturnIndexRow++;
-            if (indexPath.row == 2) {
-                DateTableViewCell *returnDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
-                if (returnDateCell == nil) {
-                    returnDateCell = [[DateTableViewCell alloc] init];
-                }
-                
-                self.returnDateCell = returnDateCell;
-                UITapGestureRecognizer *returnDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
-                [self.returnDateCell.dateLabel addGestureRecognizer:returnDateSelectGesture];
-                self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
-                // 显示返回日期时，若早于出发时期，调整至出发日期
-                if ([[NSString dateFormatWithString:self.returnDateCell.dateLabel.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text]]) {
-                    self.returnDateCell.dateLabel.text = self.takeOffDateCell.dateLabel.text;
-                }
-                
-                returnDateCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return returnDateCell;
-            }
-        }
-        // 是否返程Option
-        if (indexPath.row == isReturnIndexRow) {
-            UITableViewCell *isReturnCell = [tableView dequeueReusableCellWithIdentifier:exchangeCityCellIdentifier
-                                                                            forIndexPath:indexPath];
-            isReturnCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return isReturnCell;
-        }
     }
+//    else {
+//        NSInteger isReturnIndexRow = 2; // 现在用于交换城市IndexRow
+//        // 若为返程则第二行为返程时间
+//        if (isReturn) {
+//            isReturnIndexRow++;
+//            if (indexPath.row == 2) {
+//                DateTableViewCell *returnDateCell = [tableView dequeueReusableCellWithIdentifier:dateCellIdentifier];
+//                if (returnDateCell == nil) {
+//                    returnDateCell = [[DateTableViewCell alloc] init];
+//                }
+//                
+//                self.returnDateCell = returnDateCell;
+//                UITapGestureRecognizer *returnDateSelectGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionLabelTapped:)];
+//                [self.returnDateCell.dateLabel addGestureRecognizer:returnDateSelectGesture];
+//                self.returnDateCell.dateLabel.text = [NSString stringFormatWithDate:[SearchOption sharedSearchOption].returnDate];
+//                // 显示返回日期时，若早于出发时期，调整至出发日期
+//                if ([[NSString dateFormatWithString:self.returnDateCell.dateLabel.text] isEarlierThanDate:[NSString dateFormatWithString:self.takeOffDateCell.dateLabel.text]]) {
+//                    self.returnDateCell.dateLabel.text = self.takeOffDateCell.dateLabel.text;
+//                }
+//                
+//                returnDateCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//                return returnDateCell;
+//            }
+//        }
+//        // 是否返程Option
+//        if (indexPath.row == isReturnIndexRow) {
+//            UITableViewCell *isReturnCell = [tableView dequeueReusableCellWithIdentifier:exchangeCityCellIdentifier
+//                                                                            forIndexPath:indexPath];
+//            isReturnCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            return isReturnCell;
+//        }
+//    }
     
-    NSInteger moreOptionIndexRow = 3;
+    NSInteger moreOptionIndexRow = SHOW_MORE_OPTION_BEGIN_COUNTER;
     if (isReturn) moreOptionIndexRow++;
     
     GeneralOptionTableViewCell *generalCell = [tableView dequeueReusableCellWithIdentifier:generalOptionCellIdentifier];
@@ -377,7 +380,7 @@ extern NSString *mDeviceToken;
 {
     if (!isShowMore) return;
     
-    NSInteger beginOptionCounter = 3;
+    NSInteger beginOptionCounter = SHOW_MORE_OPTION_BEGIN_COUNTER;
     if (isReturn) beginOptionCounter++;
     // 若PickerView已经展示则隐藏，不做任何更改
     if (CGRectEqualToRect(self.optionSelectPickerView.frame, SHOW_PICKER_VIEW_FRAME)) {
@@ -415,7 +418,7 @@ extern NSString *mDeviceToken;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger rowNum = 4;
+    NSInteger rowNum = 3;
     CGFloat confirmButtonCellHeight = CONFIRM_BUTTON_CELL_HEIGHT;
     
     if (isReturn) {
@@ -474,7 +477,7 @@ extern NSString *mDeviceToken;
     NSLog(@"%f", self.searchOptionTableView.frame.size.height);
     isShowMore = YES;
     NSLog(@"%f", self.searchOptionTableView.frame.size.height);
-    NSInteger moreOptionsBeginCounter = 3;
+    NSInteger moreOptionsBeginCounter = SHOW_MORE_OPTION_BEGIN_COUNTER;
     if (isReturn) moreOptionsBeginCounter++;
     
     NSMutableArray *moreOptionIndexArray = [NSMutableArray array];
