@@ -188,10 +188,6 @@ extern NSDictionary *notificationOption;
             NSDictionary *returnDic = [[ServerCommunicator sharedCommunicator] getSubscriptionInfo];
             NSInteger returnCode = [returnDic[SERVER_RETURN_CODE_KEY] integerValue];
             
-            
-            
-            
-            
             if (returnCode == USER_LOGIN_SUCCESS)
             {
                 self.subscriptionArray = [[NSMutableArray alloc] init];

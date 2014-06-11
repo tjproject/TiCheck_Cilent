@@ -84,14 +84,19 @@
         self.passengerInfo.passportNumber = nil;
         self.passengerInfo.contactTelephone = nil;
         
-        [self.passengerInfo savePassenger];
+        //[self.passengerInfo savePassenger];
         
         isAddingNewItem = YES;
     }
     else
     {
         //保存被修改乘客的原有信息
-        self.oldPassengerInfo = [Passenger MR_createEntity];
+        self.oldPassengerInfo = [Passenger passengerWithPassengerName:nil
+                                                             birthday:nil
+                                                         passportType:0
+                                                           passportNo:nil
+                                                          isTemporary:YES];
+        
         self.oldPassengerInfo.passengerName = [NSString stringWithString:self.passengerInfo.passengerName];
         self.oldPassengerInfo.gender = [NSNumber numberWithInt: [self.passengerInfo.gender integerValue]];
         self.oldPassengerInfo.birthDay = self.passengerInfo.birthDay;
@@ -547,12 +552,26 @@
 #pragma mark - navigation button event
 -(void) cancelButtonFunction:(id)sender
 {
+    //恢复 本机数据
+    self.passengerInfo.passengerName = self.oldPassengerInfo.passengerName;
+    self.passengerInfo.birthDay = self.oldPassengerInfo.birthDay;
+    self.passengerInfo.gender = self.oldPassengerInfo.gender;
+    self.passengerInfo.passportType = self.oldPassengerInfo.passportType;
+    self.passengerInfo.passportNumber = self.oldPassengerInfo.passportNumber;
+    self.passengerInfo.contactTelephone = self.oldPassengerInfo.contactTelephone;
+
+    [self.passengerInfo savePassenger];
+    
+    
     //[self dismissViewControllerAnimated:YES completion:NULL];
     [self.navigationController popViewControllerAnimated:YES];
     //get the last view controller, reload table view data
     PassengerListViewController *plVC= (PassengerListViewController *)[self.navigationController visibleViewController];
     [plVC initPassengerListData];
     [plVC.passengerListTableView reloadData];
+    
+    
+    NSArray* temp = [Passenger findAllPassengers];
 }
 
 - (void) doneButtonFunction:(id) sender
@@ -596,6 +615,10 @@
             
             [self.passengerInfo savePassenger];
 //            NSArray *test = [Passenger findAllPassengers];
+//            Passenger* te = (Passenger*)[test objectAtIndex:1];
+//            NSString* t = te.passengerName;
+//            int i =1;
+//            i -= 1;
         }
         else
         {
@@ -749,7 +772,7 @@
 {
     //NSLog(@"test");
     if (self.isDirectlyBackToTicketInfo) {
-        //直接返回到机票支付页面
+        
         [self.navigationController popViewControllerAnimated:YES];
         PassengerListViewController *plVC = (PassengerListViewController*)[self.navigationController visibleViewController];
         [plVC initPassengerListData];
@@ -769,7 +792,14 @@
     else
     {
         //返回乘客人列表
-        [self cancelButtonFunction:self];
+        
+        //[self dismissViewControllerAnimated:YES completion:NULL];
+        [self.navigationController popViewControllerAnimated:YES];
+        //get the last view controller, reload table view data
+        PassengerListViewController *plVC= (PassengerListViewController *)[self.navigationController visibleViewController];
+        [plVC initPassengerListData];
+        [plVC.passengerListTableView reloadData];
+
     }
     
 }
