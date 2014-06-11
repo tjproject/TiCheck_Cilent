@@ -57,7 +57,7 @@ extern NSDictionary *notificationOption;
     [self initVessel];
     [self initNavBar];
     //blVC = [self.storyboard instantiateViewControllerWithIdentifier:@"BookListViewController"];
-    
+//    [self judgeSwitchState];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,7 +82,6 @@ extern NSDictionary *notificationOption;
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
         [self tableView:self.PCVCVessel didSelectRowAtIndexPath:indexPath];
     }
-    [self judgeSwitchState];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -242,6 +241,8 @@ extern NSDictionary *notificationOption;
     if (ntfTrigger == nil) {
         ntfTrigger = [[UISwitch alloc] initWithFrame:CGRectMake(260, 10, 60, 30)];
         [ntfTrigger addTarget:self action:@selector(switchTriggered:) forControlEvents:UIControlEventValueChanged];
+        NSLog(@"%@",[[[[ServerCommunicator sharedCommunicator] userInfoFetch] valueForKey:@"Data"] valueForKey:@"Pushable"]);
+        [ntfTrigger setOn:[[[[[ServerCommunicator sharedCommunicator] userInfoFetch] valueForKey:@"Data"] valueForKey:@"Pushable"] isEqualToString:@"1"]];
         [view addSubview:ntfTrigger];
     }
 //    [ntfTrigger setOn:YES];
