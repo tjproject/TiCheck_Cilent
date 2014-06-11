@@ -12,6 +12,8 @@
 #import "Passenger.h"
 #import "ServerCommunicator.h"
 #import "ConfigurationHelper.h"
+#import "CoreData+MagicalRecord.h"
+#import "CommonData.h"
 
 #define PASSENGER_COUNT 2;
 @interface PassengerListViewController ()
@@ -76,6 +78,11 @@
                 {
                     Passenger *tempPassenger = [Passenger createPassengerByServerData:tempDic isTemporary:YES];
                     [self.passengerList addObject:tempPassenger];
+                    
+                    [self updateCoreDataForPassenger];
+                    
+                    
+                    //
                 }
             }
             
@@ -83,6 +90,25 @@
         }
     }
     
+}
+
+- (void) updateCoreDataForPassenger
+{
+    [Passenger deleteAllPassengers];
+    for (int i = 0 ; i < self.passengerList.count;  i++) {
+        //
+        Passenger *new = [self.passengerList objectAtIndex:i];
+        
+        Passenger *temp = [Passenger MR_createEntity];
+        temp.passengerName = new.passengerName;
+        temp.gender = new.gender;
+        temp.birthDay = new.birthDay;
+        temp.passportType = new.passportType;
+        temp.passportNumber = new.passportNumber;
+        temp.contactTelephone = new.contactTelephone;
+        
+        [temp savePassenger];
+    }
 }
 
 
@@ -182,7 +208,7 @@
     
     if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection])
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络，重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return ;
     }
@@ -281,7 +307,7 @@
     //？或者直接统一返回联系人列表页面
     if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection])
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络，重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return ;
     }
