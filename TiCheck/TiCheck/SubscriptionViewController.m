@@ -99,16 +99,42 @@ typedef NS_ENUM(NSUInteger, SelectedDateType) {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"提交中";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
-        if (isShowMore) {
-            NSArray *departTime;
-            if ([self.takeOffTimeCell.generalValue.titleLabel.text isEqualToString:@"不限"])
-                departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
-            else
-                departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
-            [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.arriveAirportCell.generalValue.titleLabel.text departAirportName:self.departAirportCell.generalValue.titleLabel.text];
+        if (!isReturn) {
+            Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
+            if (isShowMore) {
+                NSArray *departTime;
+                if ([self.takeOffTimeCell.generalValue.titleLabel.text isEqualToString:@"不限"])
+                    departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
+                else
+                    departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
+                [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.arriveAirportCell.generalValue.titleLabel.text departAirportName:self.departAirportCell.generalValue.titleLabel.text];
+            }
+            NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:takeOffSubscription];
         }
-        NSDictionary *tempD = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:takeOffSubscription];
+        else{
+            //take off
+            Subscription *takeOffSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.fromCityLabel.text arriveCity:self.fromToCell.toCityLabel.text startDate:self.takeOffDateIntervalCell.beginDate.text endDate:self.takeOffDateIntervalCell.endDate.text];
+            if (isShowMore) {
+                NSArray *departTime;
+                if ([self.takeOffTimeCell.generalValue.titleLabel.text isEqualToString:@"不限"])
+                    departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
+                else
+                    departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
+                [takeOffSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.arriveAirportCell.generalValue.titleLabel.text departAirportName:self.departAirportCell.generalValue.titleLabel.text];
+            }
+            NSDictionary *tempD1 = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:takeOffSubscription];
+            //return
+            Subscription *returnSubscription = [[Subscription alloc] initWithDepartCity:self.fromToCell.toCityLabel.text arriveCity:self.fromToCell.fromCityLabel.text startDate:self.returnDateIntervalCell.beginDate.text endDate:self.returnDateIntervalCell.endDate.text];
+            if (isShowMore) {
+                NSArray *departTime;
+                if ([self.takeOffTimeCell.generalValue.titleLabel.text isEqualToString:@"不限"])
+                    departTime = [NSArray arrayWithObjects:@"不限",@"不限", nil];
+                else
+                    departTime = [self.takeOffTimeCell.generalValue.titleLabel.text componentsSeparatedByString:@" ~ "];
+                [returnSubscription modifyMoreOptionWithEarliestDepartTime:departTime[0] LatestDepartTime:departTime[1] airlineShortName:self.airlineCell.generalValue.titleLabel.text arriveAirportName:self.arriveAirportCell.generalValue.titleLabel.text departAirportName:self.departAirportCell.generalValue.titleLabel.text];
+            }
+            NSDictionary *tempD2 = [[ServerCommunicator sharedCommunicator] createSubscriptionWithSubscription:returnSubscription];
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud removeFromSuperview];
