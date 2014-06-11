@@ -690,7 +690,9 @@ static float scrollViewHeight=169;
     //
     //    NSArray *keyArray = [[self.footIndexAndLowPrice.keyEnumerator allObjects] mutableCopy];
     //
+    int i=0;
     for (NSString *dateKey in self.footIndex) {
+        if ([self.footLowPrice[i++] intValue]==0) continue;
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:[dateKey doubleValue]];
         NSString *dateString = [NSString stringFormatWithDate:date];
         NSArray *seperateDate = [dateString componentsSeparatedByString:@"-"];
@@ -710,6 +712,7 @@ static float scrollViewHeight=169;
     //    NSArray *valueArray = [[self.footIndexAndLowPrice.objectEnumerator allObjects] mutableCopy];
     
     for (NSNumber *value in self.footLowPrice) {
+        if ([value intValue]==0) continue;
         [footLabelPriceResult addObject:value];
     }
     
@@ -763,7 +766,16 @@ static float scrollViewHeight=169;
 -(int) setCurrentIndex
 {
     //    NSLog(@"current day index = %ld", (long)currentIndex);
-    return (int)currentIndex;
+    
+    if ([self.footLowPrice[currentIndex] intValue]==0) return -1; //means no ticket today
+    
+    int index=(int)currentIndex;
+    for (int i=0; i<=index; i++)
+    {
+        if ([self.footLowPrice[i] intValue]==0) index--;
+    }
+    return index;
+    //return (int)currentIndex;
 }
 
 #pragma mark - ScreeningViewControllerDelegate

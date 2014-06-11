@@ -262,7 +262,7 @@
     {
         if ( (i & 1) == 0)              //奇数加min 偶数加max  使得在调整最大最小值以后可以间距正好,目的是为了轮流加
         {
-            maxScore=MIN(maxScore+1,999);
+            maxScore=MIN(maxScore+1,9999);
         }
         else
         {
@@ -273,6 +273,7 @@
     
     for (int i=0; i<self.scoreArray.count; i++)
     {
+        NSLog(@"%@",self.scoreArray[i]);
         float fixScore=[[self.scoreArray objectAtIndex:i] floatValue]-minScore;
         fixScore=fixScore/(maxScore-minScore)*(height-height/10);           //乘以的高度要减去第一格不被占用的
         [self.scoreArray replaceObjectAtIndex:i withObject:@(fixScore)];
