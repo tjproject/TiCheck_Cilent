@@ -9,6 +9,10 @@
 #import "AccountEditViewController.h"
 #import "AccountEditDetailViewController.h"
 #import "UserData.h"
+#import "ServerCommunicator.h"
+#import "AppDelegate.h"
+
+extern NSString *mDeviceToken;
 @interface AccountEditViewController ()
 @property (strong, nonatomic) UITextField* cellPasswordDisplay;
 @end
@@ -60,6 +64,8 @@
 - (IBAction)LogoutButtonEvent:(id)sender
 {
     //NSLog(@"log out");
+    [[ServerCommunicator sharedCommunicator] removeTokenForCurrentUser:mDeviceToken];
+    
     [UserData sharedUserData].email=@"";
     [UserData sharedUserData].password=@"";
     [UserData sharedUserData].userName=@"";

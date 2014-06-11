@@ -86,8 +86,14 @@
             /**
              *  此处确定当前现实的root controller为Personal Center
              */
-            PersonalCenterViewController * personalViewController = (PersonalCenterViewController*)visibleViewController.navigationController.visibleViewController;
-            [personalViewController receivePushNotification:userInfo];
+            if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
+                NSLog(@"root view controller is a navigation controller");
+                UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+                visibleViewController = navigationController.visibleViewController;
+                PersonalCenterViewController * personalViewController = (PersonalCenterViewController*)visibleViewController;
+                [personalViewController receivePushNotification:userInfo];
+            }
+
             return;
         }
     }

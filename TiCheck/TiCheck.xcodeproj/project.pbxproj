@@ -482,10 +482,10 @@
 		68EDF8BE18F5A030008E19B4 /* PersonalCenter */ = {
 			isa = PBXGroup;
 			children = (
-				68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */,
-				68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */,
 				135F6B92190003E50061F51F /* PersonalCenterViewController.h */,
 				135F6B93190003E50061F51F /* PersonalCenterViewController.m */,
+				68EDF8BF18F5A099008E19B4 /* AccountEditViewController.h */,
+				68EDF8C018F5A09A008E19B4 /* AccountEditViewController.m */,
 				135F6B95190014C10061F51F /* PersonalOrderViewController.h */,
 				135F6B96190014C10061F51F /* PersonalOrderViewController.m */,
 				135F6B98190018280061F51F /* PersonalOrderTableViewCell.h */,
@@ -892,7 +892,7 @@
 				ORGANIZATIONNAME = tac;
 				TargetAttributes = {
 					A0620AF518D7242C003A7A55 = {
-						DevelopmentTeam = NHPLK2W8XD;
+						DevelopmentTeam = GS9T9X284M;
 						SystemCapabilities = {
 							com.apple.Passbook = {
 								enabled = 1;
