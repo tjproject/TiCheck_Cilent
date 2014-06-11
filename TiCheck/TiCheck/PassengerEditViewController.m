@@ -557,7 +557,17 @@
 
 - (void) doneButtonFunction:(id) sender
 {
+    if(IS_IPHONE_LOWERINCHE)
+    {
+        CGRect frame = self.passengerInfoTableView.frame;
+        frame.size.height = 480;
+        self.passengerInfoTableView.frame = frame;
+        self.passengerInfoTableView.scrollEnabled = NO;
+        //self.mainTableView.userInteractionEnabled = YES;
+    }
+
     [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
+    
     if ([self checkInfo:self.passengerInfo])
     {
         //update
@@ -627,18 +637,19 @@
 - (void) setPassengerInfo:(Passenger*) passengerInfo ByTableViewData:(UITableView*)tableView
 {
     //set passengerInfo
-    NSIndexPath* path=[NSIndexPath indexPathForRow: 0 inSection:0];
+    NSIndexPath* path = [NSIndexPath indexPathForRow: 0 inSection:0];
     PassengerInfoTextFieldCell *cell = (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
     passengerInfo.passengerName = cell.inputInfoTextField.text;
     
-    path=[NSIndexPath indexPathForRow: 4 inSection:0];
-    cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    path =[NSIndexPath indexPathForRow: 4 inSection:0];
+    cell = (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
     passengerInfo.passportNumber = cell.inputInfoTextField.text;
     
-    path=[NSIndexPath indexPathForRow: 5 inSection:0];
-    cell= (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
+    path =[NSIndexPath indexPathForRow: 5 inSection:0];
+    cell = (PassengerInfoTextFieldCell*)[tableView cellForRowAtIndexPath:path];
     passengerInfo.contactTelephone = cell.inputInfoTextField.text;
     
+    [self.passengerInfoTableView reloadData];
 }
 
 - (Boolean) checkInfo:(Passenger*) passenger
@@ -871,9 +882,20 @@
         //self.mainTableView.userInteractionEnabled = YES;
     }
     
+    
+    //[self.passengerInfoTableView reloadData];
+    
     [textField resignFirstResponder];
     [self setPassengerInfo:self.passengerInfo ByTableViewData:self.passengerInfoTableView];
 
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    //返回BOOL值，指定是否允许文本字段结束编辑，当编辑结束，文本字段会让出first responder
+    //要想在用户结束编辑时阻止文本字段消失，可以返回NO
+    //这对一些文本字段必须始终保持活跃状态的程序很有用，比如即时消息
+    
     return YES;
 }
 

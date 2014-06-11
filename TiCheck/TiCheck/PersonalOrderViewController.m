@@ -45,15 +45,24 @@
 {
     [super viewDidLoad];
     
-    if(![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection])
+    if(![[ConfigurationHelper sharedConfigurationHelper] isInternetConnection])
     {
-        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"" message:@"网络连接错误，请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"网络错误" message:@"请检查网络重新操作" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
+        return ;
     }
     else
     {
-        [self initOrderData];
-        [self initVessel];
+        if (![[ConfigurationHelper sharedConfigurationHelper] isServerHostConnection]) {
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"服务器维护中" message:@"服务器例行维护中，稍后再试" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+            return ;
+        }
+        else
+        {
+            [self initOrderData];
+            [self initVessel];
+        }
     }
 }
 
