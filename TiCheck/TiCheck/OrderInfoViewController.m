@@ -113,7 +113,9 @@
     
     flightLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 148, 280, 30)];
     CraftType *ct = [[APIResourceHelper sharedResourceHelper] findCraftTypeViaCT:[[_OIVC_Order.flightsList objectAtIndex:0] craftType]];
-    if (_OIVC_Order) flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",[[_OIVC_Order.flightsList objectAtIndex:0] airlineShortName],[[_OIVC_Order.flightsList objectAtIndex:0] flightNumber],[ct craftKindShowingOnResultInTicketInfo],[NSString classGradeToChinese:[[_OIVC_Order.flightsList objectAtIndex:0] classGrade]]];
+    NSString *planeType = [ct craftKindShowingOnResultInTicketInfo];
+    if (planeType == nil) planeType = @"未知机型";
+    if (_OIVC_Order) flightLabel.text = [NSString stringWithFormat:@"%@%@ %@ %@",[[_OIVC_Order.flightsList objectAtIndex:0] airlineShortName],[[_OIVC_Order.flightsList objectAtIndex:0] flightNumber],planeType,[NSString classGradeToChinese:[[_OIVC_Order.flightsList objectAtIndex:0] classGrade]]];
     else flightLabel.text = @"东方航空MU5137 330大型机 经济舱";
     flightLabel.font = [UIFont fontWithName:@"Arial" size:16.f];
     [contentVessel addSubview:flightLabel];

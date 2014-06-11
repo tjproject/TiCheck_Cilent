@@ -200,7 +200,9 @@ static float scrollViewHeight=169;
         searchRequets.classGrade = [NSString classGradeFromChineseString:self.searchOptionDic[SEAT_TYPE_KEY]];
     }
     NSString *requestXML = [searchRequets generateOTAFlightSearchXMLRequest];
-    
+#if DEBUG_MODE
+    NSLog(@"request xml result: %@", requestXML);
+#endif
     asiSearchRequest = [SoapRequest getASISoap12RequestWithURL:API_URL
                                              flightRequestType:FlightSearchRequest
                                                   xmlNameSpace:XML_NAME_SPACE

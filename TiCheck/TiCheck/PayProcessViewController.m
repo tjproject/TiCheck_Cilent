@@ -65,6 +65,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        //_isAssuranceOn = YES;
     }
     return self;
 }
@@ -176,7 +177,10 @@
     //
     // ...
     //
-    return (self.selectFlight.price + self.selectFlight.adultOilFee + self.selectFlight.adultTax)*self.passengerList.count;//flightOrderRequest.amount;//
+    if (!_isAssuranceOn) {
+        return (self.selectFlight.price + self.selectFlight.adultOilFee + self.selectFlight.adultTax)*self.passengerList.count;//flightOrderRequest.amount;//
+    }
+    else return (self.selectFlight.price + self.selectFlight.adultOilFee + self.selectFlight.adultTax + 30)*self.passengerList.count;//flightOrderRequest.amount;//
 }
 
 
