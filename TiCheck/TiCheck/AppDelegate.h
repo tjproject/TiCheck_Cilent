@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Reachability.h"
 
+#define SERVER_ADDRESS @"192.168.1.2"
+
 @class Reachability;
 
 NSString *mDeviceToken;

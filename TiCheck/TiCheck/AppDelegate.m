@@ -30,8 +30,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    //[APIResourceHelper sharedResourceHelper];
+#ifdef __IPHONE_8_0
+    //Right, that is the point
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
+                                                                                         |UIRemoteNotificationTypeSound
+                                                                                         |UIRemoteNotificationTypeAlert)
+                                                                             categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+#else
+    //register to receive notifications
+    UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+#endif
     
     /*!
      通知字典不为空之后，接下来所有的view controller中的view will appear 函数都会检查通知字典，不为空则自动导向订阅列表。
@@ -156,6 +166,23 @@
 
 #pragma mark - Token
 
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    //handle the actions
+    if ([identifier isEqualToString:@"declineAction"]){
+    }
+    else if ([identifier isEqualToString:@"answerAction"]){
+    }
+}
+#endif
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     //NSLog(@"Token is: %@", deviceToken);
@@ -272,7 +299,7 @@
 - (Reachability *)hostReachability
 {
     if (_hostReachability == nil) {
-        _hostReachability = [Reachability reachabilityWithHostname:@"tac.sbhhbs.com"];
+        _hostReachability = [Reachability reachabilityWithHostname:SERVER_ADDRESS];
     }
     return _hostReachability;
 }
